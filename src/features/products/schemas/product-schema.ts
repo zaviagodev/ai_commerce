@@ -4,7 +4,6 @@ export const ProductSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, 'Product name is required'),
   description: z.string().optional(),
-  hasVariants: z.boolean(),
   variantOptions: z.array(
     z.object({
       id: z.string(),
@@ -12,7 +11,7 @@ export const ProductSchema = z.object({
       values: z.array(z.string()),
       position: z.number(),
     })
-  ),
+  ).default([]),
   variants: z.array(
     z.object({
       id: z.string(),
@@ -32,7 +31,7 @@ export const ProductSchema = z.object({
       status: z.enum(['active', 'inactive']),
       position: z.number(),
     })
-  ),
+  ).default([]),
   images: z.array(
     z.object({
       id: z.string(),
@@ -40,7 +39,7 @@ export const ProductSchema = z.object({
       alt: z.string(),
       position: z.number(),
     })
-  ),
+  ).default([]),
   category: z.object({
     id: z.string(),
     name: z.string(),
@@ -60,29 +59,11 @@ export const ProductSchema = z.object({
       id: z.string(),
       name: z.string(),
     })
-  ),
-  pointsEnabled: z.boolean().optional(),
-  pointsEarned: z.number().min(0, 'Points earned must be greater than or equal to 0').optional(),
-  customerTiers: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      multiplier: z.number().min(1, 'Multiplier must be greater than or equal to 1'),
-    })
-  ).optional(),
-  pointsRequired: z.number().min(0, 'Points required must be greater than or equal to 0').optional(),
-  pointsValue: z.number().min(0, 'Points value must be greater than or equal to 0').optional(),
+  ).default([]),
   status: z.enum(['draft', 'active', 'archived']),
-  eventStartDate: z.date().optional(),
-  eventEndDate: z.date().optional(),
-  eventVenue: z.string().optional(),
-  eventAddress: z.string().optional(),
-  eventGoogleMapsLink: z.string().url('Please enter a valid URL').optional(),
-  eventOrganizerName: z.string().optional(),
-  eventOrganizerContact: z.string().optional(),
 }).refine((data) => {
-  // Only require quantity if trackQuantity is true
-  if (data.trackQuantity && (data.quantity === null || data.quantity === undefined)) {
+  // Only require quantity if trackQuantity is true and no variants are defined
+  if (data.trackQuantity && data.variantOptions.length === 0 && (data.quantity === null || data.quantity === undefined)) {
     return false;
   }
   return true;

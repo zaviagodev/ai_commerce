@@ -17,6 +17,8 @@ interface InventoryProps {
 
 export function Inventory({ form }: InventoryProps) {
   const trackQuantity = form.watch('trackQuantity');
+  const variantOptions = form.watch('variantOptions') || [];
+  const hasVariants = variantOptions.length > 0;
 
   return (
     <div className="space-y-4">
@@ -75,7 +77,7 @@ export function Inventory({ form }: InventoryProps) {
         )}
       />
 
-      {trackQuantity && (
+      {trackQuantity && !hasVariants && (
         <FormField
           control={form.control}
           name="quantity"

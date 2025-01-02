@@ -5,12 +5,14 @@ import { Product } from '@/types/product';
 import { MediaService } from '@/lib/storage/media-service';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { ProductImageService } from '@/features/products/services/product-image-service';
 
 interface MediaProps {
   form: UseFormReturn<Product>;
+  productId?: string; // Add productId prop
 }
 
-export function Media({ form }: MediaProps) {
+export function Media({ form, productId }: MediaProps) {
   const [isUploading, setIsUploading] = useState(false);
   const images = form.watch('images') || [];
 
@@ -20,7 +22,7 @@ export function Media({ form }: MediaProps) {
 
     setIsUploading(true);
     try {
-      const uploadPromises = Array.from(files).map(async (file) => {
+      const uploadPromises = Array.from(files).map(async (file, index) => {
         // Create preview URL
         const previewUrl = URL.createObjectURL(file);
         
@@ -29,7 +31,7 @@ export function Media({ form }: MediaProps) {
           id: crypto.randomUUID(),
           url: previewUrl,
           alt: file.name,
-          position: images.length,
+          position: images.length + index,
         };
         
         form.setValue('images', [...images, tempImage]);
@@ -38,9 +40,24 @@ export function Media({ form }: MediaProps) {
           // Upload the actual file
           const { url, path } = await MediaService.uploadProductImage(file);
           
-          // Update with real URL
+          // If we have a productId, create the product_image record
+          if (productId) {
+            await ProductImageService.createProductImage({
+              productId,
+              url,
+              alt: file.name,
+              path,
+              position: images.length + index,
+            });
+          }
+          
+          // Update form with real URL
           form.setValue('images', form.getValues('images').map(img => 
-            img.id === tempImage.id ? { ...img, url, path } : img
+            img.id === tempImage.id ? { 
+              ...img, 
+              url, 
+              path 
+            } : img
           ));
         } finally {
           // Clean up preview URL
@@ -67,6 +84,11 @@ export function Media({ form }: MediaProps) {
     try {
       if (image.path) {
         await MediaService.deleteProductImage(image.path);
+        
+        // If we have a productId, delete the product_image record
+        if (productId) {
+          await ProductImageService.deleteProductImage(productId, image.id);
+        }
       }
       const newImages = [...images];
       newImages.splice(index, 1);

@@ -120,21 +120,23 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
 
       // Create variant name in format: "Product Name-Large-Blue"
       variantName = `${productName}-${variantName}`;
-
+      const variantSku = variantName.toLowerCase().replaceAll(" ", "-");
+      const oldVariant = form.watch('variants').find(variant =>  variant.sku === variantName.toLowerCase().replaceAll(" ", "-"));
       return {
         id: crypto.randomUUID(),
         name: variantName,
-        sku: variantName.toLowerCase().replaceAll(" ", "-"),
-        price: form.watch('price'),
+        sku: variantSku,
+        price: oldVariant?.price ?? 0,
         compareAtPrice: form.watch('compareAtPrice'),
-        quantity: form.watch('trackQuantity') ? 0 : undefined,
+        quantity: form.watch('trackQuantity') ? 
+          oldVariant?.quantity ?? 0
+          : undefined,
         options: variantOptions,
         status: 'active',
         position: combinations.indexOf(combo),
       };
     });
 
-    console.log("variants", newVariants)
     form.setValue('variants', newVariants);
   };
 
@@ -142,6 +144,7 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
   // Generate variants whenever options change
   useEffect(() => {
     if (variantOptions.length > 0) {
+      console.log("generating =>", form.getValues());
       generateVariants();
     }
   }, [variantOptions, productName]);

@@ -70,6 +70,14 @@ export function VariantTable({ form }: VariantTableProps) {
     return Array.from(groups.values());
   }, [variants, groupBy]);
 
+  // Get paginated variants or groups
+  const paginatedItems = useMemo(() => {
+    if (groupedVariants) {
+      return paginateItems(groupedVariants);
+    }
+    return paginateItems(variants);
+  }, [groupedVariants, variants, paginateItems]);
+
   const toggleGroup = (attribute: string) => {
     const newExpanded = new Set(expandedGroups);
     if (newExpanded.has(attribute)) {
@@ -116,7 +124,7 @@ export function VariantTable({ form }: VariantTableProps) {
         </div>
       </div>
 
-      <div className="rounded-lg border">
+    <div className="rounded-lg border">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50">
@@ -130,7 +138,7 @@ export function VariantTable({ form }: VariantTableProps) {
           </TableHeader>
           <TableBody>
             {groupedVariants ? (
-              groupedVariants.map((group, groupIndex) => (
+              paginatedItems.map((group, groupIndex) => (
                 <VariantGroupRow
                   key={`${group.attribute}-${groupIndex}`}
                   group={group}
@@ -141,7 +149,7 @@ export function VariantTable({ form }: VariantTableProps) {
                 />
               ))
             ) : (
-              variants.map((variant, index) => renderVariantRow(variant, index))
+              paginatedItems.map((variant, index) => renderVariantRow(variant, index))
             )}
             {variants.length === 0 && (
               <TableRow>
@@ -153,16 +161,18 @@ export function VariantTable({ form }: VariantTableProps) {
           </TableBody>
         </Table>
 
-        <div className="border-t p-4 bg-white rounded-b-lg">
-          <DataTablePagination
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-            pageCount={pageCount(variants.length)}
-            totalItems={variants.length}
-            onPageChange={setPageIndex}
-            onPageSizeChange={setPageSize}
-          />
-        </div>
+        {variants.length > 0 && (
+          <div className="border-t p-4 bg-white rounded-b-lg">
+            <DataTablePagination
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              pageCount={pageCount(variants.length)}
+              totalItems={variants.length}
+              onPageChange={setPageIndex}
+              onPageSizeChange={setPageSize}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Layers, Plus } from 'lucide-react';
 import { Product } from '@/types/product';
 import { VariantBuilder } from './variant-builder';
-import { useEffect } from 'react';
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
@@ -20,15 +19,6 @@ interface VariationsProps {
 
 export function Variations({ form }: VariationsProps) {
   const variantOptions = form.watch('variantOptions') || [];
-  const variants = form.watch('variants') || [];
-
-  // Derive hasVariants from whether there are variant options
-  const hasVariants = variantOptions.length > 0;
-
-  // Update form value when hasVariants changes
-  useEffect(() => {
-    form.setValue('hasVariants', hasVariants);
-  }, [hasVariants, form]);
 
   return (
     <Card>
@@ -46,7 +36,7 @@ export function Variations({ form }: VariationsProps) {
       <CardContent className="grid gap-6">
         <FormField
           control={form.control}
-          name="hasVariants"
+          name="variantOptions"
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
@@ -57,11 +47,19 @@ export function Variations({ form }: VariationsProps) {
               </div>
               <FormControl>
                 <Switch
-                  checked={hasVariants}
+                  checked={field.value?.length > 0}
                   onCheckedChange={(checked) => {
-                    if (!checked) {
-                      form.setValue('variantOptions', []);
-                      form.setValue('variants', []);
+                    if (checked) {
+                      // Initialize with empty variant options array
+                      field.onChange([{
+                        id: crypto.randomUUID(),
+                        name: '',
+                        values: [],
+                        position: 0,
+                      }]);
+                    } else {
+                      // Clear variant options
+                      field.onChange([]);
                     }
                   }}
                 />
@@ -70,30 +68,9 @@ export function Variations({ form }: VariationsProps) {
           )}
         />
 
-        {hasVariants && (
+        {variantOptions.length > 0 && (
           <div className="space-y-4">
-            {variantOptions.length === 0 ? (
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  form.setValue('variantOptions', [
-                    {
-                      id: crypto.randomUUID(),
-                      name: '',
-                      values: [],
-                      position: 0,
-                    },
-                  ]);
-                }}
-              >
-                <Plus className="mr-2 h-4 w-4" />
-                Add variant options
-              </Button>
-            ) : (
-              <VariantBuilder form={form} />
-            )}
+            <VariantBuilder form={form} />
           </div>
         )}
       </CardContent>

@@ -70,6 +70,7 @@ export function ProductForm({ initialData, onSubmit, headerActions }: ProductFor
     },
   });
 
+
   const handleSubmit = async (data: Product) => {
     console.log("data", data)
     try {
@@ -272,7 +273,7 @@ export function ProductForm({ initialData, onSubmit, headerActions }: ProductFor
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <Media form={form} />
+                    <Media form={form} productId={initialData?.id} />
                   </CardContent>
                 </Card>
 
