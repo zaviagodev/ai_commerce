@@ -66,3 +66,7 @@ echo "Pushing changes to GitHub..."
 git push origin $CURRENT_BRANCH
 
 echo "updated $CURRENT_BRANCH with the latest changes from Bolt.new"
+
+# clear the $BOLT_CODE_DIR directory
+rm -rf $BOLT_CODE_DIR
+mkdir $BOLT_CODE_DIR
