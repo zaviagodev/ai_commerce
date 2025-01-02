@@ -31,14 +31,18 @@ CURRENT_BRANCH=$(git branch --show-current)
 echo "Pulling latest changes from GitHub..."
 git pull
 
+# take a message input from the user
+echo "Enter the commit message: "
+read COMMIT_MESSAGE
+
 # create a new branch with name of the current developer and date and time
 BRANCH_NAME="$DEVELOPER-$(date +'%Y-%m-%d-%H')"
 echo "Creating new branch $BRANCH_NAME..."
 git checkout -b $BRANCH_NAME
 
-# Delete all files in the repository except .git
+# Delete all files in the repository except .git and BOLT_CODE_DIR
 echo "Deleting all files in the repository except .git..."
-find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} \;
+find . -not -path "./.git/*" -not -path "./$BOLT_CODE_DIR/*" -delete
 
 # Copy downloaded Bolt.new code into the repository
 echo "Copying Bolt.new code into the repository..."
@@ -47,7 +51,7 @@ cp -r $BOLT_CODE_DIR/* $PROJECT_DIR
 # Add, commit, and push changes
 echo "Staging and committing changes..."
 git add .
-git commit -m $BRANCH_NAME
+git commit -m "$COMMIT_MESSAGE ($BRANCH_NAME)"
 
 echo "Pushing changes to GitHub..."
 git push origin $BRANCH_NAME
