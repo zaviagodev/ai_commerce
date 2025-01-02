@@ -34,12 +34,17 @@ export function EditProductPage() {
           sku: data.sku,
           barcode: data.barcode,
           trackQuantity: data.trackQuantity,
-          quantity: data.quantity,
           weight: data.weight,
           weightUnit: data.weightUnit,
           tags: data.tags,
           status: data.status,
           images: data.images,
+          hasVariants: data.hasVariants,
+          variantOptions: data.variantOptions,
+          variants: data.variants?.map(variant => ({
+            ...variant,
+            name: `${data.name}-${variant.options.map(opt => opt.value).join('-')}`,
+          })),
         }
       });
       navigate('/dashboard/products');

@@ -3,6 +3,7 @@ import { Product } from '@/types/product';
 import { toast } from 'sonner';
 import { useAuthStore } from '@/lib/auth/auth-store';
 import { transformProduct } from '../utils/product-transformer';
+import { VariantService } from './variant-service';
 
 export class ProductService {
   static async getProducts(): Promise<Product[]> {
@@ -15,13 +16,24 @@ export class ProductService {
         .select(`
           *,
           product_images (*),
-          product_tags (*),
+          product_variants (
+            id,
+            name,
+            sku,
+            price,
+            compare_at_price,
+            quantity,
+            options,
+            status,
+            position
+          ),
           product_categories (
             id,
             name,
             slug,
             description
-          )
+          ),
+          product_tags (*)
         `)
         .eq('store_name', user.storeName)
         .order('created_at', { ascending: false });
@@ -41,6 +53,7 @@ export class ProductService {
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error('Store not found');
 
+      // Create product
       const { data: newProduct, error: productError } = await supabase
         .from('products')
         .insert({
@@ -54,25 +67,20 @@ export class ProductService {
           sku: product.sku,
           barcode: product.barcode,
           track_quantity: product.trackQuantity,
-          quantity: product.quantity,
+          variant_options: product.variantOptions,
           weight: product.weight,
           weight_unit: product.weightUnit,
           status: product.status,
         })
-        .select(`
-          *,
-          product_images (*),
-          product_tags (*),
-          product_categories (
-            id,
-            name,
-            slug,
-            description
-          )
-        `)
+        .select()
         .single();
 
       if (productError) throw productError;
+
+      // Create variants if provided
+      if (product.variants?.length > 0) {
+        await VariantService.createVariants(newProduct.id, product.variants);
+      }
 
       toast.success('Product created successfully');
       return transformProduct(newProduct);
@@ -88,6 +96,7 @@ export class ProductService {
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error('Store not found');
 
+      // Update product
       const { data: updatedProduct, error: productError } = await supabase
         .from('products')
         .update({
@@ -100,7 +109,7 @@ export class ProductService {
           sku: product.sku,
           barcode: product.barcode,
           track_quantity: product.trackQuantity,
-          quantity: product.quantity,
+          variant_options: product.variantOptions,
           weight: product.weight,
           weight_unit: product.weightUnit,
           status: product.status,
@@ -108,71 +117,14 @@ export class ProductService {
         })
         .eq('id', id)
         .eq('store_name', user.storeName)
-        .select(`
-          *,
-          product_images (*),
-          product_tags (*),
-          product_categories (
-            id,
-            name,
-            slug,
-            description
-          )
-        `)
+        .select()
         .single();
 
       if (productError) throw productError;
 
-      // Update product images if provided
-      if (product.images) {
-        // Delete existing images
-        const { error: deleteImagesError } = await supabase
-          .from('product_images')
-          .delete()
-          .eq('product_id', id);
-
-        if (deleteImagesError) throw deleteImagesError;
-
-        // Insert new images
-        if (product.images.length > 0) {
-          const { error: imagesError } = await supabase
-            .from('product_images')
-            .insert(
-              product.images.map((image, index) => ({
-                product_id: id,
-                url: image.url,
-                alt: image.alt,
-                position: index,
-              }))
-            );
-
-          if (imagesError) throw imagesError;
-        }
-      }
-
-      // Update product tags if provided
-      if (product.tags) {
-        // Delete existing tags
-        const { error: deleteTagsError } = await supabase
-          .from('product_tags')
-          .delete()
-          .eq('product_id', id);
-
-        if (deleteTagsError) throw deleteTagsError;
-
-        // Insert new tags
-        if (product.tags.length > 0) {
-          const { error: tagsError } = await supabase
-            .from('product_tags')
-            .insert(
-              product.tags.map(tag => ({
-                product_id: id,
-                name: tag.name,
-              }))
-            );
-
-          if (tagsError) throw tagsError;
-        }
+      // Update variants if provided
+      if (product.variants) {
+        await VariantService.updateVariants(id, product.variants);
       }
 
       toast.success('Product updated successfully');
@@ -180,27 +132,6 @@ export class ProductService {
     } catch (error: any) {
       console.error('Failed to update product:', error);
       toast.error(error.message || 'Failed to update product');
-      throw error;
-    }
-  }
-
-  static async deleteProduct(id: string): Promise<void> {
-    try {
-      const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
-
-      const { error } = await supabase
-        .from('products')
-        .delete()
-        .eq('id', id)
-        .eq('store_name', user.storeName);
-
-      if (error) throw error;
-
-      toast.success('Product deleted successfully');
-    } catch (error) {
-      console.error('Failed to delete product:', error);
-      toast.error('Failed to delete product');
       throw error;
     }
   }

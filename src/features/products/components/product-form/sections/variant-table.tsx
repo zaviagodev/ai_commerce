@@ -1,13 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -19,7 +11,6 @@ import {
 import { Product, ProductVariant, VariantGroup } from '@/types/product';
 import { usePagination } from '@/hooks/use-pagination';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { Badge } from '@/components/ui/badge';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
@@ -71,7 +62,7 @@ export function VariantTable({ form }: VariantTableProps) {
       
       const group = groups.get(value)!;
       group.variants.push(variant);
-      if (variant.separateStockManagement && variant.quantity != null) {
+      if (variant.quantity != null) {
         group.totalStock += variant.quantity;
       }
     });
@@ -98,16 +89,9 @@ export function VariantTable({ form }: VariantTableProps) {
     );
   };
 
-  const getStockStatus = (variant: ProductVariant): string => {
-    if (!variant.separateStockManagement || variant.quantity == null) return '-';
-    if (variant.quantity <= 0) return 'Out of stock';
-    if (variant.quantity <= (variant.lowStockThreshold || 5)) return 'Low stock';
-    return 'In stock';
-  };
-
-  const renderVariantRow = (variant: ProductVariant) => (
+  const renderVariantRow = (variant: ProductVariant, index: number) => (
     <VariantTableRow
-      key={variant.id}
+      key={`${variant.id}-${index}`}
       variant={variant}
       trackQuantity={trackQuantity}
       onUpdate={updateVariant}
@@ -140,21 +124,15 @@ export function VariantTable({ form }: VariantTableProps) {
               <TableHead>SKU</TableHead>
               <TableHead>Price</TableHead>
               {trackQuantity && (
-                <>
-                  <TableHead>Track Stock</TableHead>
-                  <TableHead>Quantity</TableHead>
-                  <TableHead>Low Stock Alert</TableHead>
-                  <TableHead>Stock Status</TableHead>
-                </>
+                <TableHead>Quantity</TableHead>
               )}
-              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {groupedVariants ? (
-              groupedVariants.map((group) => (
+              groupedVariants.map((group, groupIndex) => (
                 <VariantGroupRow
-                  key={group.attribute}
+                  key={`${group.attribute}-${groupIndex}`}
                   group={group}
                   expanded={expandedGroups.has(group.attribute)}
                   trackQuantity={trackQuantity}
@@ -163,11 +141,11 @@ export function VariantTable({ form }: VariantTableProps) {
                 />
               ))
             ) : (
-              variants.map(renderVariantRow)
+              variants.map((variant, index) => renderVariantRow(variant, index))
             )}
             {variants.length === 0 && (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
                   No variants created yet. Add variant options above to generate variants.
                 </TableCell>
               </TableRow>

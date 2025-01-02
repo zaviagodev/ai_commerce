@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Plus, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
   const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
   const [newValue, setNewValue] = useState('');
   const variantOptions = form.watch('variantOptions') || [];
+  const productName = form.watch('name');
   const [inputKey, setInputKey] = useState(0);
 
   const addOption = () => {
@@ -30,21 +31,17 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
   };
 
   const removeOption = (id: string) => {
-    form.setValue(
-      'variantOptions',
-      variantOptions.filter((opt) => opt.id !== id)
-    );
-    generateVariants();
+    const updatedOptions = variantOptions.filter((opt) => opt.id !== id);
+    form.setValue('variantOptions', updatedOptions);
+    generateVariants(updatedOptions);
   };
 
   const updateOption = (id: string, data: Partial<VariantOption>) => {
-    form.setValue(
-      'variantOptions',
-      variantOptions.map((opt) =>
-        opt.id === id ? { ...opt, ...data } : opt
-      )
+    const updatedOptions = variantOptions.map((opt) =>
+      opt.id === id ? { ...opt, ...data } : opt
     );
-    generateVariants();
+    form.setValue('variantOptions', updatedOptions);
+    generateVariants(updatedOptions);
   };
 
   const addValue = (optionId: string, value: string) => {
@@ -56,7 +53,6 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
     setInputKey(prev => prev + 1);
     
     if (!option || !trimmedValue || option.values.includes(trimmedValue)) {
-      setNewValue('');
       return;
     }
 
@@ -67,29 +63,23 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
     );
 
     form.setValue('variantOptions', updatedOptions);
+    generateVariants(updatedOptions);
   };
 
   const removeValue = (optionId: string, value: string) => {
-    const option = variantOptions.find((opt) => opt.id === optionId);
-    if (!option) return;
-
     const updatedOptions = variantOptions.map((opt) =>
       opt.id === optionId 
         ? { ...opt, values: opt.values.filter((v) => v !== value) }
         : opt
     );
 
-    // Update options and generate variants atomically
-    form.batch(() => {
-      form.setValue('variantOptions', updatedOptions);
-      generateVariants(updatedOptions);
-    });
+    form.setValue('variantOptions', updatedOptions);
+    generateVariants(updatedOptions);
   };
 
   const generateVariants = (options = variantOptions) => {
-    // Only generate if all options have values
+    // Only generate if all options have values and names
     if (!options.every((opt) => opt.name && opt.values.length > 0)) {
-      form.setValue('variants', []);
       return;
     }
 
@@ -105,36 +95,56 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
       },
       []
     );
+    console.log("combinations", combinations)
 
     // Create variants from combinations
     const existingVariants = form.watch('variants') || [];
-    const newVariants = combinations.map((combo, index) => {
-      const existing = existingVariants.find((v) =>
-        v.options.every(
-          (opt, i) => opt.value === combo[i] && opt.name === options[i].name
-        )
-      );
+    const newVariants = combinations.map((combo) => {
+      var variantName = combo.join("-");
+      // Create options array with both names and values
+      const variantOptions = combo.map((value, index) => ({
+        name: options[index].name,
+        value: value.trim(),
+      }));
 
-      if (existing) return existing;
+      // Check if variant already exists
+      // const existing = existingVariants.find((v) =>
+      //   v.options.every(
+      //     (opt, i) => 
+      //       opt.name === variantOptions[i].name && 
+      //       opt.value === variantOptions[i].value
+      //   )
+      // );
+
+      // if (existing) return existing;
+
+      // Create variant name in format: "Product Name-Large-Blue"
+      variantName = `${productName}-${variantName}`;
 
       return {
         id: crypto.randomUUID(),
-        name: combo.join(' / '),
-        sku: '',
+        name: variantName,
+        sku: variantName.toLowerCase().replaceAll(" ", "-"),
         price: form.watch('price'),
         compareAtPrice: form.watch('compareAtPrice'),
         quantity: form.watch('trackQuantity') ? 0 : undefined,
-        options: combo.map((value, i) => ({
-          name: variantOptions[i].name,
-          value: value.trim(),
-        })),
+        options: variantOptions,
         status: 'active',
-        position: index,
+        position: combinations.indexOf(combo),
       };
     });
 
+    console.log("variants", newVariants)
     form.setValue('variants', newVariants);
   };
+
+
+  // Generate variants whenever options change
+  useEffect(() => {
+    if (variantOptions.length > 0) {
+      generateVariants();
+    }
+  }, [variantOptions, productName]);
 
   return (
     <div className="space-y-6">

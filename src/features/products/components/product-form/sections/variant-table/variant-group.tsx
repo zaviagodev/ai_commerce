@@ -26,7 +26,7 @@ export function VariantGroupRow({
         className="bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
         onClick={onToggle}
       >
-        <TableCell colSpan={8}>
+        <TableCell colSpan={trackQuantity ? 4 : 3}>
           <div className="flex items-center gap-2">
             {expanded ? (
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -43,7 +43,7 @@ export function VariantGroupRow({
         </TableCell>
       </TableRow>
       <TableRow className={cn('transition-all', !expanded && 'hidden')}>
-        <TableCell colSpan={8} className="p-0">
+        <TableCell colSpan={trackQuantity ? 4 : 3} className="p-0">
           <Table>
             <TableBody>
               {group.variants.map((variant) => (

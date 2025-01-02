@@ -71,6 +71,7 @@ export function ProductForm({ initialData, onSubmit, headerActions }: ProductFor
   });
 
   const handleSubmit = async (data: Product) => {
+    console.log("data", data)
     try {
       await onSubmit(data);
     } catch (error) {
@@ -121,7 +122,7 @@ export function ProductForm({ initialData, onSubmit, headerActions }: ProductFor
         <form 
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit(handleSubmit)(e);
+            form.handleSubmit(handleSubmit);
           }} 
           className="flex flex-col h-full"
         >
