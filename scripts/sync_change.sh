@@ -36,9 +36,9 @@ BRANCH_NAME="$DEVELOPER-$(date +'%Y-%m-%d-%H')"
 echo "Creating new branch $BRANCH_NAME..."
 git checkout -b $BRANCH_NAME
 
-# Delete all files in the repository except .git and BOLT_CODE_DIR
+# Delete all files in the repository except .git
 echo "Deleting all files in the repository except .git..."
-find . -not -path "./.git/*" -not -path "./$BOLT_CODE_DIR/*" -delete
+find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} \;
 
 # Copy downloaded Bolt.new code into the repository
 echo "Copying Bolt.new code into the repository..."
