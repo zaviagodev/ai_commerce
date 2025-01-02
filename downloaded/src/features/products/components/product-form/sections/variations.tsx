@@ -12,15 +12,23 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Layers, Plus } from 'lucide-react';
 import { Product } from '@/types/product';
 import { VariantBuilder } from './variant-builder';
+import { useEffect } from 'react';
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
 }
 
 export function Variations({ form }: VariationsProps) {
-  const hasVariants = form.watch('hasVariants');
   const variantOptions = form.watch('variantOptions') || [];
   const variants = form.watch('variants') || [];
+
+  // Derive hasVariants from whether there are variant options
+  const hasVariants = variantOptions.length > 0;
+
+  // Update form value when hasVariants changes
+  useEffect(() => {
+    form.setValue('hasVariants', hasVariants);
+  }, [hasVariants, form]);
 
   return (
     <Card>
@@ -49,9 +57,8 @@ export function Variations({ form }: VariationsProps) {
               </div>
               <FormControl>
                 <Switch
-                  checked={field.value}
+                  checked={hasVariants}
                   onCheckedChange={(checked) => {
-                    field.onChange(checked);
                     if (!checked) {
                       form.setValue('variantOptions', []);
                       form.setValue('variants', []);
