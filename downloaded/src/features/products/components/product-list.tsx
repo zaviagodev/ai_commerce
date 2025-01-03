@@ -37,7 +37,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+  
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -93,7 +93,9 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedProducts.map((product) => (
+              paginatedProducts.map((product) => {
+                const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
+                return (
                 <TableRow key={product.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -153,19 +155,20 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                     {product.trackQuantity ? (
                       <span
                         className={
-                          (product.quantity || 0) > 0
+                          (quantity || 0) > 0
                             ? 'text-green-600'
                             : 'text-red-600'
                         }
                       >
-                        {product.quantity || 0} in stock
+                        {quantity || 0} in stock
                       </span>
                     ) : (
                       <span className="text-muted-foreground">Not tracked</span>
                     )}
                   </TableCell>
                 </TableRow>
-              ))
+              )
+              })
             )}
           </TableBody>
         </Table>
