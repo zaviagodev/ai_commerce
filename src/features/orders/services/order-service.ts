@@ -22,18 +22,22 @@ export class OrderService {
           ),
           order_items (
             id,
-            product_id,
+            variant_id,
             quantity,
             price,
             total,
-            products (
+            product_variants (
               name,
-              status,
-              product_images (
-                id,
-                url,
-                alt,
-                position
+              options,
+              product:products (
+                name,
+                status,
+                product_images (
+                  id,
+                  url,
+                  alt,
+                  position
+                )
               )
             )
           )
@@ -67,7 +71,7 @@ export class OrderService {
         p_notes: order.notes,
         p_tags: order.tags,
         p_items: order.items.map(item => ({
-          product_id: item.productId,
+          variant_id: item.variantId,
           quantity: item.quantity,
           price: item.price,
           total: item.total

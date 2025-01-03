@@ -60,12 +60,20 @@ export function OrderForm({
   }, [form, isEditing, onFieldChange]);
 
   const handleSubmit = async (data: Order) => {
-    try {
-      await onSubmit(data);
-    } catch (error) {
-      console.error('Failed to save order:', error);
-    }
-  };
+  try {
+    await onSubmit({
+      ...data,
+      items: data.items.map(item => ({
+        ...item,
+        variantId: item.variantId, // Ensure variantId is included
+        total: item.price * item.quantity
+      }))
+    });
+  } catch (error) {
+    console.error('Failed to save order:', error);
+  }
+};
+
 
   const formatDate = (date: Date) => {
     const months = [
@@ -90,6 +98,8 @@ export function OrderForm({
     const customerName = initialData.customerName || 'Unknown Customer';
     return `${customerName} #${orderId}`;
   };
+
+  console.log("form =>", form.formState.errors);
 
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-col">

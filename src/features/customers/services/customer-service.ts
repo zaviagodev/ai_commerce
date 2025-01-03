@@ -75,6 +75,76 @@ export class CustomerService {
     }
   }
 
+  static async createCustomer(customer: Omit<Customer, 'id' | 'createdAt' | 'updatedAt'>): Promise<Customer> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error('Store not found');
+
+      // Create customer
+      const { data: newCustomer, error: customerError } = await supabase
+        .from('customers')
+        .insert({
+          store_name: user.storeName,
+          first_name: customer.firstName,
+          last_name: customer.lastName,
+          email: customer.email,
+          phone: customer.phone,
+          accepts_marketing: customer.acceptsMarketing,
+          is_verified: customer.isVerified,
+          tags: customer.tags,
+        })
+        .select()
+        .single();
+
+      if (customerError) throw customerError;
+
+      // Create addresses if provided
+      if (customer.addresses?.length > 0) {
+        const { error: addressError } = await supabase
+          .from('customer_addresses')
+          .insert(
+            customer.addresses.map(address => ({
+              customer_id: newCustomer.id,
+              store_name: user.storeName,
+              type: address.type,
+              first_name: address.firstName,
+              last_name: address.lastName,
+              company: address.company,
+              address1: address.address1,
+              address2: address.address2,
+              city: address.city,
+              state: address.state,
+              postal_code: address.postalCode,
+              country: address.country,
+              phone: address.phone,
+              is_default: address.isDefault,
+            }))
+          );
+
+        if (addressError) throw addressError;
+      }
+
+      toast.success('Customer created successfully');
+      return {
+        id: newCustomer.id,
+        firstName: newCustomer.first_name,
+        lastName: newCustomer.last_name,
+        email: newCustomer.email,
+        phone: newCustomer.phone,
+        isVerified: newCustomer.is_verified,
+        acceptsMarketing: newCustomer.accepts_marketing,
+        tags: newCustomer.tags || [],
+        addresses: [],
+        createdAt: new Date(newCustomer.created_at),
+        updatedAt: new Date(newCustomer.updated_at),
+      };
+    } catch (error: any) {
+      console.error('Failed to create customer:', error);
+      toast.error(error.message || 'Failed to create customer');
+      throw error;
+    }
+  }
+
   static async updateCustomer(id: string, customer: Partial<Customer>): Promise<Customer> {
     try {
       const user = useAuthStore.getState().user;

@@ -8,17 +8,15 @@ export function transformOrder(order: any): Order {
       ? `${order.customers.first_name} ${order.customers.last_name}`
       : undefined,
     customerEmail: order.customers?.email,
-    customerPhone: order.customers?.phone,
     status: order.status,
     items: (order.order_items || []).map((item: any) => ({
       id: item.id,
-      productId: item.product_id,
-      name: item.products?.status === 'active' 
-        ? item.products.name 
-        : 'Product no longer available',
-      product: {
-        images: item.products?.product_images || []
-      },
+      variantId: item.variant_id,
+      name: item.product_variants?.name || 'Product no longer available',
+      variant: item.product_variants ? {
+        name: item.product_variants.name,
+        options: item.product_variants.options || []
+      } : undefined,
       price: Number(item.price),
       quantity: item.quantity,
       total: Number(item.total),
@@ -29,7 +27,6 @@ export function transformOrder(order: any): Order {
     tax: Number(order.tax),
     total: Number(order.total),
     notes: order.notes,
-    payment_details: order.payment_details,
     tags: order.tags || [],
     createdAt: new Date(order.created_at),
     updatedAt: new Date(order.updated_at),

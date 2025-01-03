@@ -2,18 +2,21 @@ import { CustomerAddress } from './customer';
 
 export interface OrderItem {
   id: string;
-  productId: string;
+  variantId: string; // Changed from productId
   name: string;
-  product?: {
-    images?: {
-      url: string;
-      alt: string;
+  variant?: {
+    name: string;
+    options: {
+      name: string;
+      value: string;
     }[];
   };
   price: number;
   quantity: number;
   total: number;
 }
+
+
 
 export interface Order {
   id: string;

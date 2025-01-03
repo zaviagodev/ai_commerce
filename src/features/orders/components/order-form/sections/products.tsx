@@ -15,47 +15,42 @@ interface ProductsProps {
 export function Products({ form }: ProductsProps) {
   const items = form.watch('items') || [];
 
-  const handleProductSelect = (product: any) => {
-    // Check if product already exists in items
-    const existingItem = items.find(item => item.productId === product.id);
-    const productImages = product.images.map(img => ({
-      url: img.url,
-      alt: img.alt || product.name
-    }));
+const handleProductSelect = (product: Product, variant: ProductVariant) => {
+  const existingItem = items.find(item => item.variantId === variant.id);
 
-    if (existingItem) {
-      // Update quantity of existing item
-      const updatedItems = items.map(item => {
-        if (item.productId === product.id) {
-          const newQuantity = item.quantity + 1;
-          return {
-            ...item,
-            product: {
-              images: productImages
-            },
-            quantity: newQuantity,
-            total: product.price * newQuantity
-          };
-        }
-        return item;
-      });
-      form.setValue('items', updatedItems);
-    } else {
-      // Add new item
-      const newItem = {
-        id: crypto.randomUUID(),
-        productId: product.id,
-        name: product.name,
-        product: {
-          images: productImages
-        },
-        price: product.price,
-        quantity: 1,
-        total: product.price,
-      };
-      form.setValue('items', [...items, newItem]);
-    }
-  };
+  if (existingItem) {
+    // Update quantity of existing item
+    const updatedItems = items.map(item => {
+      if (item.variantId === variant.id) {
+        const newQuantity = item.quantity + 1;
+        return {
+          ...item,
+          quantity: newQuantity,
+          total: variant.price * newQuantity
+        };
+      }
+      return item;
+    });
+    form.setValue('items', updatedItems);
+  } else {
+    console.log("variant =>", variant);
+    // Add new item
+    const newItem = {
+      id: crypto.randomUUID(),
+      variantId: variant.id,
+      name: product.name,
+      variant: {
+        name: variant.name,
+        options: variant.options
+      },
+      price: variant.price,
+      quantity: 1,
+      total: variant.price,
+    };
+    form.setValue('items', [...items, newItem]);
+  }
+};
+
 
   const updateQuantity = (index: number, newQuantity: number) => {
     if (newQuantity < 1) return;

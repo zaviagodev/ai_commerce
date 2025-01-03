@@ -2,25 +2,26 @@ import { z } from 'zod';
 
 import { CustomerAddress } from '@/types/customer';
 
-export const OrderItemSchema = z.object({
-  id: z.string().optional(),
-  productId: z.string(),
+// Schema for variant options
+const VariantOptionSchema = z.object({
   name: z.string(),
-  product: z.object({
-    images: z.array(
-      z.object({
-        url: z.string(),
-        alt: z.string().optional()
-      })
-    ).optional()
-  }).optional(),
-  price: z.number().min(0).or(z.string()).transform((val) => 
-    typeof val === 'string' ? parseFloat(val) : val
-  ),
-  quantity: z.number().min(1),
-  total: z.number().min(0).or(z.string()).transform((val) => 
-    typeof val === 'string' ? parseFloat(val) : val
-  ),
+  value: z.string()
+});
+
+// Schema for variant
+const VariantSchema = z.object({
+  name: z.string(),
+  options: z.array(VariantOptionSchema)
+});
+
+const OrderItemSchema = z.object({
+  id: z.string(),
+  variantId: z.string(),
+  name: z.string(),
+  variant: VariantSchema.optional(),
+  price: z.number().min(0, 'Price must be greater than or equal to 0'),
+  quantity: z.number().min(1, 'Quantity must be at least 1'),
+  total: z.number().min(0, 'Total must be greater than or equal to 0')
 });
 
 export const OrderSchema = z.object({
@@ -47,7 +48,7 @@ export const OrderSchema = z.object({
     updatedAt: z.date()
   }).optional(),
   status: z.enum(['pending', 'processing', 'shipped', 'delivered', 'cancelled']),
-  items: z.array(OrderItemSchema),
+  items: z.array(OrderItemSchema).min(1, 'At least one item is required'),
   subtotal: z.number().min(0).or(z.string()).transform((val) => 
     typeof val === 'string' ? parseFloat(val) : val
   ),
