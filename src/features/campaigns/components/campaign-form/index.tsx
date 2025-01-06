@@ -30,7 +30,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
       type: 'points_multiplier',
       multiplier: 1,
       hasProductRules: false,
-      bonusPoints: 0,
+      bonusPoints: null,
       targetType: 'all',
       status: 'draft',
       hasConditions: false,
@@ -47,6 +47,8 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
       ...initialData,
     },
   });
+
+  console.log("form =>", form.formState.errors);
 
   const handleSubmit = async (data: Campaign) => {
     try {
