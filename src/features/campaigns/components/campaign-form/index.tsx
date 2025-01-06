@@ -22,6 +22,7 @@ interface CampaignFormProps {
 }
 
 export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
+  console.log("initialData", initialData);
   const form = useForm({
     resolver: zodResolver(CampaignSchema),
     defaultValues: {
@@ -30,6 +31,8 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
       type: 'points_multiplier',
       multiplier: 1,
       hasProductRules: false,
+      productRules: [],
+      conditions: [],
       bonusPoints: null,
       targetType: 'all',
       status: 'draft',
@@ -48,11 +51,11 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
     },
   });
 
-  console.log("form =>", form.formState.errors);
 
   const handleSubmit = async (data: Campaign) => {
     try {
-      await onSubmit(data);
+      console.log("form submitted =>", form.getValues());
+      await onSubmit(form.getValues());
     } catch (error) {
       console.error('Failed to save campaign:', error);
     }

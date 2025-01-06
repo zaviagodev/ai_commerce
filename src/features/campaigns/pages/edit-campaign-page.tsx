@@ -14,6 +14,7 @@ export function EditCampaignPage() {
   }
 
   const handleSubmit = async (data: Campaign) => {
+    console.log("edit data =>", data);
     try {
       await updateCampaign.mutateAsync({ id, data });
       navigate('/dashboard/points/campaigns');

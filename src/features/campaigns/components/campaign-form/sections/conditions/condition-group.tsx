@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Plus, X } from 'lucide-react';
-import { ProductRuleCondition } from './rule-condition';
-import { Campaign } from '@/types/campaign';
-import { CampaignProductRule } from '@/features/campaigns/types/campaign-rules';
+import { ConditionBuilder } from './condition-builder';
+import { CampaignCondition } from '@/features/campaigns/types/campaign-rules';
 import {
   Select,
   SelectContent,
@@ -14,44 +12,37 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-interface ProductRuleGroupProps {
+interface ConditionGroupProps {
   group: { id: string; operator: string };
   isLast: boolean;
   onRemove: () => void;
-  form: UseFormReturn<Campaign>;
+  conditions: CampaignCondition[];
+  onAddCondition: (condition: CampaignCondition) => void;
+  onUpdateCondition: (id: string, data: Partial<CampaignCondition>) => void;
+  onRemoveCondition: (id: string) => void;
 }
 
-export function ProductRuleGroup({ group, isLast, onRemove, form }: ProductRuleGroupProps) {
+export function ConditionGroup({
+  group,
+  isLast,
+  onRemove,
+  conditions,
+  onAddCondition,
+  onUpdateCondition,
+  onRemoveCondition,
+}: ConditionGroupProps) {
   const [operator, setOperator] = useState(group.operator);
-  const rules = form.watch('productRules') || [];
-  const groupRules = rules.filter((rule: CampaignProductRule) => rule.groupId === group.id);
+  const groupConditions = conditions.filter(c => c.groupId === group.id);
 
-  const addRule = () => {
-    const newRule: CampaignProductRule = {
+  const addCondition = () => {
+    onAddCondition({
       id: crypto.randomUUID(),
       groupId: group.id,
-      type: 'product_purchased',
-      operator: 'equal_to',
+      type: 'total_spent',
+      operator: 'greater_than',
       value: '',
       enabled: true,
-    };
-    form.setValue('productRules', [...rules, newRule]);
-  };
-
-  const removeRule = (ruleId: string) => {
-    form.setValue(
-      'productRules',
-      rules.filter((rule: CampaignProductRule) => rule.id !== ruleId)
-    );
-  };
-
-  const updateRule = (ruleId: string, data: Partial<CampaignProductRule>) => {
-    form.setValue(
-      'productRules',
-      rules.map((rule: CampaignProductRule) =>
-        rule.id === ruleId ? { ...rule, ...data } : rule
-      )
-    );
+    });
   };
 
   return (
@@ -98,12 +89,12 @@ export function ProductRuleGroup({ group, isLast, onRemove, form }: ProductRuleG
           </div>
 
           <div className="space-y-4">
-            {groupRules.map((rule) => (
-              <ProductRuleCondition
-                key={rule.id}
-                rule={rule}
-                onUpdate={(data) => updateRule(rule.id!, data)}
-                onRemove={() => removeRule(rule.id!)}
+            {groupConditions.map((condition) => (
+              <ConditionBuilder
+                key={condition.id}
+                condition={condition}
+                onUpdate={(data) => onUpdateCondition(condition.id!, data)}
+                onRemove={() => onRemoveCondition(condition.id!)}
               />
             ))}
 
@@ -112,10 +103,10 @@ export function ProductRuleGroup({ group, isLast, onRemove, form }: ProductRuleG
               variant="outline"
               size="sm"
               className="w-full"
-              onClick={addRule}
+              onClick={addCondition}
             >
               <Plus className="mr-2 h-4 w-4" />
-              Add product rule
+              Add condition
             </Button>
           </div>
         </div>

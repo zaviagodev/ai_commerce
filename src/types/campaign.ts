@@ -1,3 +1,5 @@
+import { CampaignCondition, CampaignProductRule } from '@/features/campaigns/types/campaign-rules';
+
 export interface Campaign {
   id: string;
   name: string;
@@ -21,6 +23,8 @@ export interface Campaign {
   clickLinkEnabled?: boolean;
   clickLinkUrl?: string;
   clickLinkLimit?: number;
+  conditions?: CampaignCondition[];
+  productRules?: CampaignProductRule[];
   createdAt: Date;
   updatedAt: Date;
 }
