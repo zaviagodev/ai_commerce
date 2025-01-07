@@ -15,7 +15,7 @@ import { Product } from '@/types/product';
 import { CampaignProductRule } from '@/features/campaigns/types/campaign-rules';
 
 interface ProductRuleConditionProps {
-  rule: CampaignProductRule;
+  condition: CampaignProductRule;
   onUpdate: (data: Partial<CampaignProductRule>) => void;
   onRemove: () => void;
 }
@@ -41,26 +41,16 @@ const RULE_TYPES = [
   },
 ];
 
-export function ProductRuleCondition({ rule, onUpdate, onRemove }: ProductRuleConditionProps) {
+export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductRuleConditionProps) {
   const handleProductSelect = (product: Product) => {
     onUpdate({
       productId: product.id,
-      value: product.name,
     });
   };
 
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={rule.enabled}
-            onCheckedChange={(checked) => onUpdate({ enabled: checked })}
-          />
-          <span className="text-sm font-medium">
-            {rule.enabled ? 'Enabled' : 'Disabled'}
-          </span>
-        </div>
+      <div className="flex items-center justify-between float-right">
         <Button
           type="button"
           variant="ghost"
@@ -75,7 +65,7 @@ export function ProductRuleCondition({ rule, onUpdate, onRemove }: ProductRuleCo
         <div className="grid gap-2">
           <label className="text-sm font-medium">Rule Type</label>
           <Select 
-            value={rule.type} 
+            value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value as CampaignProductRule['type'] })}
           >
             <SelectTrigger>
@@ -98,14 +88,14 @@ export function ProductRuleCondition({ rule, onUpdate, onRemove }: ProductRuleCo
           </Select>
         </div>
 
-        {rule.type && (
+        {condition.type && (
           <>
-            {rule.type.startsWith('product_') ? (
+            {condition.type.startsWith('product_') ? (
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Select Product</label>
                 <ProductSelect onSelect={handleProductSelect}>
                   <Button variant="outline" className="w-full justify-start">
-                    {rule.value || 'Choose a product...'}
+                    {condition.productId || 'Choose a product...'}
                   </Button>
                 </ProductSelect>
               </div>
@@ -125,12 +115,12 @@ export function ProductRuleCondition({ rule, onUpdate, onRemove }: ProductRuleCo
               </div>
             )}
 
-            {rule.type.includes('quantity') || rule.type.includes('amount') ? (
+            {condition.type.includes('quantity') || condition.type.includes('amount') ? (
               <>
                 <div className="grid gap-2">
                   <label className="text-sm font-medium">Operator</label>
                   <Select
-                    value={rule.operator}
+                    value={condition.operator}
                     onValueChange={(value) => onUpdate({ operator: value as CampaignProductRule['operator'] })}
                   >
                     <SelectTrigger>
@@ -149,10 +139,10 @@ export function ProductRuleCondition({ rule, onUpdate, onRemove }: ProductRuleCo
                   <Input
                     type="number"
                     min="0"
-                    step={rule.type.includes('amount') ? '0.01' : '1'}
-                    value={rule.value}
+                    step={condition.type.includes('amount') ? '0.01' : '1'}
+                    value={condition.value}
                     onChange={(e) => onUpdate({ value: e.target.value })}
-                    placeholder={rule.type.includes('amount') ? '0.00' : '0'}
+                    placeholder={condition.type.includes('amount') ? '0.00' : '0'}
                   />
                 </div>
               </>

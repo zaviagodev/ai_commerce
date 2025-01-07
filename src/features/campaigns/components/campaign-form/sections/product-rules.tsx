@@ -2,7 +2,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Campaign } from '@/types/campaign';
 import { Package } from 'lucide-react';
-import { ProductRuleBuilder } from './product-rules/rule-builder';
+import { RuleBuilder } from './product-rules/rule-builder';
 import { Switch } from '@/components/ui/switch';
 import {
   FormField,
@@ -25,7 +25,7 @@ export function ProductRules({ form }: ProductRulesProps) {
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100">
           <Package className="h-5 w-5 text-emerald-600" />
         </div>
-        <div>
+        <div className="flex-1">
           <h2 className="text-lg font-medium">Product Rules</h2>
           <p className="text-sm text-muted-foreground">
             Define rules based on products and categories
@@ -56,7 +56,7 @@ export function ProductRules({ form }: ProductRulesProps) {
 
         {hasProductRules && (
           <div className="space-y-4">
-            <ProductRuleBuilder form={form} />
+            <RuleBuilder form={form} />
           </div>
         )}
       </CardContent>

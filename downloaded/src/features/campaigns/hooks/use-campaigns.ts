@@ -30,19 +30,11 @@ export function useCampaigns() {
     },
   });
 
-  const deleteCampaign = useMutation({
-    mutationFn: CampaignService.deleteCampaign,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['campaigns'] });
-    },
-  });
-
   return {
     campaigns,
     isLoading,
     error,
     createCampaign,
     updateCampaign,
-    deleteCampaign,
   };
 }
