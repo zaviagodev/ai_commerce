@@ -75,6 +75,64 @@ export class CustomerService {
     }
   }
 
+  static async createCustomer(customer: Omit<Customer, 'id' | 'createdAt' | 'updatedAt'>): Promise<Customer> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error('Store not found');
+
+      // First create the customer
+      const { data: newCustomer, error: customerError } = await supabase
+        .from('customers')
+        .insert({
+          store_name: user.storeName,
+          first_name: customer.firstName,
+          last_name: customer.lastName,
+          email: customer.email,
+          phone: customer.phone,
+          accepts_marketing: customer.acceptsMarketing,
+          tags: customer.tags,
+          is_verified: customer.isVerified,
+        })
+        .select()
+        .single();
+
+      if (customerError) throw customerError;
+
+      // Then create addresses if any
+      if (customer.addresses?.length > 0) {
+        const { error: addressError } = await supabase
+          .from('customer_addresses')
+          .insert(
+            customer.addresses.map(address => ({
+              customer_id: newCustomer.id,
+              store_name: user.storeName,
+              type: address.type,
+              first_name: address.firstName,
+              last_name: address.lastName,
+              company: address.company,
+              address1: address.address1,
+              address2: address.address2,
+              city: address.city,
+              state: address.state,
+              postal_code: address.postalCode,
+              country: address.country,
+              phone: address.phone,
+              is_default: address.isDefault,
+            }))
+          );
+
+        if (addressError) throw addressError;
+      }
+
+      toast.success('Customer created successfully');
+      return CustomerService.transformCustomer(newCustomer);
+    } catch (error: any) {
+      console.error('Failed to create customer:', error);
+      toast.error(error.message || 'Failed to create customer');
+      throw error;
+    }
+  }
+
   static async updateCustomer(id: string, customer: Partial<Customer>): Promise<Customer> {
     try {
       const user = useAuthStore.getState().user;
@@ -89,8 +147,8 @@ export class CustomerService {
           email: customer.email,
           phone: customer.phone,
           accepts_marketing: customer.acceptsMarketing,
-          accepts_marketing: customer.acceptsMarketing,
           tags: customer.tags,
+          is_verified: customer.isVerified,
           updated_at: new Date().toISOString(),
         })
         .eq('id', id)
@@ -142,45 +200,12 @@ export class CustomerService {
       }
 
       toast.success('Customer updated successfully');
-      return {
-        id: updatedCustomer.id,
-        firstName: updatedCustomer.first_name,
-        lastName: updatedCustomer.last_name,
-        email: updatedCustomer.email,
-        phone: updatedCustomer.phone,
-        isVerified: updatedCustomer.is_verified,
-        acceptsMarketing: updatedCustomer.accepts_marketing,
-        tags: updatedCustomer.tags || [],
-        addresses: (updatedCustomer.customer_addresses || []).map(address => ({
-          id: address.id,
-          type: address.type,
-          firstName: address.first_name,
-          lastName: address.last_name,
-          company: address.company,
-          address1: address.address1,
-          address2: address.address2,
-          city: address.city,
-          state: address.state,
-          postalCode: address.postal_code,
-          country: address.country,
-          phone: address.phone,
-          isDefault: address.is_default,
-          createdAt: new Date(address.created_at),
-          updatedAt: new Date(address.updated_at),
-        })),
-        createdAt: new Date(updatedCustomer.created_at),
-        updatedAt: new Date(updatedCustomer.updated_at),
-      };
+      return CustomerService.transformCustomer(updatedCustomer);
     } catch (error: any) {
       console.error('Failed to update customer:', error);
       toast.error(error.message || 'Failed to update customer');
       throw error;
     }
-  }
-
-  private static async updateCustomerAddresses(customerId: string, addresses: any[]): Promise<void> {
-    // Implementation for updating customer addresses
-    // This would handle creating, updating, and deleting addresses
   }
 
   static async checkEmailAvailability(email: string): Promise<boolean> {

@@ -24,32 +24,34 @@ export function AmountDisplay({
   isTransitioning,
 }: AmountDisplayProps) {
   return (
-    <motion.div 
-      className="relative px-6 py-12 flex flex-col items-center justify-center z-10"
-      key={isCancelled ? 'cancelled' : (isShipped ? 'shipped' : 'normal')}
+    <motion.div
+      className={`absolute w-full px-6 py-12 flex flex-col items-center justify-center z-10`}
+      key={isCancelled ? 'cancelled' : isShipped ? 'shipped' : 'normal'}
       initial={false}
       animate={{
         opacity: showAmount ? 1 : 0,
-        y: showAmount ? 0 : -20
+        y: showAmount ? 0 : -20,
       }}
       transition={{
         duration: 0.4,
-        ease: "easeInOut"
+        ease: 'easeInOut',
       }}
     >
       <div className="text-4xl font-semibold mb-2">
         <div className="relative inline-flex items-center">
           {(isPaid || isShipped) && !isCancelled && (
-            <motion.div 
+            <motion.div
               initial={{ scale: 0, opacity: 0, x: -10 }}
               animate={{ scale: 1, opacity: 1, x: 0 }}
               transition={{
                 delay: isInitialLoad ? 1.5 : 6,
-                type: "spring", 
+                type: 'spring',
                 stiffness: 100,
-                damping: 10
+                damping: 10,
               }}
-              className={`absolute -left-8 ${isShipped ? 'text-green-400' : 'text-green-400'}`}
+              className={`absolute -left-8 ${
+                isShipped ? 'text-green-400' : 'text-green-400'
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,20 +65,20 @@ export function AmountDisplay({
                 strokeLinejoin="round"
                 className="animate-pulse duration-1000"
               >
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </motion.div>
           )}
           {isCancelled && (
-            <motion.div 
+            <motion.div
               initial={{ scale: 0, opacity: 0, x: -10 }}
               animate={{ scale: 1, opacity: 1, x: 0 }}
               transition={{
                 delay: 0.5,
-                type: "spring", 
+                type: 'spring',
                 stiffness: 100,
-                damping: 10
+                damping: 10,
               }}
               className="absolute -left-8 text-red-500"
             >
@@ -92,24 +94,24 @@ export function AmountDisplay({
                 strokeLinejoin="round"
                 className="animate-pulse duration-1000"
               >
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="15" y1="9" x2="9" y2="15"/>
-                <line x1="9" y1="9" x2="15" y2="15"/>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
               </svg>
             </motion.div>
           )}
           {formatAmount(
-             amount,
-             isCancelled,
-             isPaid || isShipped,
-             isInitialLoad,
-             isTransitioning,
-             isShipped
-           )}
+            amount,
+            isCancelled,
+            isPaid || isShipped,
+            isInitialLoad,
+            isTransitioning,
+            isShipped
+          )}
         </div>
       </div>
-      <StatusText 
-        displayText={displayText} 
+      <StatusText
+        displayText={displayText}
         isCancelled={isCancelled}
         isShipped={isShipped}
       />

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Customer } from '@/types/customer';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
+import Loading from '@/components/loading';
 
 interface CustomerListProps {
   customers: Customer[];
@@ -32,12 +34,21 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
   const paginatedCustomers = paginateItems(customers);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Customers</h1>
           <p className="text-sm text-muted-foreground">
@@ -50,10 +61,15 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
             Add customer
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={customers.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
@@ -111,7 +127,12 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         </Table>
 
         {customers.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -120,9 +141,9 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

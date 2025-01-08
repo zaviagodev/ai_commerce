@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ProductForm } from '../components/product-form';
+import { motion } from 'framer-motion';
 import { Product } from '@/types/product';
 import { useProducts } from '../hooks/use-products';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,7 @@ export function EditProductPage() {
   const product = products.find((p) => p.id === id);
 
   if (!product) {
-    return <div>Product not found</div>;
+    return <div className='pt-14'>Product not found</div>;
   }
 
   const handleSubmit = async (data: Product) => {
@@ -61,14 +62,20 @@ export function EditProductPage() {
 
   const headerActions = (
     <div className="flex items-center gap-2">
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        onClick={() => setShowActions(true)}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2 }}
       >
-        <MoreHorizontal className="h-4 w-4" />
-      </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={() => setShowActions(true)}
+        >
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </motion.div>
     </div>
   );
 

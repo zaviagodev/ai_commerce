@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button'; 
 import { toast } from 'sonner';
 import { OrderForm } from '../components/order-form';
 import { Order } from '@/types/order';
 import { useOrders } from '../hooks/use-orders';
 import { PrintButton } from '../components/print-invoice/print-button';
-import { Pencil } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Pencil, Printer } from 'lucide-react';
 
 export function EditOrderPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { orders, updateOrder } = useOrders();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [hasChanges, setHasChanges] = useState<boolean>(false);
@@ -34,18 +34,35 @@ export function EditOrderPage() {
 
   const headerActions = (
     <div className="flex items-center gap-2">
-      <PrintButton order={order} />
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <PrintButton order={order} />
+      </motion.div>
       {!isEditing ? (
-        <Button 
-          onClick={() => setIsEditing(true)} 
-          variant="default"
-          className="bg-blue-600 hover:bg-blue-700"
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <Pencil className="mr-2 h-4 w-4" />
-          Edit Order
-        </Button>
+          <Button 
+            onClick={() => setIsEditing(true)} 
+            variant="default"
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            <Pencil className="mr-2 h-4 w-4" />
+            Edit Order
+          </Button>
+        </motion.div>
       ) : (
-        <div className="flex items-center gap-2">
+        <motion.div 
+          className="flex items-center gap-2"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2 }}
+        >
           <Button 
             type="button" 
             variant="outline" 
@@ -60,7 +77,7 @@ export function EditOrderPage() {
           >
             Save Changes
           </Button>
-        </div>
+        </motion.div>
       )}
     </div>
   );

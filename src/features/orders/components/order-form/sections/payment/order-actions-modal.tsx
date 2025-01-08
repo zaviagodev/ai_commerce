@@ -12,12 +12,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useOrders } from '@/features/orders/hooks/use-orders';
 import { toast } from 'sonner';
-import { 
-  RefreshCw, 
-  Ban, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Wallet, 
+import {
+  RefreshCw,
+  Ban,
+  AlertTriangle,
+  CheckCircle2,
+  Wallet,
   Flag,
   AlertCircle,
 } from 'lucide-react';
@@ -30,14 +30,21 @@ interface OrderActionsModalProps {
   onSavingChange: (saving: boolean) => void;
 }
 
-type ActionStep = 'list' | 'refund' | 'cancel' | 'dispute' | 'fulfill' | 'credit' | 'flag';
+type ActionStep =
+  | 'list'
+  | 'refund'
+  | 'cancel'
+  | 'dispute'
+  | 'fulfill'
+  | 'credit'
+  | 'flag';
 
-export function OrderActionsModal({ 
-  open, 
+export function OrderActionsModal({
+  open,
   onOpenChange,
   order,
   onStatusChange,
-  onSavingChange
+  onSavingChange,
 }: OrderActionsModalProps) {
   const [step, setStep] = useState<ActionStep>('list');
   const [refundAmount, setRefundAmount] = useState('');
@@ -59,12 +66,13 @@ export function OrderActionsModal({
         id: order.id,
         data: {
           status: 'cancelled',
-          notes: reason
-        }
+          notes: reason,
+        },
       });
       toast.success('Order cancelled successfully');
       onOpenChange(false);
       await onStatusChange('cancelled');
+      setIsLoading(false);
     } catch (error) {
       console.error('Failed to cancel order:', error);
       toast.error('Failed to cancel order');
@@ -108,8 +116,10 @@ export function OrderActionsModal({
               />
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={handleBack}>Back</Button>
-              <Button 
+              <Button variant="outline" onClick={handleBack}>
+                Back
+              </Button>
+              <Button
                 onClick={() => {
                   onAction('refund', { amount: refundAmount, reason });
                   onOpenChange(false);
@@ -136,7 +146,8 @@ export function OrderActionsModal({
                 <div>
                   <h4 className="font-medium text-red-800">Cancel Order</h4>
                   <p className="text-sm text-red-600">
-                    This action cannot be undone. The order will be marked as cancelled.
+                    This action cannot be undone. The order will be marked as
+                    cancelled.
                   </p>
                 </div>
               </div>
@@ -150,8 +161,10 @@ export function OrderActionsModal({
               />
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={handleBack}>Back</Button>
-              <Button 
+              <Button variant="outline" onClick={handleBack}>
+                Back
+              </Button>
+              <Button
                 variant="destructive"
                 onClick={handleCancel}
                 disabled={!reason || isLoading}
@@ -288,9 +301,7 @@ export function OrderActionsModal({
         <DialogHeader>
           <DialogTitle>Order Actions</DialogTitle>
         </DialogHeader>
-        <AnimatePresence mode="wait">
-          {renderStep()}
-        </AnimatePresence>
+        <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
       </DialogContent>
     </Dialog>
   );

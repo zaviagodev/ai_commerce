@@ -25,13 +25,13 @@ export function PaymentActions({
 
   return (
     <motion.div
-      className="relative px-6 py-4 bg-gray-800/30 backdrop-blur-sm z-10"
+      className="relative px-6 py-4 z-10"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.5 }}
     >
       {!isCancelled && (
-        <motion.div 
+        <motion.div
           className="flex gap-2"
           initial={false}
           animate={{ opacity: 1 }}
@@ -45,8 +45,8 @@ export function PaymentActions({
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
                   onClick={onPaymentClick}
                   type="button"
@@ -62,7 +62,7 @@ export function PaymentActions({
                   className="w-1/2"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 3, duration: 0.3 }}
+                  transition={{ delay: 2.1, duration: 0.3 }}
                 >
                   <Button
                     variant="outline"
@@ -79,7 +79,7 @@ export function PaymentActions({
                   className="w-1/2"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 3.5, duration: 0.3 }}
+                  transition={{ delay: 2.6, duration: 0.3 }}
                 >
                   <Button
                     variant="outline"
@@ -99,10 +99,10 @@ export function PaymentActions({
                       strokeLinejoin="round"
                       className="mr-2"
                     >
-                      <path d="M21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5z"/>
-                      <path d="M3 7h18"/>
-                      <path d="M7 5v4"/>
-                      <path d="M17 5v4"/>
+                      <path d="M21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5z" />
+                      <path d="M3 7h18" />
+                      <path d="M7 5v4" />
+                      <path d="M17 5v4" />
                     </svg>
                     Add Shipping
                   </Button>
@@ -116,13 +116,13 @@ export function PaymentActions({
       {isCancelled && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             y: 0,
             transition: {
               delay: 2.5,
-              duration: 0.3
-            }
+              duration: 0.3,
+            },
           }}
           transition={{ delay: 0.2, duration: 0.3 }}
           className="flex gap-2 w-full"

@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Plus, ExternalLink } from 'lucide-react';
+import {
+  Plus,
+  Package,
+  ExternalLink,
+  ArrowUpDown,
+  Check,
+  MoreHorizontal,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -10,19 +17,54 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
 import { useAuth } from '@/lib/auth/auth-hooks';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
+import { ProductActionsMenu } from './product-actions-menu';
 import { usePagination } from '@/hooks/use-pagination';
+import { ProductSort } from './product-sort';
+import { sortProducts } from '../utils/sorting';
+import { SORT_OPTIONS } from '../types/sorting';
+import { useBulkSelection } from '../hooks/use-bulk-selection';
+import { BulkActionsMenu } from './bulk-actions/bulk-actions-menu';
+import { BulkDeleteDialog } from './bulk-actions/bulk-delete-dialog';
+import { BulkCategoryDialog } from './bulk-actions/bulk-category-dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ProductSearch } from './product-search';
+import { useState, useMemo } from 'react';
+import { cn } from '@/lib/utils';
+import Loading from '@/components/loading';
 
 interface ProductListProps {
   products: Product[];
   isLoading: boolean;
+  onDelete: (id: string) => Promise<void>;
 }
 
-export function ProductList({ products, isLoading }: ProductListProps) {
+export function ProductList({
+  products,
+  isLoading,
+  onDelete,
+}: ProductListProps) {
+  const [sortValue, setSortValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showCategoryDialog, setShowCategoryDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const { user } = useAuth();
+  const {
+    selectedIds,
+    isBulkMode,
+    toggleBulkMode,
+    toggleSelection,
+    toggleAll,
+    isSelected,
+    clearSelection,
+  } = useBulkSelection();
+
   const {
     pageIndex,
     pageSize,
@@ -32,26 +74,83 @@ export function ProductList({ products, isLoading }: ProductListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedProducts = paginateItems(products);
+  // Sort products
+  const sortedProducts = useMemo(() => {
+    let filtered = products;
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(query) ||
+          product.sku?.toLowerCase().includes(query) ||
+          product.category?.name.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply sorting
+    if (!sortValue) return filtered;
+
+    const [field, direction] = sortValue.split('-');
+    const option = SORT_OPTIONS.find(
+      (opt) => opt.field === field && opt.direction === direction
+    );
+
+    if (!option) return filtered;
+    return sortProducts(filtered, option.field, option.direction);
+  }, [products, sortValue, searchQuery]);
+
+  const paginatedProducts = paginateItems(sortedProducts);
+  const selectedCount = selectedIds.size;
+
+  const handleBulkDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await Promise.all(Array.from(selectedIds).map((id) => onDelete(id)));
+      setShowDeleteDialog(false);
+      clearSelection();
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleBulkArchive = async () => {
+    // TODO: Implement bulk archive
+  };
+
+  const handleBulkCategoryChange = async (categoryId: string) => {
+    // TODO: Implement bulk category change
+    setShowCategoryDialog(false);
+  };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Products</h1>
           <p className="text-sm text-muted-foreground">
             Manage your store's products
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
             <Link to={`/store/${user?.storeName}`}>
               <ExternalLink className="mr-2 h-4 w-4" />
-              View Store
+              Store
             </Link>
           </Button>
           <Button asChild>
@@ -61,12 +160,54 @@ export function ProductList({ products, isLoading }: ProductListProps) {
             </Link>
           </Button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        {/* Table Controls */}
+        <div className="flex items-center justify-end gap-4 mb-4">
+          <ProductSearch value={searchQuery} onChange={setSearchQuery} />
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleBulkMode}
+              className={cn('transition-colors', isBulkMode && 'text-primary')}
+            >
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+
+            {isBulkMode && selectedCount > 0 && (
+              <BulkActionsMenu
+                selectedCount={selectedCount}
+                onArchive={handleBulkArchive}
+                onDelete={() => setShowDeleteDialog(true)}
+                onChangeCategory={() => setShowCategoryDialog(true)}
+              />
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+            <ProductSort value={sortValue} onValueChange={setSortValue} />
+          </div>
+        </div>
+        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
+              {isBulkMode && (
+                <TableHead className="w-[50px]">
+                  <Checkbox
+                    checked={selectedCount === paginatedProducts.length}
+                    onCheckedChange={() => toggleAll(paginatedProducts)}
+                  />
+                </TableHead>
+              )}
               <TableHead>Product</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Category</TableHead>
@@ -75,7 +216,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.length === 0 ? (
+            {products.length === 0 || paginatedProducts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -94,17 +235,41 @@ export function ProductList({ products, isLoading }: ProductListProps) {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <motion.tr
+                  key={product.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={cn(
+                    '[&>td]:p-4',
+                    'hover:bg-muted/50',
+                    isSelected(product.id) && 'bg-muted'
+                  )}
+                >
+                  {isBulkMode && (
+                    <TableCell>
+                      <Checkbox
+                        checked={isSelected(product.id)}
+                        onCheckedChange={() => toggleSelection(product.id)}
+                      />
+                    </TableCell>
+                  )}
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
-                        <img
-                          src={product.images[0].url}
-                          alt={product.images[0].alt}
-                          className="h-12 w-12 rounded-lg border object-cover"
-                        />
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                          className="h-12 w-12 rounded-sm overflow-hidden"
+                        >
+                          <img
+                            src={product.images[0].url}
+                            alt={product.images[0].alt}
+                            className="h-full w-full object-cover"
+                          />
+                        </motion.div>
                       ) : (
-                        <div className="h-12 w-12 rounded-lg border bg-muted" />
+                        <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
                         <Link
@@ -130,6 +295,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                           ? 'secondary'
                           : 'destructive'
                       }
+                      className="capitalize"
                     >
                       {product.status}
                     </Badge>
@@ -164,14 +330,25 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       <span className="text-muted-foreground">Not tracked</span>
                     )}
                   </TableCell>
-                </TableRow>
+                  <TableCell>
+                    <ProductActionsMenu
+                      product={product}
+                      onDelete={() => onDelete(product.id)}
+                    />
+                  </TableCell>
+                </motion.tr>
               ))
             )}
           </TableBody>
         </Table>
 
         {products.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -180,9 +357,25 @@ export function ProductList({ products, isLoading }: ProductListProps) {
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
+
+      <BulkDeleteDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        selectedCount={selectedCount}
+        onConfirm={handleBulkDelete}
+        isDeleting={isDeleting}
+      />
+
+      <BulkCategoryDialog
+        open={showCategoryDialog}
+        onOpenChange={setShowCategoryDialog}
+        selectedCount={selectedCount}
+        onConfirm={handleBulkCategoryChange}
+        isUpdating={isUpdating}
+      />
     </div>
   );
 }

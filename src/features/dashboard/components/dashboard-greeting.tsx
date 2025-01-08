@@ -22,7 +22,7 @@ export function DashboardGreeting() {
 
   return (
     <div className="space-y-1.5">
-      <div className="flex items-end gap-3">
+      <div className="flex items-end gap-3 -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
         <HelloSvg />
         <span className="text-2xl font-semibold tracking-tight translate-y-1">
           {dayName}, {firstName} {randomEmoji}

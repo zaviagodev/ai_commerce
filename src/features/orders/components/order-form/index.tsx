@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StatusSelect } from './sections/status-select';
@@ -92,26 +93,44 @@ export function OrderForm({
   };
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col">
+    <div className="flex h-screen flex-col">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col h-full">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-semibold">{getTitle()}</h1>
-              <p className="text-sm text-muted-foreground">
-                {initialData
-                  ? `${formatDate(initialData.createdAt)} • ${getDaysAgo(initialData.createdAt)}`
-                  : 'Create a new order for your store'}
-              </p>
+        <motion.form 
+          onSubmit={form.handleSubmit(handleSubmit)} 
+          className="flex flex-col h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
+            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center !bg-transparent">
+              <div>
+                <h1 className="text-2xl font-semibold">{getTitle()}</h1>
+                <p className="text-sm text-muted-foreground">
+                  {initialData
+                    ? `${formatDate(initialData.createdAt)} • ${getDaysAgo(initialData.createdAt)}`
+                    : 'Create a new order for your store'}
+                </p>
+              </div>
+              <div className="flex items-center gap-4 ml-auto">
+                {headerActions || <Button type="submit">Save order</Button>}
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              {headerActions || <Button type="submit">Save order</Button>}
-            </div>
-          </div>
+          </motion.div>
 
-          <div className="flex-1 overflow-y-auto">
+          <motion.div 
+            className="flex-1 overflow-y-auto move-top"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             <div className="h-full">
-              <div className="max-w-3xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
                 <Tabs 
                   defaultValue="overview" 
                   className="w-full"
@@ -164,8 +183,8 @@ export function OrderForm({
                 </Tabs>
               </div>
             </div>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

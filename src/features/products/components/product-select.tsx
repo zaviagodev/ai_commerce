@@ -25,17 +25,18 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
   const { products, isLoading } = useProducts();
 
   // Filter active products only and match search term
-  const filteredProducts = products.filter((product) => 
-    product.status === 'active' && 
-    (product.name.toLowerCase().includes(search.toLowerCase()) ||
-     product.sku?.toLowerCase().includes(search.toLowerCase()))
+  const filteredProducts = products.filter(
+    (product) =>
+      product.status === 'active' &&
+      (product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.sku?.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent 
-        className="sm:max-w-[600px] top-[10%] translate-y-0" 
+      <DialogContent
+        className="sm:max-w-[600px] top-[10%] translate-y-0"
         aria-labelledby="product-select-title"
       >
         <DialogHeader>
@@ -52,7 +53,7 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            
+
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
                 Loading products...
@@ -73,17 +74,19 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                       setOpen(false);
                       setSearch(''); // Clear search after selection
                     }}
-                    disabled={product.trackQuantity && (product.quantity || 0) < 1}
+                    disabled={
+                      product.trackQuantity && (product.quantity || 0) < 1
+                    }
                   >
                     <div className="flex items-center gap-3 w-full">
                       {product.images[0] ? (
                         <img
                           src={product.images[0].url}
                           alt={product.images[0].alt}
-                          className="h-12 w-12 rounded-lg border object-cover"
+                          className="h-12 w-12 rounded-sm object-cover"
                         />
                       ) : (
-                        <div className="h-12 w-12 rounded-lg border bg-muted" />
+                        <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div className="flex-1 text-left">
                         <div className="font-medium">{product.name}</div>

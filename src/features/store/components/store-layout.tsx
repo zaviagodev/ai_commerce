@@ -14,10 +14,10 @@ export function StoreLayout({ children }: StoreLayoutProps) {
   const itemCount = state.items.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
+    <div className="min-h-screen bg-background pt-16">
+      <header className="store-header">
         <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-16 items-center justify-between relative">
             <Link to="/" className="text-xl font-bold">
               Store Name
             </Link>
@@ -26,7 +26,7 @@ export function StoreLayout({ children }: StoreLayoutProps) {
               <Button variant="outline" size="icon">
                 <ShoppingCart className="h-4 w-4" />
                 {itemCount > 0 && (
-                  <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-primary text-xs text-primary-foreground flex items-center justify-center">
+                  <span className="absolute -right-2 top-2 h-5 w-5 rounded-full bg-primary text-xs text-primary-foreground flex items-center justify-center">
                     {itemCount}
                   </span>
                 )}

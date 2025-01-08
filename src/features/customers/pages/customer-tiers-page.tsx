@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -11,17 +12,27 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useCustomerTiers } from '../hooks/use-customer-tiers';
+import Loading from '@/components/loading';
 
 export function CustomerTiersPage() {
   const { tiers, isLoading } = useCustomerTiers();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Customer Tiers</h1>
           <p className="text-sm text-muted-foreground">
@@ -34,9 +45,14 @@ export function CustomerTiersPage() {
             Add tier
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
         <Table>
           <TableHeader>
             <TableRow>
@@ -70,7 +86,9 @@ export function CustomerTiersPage() {
                 <TableRow key={tier.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${tier.color}-100`}>
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${tier.color}-100`}
+                      >
                         <Crown className={`h-5 w-5 text-${tier.color}-600`} />
                       </div>
                       <div>
@@ -105,7 +123,10 @@ export function CustomerTiersPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={tier.status === 'active' ? 'default' : 'secondary'}
+                      variant={
+                        tier.status === 'active' ? 'default' : 'secondary'
+                      }
+                      className="capitalize"
                     >
                       {tier.status}
                     </Badge>
@@ -115,7 +136,7 @@ export function CustomerTiersPage() {
             )}
           </TableBody>
         </Table>
-      </div>
+      </motion.div>
     </div>
   );
 }

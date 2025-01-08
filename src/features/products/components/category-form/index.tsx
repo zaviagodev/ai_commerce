@@ -36,7 +36,7 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
     <div className="space-y-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? 'Edit category' : 'Create category'}

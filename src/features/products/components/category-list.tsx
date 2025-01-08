@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus, Folder, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -19,6 +20,7 @@ import {
 import { ProductCategory } from '@/types/product';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
+import Loading from '@/components/loading';
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -26,7 +28,11 @@ interface CategoryListProps {
   onDelete: (id: string) => void;
 }
 
-export function CategoryList({ categories, isLoading, onDelete }: CategoryListProps) {
+export function CategoryList({
+  categories,
+  isLoading,
+  onDelete,
+}: CategoryListProps) {
   const {
     pageIndex,
     pageSize,
@@ -39,12 +45,21 @@ export function CategoryList({ categories, isLoading, onDelete }: CategoryListPr
   const paginatedCategories = paginateItems(categories);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Categories</h1>
           <p className="text-sm text-muted-foreground">
@@ -57,10 +72,15 @@ export function CategoryList({ categories, isLoading, onDelete }: CategoryListPr
             Add category
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={categories.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Category</TableHead>
@@ -118,11 +138,13 @@ export function CategoryList({ categories, isLoading, onDelete }: CategoryListPr
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
-                          <Link to={`/dashboard/products/categories/${category.id}`}>
+                          <Link
+                            to={`/dashboard/products/categories/${category.id}`}
+                          >
                             Edit
                           </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           className="text-destructive"
                           onClick={() => onDelete(category.id)}
                         >
@@ -138,7 +160,12 @@ export function CategoryList({ categories, isLoading, onDelete }: CategoryListPr
         </Table>
 
         {categories.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -147,9 +174,9 @@ export function CategoryList({ categories, isLoading, onDelete }: CategoryListPr
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

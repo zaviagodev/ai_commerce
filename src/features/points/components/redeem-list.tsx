@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Plus, QrCode, Barcode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -16,6 +17,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import { formatDate } from '@/lib/utils';
 import { RedeemCodeModal } from './redeem-code-modal';
 import { useState } from 'react';
+import Loading from '@/components/loading';
 
 interface RedeemListProps {
   redeems: Redeem[];
@@ -37,12 +39,21 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
   const paginatedRedeems = paginateItems(redeems);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Redeem List</h1>
           <p className="text-sm text-muted-foreground">
@@ -53,10 +64,15 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
           <Plus className="mr-2 h-4 w-4" />
           New Redeem
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={redeems.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Redeem Code</TableHead>
@@ -75,9 +91,9 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                     <p className="text-sm text-muted-foreground">
                       Start by processing a new redeem order
                     </p>
-                    <Button 
-                      onClick={() => setIsModalOpen(true)} 
-                      className="mt-4" 
+                    <Button
+                      onClick={() => setIsModalOpen(true)}
+                      className="mt-4"
                       variant="outline"
                     >
                       <Plus className="mr-2 h-4 w-4" />
@@ -88,10 +104,12 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
               </TableRow>
             ) : (
               paginatedRedeems.map((redeem) => (
-                <TableRow 
-                  key={redeem.id} 
+                <TableRow
+                  key={redeem.id}
                   className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => navigate(`/dashboard/points/redeem/${redeem.id}`)}
+                  onClick={() =>
+                    navigate(`/dashboard/points/redeem/${redeem.id}`)
+                  }
                 >
                   <TableCell>
                     <div className="font-mono">{redeem.code}</div>
@@ -102,7 +120,10 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                       {redeem.customerEmail}
                     </div>
                   </TableCell>
-                  <TableCell>{redeem.pointsRedeemed.toLocaleString()} points</TableCell>
+                  <TableCell>
+                    {redeem.pointsRedeemed.toLocaleString()}{' '}
+                    {redeem.pointsRedeemed === 1 ? 'point' : 'points'}
+                  </TableCell>
                   <TableCell>
                     <Badge
                       variant={
@@ -112,6 +133,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                           ? 'secondary'
                           : 'destructive'
                       }
+                      className="capitalize"
                     >
                       {redeem.status}
                     </Badge>
@@ -124,7 +146,12 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         </Table>
 
         {redeems.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -133,14 +160,11 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
 
-      <RedeemCodeModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen}
-      />
+      <RedeemCodeModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 }

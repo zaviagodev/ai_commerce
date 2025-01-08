@@ -52,6 +52,11 @@ export class OrderService {
 
   static async createOrder(order: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>): Promise<Order> {
     try {
+      // Validate required customer ID
+      if (!order.customerId) {
+        throw new Error('Customer is required');
+      }
+
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error('Store not found');
 

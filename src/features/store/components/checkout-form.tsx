@@ -68,7 +68,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                       <FormItem>
                         <FormLabel>First name</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -81,7 +81,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                       <FormItem>
                         <FormLabel>Last name</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -96,7 +96,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} />
+                        <Input type="email" {...field} className="bg-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,7 +110,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <FormItem>
                       <FormLabel>Phone (optional)</FormLabel>
                       <FormControl>
-                        <Input type="tel" {...field} />
+                        <Input type="tel" {...field} className="bg-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -129,7 +129,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <FormItem>
                       <FormLabel>Address</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} className="bg-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,7 +143,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <FormItem>
                       <FormLabel>Apartment, suite, etc. (optional)</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} className="bg-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -158,7 +158,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                       <FormItem>
                         <FormLabel>City</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -172,7 +172,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                       <FormItem>
                         <FormLabel>State</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -186,7 +186,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                       <FormItem>
                         <FormLabel>Postal code</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -201,7 +201,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <FormItem>
                       <FormLabel>Country</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} className="bg-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -240,9 +240,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                     <div className="flex justify-between">
                       <div>
                         <h3 className="font-medium">{item.product.name}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          Qty: {item.quantity}
-                        </p>
+                        <p className="mt-1 text-sm">Qty: {item.quantity}</p>
                       </div>
                       <p className="font-medium">
                         {formatCurrency(item.product.price * item.quantity)}

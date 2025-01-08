@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
+import Loading from '@/components/loading';
 
 interface ProductListProps {
   products: Product[];
@@ -33,12 +35,21 @@ export function ProductList({ products, isLoading }: ProductListProps) {
   const paginatedProducts = paginateItems(products);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Event & Ticket</h1>
           <p className="text-sm text-muted-foreground">
@@ -51,10 +62,15 @@ export function ProductList({ products, isLoading }: ProductListProps) {
             Add Event
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Product</TableHead>
@@ -91,10 +107,10 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                         <img
                           src={product.images[0].url}
                           alt={product.images[0].alt}
-                          className="h-12 w-12 rounded-lg border object-cover"
+                          className="h-12 w-12 rounded-sm object-cover"
                         />
                       ) : (
-                        <div className="h-12 w-12 rounded-lg border bg-muted" />
+                        <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
                         <Link
@@ -120,6 +136,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                           ? 'secondary'
                           : 'destructive'
                       }
+                      className="capitalize"
                     >
                       {product.status}
                     </Badge>
@@ -161,7 +178,12 @@ export function ProductList({ products, isLoading }: ProductListProps) {
         </Table>
 
         {products.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -170,9 +192,9 @@ export function ProductList({ products, isLoading }: ProductListProps) {
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

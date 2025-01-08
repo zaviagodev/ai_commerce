@@ -4,7 +4,7 @@ import { SettingsNav } from '../components/settings-nav';
 export function SettingsPage() {
   return (
     <div className="space-y-6">
-      <div>
+      <div className='-mx-6 py-3 px-6 sticky top-0 z-10 pt-14'>
         <h1 className="text-2xl font-semibold">Settings</h1>
         <p className="text-sm text-muted-foreground">
           Manage your store settings and configurations
