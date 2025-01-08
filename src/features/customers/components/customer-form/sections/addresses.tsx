@@ -18,7 +18,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { AddressForm } from './address-form';
 import { Customer, CustomerAddress } from '@/types/customer';
 
@@ -26,7 +32,13 @@ interface AddressesProps {
   form: UseFormReturn<Customer>;
 }
 
-function AddressCard({ address, onEdit }: { address: CustomerAddress; onEdit: () => void }) {
+function AddressCard({
+  address,
+  onEdit,
+}: {
+  address: CustomerAddress;
+  onEdit: () => void;
+}) {
   return (
     <button
       type="button"
@@ -40,7 +52,9 @@ function AddressCard({ address, onEdit }: { address: CustomerAddress; onEdit: ()
           </div>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <p className="font-medium">{address.firstName} {address.lastName}</p>
+              <p className="font-medium">
+                {address.firstName} {address.lastName}
+              </p>
               {address.isDefault && (
                 <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
                   Default {address.type}
@@ -50,7 +64,9 @@ function AddressCard({ address, onEdit }: { address: CustomerAddress; onEdit: ()
             <div className="text-sm text-muted-foreground space-y-1">
               <p>{address.address1}</p>
               {address.address2 && <p>{address.address2}</p>}
-              <p>{address.city}, {address.state} {address.postalCode}</p>
+              <p>
+                {address.city}, {address.state} {address.postalCode}
+              </p>
               <p>{address.country}</p>
               {address.phone && <p>{address.phone}</p>}
             </div>
@@ -62,7 +78,9 @@ function AddressCard({ address, onEdit }: { address: CustomerAddress; onEdit: ()
 }
 export function Addresses({ form }: AddressesProps) {
   const addresses = form.watch('addresses') || [];
-  const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(null);
+  const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(
+    null
+  );
 
   const addAddress = () => {
     const newAddress: CustomerAddress = {
@@ -95,12 +113,12 @@ export function Addresses({ form }: AddressesProps) {
 
   const handleSaveAddress = (address: CustomerAddress) => {
     const newAddresses = editingAddress
-      ? addresses.map(a => a.id === editingAddress.id ? address : a)
+      ? addresses.map((a) => (a.id === editingAddress.id ? address : a))
       : [...addresses, address];
     form.setValue('addresses', newAddresses);
     setEditingAddress(null);
   };
-  
+
   const handleDeleteAddress = (id: string) => {
     form.setValue(
       'addresses',
@@ -141,8 +159,14 @@ export function Addresses({ form }: AddressesProps) {
           <Plus className="mr-2 h-4 w-4" />
           Add address
         </Button>
-        <Dialog open={!!editingAddress} onOpenChange={(open) => !open && setEditingAddress(null)}>
-          <DialogContent className="top-[10%] translate-y-0" aria-labelledby="address-dialog-title">
+        <Dialog
+          open={!!editingAddress}
+          onOpenChange={(open) => !open && setEditingAddress(null)}
+        >
+          <DialogContent
+            className="h-[calc(100vh_-_10rem)]"
+            aria-labelledby="address-dialog-title"
+          >
             <DialogHeader>
               <DialogTitle id="address-dialog-title">
                 {editingAddress?.id ? 'Edit address' : 'Add new address'}

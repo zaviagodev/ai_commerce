@@ -36,7 +36,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
   // Simulate QR code scanning
   const simulateScan = () => {
     setIsScanning(true);
-    
+
     // Simulate scanning delay with mock data
     setTimeout(() => {
       setScanResult({
@@ -48,10 +48,10 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
         redeemItem: {
           name: 'Premium Coffee',
           quantity: 2,
-          pointsRequired: 250
+          pointsRequired: 250,
         },
         couponCode: 'COFFEE2024',
-        status: 'unused'
+        status: 'unused',
       });
       setIsScanning(false);
     }, 2000);
@@ -155,7 +155,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                         transition={{
                           duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: 'easeInOut',
                         }}
                       />
                       <p className="text-white font-medium">Scanning...</p>
@@ -174,11 +174,15 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                             <User className="h-6 w-6 text-gray-600" />
                           </div>
                           <div>
-                            <h3 className="font-medium">{scanResult.customerName}</h3>
-                            <p className="text-sm text-muted-foreground">{scanResult.customerPhone}</p>
+                            <h3 className="font-medium">
+                              {scanResult.customerName}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {scanResult.customerPhone}
+                            </p>
                           </div>
                         </div>
-                        
+
                         {/* Redeem Details */}
                         <div className="mt-4 space-y-3">
                           <div className="p-3 rounded-lg bg-white border border-gray-200 space-y-2">
@@ -191,23 +195,32 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                                   className="h-full w-full object-cover"
                                 />
                               </div>
-                            <div className="flex justify-between items-center">
-                              <div>
-                                <span className="font-medium block">{scanResult.redeemItem.name}</span>
-                                <span className="text-sm text-gray-600">Quantity: {scanResult.redeemItem.quantity}x</span>
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <span className="font-medium block">
+                                    {scanResult.redeemItem.name}
+                                  </span>
+                                  <span className="text-sm text-gray-600">
+                                    Quantity: {scanResult.redeemItem.quantity}x
+                                  </span>
+                                </div>
                               </div>
-                            </div>
                             </div>
                           </div>
 
                           <div className="p-3 rounded-lg bg-white border border-gray-200">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm font-medium">Coupon Code</span>
+                              <span className="text-sm font-medium">
+                                Coupon Code
+                              </span>
                               <div className="flex items-center gap-2">
                                 <code className="text-sm bg-gray-100 text-gray-800 px-2 py-1 rounded">
                                   {scanResult.couponCode}
                                 </code>
-                                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-300">
+                                <Badge
+                                  variant="outline"
+                                  className="bg-green-100 text-green-800 border-green-300"
+                                >
                                   {scanResult.status}
                                 </Badge>
                               </div>
@@ -257,12 +270,12 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
             >
               Cancel
             </Button>
-            <Button 
+            <Button
               type="submit"
               disabled={!scanResult && !code}
               className={cn(
-                "transition-all duration-200",
-                (!scanResult && !code) && "opacity-50 cursor-not-allowed"
+                'transition-all duration-200',
+                !scanResult && !code && 'opacity-50 cursor-not-allowed'
               )}
             >
               Process Redeem

@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
 import { ImageIcon } from 'lucide-react';
+import Loading from '@/components/loading';
 
 interface ProductGridProps {
   products: Product[];
@@ -12,14 +13,20 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
   const { storeName } = useParams<{ storeName: string }>();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
         <h2 className="text-2xl font-semibold">No products found</h2>
-        <p className="text-muted-foreground">Check back later for new products.</p>
+        <p className="text-muted-foreground">
+          Check back later for new products.
+        </p>
       </div>
     );
   }
@@ -40,7 +47,9 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
                 className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 onError={(e) => {
                   // Fallback to placeholder on image load error
-                  e.currentTarget.src = `https://placehold.co/600x600?text=${encodeURIComponent(product.name)}`;
+                  e.currentTarget.src = `https://placehold.co/600x600?text=${encodeURIComponent(
+                    product.name
+                  )}`;
                 }}
               />
             ) : (
@@ -50,7 +59,9 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
             )}
           </div>
           <div className="mt-4 space-y-1">
-            <h3 className="font-medium group-hover:underline">{product.name}</h3>
+            <h3 className="font-medium group-hover:underline">
+              {product.name}
+            </h3>
             <div className="flex items-center gap-2">
               <span className="text-lg font-semibold">
                 {formatCurrency(product.price)}

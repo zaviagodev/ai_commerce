@@ -6,21 +6,25 @@ interface SuccessAnimationProps {
   isShipped?: boolean;
 }
 
-export function SuccessAnimation({ onComplete, isCancelled, isShipped }: SuccessAnimationProps) {
+export function SuccessAnimation({
+  onComplete,
+  isCancelled,
+  isShipped,
+}: SuccessAnimationProps) {
   const pathVariants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
       pathLength: 1,
       opacity: 1,
       transition: {
-        pathLength: { 
-          type: "tween",
+        pathLength: {
+          type: 'tween',
           duration: 0.8,
-          ease: [0.65, 0, 0.35, 1]
+          ease: [0.65, 0, 0.35, 1],
         },
-        opacity: { duration: 0.2 }
-      }
-    }
+        opacity: { duration: 0.2 },
+      },
+    },
   };
 
   const containerVariants = {
@@ -29,11 +33,11 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
       scale: 1,
       opacity: 1,
       transition: {
-        type: "tween",
+        type: 'tween',
         duration: 0.6,
-        ease: [0.65, 0, 0.35, 1]
-      }
-    }
+        ease: [0.65, 0, 0.35, 1],
+      },
+    },
   };
 
   const textVariants = {
@@ -43,9 +47,9 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
       y: 0,
       transition: {
         duration: 0.5,
-        delay: 0.8
-      }
-    }
+        delay: 0.8,
+      },
+    },
   };
 
   return (
@@ -56,7 +60,7 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
       animate="visible"
       onAnimationComplete={() => {
         // Delay the completion callback to allow full animation visibility
-        setTimeout(onComplete, 3000);
+        setTimeout(onComplete, 4000);
       }}
     >
       {/* Checkmark SVG */}
@@ -64,14 +68,18 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
         <motion.div
           className="absolute inset-0 bg-green-500 rounded-full"
           style={{
-            backgroundColor: isCancelled ? '#EF4444' : (isShipped ? '#22C55E' : '#22C55E')
+            backgroundColor: isCancelled
+              ? '#EF4444'
+              : isShipped
+              ? '#22C55E'
+              : '#22C55E',
           }}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{
-            type: "tween", 
+            type: 'tween',
             duration: 0.6,
-            ease: [0.65, 0, 0.35, 1]
+            ease: [0.65, 0, 0.35, 1],
           }}
         />
         <svg
@@ -79,7 +87,7 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
           viewBox="0 0 50 50"
           fill="none"
           stroke="white"
-          strokeWidth={isCancelled ? "3" : "4"}
+          strokeWidth={isCancelled ? '3' : '4'}
         >
           {isCancelled ? (
             <>
@@ -108,12 +116,12 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
               strokeLinecap="round"
               strokeLinejoin="round"
               transition={{
-                pathLength: { 
-                  type: "tween",
+                pathLength: {
+                  type: 'tween',
                   duration: 1.2,
-                  ease: [0.65, 0, 0.35, 1]
+                  ease: [0.65, 0, 0.35, 1],
                 },
-                opacity: { duration: 0.3 }
+                opacity: { duration: 0.3 },
               }}
             />
           )}
@@ -127,18 +135,27 @@ export function SuccessAnimation({ onComplete, isCancelled, isShipped }: Success
         initial="hidden"
         animate="visible"
       >
-        <h3 className={`text-lg font-medium mb-1 ${
-          isCancelled ? 'text-red-500' : (isShipped ? 'text-white' : 'text-white')
-        }`}>
-          {isCancelled ? 'Order Cancelled' : (isShipped ? 'Shipping Added' : 'Payment Confirmed')}
+        <h3
+          className={`text-lg font-medium mb-1 ${
+            isCancelled
+              ? 'text-red-500'
+              : isShipped
+              ? 'text-white'
+              : 'text-white'
+          }`}
+        >
+          {isCancelled
+            ? 'Order Cancelled'
+            : isShipped
+            ? 'Shipping Added'
+            : 'Payment Confirmed'}
         </h3>
         <p className="text-sm text-gray-400">
-          {isCancelled 
+          {isCancelled
             ? 'This order has been cancelled'
-            : (isShipped 
-                ? 'Shipping tracking has been added successfully'
-                : 'Your payment has been successfully processed')
-          }
+            : isShipped
+            ? 'Shipping tracking has been added successfully'
+            : 'Your payment has been successfully processed'}
         </p>
       </motion.div>
     </motion.div>

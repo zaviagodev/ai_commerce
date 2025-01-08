@@ -26,7 +26,7 @@ const OrderItemSchema = z.object({
 
 export const OrderSchema = z.object({
   id: z.string().optional(),
-  customerId: z.string().optional(),
+  customerId: z.string().min(1, 'Customer is required'),
   customerName: z.string().optional(),
   customerEmail: z.string().optional(),
   customerPhone: z.string().optional(),

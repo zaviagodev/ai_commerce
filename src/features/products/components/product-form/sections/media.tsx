@@ -1,11 +1,13 @@
 import { UseFormReturn } from 'react-hook-form';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ImagePlus, Upload, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Product } from '@/types/product';
+import { Product, ProductImage } from '@/types/product';
 import { MediaService } from '@/lib/storage/media-service';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { ProductImageService } from '@/features/products/services/product-image-service';
+import { ImageGrid } from './media/image-grid';
 
 interface MediaProps {
   form: UseFormReturn<Product>;
@@ -16,6 +18,15 @@ export function Media({ form, productId }: MediaProps) {
   const [isUploading, setIsUploading] = useState(false);
   const images = form.watch('images') || [];
 
+  const handleReorder = (reorderedImages: ProductImage[]) => {
+    // Update positions based on new order
+    const updatedImages = reorderedImages.map((image, index) => ({
+      ...image,
+      position: index,
+    }));
+    form.setValue('images', updatedImages);
+  };
+
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files?.length) return;
@@ -25,16 +36,16 @@ export function Media({ form, productId }: MediaProps) {
       const uploadPromises = Array.from(files).map(async (file, index) => {
         // Create preview URL
         const previewUrl = URL.createObjectURL(file);
-        
+
         // Add temporary preview
         const tempImage = {
           id: crypto.randomUUID(),
           url: previewUrl,
           alt: file.name,
-          position: images.length + index,
+          position: images.length + 1, // Add to end, primary stays at start
         };
-        
-        form.setValue('images', [...images, tempImage]);
+
+        form.setValue('images', [tempImage, ...images]); // Add new images after primary
 
         try {
           // Upload the actual file
@@ -101,52 +112,55 @@ export function Media({ form, productId }: MediaProps) {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-4 gap-4">
-        {/* Image previews */}
-        {images.map((image, index) => (
-          <div key={image.id} className="relative aspect-square rounded-lg border bg-muted">
-            <img
-              src={image.url}
-              alt={image.alt}
-              className="absolute inset-0 h-full w-full rounded-lg object-cover"
-            />
-            <Button
-              type="button"
-              variant="destructive"
-              size="icon"
-              className="absolute -right-2 -top-2 h-6 w-6"
-              onClick={() => handleRemoveImage(index)}
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-        ))}
-
-        {/* Upload area */}
-        <div className="relative aspect-square rounded-lg border-2 border-dashed border-muted-foreground/25">
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-            <div className="rounded-full bg-primary/10 p-4">
-              <Upload className="h-6 w-6 text-primary" />
-            </div>
-            <p className="text-sm font-medium">Drop your images here</p>
-            <p className="text-xs text-muted-foreground">
-              or click to browse files
-            </p>
-            <Button size="sm" variant="secondary" disabled={isUploading}>
-              <ImagePlus className="mr-2 h-4 w-4" />
-              {isUploading ? 'Uploading...' : 'Choose files'}
-            </Button>
-          </div>
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            className="absolute inset-0 cursor-pointer opacity-0"
-            onChange={handleFileSelect}
-            disabled={isUploading}
+      {images.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <ImageGrid
+            images={images}
+            onReorder={handleReorder}
+            onRemove={(id) =>
+              handleRemoveImage(images.findIndex((img) => img.id === id))
+            }
           />
+        </motion.div>
+      )}
+
+      {/* Upload area */}
+      <motion.div
+        className="relative h-[200px] rounded-lg border-2 border-dashed border-muted-foreground/25"
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{
+          duration: 0.6,
+          delay: 0.3,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <div className="rounded-full bg-primary/10 p-4">
+            <Upload className="h-6 w-6 text-primary" />
+          </div>
+          <p className="text-sm font-medium">Drop your images here</p>
+          <p className="text-xs text-muted-foreground">
+            or click to browse files
+          </p>
+          <Button size="sm" variant="secondary" disabled={isUploading}>
+            <ImagePlus className="mr-2 h-4 w-4" />
+            {isUploading ? 'Uploading...' : 'Choose files'}
+          </Button>
         </div>
-      </div>
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          className="absolute inset-0 cursor-pointer opacity-0"
+          onChange={handleFileSelect}
+          disabled={isUploading}
+        />
+      </motion.div>
     </div>
   );
 }

@@ -14,13 +14,13 @@ export function Overview({ redeem }: OverviewProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return 'bg-green-100 text-green-800 border-green-200 capitalize';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200 capitalize';
       case 'cancelled':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-red-100 text-red-800 border-red-200 capitalize';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-gray-100 text-gray-800 border-gray-200 capitalize';
     }
   };
 
@@ -34,7 +34,7 @@ export function Overview({ redeem }: OverviewProps) {
       <Card className="overflow-hidden">
         {/* Header Section */}
         <div className="bg-green-50 border-b border-green-100 p-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <Ticket className="h-5 w-5 text-green-600" />
@@ -87,7 +87,7 @@ export function Overview({ redeem }: OverviewProps) {
 
             {/* Items Section */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                 <div className="text-sm font-medium text-muted-foreground">
                   Redeemed Items
                 </div>
@@ -101,7 +101,7 @@ export function Overview({ redeem }: OverviewProps) {
                     key={item.id}
                     className="flex items-center gap-4 p-4 rounded-lg bg-muted/30"
                   >
-                    <div className="h-12 w-12 rounded-lg border bg-white overflow-hidden flex-shrink-0">
+                    <div className="h-12 w-12 rounded-sm bg-white overflow-hidden flex-shrink-0">
                       {item.image ? (
                         <img
                           src={item.image}
@@ -116,7 +116,7 @@ export function Overview({ redeem }: OverviewProps) {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-medium truncate">{item.name}</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-sm">
                         Qty: {item.quantity} × {item.points} points
                       </div>
                     </div>

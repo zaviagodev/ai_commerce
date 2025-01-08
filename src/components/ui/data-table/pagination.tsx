@@ -31,9 +31,9 @@ export function DataTablePagination({
   onPageSizeChange,
 }: DataTablePaginationProps) {
   return (
-    <div className="flex items-center justify-between px-2 bg-white">
+    <div className="flex items-center justify-between bg-white">
       <div className="flex-1 text-sm text-muted-foreground">
-        {totalItems} total items
+        {totalItems} {totalItems === 1 ? 'total item' : 'total items'}
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">

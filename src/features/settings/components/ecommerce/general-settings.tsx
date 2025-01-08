@@ -53,6 +53,8 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                   <SelectItem value="USD">USD - US Dollar</SelectItem>
                   <SelectItem value="EUR">EUR - Euro</SelectItem>
                   <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                  <SelectItem value="THB">THB - Thai Baht</SelectItem>
+                  <SelectItem value="CNY">CNY - Chinese Yuan</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>

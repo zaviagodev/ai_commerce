@@ -24,12 +24,14 @@ interface PaymentSectionProps {
 export function PaymentSection({ order }: PaymentSectionProps) {
   const { updateOrder } = useOrders();
   const { user } = useAuth();
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showManualPayment, setShowManualPayment] = useState(false);
   const [showCheckoutLink, setShowCheckoutLink] = useState(false);
   const [showPaymentType, setShowPaymentType] = useState(false);
-  const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(null);
+  const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(
+    null
+  );
   const [isComplete, setIsComplete] = useState(false);
   const [showOrderActions, setShowOrderActions] = useState(false);
   const [showShippingTracking, setShowShippingTracking] = useState(false);
@@ -39,48 +41,56 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   const [isCancelled, setIsCancelled] = useState(order.status === 'cancelled');
   const [isShipped, setIsShipped] = useState(order.status === 'shipped');
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  const isPaid = order.status === 'processing' || Boolean(order.payment_details?.confirmed_at);
-  const [displayText, setDisplayText] = useState(isPaid ? "Payment Completed" : "Total Outstanding");
+
+  const isPaid =
+    order.status === 'processing' ||
+    Boolean(order.payment_details?.confirmed_at);
+  const [displayText, setDisplayText] = useState(
+    isPaid ? 'Payment Completed' : 'Total Outstanding'
+  );
   const isLocked = isPaid || isShipped;
   const gradientColor = isCancelled
     ? 'rgba(239, 68, 68, 0.3)'
     : isLocked
-      ? 'rgba(74, 222, 128, 0.3)'
-      : 'rgba(250, 204, 21, 0.3)';
+    ? 'rgba(74, 222, 128, 0.3)'
+    : 'rgba(250, 204, 21, 0.3)';
 
   // Effects
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     // Only show initial status text on first load
     if (isInitialLoad) {
       if (isShipped) {
-        setDisplayText("Completed and Shipped");
+        setDisplayText('Completed and Shipped');
       } else if (isPaid) {
-        setDisplayText("Payment Completed");
+        setDisplayText('Payment Completed');
       } else if (!isCancelled) {
-        setDisplayText("Total Outstanding");
+        setDisplayText('Total Outstanding');
       }
     }
-    
+
     // Handle status changes
     if (!isInitialLoad) {
       if (isCancelled) {
         timer = setTimeout(() => {
-          setDisplayText("Order Cancelled");
-        }, 8000);
+          setDisplayText('Order Cancelled');
+        }, 4000);
       } else if (isShipped) {
         timer = setTimeout(() => {
-          setDisplayText("Completed and Shipped");
-        }, 8000);
+          setDisplayText('Completed and Shipped');
+        }, 4000);
       } else if (isPaid) {
         timer = setTimeout(() => {
-          setDisplayText("Payment Completed");
-        }, 8000);
+          setDisplayText('Payment Completed');
+        }, 4000);
+      } else {
+        timer = setTimeout(() => {
+          setDisplayText('Total Outstanding');
+        }, 4000);
       }
     }
-    
+
     return () => clearTimeout(timer);
   }, [isPaid, isInitialLoad, isCancelled, isShipped]);
 
@@ -89,10 +99,13 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   }, []);
 
   // Handlers
-  const handleManualPaymentConfirm = async (data: { bankName: string; slipImage: string }) => {
+  const handleManualPaymentConfirm = async (data: {
+    bankName: string;
+    slipImage: string;
+  }) => {
     setIsSaving(true);
     setShowManualPayment(false);
-    
+
     try {
       await updateOrder.mutateAsync({
         id: order.id,
@@ -113,11 +126,14 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     }
   };
 
-  const handleShippingTrackingConfirm = async (data: { courier: string; trackingNumber: string }) => {
+  const handleShippingTrackingConfirm = async (data: {
+    courier: string;
+    trackingNumber: string;
+  }) => {
     setIsSaving(true);
     setShowShippingTracking(false);
     setIsTransitioning(true);
-    
+
     try {
       await updateOrder.mutateAsync({
         id: order.id,
@@ -146,7 +162,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       setShowAmount(false);
       setIsComplete(true);
       setIsCancelled(order.status === 'cancelled');
-      
+
       setTimeout(() => {
         setIsComplete(false);
         setShowAmount(true);
@@ -168,13 +184,22 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     try {
       await updateOrder.mutateAsync({
         id: order.id,
-        data: { status: newStatus }
+        data: { status: newStatus },
       });
       setIsCancelled(newStatus === 'cancelled');
-      toast.success(newStatus === 'cancelled' ? 'Order cancelled successfully' : 'Order reopened successfully');
+      toast.success(
+        newStatus === 'cancelled'
+          ? 'Order cancelled successfully'
+          : 'Order reopened successfully'
+      );
     } catch (error) {
-      console.error(`Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order:`, error);
-      toast.error(`Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order`);
+      console.error(
+        `Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order:`,
+        error
+      );
+      toast.error(
+        `Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order`
+      );
     } finally {
       setIsTransitioning(false);
     }
@@ -189,21 +214,27 @@ export function PaymentSection({ order }: PaymentSectionProps) {
           animate={{
             opacity: [0.3, 0.5, 0.3],
             background: isCancelled
-              ? `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace('0.3', '0.1')} 40%, transparent 70%)`
-              : `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace('0.3', '0.1')} 40%, transparent 70%)`
+              ? `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
+                  '0.3',
+                  '0.1'
+                )} 40%, transparent 70%)`
+              : `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
+                  '0.3',
+                  '0.1'
+                )} 40%, transparent 70%)`,
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: "linear",
+            ease: 'linear',
             background: {
               duration: 0.5,
-              ease: "easeInOut"
-            }
+              ease: 'easeInOut',
+            },
           }}
         />
 
-        <PaymentHeader 
+        <PaymentHeader
           isCancelled={isCancelled}
           isPaid={isPaid}
           isShipped={isShipped}
@@ -220,79 +251,81 @@ export function PaymentSection({ order }: PaymentSectionProps) {
           isInitialLoad={isInitialLoad}
           isTransitioning={isTransitioning}
         />
-        
-        {isSaving && (
-          <ProgressLine 
-            onComplete={handleProgressComplete}
-            isCancelled={order.status === 'cancelled'} 
-            isShipped={isShipped}
-          />
-        )}
 
-        {isComplete && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <SuccessAnimation 
-              onComplete={() => setIsComplete(false)}
+        <div className={isComplete ? 'pt-0' : 'pt-[164px]'}>
+          {isSaving && (
+            <ProgressLine
+              onComplete={handleProgressComplete}
               isCancelled={order.status === 'cancelled'}
               isShipped={isShipped}
             />
-          </motion.div>
-        )}
+          )}
 
-        <PaymentActions
-          isSaving={isSaving}
-          isCancelled={isCancelled}
-          isPaid={isLocked}
-          showPaymentType={showPaymentType}
-          order={order}
-          onPaymentClick={() => setShowPaymentType(true)}
-          onActionsClick={() => setShowOrderActions(true)}
-          onShippingClick={() => setShowShippingTracking(true)}
-          onReopenClick={() => handleStatusChange('pending')}
-        />
+          {isComplete && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <SuccessAnimation
+                onComplete={() => setIsComplete(false)}
+                isCancelled={order.status === 'cancelled'}
+                isShipped={isShipped}
+              />
+            </motion.div>
+          )}
 
-        {/* Additional sections */}
-        {showShippingTracking && (
-          <ShippingTrackingSection
-            onConfirm={handleShippingTrackingConfirm}
-            onCancel={() => setShowShippingTracking(false)}
+          <PaymentActions
+            isSaving={isSaving}
+            isCancelled={isCancelled}
+            isPaid={isLocked}
+            showPaymentType={showPaymentType}
+            order={order}
+            onPaymentClick={() => setShowPaymentType(true)}
+            onActionsClick={() => setShowOrderActions(true)}
+            onShippingClick={() => setShowShippingTracking(true)}
+            onReopenClick={() => handleStatusChange('pending')}
           />
-        )}
 
-        {showCheckoutLink && (
-          <CheckoutLinkSection
-            orderId={order.id}
-            onCancel={() => setShowCheckoutLink(false)}
+          {/* Additional sections */}
+          {showShippingTracking && (
+            <ShippingTrackingSection
+              onConfirm={handleShippingTrackingConfirm}
+              onCancel={() => setShowShippingTracking(false)}
+            />
+          )}
+
+          {showCheckoutLink && (
+            <CheckoutLinkSection
+              orderId={order.id}
+              onCancel={() => setShowCheckoutLink(false)}
+            />
+          )}
+
+          {showManualPayment && (
+            <ManualPaymentSection
+              onConfirm={handleManualPaymentConfirm}
+              onCancel={() => setShowManualPayment(false)}
+            />
+          )}
+
+          {/* Modals */}
+          <PaymentTypeModal
+            open={showPaymentType}
+            onOpenChange={setShowPaymentType}
+            order={order}
+            onManualPaymentSelect={() => handlePaymentTypeSelect('manual')}
+            onCheckoutLinkSelect={() => handlePaymentTypeSelect('checkout')}
           />
-        )}
 
-        {showManualPayment && (
-          <ManualPaymentSection
-            onConfirm={handleManualPaymentConfirm}
-            onCancel={() => setShowManualPayment(false)}
+          <OrderActionsModal
+            open={showOrderActions}
+            onOpenChange={setShowOrderActions}
+            order={order}
+            onStatusChange={handleStatusChange}
+            onSavingChange={setIsSaving}
           />
-        )}
-
-        {/* Modals */}
-        <PaymentTypeModal 
-          open={showPaymentType} 
-          onOpenChange={setShowPaymentType}
-          order={order}
-          onManualPaymentSelect={() => handlePaymentTypeSelect('manual')}
-          onCheckoutLinkSelect={() => handlePaymentTypeSelect('checkout')}
-        />
-
-        <OrderActionsModal
-          open={showOrderActions}
-          onOpenChange={setShowOrderActions}
-          order={order}
-          onStatusChange={handleStatusChange}
-          onSavingChange={setIsSaving}
-        />
+        </div>
       </div>
     </AnimatedContainer>
   );

@@ -10,6 +10,7 @@ import { TaxSettings } from '../components/ecommerce/tax-settings';
 import { InventorySettings } from '../components/ecommerce/inventory-settings';
 import { useEcommerceSettings } from '../hooks/use-ecommerce-settings';
 import { useEffect } from 'react';
+import Loading from '@/components/loading';
 
 export function EcommerceSettingsPage() {
   const { settings, isLoading, updateSettings } = useEcommerceSettings();
@@ -50,7 +51,11 @@ export function EcommerceSettingsPage() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (

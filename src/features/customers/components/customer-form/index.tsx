@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { Card, CardContent, CardHeader } from '@/components/ui/card'; 
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { UserCircle, BadgeCheck } from 'lucide-react';
 import { CustomerSchema } from '../../schemas/customer-schema';
 import { BasicDetails } from './sections/basic-details';
@@ -63,20 +63,23 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
   };
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col">
+    <div className="flex h-screen flex-col">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col h-full">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="flex flex-col h-full"
+        >
           {/* Header */}
-          <div className="flex items-center pl-0 pr-6 py-3 border-b sticky top-0 z-10 bg-[rgb(245,245,245)]">
+          <div className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14">
             {/* Image Placeholder */}
             <div className="relative h-16 w-16 shrink-0 rounded-lg border bg-muted overflow-hidden mr-3">
               <div className="flex h-full w-full items-center justify-center">
                 <UserCircle className="h-6 w-6 text-muted-foreground" />
               </div>
             </div>
-            
+
             {/* Title and Status */}
-            <div className="flex-1">
+            <div className="flex-1 mr-3">
               <div className="flex items-center gap-2 mb-1">
                 {isEditing ? (
                   <input
@@ -97,11 +100,13 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                   />
                 ) : (
                   <div className="flex items-center gap-2">
-                    <h1 
+                    <h1
                       className="text-2xl font-semibold tracking-tight cursor-text h-[36px] flex items-center"
                       onClick={handleStartEditing}
                     >
-                      {customerName || 'Untitled Customer'}
+                      {customerName === ' ' || customerName === ''
+                        ? 'Untitled Customer'
+                        : customerName}
                     </h1>
                     {isVerified && (
                       <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
@@ -110,16 +115,20 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                 )}
               </div>
               <div className="text-sm text-muted-foreground flex items-center gap-2">
-                {addresses.length > 0 && addresses.find(a => a.isDefault && a.type === 'shipping') ? (
+                {addresses.length > 0 &&
+                addresses.find((a) => a.isDefault && a.type === 'shipping') ? (
                   <>
                     <span>
                       {(() => {
-                        const defaultAddress = addresses.find(a => a.isDefault && a.type === 'shipping');
-                        return defaultAddress ? 
-                          `${defaultAddress.address1}, ${defaultAddress.city}, ${defaultAddress.state} ${defaultAddress.postalCode}` : '';
+                        const defaultAddress = addresses.find(
+                          (a) => a.isDefault && a.type === 'shipping'
+                        );
+                        return defaultAddress
+                          ? `${defaultAddress.address1}, ${defaultAddress.city}, ${defaultAddress.state} ${defaultAddress.postalCode}`
+                          : '';
                       })()}
                     </span>
-                    <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
+                    <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full whitespace-pre">
                       Default shipping
                     </span>
                   </>
@@ -128,10 +137,10 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                 )}
               </div>
             </div>
-            
+
             {/* Action Buttons */}
             <div className="flex items-center">
-              <ShareModal 
+              <ShareModal
                 title={customerName || 'New Customer'}
                 url={window.location.href}
               >
@@ -140,7 +149,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                   Share
                 </Button>
               </ShareModal>
-              <div className="mx-4 h-4 w-px bg-border" />
+              {/* <div className="mx-4 h-4 w-px bg-border" />
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon">
                   <MessageSquare className="h-4 w-4 text-muted-foreground" />
@@ -151,15 +160,15 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                 <Button variant="ghost" size="icon">
                   <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                 </Button>
-              </div>
-              <div className="mx-4 h-4 w-px bg-border" />
+              </div> */}
+              <div className="mx-2 h-4 w-px bg-border" />
               <Button type="submit">Save customer</Button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto move-top">
             <div className="h-full">
-              <div className="max-w-3xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
                 <BasicDetails form={form} />
                 <Addresses form={form} />
                 <Marketing form={form} />

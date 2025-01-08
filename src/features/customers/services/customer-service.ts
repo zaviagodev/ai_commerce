@@ -159,8 +159,8 @@ export class CustomerService {
           email: customer.email,
           phone: customer.phone,
           accepts_marketing: customer.acceptsMarketing,
-          accepts_marketing: customer.acceptsMarketing,
           tags: customer.tags,
+          is_verified: customer.isVerified,
           updated_at: new Date().toISOString(),
         })
         .eq('id', id)
@@ -212,45 +212,12 @@ export class CustomerService {
       }
 
       toast.success('Customer updated successfully');
-      return {
-        id: updatedCustomer.id,
-        firstName: updatedCustomer.first_name,
-        lastName: updatedCustomer.last_name,
-        email: updatedCustomer.email,
-        phone: updatedCustomer.phone,
-        isVerified: updatedCustomer.is_verified,
-        acceptsMarketing: updatedCustomer.accepts_marketing,
-        tags: updatedCustomer.tags || [],
-        addresses: (updatedCustomer.customer_addresses || []).map(address => ({
-          id: address.id,
-          type: address.type,
-          firstName: address.first_name,
-          lastName: address.last_name,
-          company: address.company,
-          address1: address.address1,
-          address2: address.address2,
-          city: address.city,
-          state: address.state,
-          postalCode: address.postal_code,
-          country: address.country,
-          phone: address.phone,
-          isDefault: address.is_default,
-          createdAt: new Date(address.created_at),
-          updatedAt: new Date(address.updated_at),
-        })),
-        createdAt: new Date(updatedCustomer.created_at),
-        updatedAt: new Date(updatedCustomer.updated_at),
-      };
+      return CustomerService.transformCustomer(updatedCustomer);
     } catch (error: any) {
       console.error('Failed to update customer:', error);
       toast.error(error.message || 'Failed to update customer');
       throw error;
     }
-  }
-
-  private static async updateCustomerAddresses(customerId: string, addresses: any[]): Promise<void> {
-    // Implementation for updating customer addresses
-    // This would handle creating, updating, and deleting addresses
   }
 
   static async checkEmailAvailability(email: string): Promise<boolean> {

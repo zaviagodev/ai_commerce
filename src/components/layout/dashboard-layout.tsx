@@ -38,8 +38,8 @@ function getBreadcrumbItems(pathname: string, productName?: string) {
         segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
       items.push({
         title: section,
-        href: `/dashboard/${segments[1]}`, 
-        current: segments.length === 2
+        href: `/dashboard/${segments[1]}`,
+        current: segments.length === 2,
       });
 
       if (segments[2]) {
@@ -54,7 +54,7 @@ function getBreadcrumbItems(pathname: string, productName?: string) {
 
         items.push({
           title,
-          current: true
+          current: true,
         });
       }
     }
@@ -134,34 +134,36 @@ export function DashboardLayout() {
             <AppSidebar />
             <SidebarInset className="flex-1 min-w-0 transition-all duration-300 ease-in-out relative">
               <div className="m-2 h-[calc(100vh-1rem)] rounded-[18px] bg-white border border-[rgb(229,230,235)] overflow-hidden flex flex-col relative">
-                <div className="flex-1 rounded-xl bg-[rgb(245,245,245)] overflow-hidden flex flex-col">
-                <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-[rgb(229,230,235)]">
-                  <div className="flex items-center gap-2">
-                    <SidebarTrigger className="-ml-1" />
-                    <Breadcrumb>
-                      <BreadcrumbList>
-                        {breadcrumbItems.map((item, index, array) => (
-                          <React.Fragment key={item.title}>
-                            <BreadcrumbItem>
-                              {item.current ? (
-                                <BreadcrumbPage>{item.title}</BreadcrumbPage>
-                              ) : (
-                                <BreadcrumbLink as={Link} to={item.href}>
-                                  {item.title}
-                                </BreadcrumbLink>
+                <div className="flex-1 rounded-xl bg-[#F3F2F7] overflow-hidden flex flex-col">
+                  <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-[rgb(229,230,235)]">
+                    <div className="flex items-center gap-2">
+                      <SidebarTrigger className="-ml-1" />
+                      <Breadcrumb>
+                        <BreadcrumbList>
+                          {breadcrumbItems.map((item, index, array) => (
+                            <React.Fragment key={item.title}>
+                              <BreadcrumbItem>
+                                {item.current ? (
+                                  <BreadcrumbPage>{item.title}</BreadcrumbPage>
+                                ) : (
+                                  <BreadcrumbLink href={item.href}>
+                                    {item.title}
+                                  </BreadcrumbLink>
+                                )}
+                              </BreadcrumbItem>
+                              {index < array.length - 1 && (
+                                <BreadcrumbSeparator />
                               )}
-                            </BreadcrumbItem>
-                            {index < array.length - 1 && <BreadcrumbSeparator />}
-                          </React.Fragment>
-                        ))}
-                      </BreadcrumbList>
-                    </Breadcrumb>
+                            </React.Fragment>
+                          ))}
+                        </BreadcrumbList>
+                      </Breadcrumb>
+                    </div>
+                    <DeveloperSwitch />
+                  </header>
+                  <div className="content-area w-full px-6 overflow-hidden top-[-56px] mb-[-56px] pb-6">
+                    <Outlet />
                   </div>
-                  <DeveloperSwitch />
-                </header>
-                <div className="content-area w-full px-6 overflow-hidden">
-                  <Outlet />
-                </div>
                 </div>
               </div>
             </SidebarInset>

@@ -37,7 +37,7 @@ export function CartSheet({ children }: CartSheetProps) {
             </p>
           </div>
         ) : (
-          <div className="flex h-full flex-col">
+          <div className="flex h-[calc(100%_-_30px)] flex-col">
             <div className="flex-1 overflow-y-auto py-6">
               <div className="space-y-6">
                 {state.items.map((item) => (

@@ -3,7 +3,14 @@ import { Order, CustomerAddress } from '@/types/order';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { formatCurrency } from '@/lib/utils';
-import { ShoppingBag, MapPin, User, Package, Clock, ChevronRight } from 'lucide-react';
+import {
+  ShoppingBag,
+  MapPin,
+  User,
+  Package,
+  Clock,
+  ChevronRight,
+} from 'lucide-react';
 
 interface TicketOverviewProps {
   order: Order;
@@ -17,12 +24,18 @@ const ORDER_STATUSES = [
   { id: 'delivered', label: 'Delivered' },
 ] as const;
 
-export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) {
+export function TicketOverview({
+  order,
+  shippingAddress,
+}: TicketOverviewProps) {
   const displayAddress = shippingAddress || order.shippingAddress;
   const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
   const orderNumber = order.id.split('-')[0].toUpperCase();
-  const currentIndex = ORDER_STATUSES.findIndex(status => status.id === order.status);
-  const nextStatus = order.status !== 'cancelled' ? ORDER_STATUSES[currentIndex + 1] : null;
+  const currentIndex = ORDER_STATUSES.findIndex(
+    (status) => status.id === order.status
+  );
+  const nextStatus =
+    order.status !== 'cancelled' ? ORDER_STATUSES[currentIndex + 1] : null;
 
   const getStatusBadge = () => {
     switch (order.status) {
@@ -50,7 +63,7 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
   };
 
   return (
-    <div className="bg-white rounded-lg border shadow-md overflow-hidden print:shadow-none">
+    <div className="bg-white rounded-sm shadow-md overflow-hidden print:shadow-none">
       {/* Header Section */}
       <div className="bg-primary/5 p-6 relative">
         <div className="flex items-center justify-between">
@@ -63,9 +76,7 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
           <div>
             <div className="relative flex items-center justify-between w-[240px] h-8">
               {/* Current Status */}
-              <div className="relative z-10">
-                {getStatusBadge()}
-              </div>
+              <div className="relative z-10">{getStatusBadge()}</div>
 
               {nextStatus && (
                 <>
@@ -74,18 +85,19 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
                     <div className="relative h-full">
                       {/* Background line */}
                       <div className="absolute inset-0 bg-blue-100" />
-                      
+
                       {/* Animated progress line */}
                       <div className="absolute h-full w-full bg-blue-50">
-                        <div 
+                        <div
                           className="absolute h-full w-8 animate-[shimmer_2s_infinite]"
                           style={{
-                            background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent)',
+                            background:
+                              'linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent)',
                           }}
                         />
                       </div>
                     </div>
-                    
+
                     {/* Chevron Icon */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-full border p-1 border-blue-200">
                       <ChevronRight className="h-2.5 w-2.5 text-blue-400 animate-pulse" />
@@ -94,8 +106,8 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
 
                   {/* Next Status */}
                   <div className="relative z-10">
-                    <Badge 
-                      variant="secondary" 
+                    <Badge
+                      variant="secondary"
                       className="flex items-center gap-1.5 bg-gray-100/50 text-gray-400"
                     >
                       <span className="relative flex h-2 w-2">
@@ -166,7 +178,8 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
                   {displayAddress.address2 && <br />}
                   {displayAddress.address2}
                   <br />
-                  {displayAddress.city}, {displayAddress.state} {displayAddress.postalCode}
+                  {displayAddress.city}, {displayAddress.state}{' '}
+                  {displayAddress.postalCode}
                   <br />
                   {displayAddress.country}
                 </div>
@@ -187,7 +200,7 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
                 key={item.id}
                 className="flex items-center gap-4 p-4 rounded-lg bg-muted/30"
               >
-                <div className="h-12 w-12 rounded-lg border bg-white overflow-hidden flex-shrink-0">
+                <div className="h-12 w-12 rounded-sm bg-white overflow-hidden flex-shrink-0">
                   {item.product?.images?.[0] ? (
                     <img
                       src={item.product.images[0].url}
@@ -202,7 +215,7 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-medium truncate">{item.name}</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm">
                     Qty: {item.quantity} × {formatCurrency(item.price)}
                   </div>
                 </div>
@@ -215,11 +228,15 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
         </div>
 
         {/* Fare Summary */}
-        <div className="mt-8 rounded-lg border p-4">
+        <div className="mt-8 rounded-sm p-4">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Items ({totalItems})</span>
-              <span className="font-mono">{formatCurrency(order.subtotal)}</span>
+              <span className="text-muted-foreground">
+                Items ({totalItems})
+              </span>
+              <span className="font-mono">
+                {formatCurrency(order.subtotal)}
+              </span>
             </div>
             {order.discount > 0 && (
               <div className="flex justify-between text-sm">
@@ -232,7 +249,9 @@ export function TicketOverview({ order, shippingAddress }: TicketOverviewProps) 
             {order.shipping > 0 && (
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>
-                <span className="font-mono">{formatCurrency(order.shipping)}</span>
+                <span className="font-mono">
+                  {formatCurrency(order.shipping)}
+                </span>
               </div>
             )}
             {order.tax > 0 && (

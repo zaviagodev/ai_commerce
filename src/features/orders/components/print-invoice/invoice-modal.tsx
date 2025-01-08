@@ -41,7 +41,7 @@ export function InvoiceModal({ order, open, onOpenChange }: InvoiceModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl print:shadow-none">
+      <DialogContent className="max-w-4xl print:shadow-none">
         <DialogHeader className="flex flex-row items-center justify-between print:hidden">
           <DialogTitle>Invoice Preview</DialogTitle>
           <div className="flex items-center gap-2">

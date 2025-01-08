@@ -43,10 +43,10 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
   const tierName = form.watch('name');
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col">
+    <div className="flex h-screen flex-col">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col h-full">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? 'Edit tier' : 'Create tier'}
@@ -65,9 +65,9 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto move-top-edit">
             <div className="h-full">
-              <div className="max-w-3xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
             {/* Basic Details Section */}
             <div className="rounded-lg border bg-white">
               <div className="flex items-center gap-4 p-6 border-b">

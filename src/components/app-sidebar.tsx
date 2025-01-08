@@ -246,7 +246,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible="icon"
-      className="overflow-hidden shrink-0 [&>[data-sidebar=sidebar]]:flex-row border-none w-[280px] transition-all duration-300 ease-in-out h-full bg-white"
+      className="overflow-hidden shrink-0 [&>[data-sidebar=sidebar]]:flex-row border-none w-[280px] transition-all duration-300 ease-in-out h-full bg-white z-[45]"
       {...props}
     >
       {/* Left sidebar */}
@@ -283,7 +283,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {/* Right sidebar is collapisble */}
       <Sidebar
         collapsible="none"
-        className="hidden h-full flex-1 md:flex bg-[hsl(0deg_0%_98.04%)]"
+        className="h-full flex-1 flex absolute md:relative top-0 ml-12 md:ml-0 bg-[hsl(0deg_0%_98.04%)] w-[calc(100%_-_48px)]"
       >
         <SidebarHeader>
           <TeamSwitcher storeName={user?.storeName || ''} />
