@@ -15,7 +15,7 @@ import {
   Settings,
   Users2,
 } from 'lucide-react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import {
   Collapsible,
@@ -73,11 +73,34 @@ export function NavMain({
         </SidebarMenuItem>
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
-            <Link to="/dashboard/teams" className="font-medium">
+            <Link to="/dashboard/settings/team" className="font-medium">
               <div className="rounded-md bg-opacity-20 p-1 bg-green-100">
                 <Users2 className="h-3.5 w-3.5 text-green-500" />
               </div>
               <span>Members</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <Link to="/dashboard/apps-store" className="font-medium">
+              <div className="rounded-md bg-opacity-20 p-1 bg-indigo-100">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-3.5 w-3.5 text-indigo-500"
+                >
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M8 12h8" />
+                  <path d="M12 8v8" />
+                </svg>
+              </div>
+              <span>Apps Store</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -107,9 +130,23 @@ export function NavMain({
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/products/categories" className="font-medium">
+                    <Link
+                      to="/dashboard/products/categories"
+                      className="font-medium"
+                    >
                       <Folder className="h-3 w-3 text-muted-foreground" />
                       <span>Categories</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link
+                      to="/dashboard/products/attributes"
+                      className="font-medium"
+                    >
+                      <Tags className="h-3 w-3 text-muted-foreground" />
+                      <span>Attributes</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -167,7 +204,10 @@ export function NavMain({
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/customers/tiers" className="font-medium">
+                    <Link
+                      to="/dashboard/customers/tiers"
+                      className="font-medium"
+                    >
                       <Crown className="h-3 w-3 text-muted-foreground" />
                       <span>Customer Tiers</span>
                     </Link>
@@ -175,7 +215,10 @@ export function NavMain({
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/customers/groups" className="font-medium">
+                    <Link
+                      to="/dashboard/customers/groups"
+                      className="font-medium"
+                    >
                       <Users className="h-3 w-3 text-muted-foreground" />
                       <span>Customer Groups</span>
                     </Link>
@@ -185,15 +228,14 @@ export function NavMain({
             </CollapsibleContent>
           </SidebarMenuItem>
         </Collapsible>
-        <Collapsible
-          asChild
-          defaultOpen={false}
-          className="group/collapsible"
-        >
+        <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Coupons" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1" style={{ backgroundColor: 'rgb(244, 114, 182, 0.2)' }}>
+                <div
+                  className="rounded-md bg-opacity-20 p-1"
+                  style={{ backgroundColor: 'rgb(244, 114, 182, 0.2)' }}
+                >
                   <Ticket className="h-3.5 w-3.5 text-pink-500" />
                 </div>
                 <span>Coupons</span>
@@ -204,7 +246,10 @@ export function NavMain({
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/coupons/campaigns" className="font-medium">
+                    <Link
+                      to="/dashboard/coupons/campaigns"
+                      className="font-medium"
+                    >
                       <Tags className="h-3 w-3 text-muted-foreground" />
                       <span>Coupon Campaign</span>
                     </Link>
@@ -215,19 +260,21 @@ export function NavMain({
           </SidebarMenuItem>
         </Collapsible>
       </SidebarMenu>
-      
+
       {/* Apps Section */}
       <SidebarGroupLabel className="mt-2">Apps</SidebarGroupLabel>
       <SidebarMenu>
-        <Collapsible
-          asChild
-          defaultOpen={false}
-          className="group/collapsible"
-        >
+        <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Event & Ticket" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1" style={{ backgroundColor: 'rgb(147, 197, 253, 0.2)' }}>
+              <SidebarMenuButton
+                tooltip="Event & Ticket"
+                className="font-medium"
+              >
+                <div
+                  className="rounded-md bg-opacity-20 p-1"
+                  style={{ backgroundColor: 'rgb(147, 197, 253, 0.2)' }}
+                >
                   <Ticket className="h-3.5 w-3.5 text-blue-500" />
                 </div>
                 <span>Event & Ticket</span>
@@ -240,7 +287,18 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/products2" className="font-medium">
                       <Ticket className="h-3 w-3 text-muted-foreground" />
-                      <span>Event & Ticket</span>
+                      <span>Events</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link
+                      to="/dashboard/products2/orders"
+                      className="font-medium"
+                    >
+                      <ShoppingCart className="h-3 w-3 text-muted-foreground" />
+                      <span>Ticket Orders</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -249,15 +307,17 @@ export function NavMain({
           </SidebarMenuItem>
         </Collapsible>
 
-        <Collapsible
-          asChild
-          defaultOpen={false}
-          className="group/collapsible"
-        >
+        <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Points & Rewards" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1" style={{ backgroundColor: 'rgb(253, 224, 71, 0.2)' }}>
+              <SidebarMenuButton
+                tooltip="Points & Rewards"
+                className="font-medium"
+              >
+                <div
+                  className="rounded-md bg-opacity-20 p-1"
+                  style={{ backgroundColor: 'rgb(253, 224, 71, 0.2)' }}
+                >
                   <Gift className="h-3.5 w-3.5 text-yellow-500" />
                 </div>
                 <span>Points & Rewards</span>
@@ -268,7 +328,10 @@ export function NavMain({
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/points/campaigns" className="font-medium">
+                    <Link
+                      to="/dashboard/points/campaigns"
+                      className="font-medium"
+                    >
                       <Trophy className="h-3 w-3 text-muted-foreground" />
                       <span>Campaigns</span>
                     </Link>
@@ -276,7 +339,10 @@ export function NavMain({
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/points/rewards" className="font-medium">
+                    <Link
+                      to="/dashboard/points/rewards"
+                      className="font-medium"
+                    >
                       <Gift className="h-3 w-3 text-muted-foreground" />
                       <span>Rewards Items</span>
                     </Link>
@@ -302,10 +368,10 @@ export function NavMain({
 function getIconColor(title: string): string {
   const colors: Record<string, string> = {
     Dashboard: '#E9F3FF', // Pastel blue
-    Products: '#FFE9EC',  // Pastel pink
+    Products: '#FFE9EC', // Pastel pink
     Customers: '#E9FFE9', // Pastel green
-    Orders: '#FFF3E9',    // Pastel orange
-    Profile: '#F3E9FF',   // Pastel purple
+    Orders: '#FFF3E9', // Pastel orange
+    Profile: '#F3E9FF', // Pastel purple
   };
   return colors[title] || '#F5F5F5';
 }
@@ -313,10 +379,10 @@ function getIconColor(title: string): string {
 function getIconTextColor(title: string): string {
   const colors: Record<string, string> = {
     Dashboard: '#4B96FF', // Blue
-    Products: '#FF4B6B',  // Pink
+    Products: '#FF4B6B', // Pink
     Customers: '#4BFF4B', // Green
-    Orders: '#FF964B',    // Orange
-    Profile: '#964BFF',   // Purple
+    Orders: '#FF964B', // Orange
+    Profile: '#964BFF', // Purple
   };
   return colors[title] || '#666666';
 }

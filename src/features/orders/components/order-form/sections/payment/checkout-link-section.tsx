@@ -9,9 +9,12 @@ interface CheckoutLinkSectionProps {
   onCancel: () => void;
 }
 
-export function CheckoutLinkSection({ orderId, onCancel }: CheckoutLinkSectionProps) {
+export function CheckoutLinkSection({
+  orderId,
+  onCancel,
+}: CheckoutLinkSectionProps) {
   const [copied, setCopied] = useState(false);
-  
+
   // Generate checkout link
   const checkoutLink = `${window.location.origin}/store/checkout/${orderId}`;
 
@@ -30,12 +33,12 @@ export function CheckoutLinkSection({ orderId, onCancel }: CheckoutLinkSectionPr
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="space-y-4 p-4 mt-4 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700"
+      className="space-y-4 p-4 m-6 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700"
     >
       <div className="space-y-2">
         <label className="text-sm text-gray-300">Checkout Link</label>
         <div className="flex gap-2">
-          <Input 
+          <Input
             value={checkoutLink}
             readOnly
             className="flex-1 bg-gray-800 border-gray-700 text-white"

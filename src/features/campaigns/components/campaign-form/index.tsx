@@ -65,7 +65,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
     <div className="space-y-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? 'Edit campaign' : 'Create campaign'}
@@ -84,7 +84,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             </div>
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid gap-6 mx-auto max-w-4xl pr-6">
             {/* Basic Details */}
             <div className="rounded-lg border bg-white">
               <div className="flex items-center gap-4 p-6 border-b">

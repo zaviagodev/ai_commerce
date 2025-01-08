@@ -1,3 +1,3 @@
-# ai_commerce
+# bolt_store
 
-[Edit in StackBlitz next generation editor ](https://stackblitz.com/~/github.com/zaviagodev/ai_commerce)
+[Edit in StackBlitz next generation editor ](https://stackblitz.com/~/github.com/umer2001/bolt_store)

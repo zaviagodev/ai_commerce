@@ -147,7 +147,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute -right-2 -top-2"
+                              className="absolute right-2 top-2"
                               onClick={() => form.setValue('promptpayQrCode', '')}
                             >
                               <X className="h-4 w-4" />

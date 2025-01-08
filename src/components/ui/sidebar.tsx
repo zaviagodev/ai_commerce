@@ -580,6 +580,7 @@ const SidebarMenuButton = React.forwardRef<
         <TooltipContent
           side="right"
           align="center"
+          sideOffset={100}
           hidden={state !== 'collapsed' || isMobile}
           {...tooltip}
         />

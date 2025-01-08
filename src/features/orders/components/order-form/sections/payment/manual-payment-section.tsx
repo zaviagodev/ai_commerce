@@ -10,7 +10,10 @@ interface ManualPaymentSectionProps {
   onCancel: () => void;
 }
 
-export function ManualPaymentSection({ onConfirm, onCancel }: ManualPaymentSectionProps) {
+export function ManualPaymentSection({
+  onConfirm,
+  onCancel,
+}: ManualPaymentSectionProps) {
   const [selectedBank, setSelectedBank] = useState<string>('');
   const [slipImage, setSlipImage] = useState<string>('');
   const [isUploading, setIsUploading] = useState(false);
@@ -41,12 +44,9 @@ export function ManualPaymentSection({ onConfirm, onCancel }: ManualPaymentSecti
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="space-y-4 p-4 mt-4 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700"
+      className="space-y-4 p-4 m-6 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700"
     >
-      <BankSelect
-        value={selectedBank}
-        onValueChange={setSelectedBank}
-      />
+      <BankSelect value={selectedBank} onValueChange={setSelectedBank} />
 
       <div className="space-y-2">
         <label className="text-sm text-gray-300">Upload Payment Slip</label>
@@ -61,7 +61,7 @@ export function ManualPaymentSection({ onConfirm, onCancel }: ManualPaymentSecti
               type="button"
               variant="ghost"
               size="icon"
-              className="absolute -right-2 -top-2 bg-gray-900/50 hover:bg-gray-900/75"
+              className="absolute right-2 top-2 bg-gray-900/50 hover:bg-gray-900/75"
               onClick={() => setSlipImage('')}
             >
               <X className="h-4 w-4" />

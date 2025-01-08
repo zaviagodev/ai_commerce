@@ -83,9 +83,57 @@
 }
 
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SF-Pro-Display-Light.woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SF-Pro-Display-Regular.woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SF-Pro-Display-Semibold.woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SFProTHDisplay_light.woff2');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SFProTHDisplay_regular.woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SFProTHDisplay_semibold.woff2');
+  font-weight: 600;
+}
+
+* {
+  font-family: 'SF Pro Display', sans-serif;
+  font-size-adjust: 0.48;
+  letter-spacing: 0.3px;
 }
 
 .animate-gradient {
@@ -105,8 +153,13 @@
 }
 
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .animate-pulse-subtle {
@@ -139,8 +192,12 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Hello SVG Animation */
@@ -190,17 +247,17 @@
 .sticky.top-0 > div {
   position: sticky;
   top: 0;
-  background: transparent !important;
-  backdrop-filter: saturate(180%) blur(10px) !important;
-  -webkit-backdrop-filter: saturate(180%) blur(10px) !important;
-  z-index: 40;
+  /* background: transparent !important; */
+  /* backdrop-filter: saturate(180%) blur(10px) !important; */
+  /* -webkit-backdrop-filter: saturate(180%) blur(10px) !important; */
+  z-index: 15;
   transition: background-color 0.2s ease;
 }
 
-.dark .sticky.top-0,
+/* .dark .sticky.top-0,
 .dark .sticky.top-0 > div {
   background: transparent !important;
-}
+} */
 
 /* Global header styles */
 header {
@@ -214,7 +271,7 @@ header {
 }
 
 /* Global content area styles */
-[class*="overflow-auto"][class*="p-"] {
+[class*='overflow-auto'][class*='p-'] {
   padding-top: 0 !important;
 }
 
@@ -222,11 +279,19 @@ header {
 .sticky.top-0.z-10 {
   position: sticky;
   top: 0;
-  background: transparent !important;
-  backdrop-filter: saturate(180%) blur(10px) !important;
-  -webkit-backdrop-filter: saturate(180%) blur(10px) !important;
+  /* background: transparent !important; */
+  backdrop-filter: saturate(180%) blur(16px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
   z-index: 40;
   transition: background-color 0.2s ease;
+}
+
+.sticky.top-0.z-10.pt-14 {
+  background: rgba(245, 245, 245, 0.5);
+}
+
+header.h-14.shrink-0 {
+  z-index: 45;
 }
 
 /* Product image section styling */
@@ -242,11 +307,14 @@ header {
 }
 
 /* Fixed height layout styles */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
+  /* overflow: hidden; */
 }
 
 /* Main layout container */
@@ -304,19 +372,41 @@ html {
 
   /* Apple-style card shadows */
   .card-shadow {
-    box-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.04), 
-      0 3px 6px rgba(0, 0, 0, 0.04), 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.04),
       0 8px 16px rgba(0, 0, 0, 0.04);
   }
 
   .card-shadow-lg {
-    box-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.02),
-      0 4px 8px rgba(0, 0, 0, 0.02),
-      0 8px 16px rgba(0, 0, 0, 0.02),
-      0 16px 32px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.02),
+      0 8px 16px rgba(0, 0, 0, 0.02), 0 16px 32px rgba(0, 0, 0, 0.02);
   }
 }
 
 /* Custom styles for specific components */
+
+.move-top {
+  @apply relative top-[-145px] pt-[145px] mb-[-145px];
+}
+
+.move-top-edit {
+  @apply relative top-[-132px] pt-[132px] mb-[-132px];
+}
+
+.store-header {
+  @apply border-b fixed top-0 left-0 bg-[rgba(245,245,245,0.67)] backdrop-blur-sm w-full;
+}
+
+@keyframes loading-anim {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.loading-anim {
+  animation: loading-anim 500ms alternate infinite;
+}

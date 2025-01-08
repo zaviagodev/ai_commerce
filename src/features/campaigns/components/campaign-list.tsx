@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus, Gift, Calendar, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import { Campaign } from '@/types/campaign';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { formatDate } from '@/lib/utils';
+import Loading from '@/components/loading';
 
 interface CampaignListProps {
   campaigns: Campaign[];
@@ -33,12 +35,21 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
   const paginatedCampaigns = paginateItems(campaigns);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Campaigns</h1>
           <p className="text-sm text-muted-foreground">
@@ -51,10 +62,15 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
             Create campaign
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
-        <Table>
+      <motion.div
+        className="rounded-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={campaigns.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Campaign</TableHead>
@@ -105,7 +121,9 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">
-                      {campaign.type === 'points_multiplier' ? 'Points Multiplier' : 'Bonus Points'}
+                      {campaign.type === 'points_multiplier'
+                        ? 'Points Multiplier'
+                        : 'Bonus Points'}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -123,11 +141,11 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-muted-foreground" />
                       <span>
-                        {campaign.targetType === 'all' 
+                        {campaign.targetType === 'all'
                           ? 'All Customers'
-                          : campaign.targetType === 'tier' 
-                            ? 'Specific Tiers'
-                            : 'Specific Groups'}
+                          : campaign.targetType === 'tier'
+                          ? 'Specific Tiers'
+                          : 'Specific Groups'}
                       </span>
                     </div>
                   </TableCell>
@@ -140,6 +158,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                           ? 'secondary'
                           : 'destructive'
                       }
+                      className="capitalize"
                     >
                       {campaign.status}
                     </Badge>
@@ -151,7 +170,12 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         </Table>
 
         {campaigns.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <motion.div
+            className="border-t p-4 bg-white rounded-b-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
@@ -160,9 +184,9 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

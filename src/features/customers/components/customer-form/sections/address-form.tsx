@@ -29,7 +29,12 @@ interface AddressFormProps {
   onCancel: () => void;
 }
 
-export function AddressForm({ address, onSave, onDelete, onCancel }: AddressFormProps) {
+export function AddressForm({
+  address,
+  onSave,
+  onDelete,
+  onCancel,
+}: AddressFormProps) {
   const form = useForm({
     resolver: zodResolver(CustomerAddressSchema),
     defaultValues: address,
@@ -37,7 +42,10 @@ export function AddressForm({ address, onSave, onDelete, onCancel }: AddressForm
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSave)}
+        className="space-y-4 overflow-auto pb-16 px-[1px]"
+      >
         <FormField
           control={form.control}
           name="type"
@@ -222,21 +230,17 @@ export function AddressForm({ address, onSave, onDelete, onCancel }: AddressForm
           )}
         />
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-white pt-6">
           {onDelete && (
-            <Button 
-              type="button" 
-              variant="destructive" 
-              onClick={onDelete}
-            >
+            <Button type="button" variant="destructive" onClick={onDelete}>
               Delete address
             </Button>
           )}
           <div className="flex gap-4">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button type="submit">Save address</Button>
+            <Button type="button" variant="outline" onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button type="submit">Save address</Button>
           </div>
         </div>
       </form>

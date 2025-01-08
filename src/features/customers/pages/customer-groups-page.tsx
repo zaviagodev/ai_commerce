@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -11,12 +12,17 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useCustomerGroups } from '../hooks/use-customer-groups';
+import Loading from '@/components/loading';
 
 export function CustomerGroupsPage() {
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   const handleDelete = async (id: string) => {
@@ -29,7 +35,12 @@ export function CustomerGroupsPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <motion.div
+        className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div>
           <h1 className="text-2xl font-semibold">Customer Groups</h1>
           <p className="text-sm text-muted-foreground">
@@ -42,9 +53,14 @@ export function CustomerGroupsPage() {
             Create group
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="rounded-lg border">
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
         <Table>
           <TableHeader>
             <TableRow>
@@ -78,7 +94,9 @@ export function CustomerGroupsPage() {
                 <TableRow key={group.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${group.color}-100`}>
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${group.color}-100`}
+                      >
                         <Users className={`h-5 w-5 text-${group.color}-600`} />
                       </div>
                       <div>
@@ -104,18 +122,17 @@ export function CustomerGroupsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={group.status === 'active' ? 'default' : 'secondary'}
+                      variant={
+                        group.status === 'active' ? 'default' : 'secondary'
+                      }
+                      className="capitalize"
                     >
                       {group.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        asChild
-                      >
+                      <Button variant="ghost" size="sm" asChild>
                         <Link to={`/dashboard/customers/groups/${group.id}`}>
                           Edit
                         </Link>
@@ -134,7 +151,7 @@ export function CustomerGroupsPage() {
             )}
           </TableBody>
         </Table>
-      </div>
+      </motion.div>
     </div>
   );
 }

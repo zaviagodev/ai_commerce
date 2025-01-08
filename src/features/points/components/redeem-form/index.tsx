@@ -32,11 +32,11 @@ export function RedeemForm({
   const customerName = form.watch('customerName');
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col">
+    <div className="flex h-screen flex-col">
       <Form {...form}>
         <form className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center pl-0 pr-6 py-3 border-b sticky top-0 z-10 bg-[rgb(245,245,245)]">
+          <div className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14">
             <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
               {/* Left Section: Title and Status */}
               <div className="flex-1 min-w-0">
@@ -59,7 +59,7 @@ export function RedeemForm({
 
           <div className="flex-1 overflow-y-auto">
             <div className="h-full">
-              <div className="max-w-3xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
                 <Tabs 
                   defaultValue="overview" 
                   className="w-full"

@@ -81,7 +81,7 @@ export function ConditionGroup({ group, isLast, onRemove, onUpdate }: ConditionG
           type="button"
           variant="ghost"
           size="icon"
-          className="absolute -right-2 -top-2"
+          className="absolute right-2 top-2"
           onClick={onRemove}
         >
           <X className="h-4 w-4" />

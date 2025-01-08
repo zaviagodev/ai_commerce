@@ -133,15 +133,15 @@ export function ProductTypeConfig({ type, product }: ProductTypeConfigProps) {
             <div className="space-y-2">
               <Label>Billing Cycle</Label>
               <div className="grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Weekly</Label>
                   <Switch />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Monthly</Label>
                   <Switch defaultChecked />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Annually</Label>
                   <Switch />
                 </div>
@@ -161,7 +161,7 @@ export function ProductTypeConfig({ type, product }: ProductTypeConfigProps) {
             <div className="space-y-2">
               <Label>Download Settings</Label>
               <div className="grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Limit Downloads</Label>
                   <Switch />
                 </div>
@@ -182,11 +182,11 @@ export function ProductTypeConfig({ type, product }: ProductTypeConfigProps) {
             <div className="space-y-2">
               <Label>Bundle Settings</Label>
               <div className="grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Allow Individual Sales</Label>
                   <Switch />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Dynamic Pricing</Label>
                   <Switch />
                 </div>
@@ -206,15 +206,15 @@ export function ProductTypeConfig({ type, product }: ProductTypeConfigProps) {
             <div className="space-y-2">
               <Label>Customization Options</Label>
               <div className="grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Text Engraving</Label>
                   <Switch />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Color Selection</Label>
                   <Switch />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
                   <Label>Size Options</Label>
                   <Switch />
                 </div>

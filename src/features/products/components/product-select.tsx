@@ -27,10 +27,11 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
   const { products, isLoading } = useProducts();
 
   // Filter active products only and match search term
-  const filteredProducts = products.filter((product) => 
-    product.status === 'active' && 
-    (product.name.toLowerCase().includes(search.toLowerCase()) ||
-     product.sku?.toLowerCase().includes(search.toLowerCase()))
+  const filteredProducts = products.filter(
+    (product) =>
+      product.status === 'active' &&
+      (product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.sku?.toLowerCase().includes(search.toLowerCase()))
   );
 
   const handleProductSelect = (product: Product) => {

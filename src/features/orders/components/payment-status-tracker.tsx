@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge'; 
+import { Badge } from '@/components/ui/badge';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
@@ -13,8 +13,12 @@ interface PaymentStatusTrackerProps {
   currentStatus: 'unpaid' | 'pending' | 'paid';
 }
 
-export function PaymentStatusTracker({ currentStatus }: PaymentStatusTrackerProps) {
-  const currentIndex = PAYMENT_STATUSES.findIndex(status => status.id === currentStatus);
+export function PaymentStatusTracker({
+  currentStatus,
+}: PaymentStatusTrackerProps) {
+  const currentIndex = PAYMENT_STATUSES.findIndex(
+    (status) => status.id === currentStatus
+  );
   const nextStatus = PAYMENT_STATUSES[currentIndex + 1];
   const currentStatusData = PAYMENT_STATUSES[currentIndex];
 
@@ -27,20 +31,21 @@ export function PaymentStatusTracker({ currentStatus }: PaymentStatusTrackerProp
         <div className="relative h-full">
           {/* Background line */}
           <div className="absolute inset-0 bg-muted" />
-          
+
           {/* Animated progress line */}
           {nextStatus && (
             <div className="absolute h-full w-full bg-gray-100">
-              <div 
+              <div
                 className="absolute h-full w-8 animate-[shimmer_2s_infinite]"
                 style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(156,163,175,0.3), transparent)',
+                  background:
+                    'linear-gradient(90deg, transparent, rgba(156,163,175,0.3), transparent)',
                 }}
               />
             </div>
           )}
         </div>
-        
+
         {/* Chevron Icon */}
         {nextStatus && (
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-full border p-1 border-gray-200">
@@ -51,11 +56,12 @@ export function PaymentStatusTracker({ currentStatus }: PaymentStatusTrackerProp
 
       {/* Current Status */}
       <div className="relative z-10">
-        <Badge 
+        <Badge
           variant={currentStatus === 'unpaid' ? 'outline' : 'default'}
-          className={cn("flex items-center gap-1.5", {
-            "border-yellow-500/50 bg-yellow-50 text-yellow-700": currentStatus === 'unpaid',
-            "bg-primary text-primary-foreground": currentStatus === 'paid'
+          className={cn('flex items-center gap-1.5', {
+            'border-yellow-500/50 bg-yellow-50 text-yellow-700':
+              currentStatus === 'unpaid',
+            'bg-primary text-primary-foreground': currentStatus === 'paid',
           })}
         >
           {currentStatus === 'unpaid' && (
@@ -71,8 +77,8 @@ export function PaymentStatusTracker({ currentStatus }: PaymentStatusTrackerProp
       {/* Next Status */}
       {nextStatus && (
         <div className="relative z-10">
-          <Badge 
-            variant="secondary" 
+          <Badge
+            variant="secondary"
             className="flex items-center gap-1.5 bg-gray-100/50 text-gray-400"
           >
             <span className="relative flex h-2 w-2">

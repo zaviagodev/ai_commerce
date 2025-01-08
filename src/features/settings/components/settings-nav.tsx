@@ -62,7 +62,7 @@ const navItems = [
 
 export function SettingsNav() {
   return (
-    <nav className="space-y-1">
+    <nav className="space-y-1 sticky top-[145px]">
       {navItems.map((item) => (
         <NavLink
           key={item.href}
