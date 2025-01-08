@@ -69,17 +69,6 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={condition.enabled}
-            onCheckedChange={(checked) =>
-              setCondition({ ...condition, enabled: checked })
-            }
-          />
-          <span className="text-sm font-medium">
-            {condition.enabled ? 'Enabled' : 'Disabled'}
-          </span>
-        </div>
         <Button
           type="button"
           variant="ghost"
