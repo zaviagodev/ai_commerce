@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { RuleElement, RuleGroup as IRuleGroup } from '@/features/campaigns/types/campaign-rules';
 
 interface ConditionGroup {
   id: string;
@@ -21,18 +22,41 @@ interface ConditionGroupProps {
   group: ConditionGroup;
   isLast: boolean;
   onRemove: () => void;
+  onUpdate: (data: Partial<RuleElement>) => void;
 }
 
-export function ConditionGroup({ group, isLast, onRemove }: ConditionGroupProps) {
-  const [rules, setRules] = useState<{ id: string }[]>([]);
-
+export function ConditionGroup({ group, isLast, onRemove, onUpdate }: ConditionGroupProps) {
   const addCondition = () => {
-    setRules([...rules, { id: crypto.randomUUID() }]);
+    const newCondition = {
+      id: crypto.randomUUID(),
+      type: 'product_purchased',
+      operator: 'equal_to',
+      value: '',
+      enabled: true,
+    };
+
+    onUpdate({
+      ...group,
+      conditions: [...group.conditions, newCondition]
+    });
   };
 
-  const removeCondition = (id: string) => {
-    setRules(rules.filter(rule => rule.id !== id));
+  const removeCondition = (conditionId: string) => {
+    onUpdate({
+      ...group,
+      conditions: group.conditions.filter(c => c.id !== conditionId)
+    });
   };
+
+  const updateCondition = (conditionId: string, data: any) => {
+    onUpdate({
+      ...group,
+      conditions: group.conditions.map(c => 
+        c.id === conditionId ? { ...c, ...data } : c
+      )
+    });
+  };
+  
 
   return (
     <div className="relative">
@@ -78,10 +102,11 @@ export function ConditionGroup({ group, isLast, onRemove }: ConditionGroupProps)
           </div>
 
           <div className="space-y-4">
-            {rules.map((rule) => (
+            {group.conditions.map((rule) => (
               <ConditionBuilder
                 key={rule.id}
-                groupId={group.id}
+                condition={rule}
+                onUpdate={(data) => updateCondition(rule.id, data)}
                 onRemove={() => removeCondition(rule.id)}
               />
             ))}
@@ -99,21 +124,6 @@ export function ConditionGroup({ group, isLast, onRemove }: ConditionGroupProps)
           </div>
         </div>
       </Card>
-
-      {/* Operator */}
-      {!isLast && (
-        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 z-10 bg-background">
-          <Select defaultValue="and">
-            <SelectTrigger className="w-[180px] border-dashed shadow-sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="and">AND</SelectItem>
-              <SelectItem value="or">OR</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { X } from 'lucide-react';
+import { CampaignCondition } from '@/features/campaigns/types/campaign-rules';
 
 interface Condition {
   id: string;
@@ -20,7 +21,8 @@ interface Condition {
 }
 
 interface ConditionBuilderProps {
-  groupId: string;
+ condition: CampaignCondition;
+  onUpdate: (data: Partial<CampaignCondition>) => void;
   onRemove: () => void;
 }
 
@@ -30,9 +32,7 @@ const CONDITION_TYPES = [
     label: 'Customer Attributes',
     options: [
       { value: 'lifetime_value', label: 'Customer Lifetime Value' },
-      { value: 'account_age', label: 'Account Creation Date' },
-      { value: 'email_domain', label: 'Email Domain' },
-      { value: 'location', label: 'Location/Country' },
+      { value: 'account_age', label: 'Account Age (days)' },
     ],
   },
   {
@@ -41,8 +41,7 @@ const CONDITION_TYPES = [
     options: [
       { value: 'order_count', label: 'Total Order Count' },
       { value: 'order_value', label: 'Order Value Range' },
-      { value: 'recent_purchase', label: 'Recent Purchase Within Days' },
-      { value: 'payment_method', label: 'Payment Method Used' },
+      { value: 'recent_purchase_within_days', label: 'Recent Purchase Within Days' },
     ],
   },
   {
@@ -52,44 +51,15 @@ const CONDITION_TYPES = [
       { value: 'first_purchase', label: 'First-time Purchase' },
       { value: 'days_since_order', label: 'Days Since Last Order' },
       { value: 'avg_order_value', label: 'Average Order Value' },
-      { value: 'purchase_frequency', label: 'Purchase Frequency' },
-    ],
-  },
-  {
-    id: 'engagement',
-    label: 'Engagement Actions',
-    options: [
-      { value: 'newsletter', label: 'Newsletter Subscription' },
-      { value: 'social_share', label: 'Social Media Share' },
-      { value: 'product_review', label: 'Product Review' },
-      { value: 'referral', label: 'Account Referral' },
     ],
   },
 ];
 
-export function ConditionBuilder({ groupId, onRemove }: ConditionBuilderProps) {
-  const [condition, setCondition] = useState<Condition>({
-    id: crypto.randomUUID(),
-    type: 'lifetime_value',
-    operator: 'greater_than',
-    value: '',
-    enabled: true,
-  });
+export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBuilderProps) {
 
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={condition.enabled}
-            onCheckedChange={(checked) =>
-              setCondition({ ...condition, enabled: checked })
-            }
-          />
-          <span className="text-sm font-medium">
-            {condition.enabled ? 'Enabled' : 'Disabled'}
-          </span>
-        </div>
+      <div className="flex items-center float-right">
         <Button
           type="button"
           variant="ghost"
@@ -105,7 +75,7 @@ export function ConditionBuilder({ groupId, onRemove }: ConditionBuilderProps) {
           <label className="text-sm font-medium">Condition Type</label>
           <Select 
             value={condition.type} 
-            onValueChange={(value) => setCondition({ ...condition, type: value })}
+            onValueChange={(value) => onUpdate({ type: value as CampaignCondition['type'] })}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select condition type" />
@@ -133,9 +103,7 @@ export function ConditionBuilder({ groupId, onRemove }: ConditionBuilderProps) {
               <label className="text-sm font-medium">Operator</label>
               <Select
                 value={condition.operator}
-                onValueChange={(value) =>
-                  setCondition({ ...condition, operator: value })
-                }
+                onValueChange={(value) => onUpdate({ operator: value as CampaignProductRule['operator'] })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select operator" />
@@ -152,9 +120,7 @@ export function ConditionBuilder({ groupId, onRemove }: ConditionBuilderProps) {
               <label className="text-sm font-medium">Value</label>
               <Input
                 value={condition.value}
-                onChange={(e) =>
-                  setCondition({ ...condition, value: e.target.value || '' })
-                }
+                onChange={(e) => onUpdate({ value: e.target.value })}
                 placeholder="Enter value"
               />
             </div>

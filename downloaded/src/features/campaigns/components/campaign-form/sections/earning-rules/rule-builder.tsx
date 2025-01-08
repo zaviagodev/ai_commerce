@@ -1,41 +1,120 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Campaign } from '@/types/campaign';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-import { ConditionGroup } from './condition-group';
-import { useState } from 'react';
+import { UseFormReturn } from "react-hook-form";
+import { Campaign } from "@/types/campaign";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { ConditionGroup } from "./condition-group";
+import { useEffect, useState } from "react";
+import {
+  GroupOperator,
+  RuleElement,
+} from "@/features/campaigns/types/campaign-rules";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface RuleBuilderProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function RuleBuilder({ form }: RuleBuilderProps) {
-  const [groups, setGroups] = useState([{ id: '1', operator: 'and', rules: [] }]);
+  const [groups, setGroups] = useState<RuleElement[]>(
+    form.getValues("conditions") || []
+  );
+
+  useEffect(() => {
+    form.setValue("conditions", groups);
+  }, [groups, form]);
 
   const addGroup = () => {
-    setGroups([...groups, { id: crypto.randomUUID(), operator: 'and', rules: [] }]);
+    const newGroup: RuleElement = {
+      id: crypto.randomUUID(),
+      type: "group",
+      match: "all",
+      conditions: [],
+    };
+
+    // If there are existing groups, add an operator
+    if (groups.length > 0) {
+      const operator: GroupOperator = {
+        id: crypto.randomUUID(),
+        type: "group_operator",
+        operator: "AND",
+      };
+      setGroups([...groups, operator, newGroup]);
+    } else {
+      setGroups([newGroup]);
+    }
   };
 
   const removeGroup = (groupId: string) => {
-    setGroups(groups.filter(group => group.id !== groupId));
+    const index = groups.findIndex((g) => g.id === groupId);
+    if (index === -1) return;
+
+    const newGroups = [...groups];
+
+    // If this is not the first group, also remove the operator before it
+    if (index > 0) {
+      newGroups.splice(index - 1, 2);
+    } else if (newGroups.length > 1) {
+      // If this is the first group but not the only one, remove the operator after it
+      newGroups.splice(0, 2);
+    } else {
+      // If this is the only group
+      newGroups.splice(0, 1);
+    }
+
+    setGroups(newGroups);
+  };
+
+  const updateGroup = (groupId: string, data: Partial<RuleElement>) => {
+    setGroups(
+      groups.map((group) =>
+        group.id === groupId ? { ...group, ...data } : group
+      )
+    );
+  };
+
+  const updateOperator = (operatorId: string, newOperator: "AND" | "OR") => {
+    setGroups(
+      groups.map((element) =>
+        element.id === operatorId && element.type === "group_operator"
+          ? { ...element, operator: newOperator }
+          : element
+      )
+    );
   };
 
   return (
     <div className="space-y-6">
-      {/* Visual connection to conditions */}
-      <div className="relative">
-        <div className="absolute -top-8 left-1/2 h-8 w-px bg-border" />
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-border bg-background" />
-      </div>
-
-      {groups.map((group, index) => (
-        <div key={group.id} className="relative">
-          <ConditionGroup
-            group={group}
-            isLast={index === groups.length - 1}
-            onRemove={() => removeGroup(group.id)}
-          />
-          {index < groups.length - 1 && <div className="h-16" />}
+      {groups.map((element, index) => (
+        <div key={element.id}>
+          {element.type === "group" ? (
+            <ConditionGroup
+              group={element}
+              isLast={index === groups.length - 1}
+              onRemove={() => removeGroup(element.id)}
+              onUpdate={(data) => updateGroup(element.id, data)}
+            />
+          ) : (
+            <Select
+              value={element.operator}
+              onValueChange={(value) =>
+                updateOperator(element.id, value as "AND" | "OR")
+              }
+            >
+              <SelectTrigger className="w-[180px] mx-auto border-dashed shadow-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="AND">AND</SelectItem>
+                <SelectItem value="OR">OR</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
         </div>
       ))}
 
