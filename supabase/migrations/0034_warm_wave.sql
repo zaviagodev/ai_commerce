@@ -16,28 +16,39 @@ ALTER TABLE products
   ADD COLUMN IF NOT EXISTS has_variants boolean DEFAULT false,
   ADD COLUMN IF NOT EXISTS variant_options jsonb DEFAULT '[]'::jsonb;
 
--- Add check constraint for variant_options structure
-ALTER TABLE products
-  ADD CONSTRAINT valid_variant_options CHECK (
-    variant_options IS NULL OR (
-      jsonb_typeof(variant_options) = 'array' AND
-      (
-        SELECT bool_and(
-          jsonb_typeof(opt) = 'object' AND
-          opt ? 'id' AND
-          opt ? 'name' AND
-          opt ? 'values' AND
-          opt ? 'position' AND
-          jsonb_typeof(opt->'values') = 'array'
-        )
-        FROM jsonb_array_elements(variant_options) opt
-      )
-    )
-  );
-
 -- Add index for variant queries
 CREATE INDEX IF NOT EXISTS products_has_variants_idx ON products(has_variants) WHERE has_variants = true;
 
 -- Add helpful comment
 COMMENT ON COLUMN products.has_variants IS 'Indicates if the product has multiple variants';
 COMMENT ON COLUMN products.variant_options IS 'Configuration for variant options (e.g., size, color)';
+
+-- Create function to validate variant_options
+CREATE OR REPLACE FUNCTION validate_variant_options()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.variant_options IS NOT NULL THEN
+    PERFORM bool_and(
+      jsonb_typeof(opt) = 'object' AND
+      opt ? 'id' AND
+      opt ? 'name' AND
+      opt ? 'values' AND
+      opt ? 'position' AND
+      jsonb_typeof(opt->'values') = 'array'
+    )
+    FROM jsonb_array_elements(NEW.variant_options) opt;
+
+    -- If the validation fails, raise an error
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'Invalid structure for variant_options';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Attach trigger to enforce validation
+CREATE TRIGGER validate_variant_options_trigger
+BEFORE INSERT OR UPDATE ON products
+FOR EACH ROW
+EXECUTE FUNCTION validate_variant_options();
