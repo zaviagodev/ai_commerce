@@ -48,6 +48,10 @@ find . -not -path "./.git/*" -not -path "./$BOLT_CODE_DIR/*" -delete
 echo "Copying Bolt.new code into the repository..."
 cp -r $BOLT_CODE_DIR/* $PROJECT_DIR
 
+# clear the $BOLT_CODE_DIR directory
+rm -rf $BOLT_CODE_DIR
+mkdir $BOLT_CODE_DIR
+
 # Add, commit, and push changes
 echo "Staging and committing changes..."
 git add .
@@ -66,7 +70,3 @@ echo "Pushing changes to GitHub..."
 git push origin $CURRENT_BRANCH
 
 echo "updated $CURRENT_BRANCH with the latest changes from Bolt.new"
-
-# clear the $BOLT_CODE_DIR directory
-rm -rf $BOLT_CODE_DIR
-mkdir $BOLT_CODE_DIR
