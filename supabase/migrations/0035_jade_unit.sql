@@ -28,9 +28,3 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
--- Attach trigger to enforce validation
-CREATE TRIGGER validate_variant_options_trigger
-BEFORE INSERT OR UPDATE ON products
-FOR EACH ROW
-EXECUTE FUNCTION validate_variant_options();
