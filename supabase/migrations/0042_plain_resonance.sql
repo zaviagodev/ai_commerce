@@ -58,52 +58,85 @@ CREATE INDEX IF NOT EXISTS campaign_redemptions_store_idx ON campaign_redemption
 ALTER TABLE campaigns ENABLE ROW LEVEL SECURITY;
 ALTER TABLE campaign_redemptions ENABLE ROW LEVEL SECURITY;
 
--- Create policies for campaigns
-CREATE POLICY "Users can manage their store's campaigns"
-  ON campaigns
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.store_name = campaigns.store_name
-      AND profiles.id = auth.uid()
+-- Create or update policies for campaigns
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'campaigns'
+      AND policyname = 'Users can manage their store''s campaigns'
+  ) THEN
+    CREATE POLICY "Users can manage their store's campaigns"
+    ON campaigns
+    USING (
+      EXISTS (
+        SELECT 1 FROM profiles
+        WHERE profiles.store_name = campaigns.store_name
+        AND profiles.id = auth.uid()
+      )
     )
-  )
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.store_name = campaigns.store_name
-      AND profiles.id = auth.uid()
-    )
-  );
+    WITH CHECK (
+      EXISTS (
+        SELECT 1 FROM profiles
+        WHERE profiles.store_name = campaigns.store_name
+        AND profiles.id = auth.uid()
+      )
+    );
+  END IF;
+END $$;
 
-CREATE POLICY "Public users can view active campaigns"
-  ON campaigns
-  FOR SELECT
-  USING (
-    status IN ('active', 'scheduled') AND
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.store_name = campaigns.store_name
-    )
-  );
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'campaigns'
+      AND policyname = 'Public users can view active campaigns'
+  ) THEN
+    CREATE POLICY "Public users can view active campaigns"
+    ON campaigns
+    FOR SELECT
+    USING (
+      status IN ('active', 'scheduled') AND
+      EXISTS (
+        SELECT 1 FROM profiles
+        WHERE profiles.store_name = campaigns.store_name
+      )
+    );
+  END IF;
+END $$;
 
--- Create policies for campaign redemptions
-CREATE POLICY "Users can manage their store's redemptions"
-  ON campaign_redemptions
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.store_name = campaign_redemptions.store_name
-      AND profiles.id = auth.uid()
+-- Create or update policies for campaign redemptions
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'campaign_redemptions'
+      AND policyname = 'Users can manage their store''s redemptions'
+  ) THEN
+    CREATE POLICY "Users can manage their store's redemptions"
+    ON campaign_redemptions
+    USING (
+      EXISTS (
+        SELECT 1 FROM profiles
+        WHERE profiles.store_name = campaign_redemptions.store_name
+        AND profiles.id = auth.uid()
+      )
     )
-  )
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.store_name = campaign_redemptions.store_name
-      AND profiles.id = auth.uid()
-    )
-  );
+    WITH CHECK (
+      EXISTS (
+        SELECT 1 FROM profiles
+        WHERE profiles.store_name = campaign_redemptions.store_name
+        AND profiles.id = auth.uid()
+      )
+    );
+  END IF;
+END $$;
 
 -- Grant permissions
 GRANT ALL ON TABLE campaigns TO authenticated;
