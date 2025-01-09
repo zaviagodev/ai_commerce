@@ -102,6 +102,5 @@ export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
         </Select>
       </div>
     </div>
-      </div>
   );
 }
