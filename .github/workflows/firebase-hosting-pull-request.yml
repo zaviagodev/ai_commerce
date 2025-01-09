@@ -11,9 +11,23 @@ jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+      VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      SUPABASE_DATABASE_PASSWORD: ${{ secrets.SUPABASE_DATABASE_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
+      - run: npm install
+
+      - name: Supabase migration
+        run: npx supabase migration up --linked --project-ref $PROJECT_ID
+
+      - name: Build
+        run: npm run build
+        
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
