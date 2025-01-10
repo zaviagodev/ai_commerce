@@ -13,6 +13,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { useCustomerGroups } from '../hooks/use-customer-groups';
 import Loading from '@/components/loading';
+import { cn } from '@/lib/utils';
 
 export function CustomerGroupsPage() {
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
@@ -114,7 +115,7 @@ export function CustomerGroupsPage() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{group.members?.length || 0} members</TableCell>
+                  <TableCell>{group.members?.length || 0} member{group.members?.length === 1 ? "" : "s"}</TableCell>
                   <TableCell>
                     <Badge variant={group.autoAssign ? 'default' : 'secondary'}>
                       {group.autoAssign ? 'Enabled' : 'Disabled'}
@@ -122,23 +123,23 @@ export function CustomerGroupsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        group.status === 'active' ? 'default' : 'secondary'
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-600": group.status === "active",
+                        "!bg-gray-100 !text-gray-600": group.status === "inactive"
+                      })}
                     >
                       {group.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button variant="secondary" size="sm" asChild>
                         <Link to={`/dashboard/customers/groups/${group.id}`}>
                           Edit
                         </Link>
                       </Button>
                       <Button
-                        variant="ghost"
+                        variant="destructive"
                         size="sm"
                         onClick={() => handleDelete(group.id)}
                       >

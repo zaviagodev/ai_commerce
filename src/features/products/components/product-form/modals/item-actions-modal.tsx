@@ -53,7 +53,7 @@ export function ItemActionsModal({
           <DialogHeader>
             <DialogTitle>Item Actions</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
+          <div className="grid gap-4">
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"

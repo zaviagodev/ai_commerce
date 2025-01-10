@@ -68,7 +68,7 @@ export function ShareModal({ children, title, url, image }: ShareModalProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent 
-        className="sm:max-w-md top-[10%] translate-y-0" 
+        className="sm:max-w-md" 
         aria-labelledby="share-dialog-title"
       >
         <DialogHeader className="flex flex-row items-start gap-4">

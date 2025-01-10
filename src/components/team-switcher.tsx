@@ -44,7 +44,7 @@ export function TeamSwitcher({
                 <span className="truncate font-semibold">
                   {displayName}
                 </span>
-                <span className="truncate text-[10px]">Store</span>
+                <span className="truncate text-[11px]">Store</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>

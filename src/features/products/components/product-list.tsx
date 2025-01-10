@@ -121,7 +121,12 @@ export function ProductList({
 
   const handleBulkCategoryChange = async (categoryId: string) => {
     // TODO: Implement bulk category change
-    setShowCategoryDialog(false);
+    setIsUpdating(true);
+    try {
+      setShowCategoryDialog(false);
+    } finally {
+      setIsUpdating(false)
+    }
   };
 
   if (isLoading) {
@@ -200,7 +205,7 @@ export function ProductList({
         <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              {isBulkMode && (
+              {(isBulkMode && paginatedProducts.length > 0) && (
                 <TableHead className="w-[50px]">
                   <Checkbox
                     checked={selectedCount === paginatedProducts.length}
@@ -218,7 +223,7 @@ export function ProductList({
           <TableBody>
             {products.length === 0 || paginatedProducts.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center">
+                <TableCell colSpan={isBulkMode ? 6 : 5} className="text-center">
                   <div className="py-12">
                     <p className="text-lg font-medium">No products found</p>
                     <p className="text-sm text-muted-foreground">
@@ -238,6 +243,14 @@ export function ProductList({
                 const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
                 return (
                 <TableRow key={product.id}>
+                  {isBulkMode && (
+                    <TableCell>
+                      <Checkbox
+                        checked={isSelected(product.id)}
+                        onCheckedChange={() => toggleSelection(product.id)}
+                      />
+                    </TableCell>
+                  )}
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -272,14 +285,11 @@ export function ProductList({
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        product.status === 'active'
-                          ? 'default'
-                          : product.status === 'draft'
-                          ? 'secondary'
-                          : 'destructive'
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-600": product.status === 'active',
+                        "!bg-red-100 !text-red-600": product.status === 'archived',
+                        "!bg-gray-100 !text-gray-600": product.status === 'draft',
+                      })}
                     >
                       {product.status}
                     </Badge>

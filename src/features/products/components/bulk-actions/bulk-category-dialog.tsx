@@ -32,14 +32,14 @@ export function BulkCategoryDialog({
   isUpdating,
 }: BulkCategoryDialogProps) {
   const { categories } = useCategories();
-
+  const handleCloseModal = () => onOpenChange(false);
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Change Category</DialogTitle>
           <DialogDescription>
-            Update category for {selectedCount} selected products
+            Update category for {selectedCount} selected product{selectedCount === 1 ? "" : "s"}
           </DialogDescription>
         </DialogHeader>
 
@@ -61,7 +61,7 @@ export function BulkCategoryDialog({
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => onOpenChange(false)}
+            onClick={handleCloseModal}
             disabled={isUpdating}
           >
             Cancel

@@ -49,7 +49,7 @@ export function PaymentTypeModal({
         <DialogHeader>
           <DialogTitle>Select Payment Type</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4">
           <Button
             variant="outline"
             className="flex items-start gap-4 h-auto p-4 justify-start"

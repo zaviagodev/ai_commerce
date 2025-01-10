@@ -69,8 +69,8 @@ export function SettingsNav() {
           to={item.href}
           className={({ isActive }) =>
             cn(
-              'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-accent',
-              isActive ? 'bg-accent' : 'transparent'
+              'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-darkgray/10',
+              isActive ? 'bg-darkgray/10' : 'transparent'
             )
           }
         >

@@ -21,7 +21,7 @@ export function StatusTabs({
   counts,
 }: StatusTabsProps) {
   return (
-    <div className="flex space-x-1 rounded-lg bg-muted p-1 w-full">
+    <div className="flex space-x-1 rounded-lg bg-muted p-1 w-fit">
       {STATUSES.map((status) => (
         <button
           key={status.value}
@@ -38,7 +38,7 @@ export function StatusTabs({
           {status.value === 'all' ? (
             <span
               className={cn(
-                'ml-1.5 rounded-full px-1.5 py-0.5 text-xs',
+                'ml-1.5 rounded-full px-1.5 text-xs',
                 selectedStatus === status.value
                   ? 'bg-primary/10 text-primary'
                   : 'bg-muted-foreground/20 text-muted-foreground'

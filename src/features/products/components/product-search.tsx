@@ -25,7 +25,7 @@ export function ProductSearch({
     setIsExpanded(true);
     setTimeout(() => {
       setIsOpening(false);
-    }, 300);
+    }, 200);
   };
 
   const handleCloseSearch = () => {
@@ -34,7 +34,7 @@ export function ProductSearch({
       onChange('');
       setIsExpanded(false);
       setIsClosing(false);
-    }, 300);
+    }, 200);
   };
 
   return (
@@ -46,6 +46,7 @@ export function ProductSearch({
             initial={{ width: 36, opacity: 0 }}
             animate={{ width: isClosing ? 36 : 250, opacity: 1 }}
             exit={{ width: 36, opacity: 0 }}
+            transition={{ duration:0.2 }}
             className="flex items-center justify-end"
           >
             <Input
@@ -53,7 +54,7 @@ export function ProductSearch({
               placeholder={placeholder || 'Search products...'}
               value={value}
               onChange={(e) => onChange(e.target.value)}
-              className={cn('pr-7 transition-all duration-300', {
+              className={cn('pr-7 transition-all duration-200', {
                 'placeholder:opacity-0': isOpening || isClosing,
               })}
               onKeyDown={(e) => {

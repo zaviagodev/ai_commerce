@@ -125,7 +125,7 @@ export function TemplateModal({ children, onSelect }: TemplateModalProps) {
             Choose Template
           </DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4">
           {TEMPLATES.map((template) => {
             const Icon = template.icon;
             return (

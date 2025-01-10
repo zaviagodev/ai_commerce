@@ -52,7 +52,7 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
           <DialogHeader>
             <DialogTitle>Product Actions</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
+          <div className="grid gap-4">
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"

@@ -124,7 +124,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                     No customers found
                   </div>
                 )}
-                <div className="p-2 border-t">
+                <div className="pt-4 border-t">
                   <Button
                     variant="outline"
                     className="w-full justify-start"
