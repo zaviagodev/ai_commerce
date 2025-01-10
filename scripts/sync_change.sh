@@ -46,7 +46,11 @@ find . -not -path "./.git/*" -not -path "./$BOLT_CODE_DIR/*" -delete
 
 # Copy downloaded Bolt.new code into the repository
 echo "Copying Bolt.new code into the repository..."
-cp -r $BOLT_CODE_DIR/* $PROJECT_DIR
+cp -r $BOLT_CODE_DIR/* .* $PROJECT_DIR
+
+# clear the $BOLT_CODE_DIR directory
+rm -rf $BOLT_CODE_DIR
+mkdir $BOLT_CODE_DIR
 
 # clear the $BOLT_CODE_DIR directory
 rm -rf $BOLT_CODE_DIR
