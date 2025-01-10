@@ -105,7 +105,7 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="grid lg:grid-cols-2 items-center gap-4 mb-4 w-full">
+        <div className="flex justify-between items-center gap-4 mb-4 w-full">
           <StatusTabs
             selectedStatus={selectedStatus}
             onStatusChange={setSelectedStatus}

@@ -24,7 +24,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] p-0 gap-0 top-[10%] translate-y-0" aria-labelledby="tier-selector-title">
+      <DialogContent className="sm:max-w-[600px] p-0 gap-0" aria-labelledby="tier-selector-title">
         <DialogHeader className="px-6 py-4 border-b">
           <DialogTitle id="tier-selector-title">Select Customer Tier</DialogTitle>
         </DialogHeader>
@@ -55,7 +55,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
                         {getTierIcon(tier.name)}
                       </div>
                       <div>
-                        <h3 className="font-medium text-xl text-white tracking-tight">{tier.name}</h3>
+                        <h3 className="font-medium text-xl text-white tracking-tight text-left">{tier.name}</h3>
                         <p className="text-sm text-white/80 font-light">Membership</p>
                       </div>
                     </div>

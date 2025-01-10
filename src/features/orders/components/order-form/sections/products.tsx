@@ -143,7 +143,7 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
                 <Input
                   type="number"
                   min="1"
-                  className="w-20 text-center"
+                  className="w-10 text-center bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   value={item.quantity}
                   onChange={(e) => updateQuantity(index, parseInt(e.target.value) || 1)}
                 />

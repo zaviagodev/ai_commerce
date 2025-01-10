@@ -135,4 +135,25 @@ export class ProductService {
       throw error;
     }
   }
+
+  static async deleteProduct(id: string): Promise<void> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error('Store not found');
+
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', id)
+        .eq('store_name', user.storeName);
+
+      if (error) throw error;
+
+      toast.success('Product deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete product:', error);
+      toast.error('Failed to delete product');
+      throw error;
+    }
+  }
 }

@@ -146,9 +146,9 @@ export function DashboardLayout() {
                                 {item.current ? (
                                   <BreadcrumbPage>{item.title}</BreadcrumbPage>
                                 ) : (
-                                  <BreadcrumbLink href={item.href}>
+                                  <Link to={item.href as string}>
                                     {item.title}
-                                  </BreadcrumbLink>
+                                  </Link>
                                 )}
                               </BreadcrumbItem>
                               {index < array.length - 1 && (

@@ -24,6 +24,7 @@ export function BulkDeleteDialog({
   onConfirm,
   isDeleting,
 }: BulkDeleteDialogProps) {
+  const handleCloseModal = () => onOpenChange(false);
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -33,7 +34,7 @@ export function BulkDeleteDialog({
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div>
-              <DialogTitle>Delete Products</DialogTitle>
+              <DialogTitle>Delete Product{selectedCount === 1 ? "" : "s"}</DialogTitle>
               <DialogDescription>
                 This action cannot be undone
               </DialogDescription>
@@ -44,7 +45,7 @@ export function BulkDeleteDialog({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              Are you sure you want to delete {selectedCount} selected products? This will permanently remove them from your store.
+              Are you sure you want to delete {selectedCount} selected product{selectedCount === 1 ? "" : "s"}? This will permanently remove {selectedCount === 1 ? "it" : "them"} from your store.
             </p>
           </div>
         </div>
@@ -52,7 +53,7 @@ export function BulkDeleteDialog({
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => onOpenChange(false)}
+            onClick={handleCloseModal}
             disabled={isDeleting}
           >
             Cancel
@@ -62,7 +63,7 @@ export function BulkDeleteDialog({
             onClick={onConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? 'Deleting...' : 'Delete Products'}
+            {isDeleting ? 'Deleting...' : `Delete Product${selectedCount === 1 ? "" : "s"}`}
           </Button>
         </DialogFooter>
       </DialogContent>

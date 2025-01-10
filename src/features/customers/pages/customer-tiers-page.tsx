@@ -13,6 +13,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { useCustomerTiers } from '../hooks/use-customer-tiers';
 import Loading from '@/components/loading';
+import { cn } from '@/lib/utils';
 
 export function CustomerTiersPage() {
   const { tiers, isLoading } = useCustomerTiers();
@@ -123,10 +124,10 @@ export function CustomerTiersPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        tier.status === 'active' ? 'default' : 'secondary'
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-600": tier.status === "active",
+                        "!bg-gray-100 !text-gray-600": tier.status === "inactive"
+                      })}
                     >
                       {tier.status}
                     </Badge>

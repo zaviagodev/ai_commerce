@@ -213,11 +213,11 @@ export function ProductForm({
                           <Badge
                             variant="secondary"
                             className={cn('whitespace-nowrap gap-2', {
-                              'bg-green-200 text-green-700':
+                              '!bg-green-200 text-green-700':
                                 initialData.status === 'active',
-                              'bg-red-200 text-red-700':
+                              '!bg-red-200 text-red-700':
                                 initialData.status === 'archived',
-                              'bg-gray-200 text-gray-700':
+                              '!bg-gray-200 text-gray-700':
                                 initialData.status === 'draft',
                             })}
                           >
@@ -226,11 +226,11 @@ export function ProductForm({
                                 className={cn(
                                   'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
                                   {
-                                    'bg-green-400':
+                                    '!bg-green-400':
                                       initialData.status === 'active',
-                                    'bg-red-400':
+                                    '!bg-red-400':
                                       initialData.status === 'archived',
-                                    'bg-gray-400':
+                                    '!bg-gray-400':
                                       initialData.status === 'draft',
                                   }
                                 )}
@@ -239,11 +239,11 @@ export function ProductForm({
                                 className={cn(
                                   'relative inline-flex h-1.5 w-1.5 rounded-full',
                                   {
-                                    'bg-green-500':
+                                    '!bg-green-500':
                                       initialData.status === 'active',
-                                    'bg-red-500':
+                                    '!bg-red-500':
                                       initialData.status === 'archived',
-                                    'bg-gray-500':
+                                    '!bg-gray-500':
                                       initialData.status === 'draft',
                                   }
                                 )}
