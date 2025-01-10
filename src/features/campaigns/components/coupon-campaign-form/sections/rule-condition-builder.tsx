@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 import {
   Select,
   SelectContent,
@@ -42,33 +41,20 @@ const CONDITION_TYPES = [
 ] as const;
 
 interface RuleConditionBuilderProps {
-  groupId: string;
+  condition: {
+    id: string;
+    type: string;
+    operator: string;
+    value: string;
+  };
+  onUpdate: (data: any) => void;
   onRemove: () => void;
 }
 
-export function RuleConditionBuilder({ groupId, onRemove }: RuleConditionBuilderProps) {
-  const [condition, setCondition] = useState({
-    id: crypto.randomUUID(),
-    type: '',
-    operator: 'greater_than',
-    value: '',
-    enabled: true,
-  });
-
+export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleConditionBuilderProps) {
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={condition.enabled}
-            onCheckedChange={(checked) =>
-              setCondition({ ...condition, enabled: checked })
-            }
-          />
-          <span className="text-sm font-medium">
-            {condition.enabled ? 'Enabled' : 'Disabled'}
-          </span>
-        </div>
+      <div className="flex items-center float-right">
         <Button
           type="button"
           variant="ghost"
@@ -84,7 +70,7 @@ export function RuleConditionBuilder({ groupId, onRemove }: RuleConditionBuilder
           <label className="text-sm font-medium">Condition Type</label>
           <Select 
             value={condition.type} 
-            onValueChange={(value) => setCondition({ ...condition, type: value })}
+            onValueChange={(value) => onUpdate({ type: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select condition type" />
@@ -106,15 +92,13 @@ export function RuleConditionBuilder({ groupId, onRemove }: RuleConditionBuilder
           </Select>
         </div>
 
-        {condition.type && (
+        {condition.type && condition.type !== 'first_purchase' && (
           <>
             <div className="grid gap-2">
               <label className="text-sm font-medium">Operator</label>
               <Select
                 value={condition.operator}
-                onValueChange={(value) =>
-                  setCondition({ ...condition, operator: value })
-                }
+                onValueChange={(value) => onUpdate({ operator: value })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select operator" />
@@ -129,13 +113,48 @@ export function RuleConditionBuilder({ groupId, onRemove }: RuleConditionBuilder
 
             <div className="grid gap-2">
               <label className="text-sm font-medium">Value</label>
-              <Input
-                value={condition.value}
-                onChange={(e) =>
-                  setCondition({ ...condition, value: e.target.value })
-                }
-                placeholder="Enter value"
-              />
+              {condition.type === 'cart_total' ? (
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    $
+                  </span>
+                  <Input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    className="pl-8"
+                    value={condition.value}
+                    onChange={(e) => onUpdate({ value: e.target.value })}
+                  />
+                </div>
+              ) : condition.type === 'product_quantity' ? (
+                <Input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={condition.value}
+                  onChange={(e) => onUpdate({ value: e.target.value })}
+                />
+              ) : condition.type === 'customer_group' ? (
+                <Select
+                  value={condition.value}
+                  onValueChange={(value) => onUpdate({ value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="vip">VIP Customers</SelectItem>
+                    <SelectItem value="wholesale">Wholesale</SelectItem>
+                    <SelectItem value="new">New Customers</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  value={condition.value}
+                  onChange={(e) => onUpdate({ value: e.target.value })}
+                />
+              )}
             </div>
           </>
         )}

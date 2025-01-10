@@ -13,36 +13,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-
-// Mock data for development
-const MOCK_COUPONS = [
-  {
-    id: '1',
-    code: 'SUMMER2024',
-    description: 'Summer Sale Discount',
-    type: 'percentage',
-    value: 20,
-    status: 'active',
-    usageLimit: 100,
-    usageCount: 45,
-    startDate: new Date('2024-06-01'),
-    endDate: new Date('2024-08-31'),
-  },
-  {
-    id: '2',
-    code: 'WELCOME50',
-    description: 'New Customer Discount',
-    type: 'fixed',
-    value: 50,
-    status: 'scheduled',
-    usageLimit: 200,
-    usageCount: 0,
-    startDate: new Date('2024-07-01'),
-    endDate: new Date('2024-07-31'),
-  },
-];
+import { useCoupons } from '../hooks/use-coupons';
+import Loading from '@/components/loading';
 
 export function CouponCampaignsPage() {
+  const { coupons, isLoading } = useCoupons();
   const {
     pageIndex,
     pageSize,
@@ -52,7 +27,15 @@ export function CouponCampaignsPage() {
     pageCount,
   } = usePagination();
 
-  const paginatedCoupons = paginateItems(MOCK_COUPONS);
+  const paginatedCoupons = paginateItems(coupons);
+
+  if (isLoading) {
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -137,7 +120,11 @@ export function CouponCampaignsPage() {
                     <Badge variant="secondary">
                       {coupon.type === 'percentage'
                         ? `${coupon.value}% off`
-                        : `$${coupon.value} off`}
+                        : coupon.type === 'fixed'
+                        ? `$${coupon.value} off`
+                        : coupon.type === 'shipping'
+                        ? 'Free Shipping'
+                        : `${coupon.value}x Points`}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -146,7 +133,7 @@ export function CouponCampaignsPage() {
                       <p className="text-muted-foreground">
                         {coupon.usageLimit
                           ? `${coupon.usageLimit} ${
-                              coupon.usageLimit == 1 ? 'limit' : 'limits'
+                              coupon.usageLimit === 1 ? 'limit' : 'limits'
                             }`
                           : 'Unlimited'}
                       </p>
@@ -180,7 +167,7 @@ export function CouponCampaignsPage() {
           </TableBody>
         </Table>
 
-        {MOCK_COUPONS.length > 0 && (
+        {coupons.length > 0 && (
           <motion.div
             className="border-t p-4 bg-white rounded-b-lg"
             initial={{ opacity: 0 }}
@@ -190,8 +177,8 @@ export function CouponCampaignsPage() {
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
-              pageCount={pageCount(MOCK_COUPONS.length)}
-              totalItems={MOCK_COUPONS.length}
+              pageCount={pageCount(coupons.length)}
+              totalItems={coupons.length}
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />

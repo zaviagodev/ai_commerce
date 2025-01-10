@@ -13,25 +13,48 @@ import {
 
 interface RuleGroup {
   id: string;
-  operator: string;
-  rules: { id: string }[];
+  type: 'group';
+  match: 'all' | 'any';
+  conditions: any[];
 }
 
 interface RuleGroupProps {
   group: RuleGroup;
   isLast: boolean;
   onRemove: () => void;
+  onUpdate: (data: Partial<RuleGroup>) => void;
 }
 
-export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
-  const [rules, setRules] = useState<{ id: string }[]>([]);
-
+export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps) {
   const addCondition = () => {
-    setRules([...rules, { id: crypto.randomUUID() }]);
+    const newCondition = {
+      id: crypto.randomUUID(),
+      type: 'cart_total',
+      operator: 'greater_than',
+      value: '',
+      enabled: true
+    };
+
+    onUpdate({
+      ...group,
+      conditions: [...group.conditions, newCondition]
+    });
   };
 
-  const removeCondition = (id: string) => {
-    setRules(rules.filter(rule => rule.id !== id));
+  const removeCondition = (conditionId: string) => {
+    onUpdate({
+      ...group,
+      conditions: group.conditions.filter(c => c.id !== conditionId)
+    });
+  };
+
+  const updateCondition = (conditionId: string, data: any) => {
+    onUpdate({
+      ...group,
+      conditions: group.conditions.map(c => 
+        c.id === conditionId ? { ...c, ...data } : c
+      )
+    });
   };
 
   return (
@@ -66,7 +89,10 @@ export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Match</span>
-            <Select defaultValue="all">
+            <Select 
+              value={group.match} 
+              onValueChange={(value) => onUpdate({ ...group, match: value as 'all' | 'any' })}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue />
               </SelectTrigger>
@@ -78,11 +104,12 @@ export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
           </div>
 
           <div className="space-y-4">
-            {rules.map((rule) => (
+            {group.conditions.map((condition) => (
               <RuleConditionBuilder
-                key={rule.id}
-                groupId={group.id}
-                onRemove={() => removeCondition(rule.id)}
+                key={condition.id}
+                condition={condition}
+                onUpdate={(data) => updateCondition(condition.id, data)}
+                onRemove={() => removeCondition(condition.id)}
               />
             ))}
 
@@ -99,21 +126,6 @@ export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
           </div>
         </div>
       </Card>
-
-      {/* Operator */}
-      {!isLast && (
-        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 z-10 bg-background">
-          <Select defaultValue="and">
-            <SelectTrigger className="w-[180px] border-dashed shadow-sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="and">AND</SelectItem>
-              <SelectItem value="or">OR</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      )}
     </div>
   );
 }

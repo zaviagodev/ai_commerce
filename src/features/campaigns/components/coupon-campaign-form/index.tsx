@@ -42,6 +42,9 @@ export function CouponCampaignForm({
     },
   });
 
+  console.log("form errors =>", form.formState.errors);
+  console.log("form =>", form.getValues());
+
   const handleSubmit = async (data: Coupon) => {
     try {
       await onSubmit(data);

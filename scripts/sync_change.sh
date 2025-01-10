@@ -52,10 +52,6 @@ cp -r $BOLT_CODE_DIR/* $BOLT_CODE_DIR/.* $PROJECT_DIR
 rm -rf $BOLT_CODE_DIR
 mkdir $BOLT_CODE_DIR
 
-# clear the $BOLT_CODE_DIR directory
-rm -rf $BOLT_CODE_DIR
-mkdir $BOLT_CODE_DIR
-
 # Add, commit, and push changes
 echo "Staging and committing changes..."
 git add .
