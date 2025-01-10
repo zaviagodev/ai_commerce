@@ -216,7 +216,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
           <>
             <FormField
               control={form.control}
-              name="pointsValue"
+              name="value"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Points Multiplier</FormLabel>

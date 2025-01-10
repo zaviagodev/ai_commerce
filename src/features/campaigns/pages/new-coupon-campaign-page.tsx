@@ -1,17 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-import { CouponCampaignForm } from '../components/coupon-campaign-form';
-import { Coupon } from '@/types/coupon';
+import { useNavigate } from "react-router-dom";
+import { CouponCampaignForm } from "../components/coupon-campaign-form";
+import { Coupon } from "@/types/coupon";
+import { useCoupons } from "../hooks/use-coupons";
 
 export function NewCouponCampaignPage() {
   const navigate = useNavigate();
+  const { createCoupon } = useCoupons();
 
   const handleSubmit = async (data: Coupon) => {
     try {
-      // TODO: Implement coupon creation
-      console.log('Creating coupon:', data);
-      navigate('/dashboard/coupons/campaigns');
+      await createCoupon.mutateAsync(data);
+      navigate("/dashboard/coupons/campaigns");
     } catch (error) {
-      console.error('Failed to create coupon:', error);
+      console.error("Failed to create coupon:", error);
     }
   };
 
