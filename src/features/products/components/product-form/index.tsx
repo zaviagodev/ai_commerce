@@ -459,7 +459,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Sales Channels Section */}
-                    <Card className="rounded-[18px]">
+                    {/* <Card className="rounded-[18px]">
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100">
                           <Share2 className="h-5 w-5 text-indigo-600" />
@@ -481,7 +481,7 @@ export function ProductForm({
                           }
                         />
                       </CardContent>
-                    </Card>
+                    </Card> */}
                   </TabsContent>
                   <TabsContent value="points-rewards" className="space-y-8">
                     <PointsRewards form={form} />

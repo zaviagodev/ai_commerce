@@ -19,8 +19,6 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
-import { DeveloperModeProvider } from '@/lib/developer-mode';
-import { DeveloperSwitch } from '@/components/developer/developer-switch';
 import {
   SidebarInset,
   SidebarProvider,
@@ -118,58 +116,55 @@ export function DashboardLayout() {
   };
 
   return (
-    <DeveloperModeProvider>
-      <SidebarProvider>
-        {/* <AppSidebar
-          user={{
-            name: user?.fullName || '',
-            email: user?.email || '',
-            storeName: user?.storeName || '',
-          }}
-          navItems={getNavItems(location.pathname)}
-          onLogout={handleLogout}
-        /> */}
-        <div className="min-h-screen w-full bg-[rgb(245,245,245)]">
-          <div className="flex h-screen">
-            <AppSidebar />
-            <SidebarInset className="flex-1 min-w-0 transition-all duration-300 ease-in-out relative">
-              <div className="m-2 h-[calc(100vh-1rem)] rounded-[18px] bg-white border border-[rgb(229,230,235)] overflow-hidden flex flex-col relative">
-                <div className="flex-1 rounded-xl bg-[#F3F2F7] overflow-hidden flex flex-col">
-                  <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-[rgb(229,230,235)]">
-                    <div className="flex items-center gap-2">
-                      <SidebarTrigger className="-ml-1" />
-                      <Breadcrumb>
-                        <BreadcrumbList>
-                          {breadcrumbItems.map((item, index, array) => (
-                            <React.Fragment key={item.title}>
-                              <BreadcrumbItem>
-                                {item.current ? (
-                                  <BreadcrumbPage>{item.title}</BreadcrumbPage>
-                                ) : (
-                                  <Link to={item.href as string}>
-                                    {item.title}
-                                  </Link>
-                                )}
-                              </BreadcrumbItem>
-                              {index < array.length - 1 && (
-                                <BreadcrumbSeparator />
+    <SidebarProvider>
+      {/* <AppSidebar
+        user={{
+          name: user?.fullName || '',
+          email: user?.email || '',
+          storeName: user?.storeName || '',
+        }}
+        navItems={getNavItems(location.pathname)}
+        onLogout={handleLogout}
+      /> */}
+      <div className="min-h-screen w-full bg-[rgb(245,245,245)]">
+        <div className="flex h-screen">
+          <AppSidebar />
+          <SidebarInset className="flex-1 min-w-0 transition-all duration-300 ease-in-out relative">
+            <div className="m-2 h-[calc(100vh-1rem)] rounded-[18px] bg-white border border-[rgb(229,230,235)] overflow-hidden flex flex-col relative">
+              <div className="flex-1 rounded-xl bg-[#F3F2F7] overflow-hidden flex flex-col">
+                <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-[rgb(229,230,235)]">
+                  <div className="flex items-center gap-2">
+                    <SidebarTrigger className="-ml-1" />
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        {breadcrumbItems.map((item, index, array) => (
+                          <React.Fragment key={item.title}>
+                            <BreadcrumbItem>
+                              {item.current ? (
+                                <BreadcrumbPage>{item.title}</BreadcrumbPage>
+                              ) : (
+                                <Link to={item.href as string}>
+                                  {item.title}
+                                </Link>
                               )}
-                            </React.Fragment>
-                          ))}
-                        </BreadcrumbList>
-                      </Breadcrumb>
-                    </div>
-                    <DeveloperSwitch />
-                  </header>
-                  <div className="content-area w-full px-6 overflow-hidden top-[-56px] mb-[-56px] pb-6">
-                    <Outlet />
+                            </BreadcrumbItem>
+                            {index < array.length - 1 && (
+                              <BreadcrumbSeparator />
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </BreadcrumbList>
+                    </Breadcrumb>
                   </div>
+                </header>
+                <div className="content-area w-full px-6 overflow-hidden top-[-56px] mb-[-56px] pb-6">
+                  <Outlet />
                 </div>
               </div>
-            </SidebarInset>
-          </div>
+            </div>
+          </SidebarInset>
         </div>
-      </SidebarProvider>
-    </DeveloperModeProvider>
+      </div>
+    </SidebarProvider>
   );
 }

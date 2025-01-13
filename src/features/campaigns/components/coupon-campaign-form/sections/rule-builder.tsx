@@ -4,6 +4,13 @@ import { Plus } from 'lucide-react';
 import { Coupon } from '@/types/coupon';
 import { useState } from 'react';
 import { RuleGroup } from './rule-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface RuleBuilderProps {
   form: UseFormReturn<Coupon>;
@@ -92,7 +99,7 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
               value={element.operator}
               onValueChange={(value) => updateOperator(element.id, value as 'AND' | 'OR')}
             >
-              <SelectTrigger className="w-[180px] mx-auto border-dashed shadow-sm">
+              <SelectTrigger className="w-[150px] mx-auto border-dashed shadow-sm relative">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

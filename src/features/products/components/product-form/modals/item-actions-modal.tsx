@@ -53,7 +53,7 @@ export function ItemActionsModal({
           <DialogHeader>
             <DialogTitle>Item Actions</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4">
+          <div className="grid gap-2">
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
@@ -93,7 +93,7 @@ export function ItemActionsModal({
               </div>
             </Button>
 
-            <Button
+            {/* <Button
               variant="ghost"
               className="justify-start h-auto py-4"
               onClick={() => {
@@ -112,7 +112,7 @@ export function ItemActionsModal({
                   </p>
                 </div>
               </div>
-            </Button>
+            </Button> */}
 
             <Button
               variant="ghost"

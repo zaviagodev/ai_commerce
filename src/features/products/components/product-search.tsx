@@ -64,16 +64,14 @@ export function ProductSearch({
               }}
               autoFocus
             />
-            {!isOpening && !isClosing && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-0"
-                onClick={handleCloseSearch}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn("absolute right-0 opacity-100 transition duration-200 !bg-transparent", {'opacity-0': isClosing || isOpening})}
+              onClick={handleCloseSearch}
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </motion.div>
         ) : (
           <motion.div

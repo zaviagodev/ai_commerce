@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useProducts } from '@/features/products/hooks/use-products';
-import { formatCurrency } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
@@ -125,14 +125,11 @@ export function RewardsItemsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        product.status === 'active'
-                          ? 'default'
-                          : product.status === 'draft'
-                          ? 'secondary'
-                          : 'destructive'
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-600": product.status === 'active',
+                        "!bg-red-100 !text-red-600": product.status === 'archived',
+                        "!bg-gray-100 !text-gray-600": product.status === 'draft',
+                      })}
                     >
                       {product.status}
                     </Badge>

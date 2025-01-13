@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Redeem } from '@/types/redeem';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { RedeemCodeModal } from './redeem-code-modal';
 import { useState } from 'react';
 import Loading from '@/components/loading';
@@ -126,14 +126,11 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        redeem.status === 'completed'
-                          ? 'default'
-                          : redeem.status === 'pending'
-                          ? 'secondary'
-                          : 'destructive'
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-600": redeem.status === 'completed',
+                        "!bg-red-100 !text-red-600": redeem.status === 'cancelled',
+                        "!bg-yellow-100 !text-yellow-600": redeem.status === 'pending',
+                      })}
                     >
                       {redeem.status}
                     </Badge>

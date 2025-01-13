@@ -53,13 +53,14 @@ interface RuleConditionBuilderProps {
 
 export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleConditionBuilderProps) {
   return (
-    <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center float-right">
+    <div className="p-4 rounded-lg border bg-muted/50 relative">
+      <div className="absolute right-0 top-0">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={onRemove}
+          className='!bg-transparent'
         >
           <X className="h-4 w-4" />
         </Button>
@@ -72,7 +73,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
             value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value })}
           >
-            <SelectTrigger>
+            <SelectTrigger className='bg-white'>
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>
@@ -100,7 +101,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
                 value={condition.operator}
                 onValueChange={(value) => onUpdate({ operator: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className='bg-white'>
                   <SelectValue placeholder="Select operator" />
                 </SelectTrigger>
                 <SelectContent>
@@ -122,7 +123,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
                     type="number"
                     min="0"
                     step="0.01"
-                    className="pl-8"
+                    className="pl-8 bg-white"
                     value={condition.value}
                     onChange={(e) => onUpdate({ value: e.target.value })}
                   />
