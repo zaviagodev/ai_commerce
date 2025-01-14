@@ -12,7 +12,7 @@ interface MetricsCardProps {
 
 function MetricsCard({ title, value, icon, subtitle, gradient, textColor }: MetricsCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-[18px] p-6 bg-white border card-shadow">
+    <div className="relative overflow-hidden rounded-[18px] p-6 bg-main border card-shadow">
       <div className="relative z-10">
         <div className={`mb-2 text-sm font-medium ${textColor}`}>{title}</div>
         <div className={`text-2xl font-semibold ${textColor}`}>{value}</div>
@@ -73,7 +73,7 @@ export function MetricsDashboard() {
         textColor="text-green-500"
       />
 
-      <div className="rounded-[18px] bg-white border p-6 card-shadow">
+      <div className="rounded-[18px] bg-main border p-6 card-shadow">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-sm font-medium text-orange-500">Recent Purchases</h3>
           <History className="h-5 w-5 text-orange-500" />

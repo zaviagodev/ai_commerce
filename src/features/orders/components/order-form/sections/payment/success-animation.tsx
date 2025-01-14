@@ -140,8 +140,8 @@ export function SuccessAnimation({
             isCancelled
               ? 'text-red-500'
               : isShipped
-              ? 'text-white'
-              : 'text-white'
+              ? 'text-main'
+              : 'text-main'
           }`}
         >
           {isCancelled

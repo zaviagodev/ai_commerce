@@ -23,7 +23,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>Product name</FormLabel>
+            <FormLabel>Product name <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
                 placeholder="Enter product name" 

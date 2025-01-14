@@ -182,7 +182,7 @@ export function OrderForm({
                   <TabsContent value="basic">
                     <div className="space-y-8">
                       <BasicDetails form={form} />
-                      <Products form={form} />
+                      <Products form={form} error={form.formState.errors.items?.message}/>
                       <Shipping form={form} />
                       <Summary form={form} />
                     </div>

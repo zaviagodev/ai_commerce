@@ -46,7 +46,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>First name <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input className="w-full" placeholder="John" {...field} />
                 </FormControl>
@@ -60,7 +60,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last name</FormLabel>
+                <FormLabel>Last name <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input className="w-full" placeholder="Doe" {...field} />
                 </FormControl>

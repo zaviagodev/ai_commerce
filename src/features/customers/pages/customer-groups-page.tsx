@@ -124,8 +124,8 @@ export function CustomerGroupsPage() {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": group.status === "active",
-                        "!bg-gray-100 !text-gray-600": group.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": group.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": group.status === "inactive"
                       })}
                     >
                       {group.status}

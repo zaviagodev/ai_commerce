@@ -21,6 +21,7 @@ import { CustomerAddress } from '@/types/customer';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomerAddressSchema } from '@/features/customers/schemas/customer-schema';
+import { COUNTRY_CHOICE } from '@/data/countries';
 
 interface AddressFormProps {
   address: CustomerAddress;
@@ -190,9 +191,16 @@ export function AddressForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Country</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select country" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {COUNTRY_CHOICE.map(choice => <SelectItem value={choice}>{choice}</SelectItem>)}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -230,7 +238,7 @@ export function AddressForm({
           )}
         />
 
-        <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-white pt-6">
+        <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-main pt-6">
           {onDelete && (
             <Button type="button" variant="destructive" onClick={onDelete}>
               Delete address

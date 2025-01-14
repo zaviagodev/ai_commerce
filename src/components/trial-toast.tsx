@@ -24,7 +24,7 @@ export function TrialToast() {
           <div className="relative p-4">
             <div className="flex flex-col gap-2.5">
               <div className="flex items-start justify-between">
-                <div className="font-semibold text-white">
+                <div className="font-semibold text-main">
                   You have {daysLeft} days left in your trial
                 </div>
                 <Button

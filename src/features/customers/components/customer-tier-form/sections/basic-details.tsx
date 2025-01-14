@@ -30,7 +30,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Tier name</FormLabel>
+            <FormLabel>Tier name <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input placeholder="e.g., Gold, Platinum, Diamond" {...field} />
             </FormControl>

@@ -41,12 +41,12 @@ export function CheckoutLinkSection({
           <Input
             value={checkoutLink}
             readOnly
-            className="flex-1 bg-gray-800 border-gray-700 text-white"
+            className="flex-1 bg-gray-800 border-gray-700 text-main"
           />
           <Button
             type="button"
             variant="outline"
-            className="shrink-0 bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+            className="shrink-0 bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
             onClick={handleCopy}
           >
             {copied ? (

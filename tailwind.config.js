@@ -15,6 +15,7 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        main: 'hsl(var(--main))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -66,6 +67,11 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
         darkgray: '#909090',
+        lightgray: {
+          DEFAULT: 'hsl(var(--lightgray))',
+          100: 'hsl(var(--lightgray2))',
+          200: 'hsl(var(--lightgray3))'
+        },
       },
       keyframes: {
         'accordion-down': {

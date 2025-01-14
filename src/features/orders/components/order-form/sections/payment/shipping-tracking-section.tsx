@@ -45,7 +45,7 @@ export function ShippingTrackingSection({
       <div className="space-y-2">
         <label className="text-sm text-gray-300">Courier Service</label>
         <Select value={courier} onValueChange={setCourier}>
-          <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-white">
+          <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-main">
             <SelectValue placeholder="Select courier" />
           </SelectTrigger>
           <SelectContent>
@@ -64,7 +64,7 @@ export function ShippingTrackingSection({
           value={trackingNumber}
           onChange={(e) => setTrackingNumber(e.target.value)}
           placeholder="Enter tracking number"
-          className="bg-gray-800 border-gray-700 text-white"
+          className="bg-gray-800 border-gray-700 text-main"
         />
       </div>
 
@@ -73,7 +73,7 @@ export function ShippingTrackingSection({
           type="button"
           variant="ghost"
           onClick={onCancel}
-          className="text-gray-300 hover:text-white hover:bg-gray-700"
+          className="text-gray-300 hover:text-main hover:bg-gray-700"
         >
           Cancel
         </Button>

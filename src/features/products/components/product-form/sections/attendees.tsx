@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { formatCurrency } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { QrCode } from 'lucide-react';
 import { TicketScanModal } from './ticket-scanning/ticket-scan-modal';
@@ -107,7 +107,12 @@ export function Attendees({ form }: AttendeesProps) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={attendee.ticketType === 'VIP' ? 'default' : 'secondary'}>
+                    <Badge 
+                      // variant={attendee.ticketType === 'VIP' ? 'default' : 'secondary'}
+                      className={cn("shadow-none !bg-gray-100 !text-gray-600", {
+                        "!bg-yellow-500 !text-main": attendee.ticketType === 'VIP'
+                      })}
+                    >
                       {attendee.ticketType}
                     </Badge>
                   </TableCell>
@@ -120,17 +125,17 @@ export function Attendees({ form }: AttendeesProps) {
                   <TableCell>
                     <div className="flex items-center gap-2">
                       {attendee.status === 'paid' ? (
-                        <Badge className="bg-green-100 text-green-700 capitalize">
+                        <Badge className="!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100 capitalize shadow-none">
                           <Check className="mr-1 h-3 w-3" />
                           Paid
                         </Badge>
                       ) : attendee.status === 'pending' ? (
-                        <Badge className="bg-yellow-100 text-yellow-700 capitalize">
+                        <Badge className="!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100 capitalize shadow-none">
                           <Clock className="mr-1 h-3 w-3" />
                           Pending
                         </Badge>
                       ) : (
-                        <Badge variant="destructive" className='capitalize'>
+                        <Badge variant="destructive" className='!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100 capitalize shadow-none'>
                           <X className="mr-1 h-3 w-3" />
                           Failed
                         </Badge>
@@ -142,7 +147,7 @@ export function Attendees({ form }: AttendeesProps) {
             </TableBody>
           </Table>
 
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <div className="border-t p-4 bg-main rounded-b-lg">
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}

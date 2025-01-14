@@ -37,7 +37,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="code"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Coupon Code</FormLabel>
+              <FormLabel>Coupon Code <span className='text-destructive'>*</span></FormLabel>
               <FormControl>
                 <Input 
                   placeholder="e.g., SUMMER2024" 

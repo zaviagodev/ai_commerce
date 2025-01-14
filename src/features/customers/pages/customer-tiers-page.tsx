@@ -125,8 +125,8 @@ export function CustomerTiersPage() {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": tier.status === "active",
-                        "!bg-gray-100 !text-gray-600": tier.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": tier.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": tier.status === "inactive"
                       })}
                     >
                       {tier.status}

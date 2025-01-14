@@ -110,7 +110,7 @@ export function Overview({ redeem }: OverviewProps) {
                     key={item.id}
                     className="flex items-center gap-4 p-4 rounded-lg bg-muted/30"
                   >
-                    <div className="h-12 w-12 rounded-sm bg-white overflow-hidden flex-shrink-0">
+                    <div className="h-12 w-12 rounded-sm bg-main overflow-hidden flex-shrink-0">
                       {item.image ? (
                         <img
                           src={item.image}

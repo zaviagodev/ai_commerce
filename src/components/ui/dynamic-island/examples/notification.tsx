@@ -45,7 +45,7 @@ function NotificationContent() {
   }, [setSize]);
 
   return (
-    <DynamicContainer className="flex h-full w-full items-center justify-between gap-4 px-4 text-white">
+    <DynamicContainer className="flex h-full w-full items-center justify-between gap-4 px-4 text-main">
       <div className="flex items-center gap-4">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
           <Bell className="h-4 w-4" />
