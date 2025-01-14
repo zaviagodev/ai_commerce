@@ -9,6 +9,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Tags } from 'lucide-react';
 import { Coupon } from '@/types/coupon';
@@ -27,7 +34,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         <div>
           <h2 className="text-lg font-medium">Basic Details</h2>
           <p className="text-sm text-muted-foreground">
-            Configure the basic information for your coupon
+            Configure the coupon's basic information
           </p>
         </div>
       </CardHeader>
@@ -113,6 +120,33 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status</FormLabel>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="scheduled">Scheduled</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="expired">Expired</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Control whether this coupon is currently active
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </CardContent>
     </Card>
   );

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormField,
@@ -30,6 +31,16 @@ interface DynamicShippingProps {
 export function DynamicShipping({ form, currentShipping }: DynamicShippingProps) {
   // Find the matching shipping method or default to standard
   const currentMethod = SHIPPING_METHODS.find(m => m.price === currentShipping) || SHIPPING_METHODS[0];
+  const [shippingMethod, setShippingMethod] = useState(currentMethod.id);
+  const appliedCoupons = form.watch('appliedCoupons') || [];
+  const hasFreeShippingCoupon = appliedCoupons.find(coupon => coupon.type === 'shipping');
+
+  useEffect(()=>{
+    if(!hasFreeShippingCoupon) {
+      const method = SHIPPING_METHODS.find(m => m.id === shippingMethod);
+      form.setValue("shipping", method?.price || 0);
+    }
+  }, [hasFreeShippingCoupon])
 
   return (
     <FormField
@@ -40,8 +51,9 @@ export function DynamicShipping({ form, currentShipping }: DynamicShippingProps)
           <FormLabel>Shipping Method</FormLabel>
           <Select
             onValueChange={(value) => {
+              setShippingMethod(value);
               const method = SHIPPING_METHODS.find(m => m.id === value);
-              field.onChange(method?.price || 0);
+              field.onChange(hasFreeShippingCoupon ? 0 : method?.price || 0);
             }}
             defaultValue={currentMethod.id}
           >
@@ -53,7 +65,7 @@ export function DynamicShipping({ form, currentShipping }: DynamicShippingProps)
             <SelectContent>
               {SHIPPING_METHODS.map((method) => (
                 <SelectItem key={method.id} value={method.id}>
-                  {method.name} - ${method.price.toFixed(2)}
+                  {method.name} - ${hasFreeShippingCoupon ? 0 : method.price.toFixed(2)}
                 </SelectItem>
               ))}
             </SelectContent>

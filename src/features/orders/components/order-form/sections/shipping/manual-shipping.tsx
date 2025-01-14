@@ -16,6 +16,8 @@ interface ManualShippingProps {
 }
 
 export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
+  const appliedCoupons = form.watch('appliedCoupons') || [];
+  const hasFreeShippingCoupon = appliedCoupons.find(coupon => coupon.type === 'shipping');
   return (
     <FormField
       control={form.control}
@@ -29,6 +31,7 @@ export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
                 $
               </span>
               <Input
+                disabled={hasFreeShippingCoupon}
                 type="number"
                 min="0"
                 step="0.01"

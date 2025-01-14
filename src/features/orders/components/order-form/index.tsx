@@ -10,6 +10,7 @@ import { OrderSchema } from '../../schemas/order-schema';
 import { Overview } from './sections/overview';
 import { BasicDetails } from './sections/basic-details';
 import { Products } from './sections/products';
+import { CouponSection } from './sections/coupon-section';
 import { Shipping } from './sections/shipping';
 import { Summary } from './sections/summary';
 import { Notes } from './sections/notes';
@@ -61,6 +62,7 @@ export function OrderForm({
   }, [form, isEditing, onFieldChange]);
 
   const handleSubmit = async (data: Order) => {
+    data = form.getValues();
   try {
     await onSubmit({
       ...data,
@@ -100,7 +102,7 @@ export function OrderForm({
     return `${customerName} #${orderId}`;
   };
 
-  console.log("form =>", form.formState.errors);
+  console.log("form =>", form.getValues());
 
   return (
     <div className="flex h-screen flex-col">
@@ -183,6 +185,7 @@ export function OrderForm({
                     <div className="space-y-8">
                       <BasicDetails form={form} />
                       <Products form={form} />
+                      <CouponSection form={form} storeName={'storeName'} />
                       <Shipping form={form} />
                       <Summary form={form} />
                     </div>
