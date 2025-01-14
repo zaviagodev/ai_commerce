@@ -414,3 +414,12 @@ html {
 .loading-anim {
   animation: loading-anim 500ms alternate infinite;
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

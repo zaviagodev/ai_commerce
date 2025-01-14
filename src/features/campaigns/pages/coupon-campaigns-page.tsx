@@ -15,6 +15,7 @@ import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { useCoupons } from '../hooks/use-coupons';
 import Loading from '@/components/loading';
+import { cn } from '@/lib/utils';
 
 export function CouponCampaignsPage() {
   const { coupons, isLoading } = useCoupons();
@@ -156,7 +157,12 @@ export function CouponCampaignsPage() {
                           ? 'secondary'
                           : 'destructive'
                       }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        '!bg-red-100 !text-red-600': coupon.status === "expired",
+                        '!bg-yellow-100 !text-yellow-600': coupon.status === "scheduled",
+                        '!bg-green-100 !text-green-600': coupon.status === "active",
+                        '!bg-gray-100 !text-gray-600': coupon.status === "draft"
+                      })}
                     >
                       {coupon.status}
                     </Badge>

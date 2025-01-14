@@ -73,7 +73,7 @@ export function NavMain({
         </SidebarMenuItem>
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
-            <Link to="/dashboard/settings/team" className="font-medium">
+            <Link to="/dashboard/members" className="font-medium">
               <div className="rounded-md bg-opacity-20 p-1 bg-green-100">
                 <Users2 className="h-3.5 w-3.5 text-green-500" />
               </div>

@@ -27,7 +27,7 @@ export function RedeemDetails({ form }: RedeemDetailsProps) {
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
-          <Ticket className="h-5 w-5 text-orange-600" />
+          <Ticket className="h-5 w-5 text-green-600" />
         </div>
         <div>
           <h2 className="text-lg font-medium">Redeem Details</h2>

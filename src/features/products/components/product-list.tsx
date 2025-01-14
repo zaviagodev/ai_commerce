@@ -197,7 +197,7 @@ export function ProductList({
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
             <ProductSort value={sortValue} onValueChange={setSortValue} />
           </div>
