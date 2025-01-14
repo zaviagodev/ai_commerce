@@ -41,10 +41,11 @@ export function Summary({ form }: SummaryProps) {
 
   const items = form.watch('items') || [];
   const subtotal = items.reduce((sum, item) => sum + item.total, 0);
+  const appliedCoupons = form.watch('appliedCoupons') || [];
+  const couponDiscount = appliedCoupons.reduce((sum, coupon) => sum + coupon.discount, 0);
   const shipping = form.watch('shipping') || 0;
   const currentTax = form.watch('tax') || 0;
   const currentTotal = form.watch('total') || 0;
-
   const getDiscountBaseAmount = () => {
     return discountBase === 'subtotal' ? subtotal : (subtotal + shipping + currentTax);
   };
@@ -293,13 +294,13 @@ export function Summary({ form }: SummaryProps) {
             <span>{formatCurrency(subtotal)}</span>
           </div>
 
-          {calculatedDiscount > 0 && (
+          {calculatedDiscount > 0 || couponDiscount > 0 && (
             <div className="flex justify-between text-sm text-destructive">
               <span>
                 Discount
                 {discountType === 'percentage' && ` (${discountValue.toFixed(1)}% of ${discountBase === 'subtotal' ? 'Net Total' : 'Grand Total'})`}
               </span>
-              <span>-{formatCurrency(calculatedDiscount)}</span>
+              <span>-{formatCurrency(calculatedDiscount + couponDiscount)}</span>
             </div>
           )}
 
@@ -322,13 +323,13 @@ export function Summary({ form }: SummaryProps) {
           <div className="flex justify-between">
             <div>
               <span className="text-lg font-semibold">Total</span>
-              {(calculatedDiscount > 0 || shipping > 0 || currentTax > 0) && (
+              {(calculatedDiscount > 0 || couponDiscount > 0 || shipping > 0 || currentTax > 0) && (
                 <p className="text-xs text-muted-foreground">
                   Includes tax, shipping & discounts
                 </p>
               )}
             </div>
-            <span className="text-lg font-semibold">{formatCurrency(currentTotal)}</span>
+            <span className="text-lg font-semibold">{formatCurrency(currentTotal - couponDiscount)}</span>
           </div>
         </div>
       </CardContent>

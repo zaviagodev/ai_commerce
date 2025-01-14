@@ -10,10 +10,9 @@ import { formatCurrency } from '@/lib/utils';
 
 interface ProductsProps {
   form: UseFormReturn<Order>;
-  error: string
 }
 
-export function Products({ form, error }: ProductsProps) {
+export function Products({ form }: ProductsProps) {
   const items = form.watch('items') || [];
 
 const handleProductSelect = (product: Product, variant: ProductVariant) => {
@@ -90,7 +89,7 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <span className='text-destructive text-[0.8rem]'>{error}</span>
+          <span className='text-destructive text-[0.8rem]'>{form.formState.errors.items?.message}</span>
           {items.map((item, index) => (
             <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg">
               <div className="relative group">
