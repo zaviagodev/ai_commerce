@@ -23,6 +23,7 @@ export function transformOrder(order: any): Order {
     })),
     subtotal: Number(order.subtotal),
     discount: Number(order.discount),
+    appliedCoupons: order.applied_coupons || [],
     shipping: Number(order.shipping),
     tax: Number(order.tax),
     total: Number(order.total),

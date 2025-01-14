@@ -144,7 +144,6 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
   // Generate variants whenever options change
   useEffect(() => {
     if (variantOptions.length > 0) {
-      console.log("generating =>", form.getValues());
       generateVariants();
     }
   }, [variantOptions, productName]);

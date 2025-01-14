@@ -97,6 +97,7 @@ export function EditOrderPage() {
           subtotal: data.subtotal,
           discount: data.discount,
           shipping: data.shipping,
+          appliedCoupons: data.appliedCoupons,
           tax: data.tax,
           total: data.total,
           notes: data.notes,

@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
-import { StoreLayout } from '../components/store-layout';
-import { ProductGrid } from '../components/product-grid';
-import { useStoreProducts } from '../hooks/use-store';
+import { useParams } from "react-router-dom";
+import { StoreLayout } from "../components/store-layout";
+import { ProductGrid } from "../components/product-grid";
+import { useStoreProducts } from "../hooks/use-store";
 
 export function StorePage() {
   const { storeName } = useParams<{ storeName: string }>();
