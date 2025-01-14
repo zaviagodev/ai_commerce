@@ -86,7 +86,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
 
           <div className="grid gap-6 mx-auto max-w-4xl pr-6">
             {/* Basic Details */}
-            <div className="rounded-lg border bg-white">
+            <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                   <Gift className="h-5 w-5 text-purple-600" />

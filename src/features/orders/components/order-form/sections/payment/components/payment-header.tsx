@@ -31,7 +31,7 @@ export function PaymentHeader({
 
       {/* Content */}
       <div className="relative z-10 flex items-center justify-between">
-        <span className="text-sm text-white font-bold">Payment Status</span>
+        <span className="text-sm text-main font-bold">Payment Status</span>
         <div className="flex items-center gap-2">
           <Badge
             variant={

@@ -22,7 +22,7 @@ export function ProgressLine({
   const getBadgeColor = () => {
     if (isCancelled) return 'text-red-500';
     if (isShipped) return 'text-purple-500';
-    return 'text-white';
+    return 'text-main';
   };
 
   const getBadgeText = () => {
@@ -121,7 +121,7 @@ export function ProgressLine({
               : isShipped
               ? 'bg-purple-600'
               : 'bg-green-600'
-          } text-white`}
+          } text-main`}
         >
           {isCancelled ? 'Cancelled' : isShipped ? 'Shipped' : 'Saved'}
         </Badge>

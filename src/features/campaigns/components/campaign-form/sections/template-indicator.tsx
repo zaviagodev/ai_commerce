@@ -60,28 +60,28 @@ export function TemplateIndicator({ type, qrEnabled, clickLinkEnabled, targetTyp
 
   return (
     <div className={cn(
-      "relative rounded-xl p-6 text-white overflow-hidden",
+      "relative rounded-xl p-6 text-main overflow-hidden",
       "bg-gradient-to-br shadow-md",
       template.gradient
     )}>
       {/* Label */}
       <div className="absolute right-4 top-4">
-        <div className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
+        <div className="rounded-full bg-main/20 px-3 py-1 text-sm font-medium">
           Selected Template
         </div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex items-start gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/20">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-main/20">
           <Icon className="h-5 w-5" />
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">{template.name}</h3>
-          <p className="text-sm text-white/90 mb-3">
+          <p className="text-sm text-main/90 mb-3">
             {template.description}
           </p>
-          <div className="text-sm text-white/80">
+          <div className="text-sm text-main/80">
             <p>✨ This template is configured for:</p>
             <ul className="list-disc list-inside mt-1 space-y-1">
               {qrEnabled ? (
@@ -110,7 +110,7 @@ export function TemplateIndicator({ type, qrEnabled, clickLinkEnabled, targetTyp
 
       {/* Decorative Elements */}
       <div className="absolute inset-0 bg-gradient-to-r from-white/[0.15] to-transparent" />
-      <div className="absolute -bottom-8 -right-8 h-32 w-32 bg-white/10 rounded-full blur-2xl" />
+      <div className="absolute -bottom-8 -right-8 h-32 w-32 bg-main/10 rounded-full blur-2xl" />
     </div>
   );
 }

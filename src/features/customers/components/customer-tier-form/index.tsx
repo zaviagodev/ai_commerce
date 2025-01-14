@@ -69,7 +69,7 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
             {/* Basic Details Section */}
-            <div className="rounded-lg border bg-white">
+            <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                   <Crown className="h-5 w-5 text-blue-600" />
@@ -87,7 +87,7 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
             </div>
 
             {/* Requirements Section */}
-            <div className="rounded-lg border bg-white">
+            <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                   <Crown className="h-5 w-5 text-purple-600" />
@@ -105,7 +105,7 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
             </div>
 
             {/* Benefits Section */}
-            <div className="rounded-lg border bg-white">
+            <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
                   <Crown className="h-5 w-5 text-green-600" />

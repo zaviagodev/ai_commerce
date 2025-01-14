@@ -128,7 +128,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
 
         {customers.length > 0 && (
           <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
+            className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { SettingsNav } from '../components/settings-nav';
 
-export function SettingsPage() {
+export function SettingsPage(){
   return (
     <div className="space-y-6">
       <div className='-mx-6 py-3 px-6 sticky top-0 z-10 pt-14'>

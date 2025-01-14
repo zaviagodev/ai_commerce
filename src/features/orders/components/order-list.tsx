@@ -105,19 +105,17 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex justify-between items-center gap-4 mb-4 w-full">
+        <div className="flex flex-col-reverse lg:flex-row justify-between items-end lg:items-center gap-y-2 gap-x-4 mb-4 w-full">
           <StatusTabs
             selectedStatus={selectedStatus}
             onStatusChange={setSelectedStatus}
             counts={statusCounts}
           />
-          <div className="flex justify-end">
-            <ProductSearch
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search orders..."
-            />
-          </div>
+          <ProductSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search orders..."
+          />
         </div>
         <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
@@ -179,24 +177,16 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant="default"
-                      /* variant={
-                        order.status === 'delivered'
-                          ? 'default'
-                          : order.status === 'cancelled'
-                          ? 'destructive'
-                          : 'secondary'
-                      } */
                       className={cn('capitalize shadow-none', {
-                        '!bg-red-100 !text-red-600':
+                        '!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100':
                           order.status === 'cancelled',
-                        '!bg-yellow-100 !text-yellow-600':
+                        '!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100':
                           order.status === 'pending',
-                        '!bg-green-100 !text-green-400':
+                        '!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100':
                           order.status === 'delivered',
-                        '!bg-purple-100 !text-purple-600':
+                        '!bg-purple-100 !text-purple-700 dark:!bg-purple-700 dark:!text-purple-100':
                           order.status === 'shipped',
-                        '!bg-blue-100 !text-blue-600':
+                        '!bg-blue-100 !text-blue-700 dark:!bg-blue-700 dark:!text-blue-100':
                           order.status === 'processing',
                       })}
                     >
@@ -218,7 +208,7 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
 
         {filteredOrders.length > 0 && (
           <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
+            className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}

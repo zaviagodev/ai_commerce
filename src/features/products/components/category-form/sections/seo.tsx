@@ -22,7 +22,7 @@ export function SEO({ form }: SEOProps) {
         name="slug"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>URL Slug</FormLabel>
+            <FormLabel>URL Slug <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input placeholder="e.g., electronics, clothing" {...field} />
             </FormControl>

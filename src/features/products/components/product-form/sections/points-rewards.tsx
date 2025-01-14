@@ -209,7 +209,7 @@ export function PointsRewards({ form }: PointsRewardsProps) {
 
                         <Button
                           type="button"
-                          variant="ghost"
+                          variant="destructive"
                           size="sm"
                           onClick={() => removeTier(tier.id)}
                           className="shrink-0"

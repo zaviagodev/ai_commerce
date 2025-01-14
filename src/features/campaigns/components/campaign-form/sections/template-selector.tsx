@@ -21,7 +21,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Scan to Get Points',
     description: 'Reward customers for scanning QR codes',
     type: 'bonus_points',
-    icon: <QrCode className="h-6 w-6 text-white" />,
+    icon: <QrCode className="h-6 w-6 text-main" />,
     gradient: 'from-blue-500 to-indigo-600',
     defaults: {
       type: 'bonus_points',
@@ -38,7 +38,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Double Points Days',
     description: 'Double points on all purchases',
     type: 'points_multiplier',
-    icon: <Star className="h-6 w-6 text-white" />,
+    icon: <Star className="h-6 w-6 text-main" />,
     gradient: 'from-purple-500 to-pink-600',
     defaults: {
       type: 'points_multiplier',
@@ -51,7 +51,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Bonus Points',
     description: 'Award bonus points for specific actions',
     type: 'bonus_points',
-    icon: <Gift className="h-6 w-6 text-white" />,
+    icon: <Gift className="h-6 w-6 text-main" />,
     gradient: 'from-orange-500 to-red-600',
     defaults: {
       type: 'bonus_points',
@@ -64,7 +64,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Tier Points Boost',
     description: 'Increased points for specific customer tiers',
     type: 'points_multiplier',
-    icon: <Crown className="h-6 w-6 text-white" />,
+    icon: <Crown className="h-6 w-6 text-main" />,
     gradient: 'from-yellow-500 to-orange-600',
     defaults: {
       type: 'points_multiplier',
@@ -124,10 +124,10 @@ export function TemplateSelector({ form }: TemplateSelectorProps) {
                 <div className="mb-4">
                   {template.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-1">
+                <h3 className="text-lg font-semibold text-main mb-1">
                   {template.name}
                 </h3>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-main/80">
                   {template.description}
                 </p>
               </div>

@@ -32,13 +32,13 @@ export function ScanResult({
       </div>
       
       {/* Ticket Details */}
-      <div className="p-3 rounded-lg bg-white border border-gray-200 space-y-2">
-        <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
-          <Badge variant="outline" className="bg-green-100 text-green-800 border-green-300">
+      <div className="p-3 rounded-lg bg-main border border-gray-200 space-y-2">
+        <div className="flex items-center justify-between">
+          <Badge variant="outline" className={status === 'valid' ? "bg-green-100 text-green-600 border-green-300" : "bg-red-100 text-red-600 border-red-300"}>
             {status === 'valid' ? 'Valid Ticket' : 'Invalid Ticket'}
           </Badge>
           {isGroupPurchase && (
-            <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-300">
+            <Badge variant="outline" className="bg-blue-100 text-blue-600 border-blue-300">
               Group Purchase
             </Badge>
           )}

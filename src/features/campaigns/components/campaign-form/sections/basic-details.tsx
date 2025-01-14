@@ -49,7 +49,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Campaign name</FormLabel>
+            <FormLabel>Campaign name <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input placeholder="e.g., Summer Sale Double Points" {...field} />
             </FormControl>

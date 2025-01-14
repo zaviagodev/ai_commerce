@@ -68,7 +68,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
       name="customerId"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Customer</FormLabel>
+          <FormLabel>Customer <span className='text-destructive'>*</span></FormLabel>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <FormControl>

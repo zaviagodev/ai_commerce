@@ -98,7 +98,7 @@ export function OnboardingGuide() {
                   >
                     {/* Card content */}
                     <div className="p-6">
-                      <div className={`${step.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-4 text-white transition-transform group-hover:scale-110`}>
+                      <div className={`${step.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-4 text-main transition-transform group-hover:scale-110`}>
                         <step.icon className="h-6 w-6" />
                       </div>
                       <h3 className="font-medium mb-1">{step.title}</h3>

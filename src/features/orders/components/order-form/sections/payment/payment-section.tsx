@@ -207,7 +207,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
 
   return (
     <AnimatedContainer>
-      <div className="rounded-lg bg-gray-900 text-white overflow-hidden relative">
+      <div className="rounded-lg bg-gray-900 text-main overflow-hidden relative">
         {/* Background gradient */}
         <motion.div
           className="absolute w-[200%] h-[200%] left-1/2 -translate-x-1/2 pointer-events-none"

@@ -145,7 +145,7 @@ export function Requirements({ form }: RequirementsProps) {
                         <Button variant="outline" className="w-full justify-start">
                           <span className="flex-1 text-left">
                             {requirement.groups?.length
-                              ? `${requirement.groups.length} groups selected`
+                              ? `${requirement.groups.length} group${requirement.groups.length === 1 ? "" : "s"} selected`
                               : 'Select groups'}
                           </span>
                         </Button>
@@ -164,12 +164,13 @@ export function Requirements({ form }: RequirementsProps) {
 
       {/* Add Requirement */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-sm text-muted-foreground">Add requirement</span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-
+        {REQUIREMENT_TYPES.filter((type) => !requirements.find((req) => req.type === type.id))?.length > 0 && (
+          <div className="flex items-center gap-2">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-sm text-muted-foreground">Add requirement</span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        )}
         <RadioGroup
           onValueChange={(value) => addRequirement(value)}
           className="grid gap-2"
@@ -208,13 +209,13 @@ export function Requirements({ form }: RequirementsProps) {
 function getUnitLabel(type: string): string {
   switch (type) {
     case 'points':
-      return 'points';
+      return 'point(s)';
     case 'spending':
       return 'USD';
     case 'orders':
-      return 'orders';
+      return 'order(s)';
     case 'duration':
-      return 'days';
+      return 'day(s)';
     default:
       return '';
   }

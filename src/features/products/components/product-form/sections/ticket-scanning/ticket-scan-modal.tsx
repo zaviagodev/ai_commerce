@@ -215,7 +215,7 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
                           ease: "easeInOut",
                         }}
                       />
-                      <p className="text-white font-medium">Scanning...</p>
+                      <p className="text-main font-medium">Scanning...</p>
                     </motion.div>
                   ) : scanResult ? (
                     <motion.div

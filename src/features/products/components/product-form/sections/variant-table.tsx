@@ -162,7 +162,7 @@ export function VariantTable({ form }: VariantTableProps) {
         </Table>
 
         {variants.length > 0 && (
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <div className="border-t p-4 bg-main rounded-b-lg">
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
