@@ -10,7 +10,7 @@ interface VariantRowProps {
 
 export function VariantTableRow({ variant, trackQuantity, onUpdate }: VariantRowProps) {
   return (
-    <TableRow>
+    <TableRow className='!bg-transparent'>
       <TableCell>{variant.name}</TableCell>
       <TableCell>
         <Input

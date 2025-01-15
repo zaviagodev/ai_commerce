@@ -24,6 +24,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
     defaultValues: {
       firstName: '',
       lastName: '',
+      company: '',
       email: '',
       phone: '',
       isVerified: false,

@@ -109,9 +109,9 @@ export function VariantTable({ form }: VariantTableProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between border-b pb-4">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-1">
           <h3 className="text-sm font-medium">Variant Grouping</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[0.8rem] text-muted-foreground">
             Group variants by attribute for better organization
           </p>
         </div>
@@ -124,8 +124,8 @@ export function VariantTable({ form }: VariantTableProps) {
         </div>
       </div>
 
-    <div className="rounded-lg border">
-        <Table>
+      <div className="rounded-lg border">
+        <Table className={variants.length > 0 ? '' : 'rounded-b-none'}>
           <TableHeader>
             <TableRow className="bg-muted/50">
               <TableHead>Variant</TableHead>

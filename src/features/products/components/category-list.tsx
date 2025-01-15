@@ -1,3 +1,5 @@
+"use client"
+
 import { Link } from 'react-router-dom';
 import { Plus, Folder, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,6 +23,8 @@ import { ProductCategory } from '@/types/product';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { ProductSearch } from './product-search';
+import { useMemo, useState } from 'react';
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -42,7 +46,23 @@ export function CategoryList({
     pageCount,
   } = usePagination();
 
-  const paginatedCategories = paginateItems(categories);
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredCategories = useMemo(() => {
+    let filtered = categories;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = categories.filter(
+        (category) =>
+          category.name.toLowerCase().includes(query) ||
+          category.slug.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [categories, searchQuery]);
+
+  const paginatedCategories = paginateItems(filteredCategories);
 
   if (isLoading) {
     return (
@@ -75,11 +95,18 @@ export function CategoryList({
       </motion.div>
 
       <motion.div
-        className="rounded-lg border"
+        className="rounded-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
+        <div className="flex items-center justify-end gap-4 mb-4">
+          <ProductSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search categories..."
+          />
+        </div>
         <Table className={categories.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
@@ -90,7 +117,7 @@ export function CategoryList({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories.length === 0 ? (
+            {paginatedCategories.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
                   <div className="py-12">

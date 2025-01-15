@@ -82,7 +82,7 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent 
-        className="sm:max-w-[600px] top-[10%] translate-y-0" 
+        className="sm:max-w-[600px]" 
         aria-labelledby="coupon-select-title"
       >
         <DialogHeader>

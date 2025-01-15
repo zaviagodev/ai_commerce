@@ -32,6 +32,10 @@ export interface Product {
   trackQuantity: boolean;
   weight: number;
   weightUnit: 'kg' | 'lb';
+  width: number;
+  length: number;
+  height: number;
+  dimensionUnit: 'cm' | 'in';
   tags: ProductTag[];
   status: 'draft' | 'active' | 'archived';
   createdAt: Date;

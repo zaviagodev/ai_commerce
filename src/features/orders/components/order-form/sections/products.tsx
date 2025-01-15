@@ -165,7 +165,7 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
 
               <Button
                 type="button"
-                variant="ghost"
+                variant="destructive"
                 size="sm"
                 onClick={() => {
                   const newItems = [...items];

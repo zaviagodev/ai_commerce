@@ -23,7 +23,7 @@ export function VariantGroupRow({
   return (
     <>
       <TableRow
-        className="bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+        className="bg-muted/30 cursor-pointer transition-colors"
         onClick={onToggle}
       >
         <TableCell colSpan={trackQuantity ? 4 : 3}>
@@ -42,7 +42,7 @@ export function VariantGroupRow({
           </div>
         </TableCell>
       </TableRow>
-      <TableRow className={cn('transition-all', !expanded && 'hidden')}>
+      <TableRow className={cn('transition-all !bg-transparent', !expanded && 'hidden')}>
         <TableCell colSpan={trackQuantity ? 4 : 3} className="p-0">
           <Table>
             <TableBody>

@@ -38,18 +38,25 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           control={form.control}
           name="notifyEmail"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Notifications</FormLabel>
+            <FormItem className="flex items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>Email Notifications</FormLabel>
+                <FormDescription>
+                  Receive payment notifications via email
+                </FormDescription>
+              </div>
               <FormControl>
-                <Input 
+                {/* This field was firstly set as string input */}
+                {/* <Input 
                   type="email" 
                   placeholder="notifications@example.com" 
                   {...field} 
+                /> */}
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormDescription>
-                Receive payment notifications via email
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
