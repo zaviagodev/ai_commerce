@@ -23,41 +23,41 @@ const navItems = [
     href: '/dashboard/settings/payments',
     icon: CreditCard,
   },
-  {
-    title: 'Notifications',
-    href: '/dashboard/settings/notifications',
-    icon: Bell,
-  },
-  {
-    title: 'Team',
-    href: '/dashboard/settings/team',
-    icon: Users,
-  },
-  {
-    title: 'Email',
-    href: '/dashboard/settings/email',
-    icon: Mail,
-  },
-  {
-    title: 'Appearance',
-    href: '/dashboard/settings/appearance',
-    icon: Palette,
-  },
-  {
-    title: 'Security',
-    href: '/dashboard/settings/security',
-    icon: Shield,
-  },
-  {
-    title: 'Domains',
-    href: '/dashboard/settings/domains',
-    icon: Globe,
-  },
-  {
-    title: 'Advanced',
-    href: '/dashboard/settings/advanced',
-    icon: Settings,
-  },
+  // {
+  //   title: 'Notifications',
+  //   href: '/dashboard/settings/notifications',
+  //   icon: Bell,
+  // },
+  // {
+  //   title: 'Team',
+  //   href: '/dashboard/settings/team',
+  //   icon: Users,
+  // },
+  // {
+  //   title: 'Email',
+  //   href: '/dashboard/settings/email',
+  //   icon: Mail,
+  // },
+  // {
+  //   title: 'Appearance',
+  //   href: '/dashboard/settings/appearance',
+  //   icon: Palette,
+  // },
+  // {
+  //   title: 'Security',
+  //   href: '/dashboard/settings/security',
+  //   icon: Shield,
+  // },
+  // {
+  //   title: 'Domains',
+  //   href: '/dashboard/settings/domains',
+  //   icon: Globe,
+  // },
+  // {
+  //   title: 'Advanced',
+  //   href: '/dashboard/settings/advanced',
+  //   icon: Settings,
+  // },
 ];
 
 export function SettingsNav() {

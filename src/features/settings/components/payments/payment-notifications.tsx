@@ -55,7 +55,7 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="notifyLine"
           render={({ field }) => (
@@ -93,7 +93,7 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
               </FormItem>
             )}
           />
-        )}
+        )} */}
       </CardContent>
     </Card>
   );

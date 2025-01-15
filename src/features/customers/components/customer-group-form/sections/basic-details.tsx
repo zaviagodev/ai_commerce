@@ -63,7 +63,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         )}
       />
 
-      <FormField
+      {/* <FormField
         control={form.control}
         name="color"
         render={({ field }) => (
@@ -90,7 +90,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
 
       <FormField
         control={form.control}

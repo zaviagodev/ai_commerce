@@ -171,7 +171,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
               <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
                 <BasicDetails form={form} />
                 <Addresses form={form} />
-                <Marketing form={form} />
+                {/* <Marketing form={form} /> */}
               </div>
             </div>
           </div>

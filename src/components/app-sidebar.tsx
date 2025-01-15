@@ -74,11 +74,6 @@ const dashboardMenus = [
         icon: UsersRound,
       },
       {
-        title: 'Customer Tiers',
-        url: '/dashboard/customers/tiers',
-        icon: Crown,
-      },
-      {
         title: 'Customer Groups',
         url: '/dashboard/customers/groups',
         icon: Users,
@@ -262,7 +257,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Command className="h-4 w-4 text-primary" />
           </div>
         </SidebarHeader>
-        <SidebarContent className="flex-1">
+        {/* <SidebarContent className="flex-1">
           <TeamList
             teams={data.teams.map((team) => ({
               id: team.name,
@@ -276,7 +271,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               if (team) setActiveItem(data.navMain[0]);
             }}
           />
-        </SidebarContent>
+        </SidebarContent> */}
         <SidebarRail />
       </Sidebar>
 

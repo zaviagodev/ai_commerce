@@ -41,7 +41,7 @@ export function CustomerTiersPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/customers/tiers/new">
+          <Link to="/dashboard/points/tiers/new">
             <Plus className="mr-2 h-4 w-4" />
             Add tier
           </Link>
@@ -74,7 +74,7 @@ export function CustomerTiersPage() {
                       Get started by creating your first customer tier
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/customers/tiers/new">
+                      <Link to="/dashboard/points/tiers/new">
                         <Plus className="mr-2 h-4 w-4" />
                         Add tier
                       </Link>
@@ -94,7 +94,7 @@ export function CustomerTiersPage() {
                       </div>
                       <div>
                         <Link
-                          to={`/dashboard/customers/tiers/${tier.id}`}
+                          to={`/dashboard/points/tiers/${tier.id}`}
                           className="font-medium hover:underline"
                         >
                           {tier.name}

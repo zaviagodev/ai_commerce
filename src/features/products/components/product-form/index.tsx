@@ -331,9 +331,6 @@ export function ProductForm({
                       </TabsTrigger>
                     )}
                     <TabsTrigger value="item-info">Item Info</TabsTrigger>
-                    <TabsTrigger value="points-rewards">
-                      Points & Rewards
-                    </TabsTrigger>
                     {isEventProduct && (
                       <TabsTrigger value="attendees">Attendees</TabsTrigger>
                     )}
@@ -401,9 +398,6 @@ export function ProductForm({
                       </CardContent>
                     </Card>
 
-                    {/* Variations Section */}
-                    <Variations form={form} />
-
                     {/* Inventory Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -421,6 +415,9 @@ export function ProductForm({
                         <Inventory form={form} />
                       </CardContent>
                     </Card>
+
+                    {/* Variations Section */}
+                    <Variations form={form} />
 
                     {/* Shipping Section */}
                     <Card>
@@ -482,9 +479,6 @@ export function ProductForm({
                         />
                       </CardContent>
                     </Card> */}
-                  </TabsContent>
-                  <TabsContent value="points-rewards" className="space-y-8">
-                    <PointsRewards form={form} />
                   </TabsContent>
                   {isEventProduct && (
                     <TabsContent value="attendees" className="space-y-8">

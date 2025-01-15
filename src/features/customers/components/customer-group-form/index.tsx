@@ -100,7 +100,7 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
             </div>
 
             {/* Automation Section */}
-            <div className="rounded-lg border bg-main">
+            {/* <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
                   <Users className="h-5 w-5 text-green-600" />
@@ -115,7 +115,7 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
               <div className="p-6">
                 <Automation form={form} />
               </div>
-            </div>
+            </div> */}
           </div>
             </div>
           </div>

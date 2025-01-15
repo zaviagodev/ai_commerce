@@ -75,7 +75,7 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
             </div>
 
             {/* SEO Section */}
-            <div className="rounded-lg border bg-main">
+            {/* <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                   <Search className="h-5 w-5 text-purple-600" />
@@ -90,7 +90,7 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
               <div className="p-6">
                 <SEO form={form} />
               </div>
-            </div>
+            </div> */}
           </div>
         </form>
       </Form>

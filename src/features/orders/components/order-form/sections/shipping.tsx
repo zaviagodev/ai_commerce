@@ -39,7 +39,7 @@ export function Shipping({ form }: ShippingProps) {
             Configure shipping details and costs
           </p>
         </div>
-        <ShippingTypeDialog 
+        {/* <ShippingTypeDialog 
           currentType={shippingType}
           onSelect={handleShippingTypeChange}
         >
@@ -47,7 +47,7 @@ export function Shipping({ form }: ShippingProps) {
             <Settings className="h-4 w-4 mr-2" />
             {shippingType === 'dynamic' ? 'Dynamic Shipping' : 'Manual Shipping'}
           </Button>
-        </ShippingTypeDialog>
+        </ShippingTypeDialog> */}
       </CardHeader>
       <CardContent>
         {shippingType === 'dynamic' ? (

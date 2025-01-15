@@ -69,7 +69,6 @@ import { PaymentSettingsPage } from '@/features/settings/pages/payments-settings
 
 // Dashboard Features
 import { DashboardPage } from '@/features/dashboard/pages/dashboard-page';
-import { CustomPage } from '@/features/custom-page';
 import { TeamsPage } from './features/teams/pages/teams-page';
 
 export default function App() {
@@ -140,7 +139,7 @@ export default function App() {
                 path="products/categories/:id"
                 element={<EditCategoryPage />}
               />
-              <Route path="products/attributes" element={<AttributesPage />} />
+              {/* <Route path="products/attributes" element={<AttributesPage />} /> */}
 
               {/* Event & Ticket Routes */}
               <Route path="products2" element={<Products2Page />} />
@@ -151,15 +150,6 @@ export default function App() {
               <Route path="customers" element={<CustomersPage />} />
               <Route path="customers/new" element={<NewCustomerPage />} />
               <Route path="customers/:id" element={<EditCustomerPage />} />
-              <Route path="customers/tiers" element={<CustomerTiersPage />} />
-              <Route
-                path="customers/tiers/new"
-                element={<NewCustomerTierPage />}
-              />
-              <Route
-                path="customers/tiers/:id"
-                element={<EditCustomerTierPage />}
-              />
               <Route path="customers/groups" element={<CustomerGroupsPage />} />
               <Route
                 path="customers/groups/new"
@@ -169,8 +159,8 @@ export default function App() {
                 path="customers/groups/:id"
                 element={<EditCustomerGroupPage />}
               />
-              <Route path="apps-store" element={<AppsStorePage />} />
-              <Route path="apps-store/:id" element={<AppDetailsPage />} />
+              {/* <Route path="apps-store" element={<AppsStorePage />} />
+              <Route path="apps-store/:id" element={<AppDetailsPage />} /> */}
 
               {/* Order Routes */}
               <Route path="orders" element={<OrdersPage />} />
@@ -204,6 +194,15 @@ export default function App() {
               <Route path="points/rewards" element={<RewardsItemsPage />} />
               <Route path="points/rewards/new" element={<NewProductPage />} />
               <Route path="points/rewards/:id" element={<EditProductPage />} />
+              <Route path="points/tiers" element={<CustomerTiersPage />} />
+              <Route
+                path="points/tiers/new"
+                element={<NewCustomerTierPage />}
+              />
+              <Route
+                path="points/tiers/:id"
+                element={<EditCustomerTierPage />}
+              />
 
               {/* Settings Routes */}
               <Route path="settings" element={<SettingsPage />}>
@@ -214,8 +213,6 @@ export default function App() {
 
               {/* Teams Routes */}
               <Route path="members" element={<TeamsPage />} />
-
-              <Route path="custom" element={<CustomPage />} />
             </Route>
 
             {/* Redirect root to dashboard */}

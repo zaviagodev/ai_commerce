@@ -160,13 +160,13 @@ export function OrderForm({
                       >
                         Basic Details
                       </TabsTrigger>
-                      <TabsTrigger 
+                      {/* <TabsTrigger 
                         value="notes" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
                         Notes
-                      </TabsTrigger>
+                      </TabsTrigger> */}
                     </TabsList>
                     {/* Show status dropdown when creating new order or editing */}
                     {(!initialData || isEditing) && (
@@ -190,9 +190,9 @@ export function OrderForm({
                       <Summary form={form} />
                     </div>
                   </TabsContent>
-                  <TabsContent value="notes">
+                  {/* <TabsContent value="notes">
                     <Notes form={form} />
-                  </TabsContent>
+                  </TabsContent> */}
                 </Tabs>
               </div>
             </div>
