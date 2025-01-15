@@ -47,53 +47,169 @@ export function Shipping({ form }: ShippingProps) {
       )}
 
       {(!isEventProduct || showShipping) && (
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="weight"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Weight</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.1"
-                    placeholder="0.0"
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                    value={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="weightUnit"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Unit</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+        <>
+          <div className="grid md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select unit" />
-                    </SelectTrigger>
+                    <div className='relative'>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="0.0"
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        value={field.value}
+                        className='pr-10'
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        {form.getValues("weightUnit")}
+                      </span>
+                    </div>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="kg">Kilograms (kg)</SelectItem>
-                    <SelectItem value="lb">Pounds (lb)</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="weightUnit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Weight Unit</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select unit" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="kg">Kilograms (kg)</SelectItem>
+                      <SelectItem value="lb">Pounds (lb)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="width"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Width</FormLabel>
+                  <FormControl>
+                    <div className='relative'>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="0.0"
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        value={field.value}
+                        className='pr-10'
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        {form.getValues("dimensionUnit")}
+                      </span>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="length"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Length</FormLabel>
+                  <FormControl>
+                    <div className='relative'>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="0.0"
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        value={field.value}
+                        className='pr-10'
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        {form.getValues("dimensionUnit")}
+                      </span>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="height"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Height</FormLabel>
+                  <FormControl>
+                    <div className='relative'>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="0.0"
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        value={field.value}
+                        className='pr-10'
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        {form.getValues("dimensionUnit")}
+                      </span>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="dimensionUnit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Dimension Unit</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select unit" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="cm">Centimeters (cm)</SelectItem>
+                      <SelectItem value="in">Inches (in)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </>
       )}
     </div>
   );

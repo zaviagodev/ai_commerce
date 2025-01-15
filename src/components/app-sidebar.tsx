@@ -73,11 +73,11 @@ const dashboardMenus = [
         url: '/dashboard/customers',
         icon: UsersRound,
       },
-      {
-        title: 'Customer Tiers',
-        url: '/dashboard/customers/tiers',
-        icon: Crown,
-      },
+      // {
+      //   title: 'Customer Tiers',
+      //   url: '/dashboard/points/tiers',
+      //   icon: Crown,
+      // },
       {
         title: 'Customer Groups',
         url: '/dashboard/customers/groups',

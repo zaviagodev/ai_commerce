@@ -13,9 +13,11 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { CustomerTier } from '@/types/customer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, X } from 'lucide-react';
+import { Minus, MinusCircle, Plus, PlusCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { GroupSelector } from './group-selector';
+import { useRef } from 'react';
+import InputCounter from '@/components/input-counter';
 
 interface RequirementsProps {
   form: UseFormReturn<CustomerTier>;
@@ -57,6 +59,7 @@ const DEMO_GROUPS = [
 
 export function Requirements({ form }: RequirementsProps) {
   const requirements = form.watch('requirements') || [];
+  const numRef = useRef(null);
 
   const addRequirement = (type: string) => {
     const newRequirement = {
@@ -115,7 +118,7 @@ export function Requirements({ form }: RequirementsProps) {
 
                 {/* Requirement Value */}
                 {requirement.type !== 'group' && (
-                <div className="relative">
+                <div className="relative group">
                   <Input
                     type="number"
                     min="0"
@@ -125,10 +128,10 @@ export function Requirements({ form }: RequirementsProps) {
                         value: e.target.value === '' ? 0 : Number(e.target.value),
                       })
                     }
-                    className="pr-12"
+                    className="pr-16"
                     disabled={!requirement.enabled}
                   />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                  <div className="flex items-center absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                     {getUnitLabel(requirement.type)}
                   </div>
                 </div>

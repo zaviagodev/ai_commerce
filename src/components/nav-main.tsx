@@ -205,17 +205,6 @@ export function NavMain({
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link
-                      to="/dashboard/customers/tiers"
-                      className="font-medium"
-                    >
-                      <Crown className="h-3 w-3 text-muted-foreground" />
-                      <span>Customer Tiers</span>
-                    </Link>
-                  </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
-                <SidebarMenuSubItem>
-                  <SidebarMenuSubButton asChild>
-                    <Link
                       to="/dashboard/customers/groups"
                       className="font-medium"
                     >
@@ -353,6 +342,17 @@ export function NavMain({
                     <Link to="/dashboard/points/redeem" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
                       <span>Redeem List</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link
+                      to="/dashboard/points/tiers"
+                      className="font-medium"
+                    >
+                      <Crown className="h-3 w-3 text-muted-foreground" />
+                      <span>Customer Tiers</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>

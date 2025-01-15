@@ -1,3 +1,5 @@
+"use client"
+
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,6 +17,8 @@ import { Customer } from '@/types/customer';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { useMemo, useState } from 'react';
+import { ProductSearch } from '@/features/products/components/product-search';
 
 interface CustomerListProps {
   customers: Customer[];
@@ -31,7 +35,24 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedCustomers = paginateItems(customers);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCustomers = useMemo(() => {
+    let filtered = customers;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = customers.filter(
+        (customer) =>
+          customer.firstName.toLowerCase().includes(query) ||
+          customer.lastName.toLowerCase().includes(query) ||
+          customer.email.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [customers, searchQuery])
+
+  const paginatedCustomers = paginateItems(filteredCustomers);
 
   if (isLoading) {
     return (
@@ -64,11 +85,18 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
       </motion.div>
 
       <motion.div
-        className="rounded-lg border"
+        className="rounded-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
+        <div className="flex items-center justify-end gap-4 mb-4">
+          <ProductSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search customers..."
+          />
+        </div>
         <Table className={customers.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
@@ -80,7 +108,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {customers.length === 0 ? (
+            {paginatedCustomers.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">

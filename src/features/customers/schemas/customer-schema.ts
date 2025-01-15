@@ -24,6 +24,7 @@ export const CustomerSchema = z.object({
   id: z.string().optional(),
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
+  company: z.string().optional(),
   email: z.string().email('Invalid email address'),
   phone: z.string()
     .regex(thaiPhoneRegex, 'Invalid phone number format. Must be a 10-digit Thai number starting with 0')

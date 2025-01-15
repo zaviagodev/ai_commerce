@@ -161,7 +161,7 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             </motion.div>
 
             <div className="flex gap-2">
-              <TextShimmer duration={2} className="flex-1">
+              <TextShimmer duration={2} className="flex-1 rounded-[8px]">
                 <Input
                   value={inviteLink}
                   readOnly

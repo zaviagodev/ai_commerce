@@ -151,15 +151,6 @@ export default function App() {
               <Route path="customers" element={<CustomersPage />} />
               <Route path="customers/new" element={<NewCustomerPage />} />
               <Route path="customers/:id" element={<EditCustomerPage />} />
-              <Route path="customers/tiers" element={<CustomerTiersPage />} />
-              <Route
-                path="customers/tiers/new"
-                element={<NewCustomerTierPage />}
-              />
-              <Route
-                path="customers/tiers/:id"
-                element={<EditCustomerTierPage />}
-              />
               <Route path="customers/groups" element={<CustomerGroupsPage />} />
               <Route
                 path="customers/groups/new"
@@ -204,6 +195,15 @@ export default function App() {
               <Route path="points/rewards" element={<RewardsItemsPage />} />
               <Route path="points/rewards/new" element={<NewProductPage />} />
               <Route path="points/rewards/:id" element={<EditProductPage />} />
+              <Route path="points/tiers" element={<CustomerTiersPage />} />
+              <Route
+                path="points/tiers/new"
+                element={<NewCustomerTierPage />}
+              />
+              <Route
+                path="points/tiers/:id"
+                element={<EditCustomerTierPage />}
+              />
 
               {/* Settings Routes */}
               <Route path="settings" element={<SettingsPage />}>

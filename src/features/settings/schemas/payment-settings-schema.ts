@@ -26,7 +26,8 @@ export const PaymentSettingsSchema = z.object({
   omiseSecretKey: z.string().optional(),
 
   // Notifications
-  notifyEmail: z.string().email().optional(),
+  // notifyEmail: z.string().email().optional(),
+  notifyEmail: z.boolean(),
   notifyLine: z.boolean(),
   lineNotifyToken: z.string().optional(),
 });
