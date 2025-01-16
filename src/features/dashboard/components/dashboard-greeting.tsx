@@ -1,5 +1,6 @@
 import { useAuth } from "@/lib/auth/auth-hooks";
 import { HelloSvg } from "@/components/hello-svg";
+import { useTranslation } from '@/lib/i18n/hooks';
 
 const dayEmojis: Record<string, string[]> = {
   Monday: ['🌅', '☕️', '💪', '🎯'],
@@ -13,6 +14,7 @@ const dayEmojis: Record<string, string[]> = {
 
 export function DashboardGreeting() {
   const { user } = useAuth();
+  const t = useTranslation();
   const dayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
   const firstName = user?.fullName?.split(' ')[0] || 'there';
   
@@ -25,11 +27,11 @@ export function DashboardGreeting() {
       <div className="flex items-end gap-3 -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
         <HelloSvg />
         <span className="text-2xl font-semibold tracking-tight translate-y-1">
-          {dayName}, {firstName} {randomEmoji}
+          {t.dashboard.greeting.greeting.replace('{name}', firstName)} {randomEmoji}
         </span>
       </div>
       <p className="text-sm text-muted-foreground">
-        Here's what's happening with your store today
+        {t.dashboard.greeting.subtitle}
       </p>
     </div>
   );

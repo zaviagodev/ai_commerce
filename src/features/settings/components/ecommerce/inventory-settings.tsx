@@ -18,12 +18,15 @@ import {
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Package } from 'lucide-react';
 import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface InventorySettingsProps {
   form: UseFormReturn<EcommerceSettings>;
 }
 
 export function InventorySettings({ form }: InventorySettingsProps) {
+  const t = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -31,9 +34,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           <Package className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">Inventory Settings</h3>
+          <h3 className="text-lg font-medium">{t.settings.ecommerce.inventory.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure inventory management settings
+            {t.settings.ecommerce.inventory.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -44,9 +47,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Track Inventory</FormLabel>
+                <FormLabel>{t.settings.ecommerce.inventory.trackInventory.label}</FormLabel>
                 <FormDescription>
-                  Enable inventory tracking for products
+                  {t.settings.ecommerce.inventory.trackInventory.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -64,7 +67,7 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           name="lowStockThreshold"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Low Stock Threshold</FormLabel>
+              <FormLabel>{t.settings.ecommerce.inventory.lowStockThreshold.label}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -74,7 +77,7 @@ export function InventorySettings({ form }: InventorySettingsProps) {
                 />
               </FormControl>
               <FormDescription>
-                Get notified when product stock falls below this number
+                {t.settings.ecommerce.inventory.lowStockThreshold.description}
               </FormDescription>
             </FormItem>
           )}
@@ -85,7 +88,7 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           name="outOfStockBehavior"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Out of Stock Behavior</FormLabel>
+              <FormLabel>{t.settings.ecommerce.inventory.outOfStockBehavior.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -93,13 +96,19 @@ export function InventorySettings({ form }: InventorySettingsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="hide">Hide product</SelectItem>
-                  <SelectItem value="show">Show as out of stock</SelectItem>
-                  <SelectItem value="backorder">Allow backorders</SelectItem>
+                  <SelectItem value="hide">
+                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.hide}
+                  </SelectItem>
+                  <SelectItem value="show">
+                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.show}
+                  </SelectItem>
+                  <SelectItem value="backorder">
+                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.backorder}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                How to handle products when they are out of stock
+                {t.settings.ecommerce.inventory.outOfStockBehavior.description}
               </FormDescription>
             </FormItem>
           )}

@@ -35,8 +35,8 @@ export function LanguageSwitcher() {
             <span>{names.native}</span>
             {locale === code && (
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
                 className="h-1.5 w-1.5 rounded-full bg-primary"
               />
             )}

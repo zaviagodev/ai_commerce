@@ -10,13 +10,29 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocale] = useState<Locale>(() => {
+    // Try to get from localStorage first
     const saved = localStorage.getItem('language') as Locale;
-    return saved && locales.includes(saved) ? saved : defaultLocale;
+    // Check if saved value is valid
+    if (saved && locales.includes(saved)) {
+      return saved;
+    }
+    
+    // Try to get from browser settings
+    const browserLang = navigator.language;
+    const matchedLocale = locales.find(loc => 
+      browserLang.startsWith(loc.split('-')[0])
+    );
+    
+    return matchedLocale || defaultLocale;
   });
 
   useEffect(() => {
+    // Update localStorage and document lang when locale changes
     localStorage.setItem('language', locale);
     document.documentElement.lang = locale;
+    
+    // Update text direction if needed
+    document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
   }, [locale]);
 
   return (
