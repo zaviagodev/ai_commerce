@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Plus, Package } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from "react-router-dom";
+import { Plus, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,20 +9,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Product } from '@/types/product';
-import { cn, formatCurrency } from '@/lib/utils';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import Loading from '@/components/loading';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Product } from "@/types/product";
+import { cn, formatCurrency } from "@/lib/utils";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import Loading from "@/components/loading";
 
-interface ProductListProps {
+interface EventListProps {
   products: Product[];
   isLoading: boolean;
 }
 
-export function ProductList({ products, isLoading }: ProductListProps) {
+export function EventList({ products, isLoading }: EventListProps) {
   const {
     pageIndex,
     pageSize,
@@ -57,7 +57,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/products2/new">
+          <Link to="/dashboard/events/new">
             <Plus className="mr-2 h-4 w-4" />
             Add Event
           </Link>
@@ -70,7 +70,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={products.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
               <TableHead>Product</TableHead>
@@ -90,7 +90,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       Get started by adding your first product
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/products2/new">
+                      <Link to="/dashboard/events/new">
                         <Plus className="mr-2 h-4 w-4" />
                         Add product
                       </Link>
@@ -114,7 +114,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       )}
                       <div>
                         <Link
-                          to={`/dashboard/products2/${product.id}`}
+                          to={`/dashboard/events/${product.id}`}
                           className="font-medium hover:underline"
                         >
                           {product.name}
@@ -130,16 +130,19 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": product.status === 'active',
-                        "!bg-red-100 !text-red-600": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-600": product.status === 'draft',
+                        "!bg-green-100 !text-green-600":
+                          product.status === "active",
+                        "!bg-red-100 !text-red-600":
+                          product.status === "archived",
+                        "!bg-gray-100 !text-gray-600":
+                          product.status === "draft",
                       })}
                     >
                       {product.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || 'Uncategorized'}
+                    {product.category?.name || "Uncategorized"}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
@@ -158,8 +161,8 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       <span
                         className={
                           (product.quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
+                            ? "text-green-600"
+                            : "text-red-600"
                         }
                       >
                         {product.quantity || 0} in stock

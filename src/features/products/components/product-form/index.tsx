@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '@/lib/auth';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ScrollFade } from '@/components/ui/scroll-fade';
+import { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/lib/auth";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollFade } from "@/components/ui/scroll-fade";
 import {
   ImagePlus,
   ClipboardEdit,
@@ -20,27 +20,27 @@ import {
   Share2,
   Link,
   MoreHorizontal,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { ShareModal } from '@/components/share/share-modal';
-import { ProductSchema } from '../../schemas/product-schema';
-import { DEFAULT_TIERS } from '../../data/tiers';
-import { BasicDetails } from './sections/basic-details';
-import { Media } from './sections/media';
-import { Pricing } from './sections/pricing';
-import { Variations } from './sections/variations';
-import { Inventory } from './sections/inventory';
-import { Shipping } from './sections/shipping';
-import { Organization } from './sections/organization';
-import { SalesChannelsSection } from '@/components/sales-channels/sales-channels-section';
-import { PointsRewards } from './sections/points-rewards';
-import { EventSummary } from './sections/event-summary';
-import { Attendees } from './sections/attendees';
-import { EventDetails } from './sections/event-details';
-import { useLocation } from 'react-router-dom';
-import { Product } from '@/types/product';
-import { Badge } from '@/components/ui/badge';
-import { Gift } from 'lucide-react';
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ShareModal } from "@/components/share/share-modal";
+import { ProductSchema } from "../../schemas/product-schema";
+import { DEFAULT_TIERS } from "../../data/tiers";
+import { BasicDetails } from "./sections/basic-details";
+import { Media } from "./sections/media";
+import { Pricing } from "./sections/pricing";
+import { Variations } from "./sections/variations";
+import { Inventory } from "./sections/inventory";
+import { Shipping } from "./sections/shipping";
+import { Organization } from "./sections/organization";
+import { SalesChannelsSection } from "@/components/sales-channels/sales-channels-section";
+import { PointsRewards } from "./sections/points-rewards";
+import { EventSummary } from "../../../events/components/event-form/sections/event-summary";
+import { Attendees } from "./sections/attendees";
+import { EventDetails } from "../../../events/components/event-form/sections/event-details";
+import { useLocation } from "react-router-dom";
+import { Product } from "@/types/product";
+import { Badge } from "@/components/ui/badge";
+import { Gift } from "lucide-react";
 
 interface ProductFormProps {
   initialData?: Partial<Product>;
@@ -55,9 +55,9 @@ export function ProductForm({
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const isRewardProduct = location.pathname.startsWith(
-    '/dashboard/points/rewards'
+    "/dashboard/points/rewards"
   );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
@@ -66,15 +66,15 @@ export function ProductForm({
       setIsMobile(window.innerWidth < 900);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const form = useForm({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      name: initialData?.name || '',
-      description: '',
+      name: initialData?.name || "",
+      description: "",
       images: [],
       category: undefined,
       hasVariants: false,
@@ -83,12 +83,12 @@ export function ProductForm({
       price: 0,
       compareAtPrice: undefined,
       cost: undefined,
-      sku: '',
-      barcode: '',
+      sku: "",
+      barcode: "",
       trackQuantity: false,
       quantity: undefined,
       weight: 0,
-      weightUnit: 'kg',
+      weightUnit: "kg",
       pointsEnabled: false,
       pointsEarned: 0,
       pointsRequired: 0,
@@ -96,22 +96,20 @@ export function ProductForm({
       customerTiers: DEFAULT_TIERS,
       salesChannels: [],
       tags: [],
-      status: 'draft',
+      status: "draft",
       ...initialData,
     },
   });
 
-
   const handleSubmit = async (data: Product) => {
-    console.log("data", data)
     try {
-      await onSubmit(data);
+      await onSubmit(form.getValues());
     } catch (error) {
-      console.error('Failed to save product:', error);
+      console.error("Failed to save product:", error);
     }
   };
 
-  const productName = form.watch('name');
+  const productName = form.watch("name");
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(productName);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,15 +132,15 @@ export function ProductForm({
 
   const handleNameSubmit = () => {
     if (editedName.trim()) {
-      form.setValue('name', editedName.trim());
+      form.setValue("name", editedName.trim());
     }
     setIsEditing(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleNameSubmit();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setIsEditing(false);
       setEditedName(productName);
     }
@@ -151,11 +149,11 @@ export function ProductForm({
   return (
     <div className="flex h-screen flex-col">
       <Form {...form}>
-      <motion.form
+        <motion.form
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit(handleSubmit);
-          }} 
+          }}
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -207,44 +205,44 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || 'Untitled Product'}
+                          {productName || "Untitled Product"}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
                             variant="secondary"
-                            className={cn('whitespace-nowrap gap-2', {
-                              '!bg-green-200 text-green-700':
-                                initialData.status === 'active',
-                              '!bg-red-200 text-red-700':
-                                initialData.status === 'archived',
-                              '!bg-gray-200 text-gray-700':
-                                initialData.status === 'draft',
+                            className={cn("whitespace-nowrap gap-2", {
+                              "!bg-green-200 text-green-700":
+                                initialData.status === "active",
+                              "!bg-red-200 text-red-700":
+                                initialData.status === "archived",
+                              "!bg-gray-200 text-gray-700":
+                                initialData.status === "draft",
                             })}
                           >
                             <span className="relative flex h-1.5 w-1.5">
                               <span
                                 className={cn(
-                                  'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
+                                  "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
                                   {
-                                    '!bg-green-400':
-                                      initialData.status === 'active',
-                                    '!bg-red-400':
-                                      initialData.status === 'archived',
-                                    '!bg-gray-400':
-                                      initialData.status === 'draft',
+                                    "!bg-green-400":
+                                      initialData.status === "active",
+                                    "!bg-red-400":
+                                      initialData.status === "archived",
+                                    "!bg-gray-400":
+                                      initialData.status === "draft",
                                   }
                                 )}
                               />
                               <span
                                 className={cn(
-                                  'relative inline-flex h-1.5 w-1.5 rounded-full',
+                                  "relative inline-flex h-1.5 w-1.5 rounded-full",
                                   {
-                                    '!bg-green-500':
-                                      initialData.status === 'active',
-                                    '!bg-red-500':
-                                      initialData.status === 'archived',
-                                    '!bg-gray-500':
-                                      initialData.status === 'draft',
+                                    "!bg-green-500":
+                                      initialData.status === "active",
+                                    "!bg-red-500":
+                                      initialData.status === "archived",
+                                    "!bg-gray-500":
+                                      initialData.status === "draft",
                                   }
                                 )}
                               />
@@ -287,7 +285,7 @@ export function ProductForm({
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || 'Untitled Product'}
+                  title={productName || "Untitled Product"}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
@@ -344,23 +342,23 @@ export function ProductForm({
                     </TabsContent>
                   )}
                   <TabsContent value="item-info" className="space-y-8">
-                {/* Media Section */}
-                <Card>
-                  <CardHeader className="flex flex-row items-center gap-4 py-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
-                      <ImagePlus className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="text-lg font-medium">Media</h2>
-                      <p className="text-sm text-muted-foreground">
-                        Add photos of your product
-                      </p>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <Media form={form} productId={initialData?.id} />
-                  </CardContent>
-                </Card>
+                    {/* Media Section */}
+                    <Card>
+                      <CardHeader className="flex flex-row items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <ImagePlus className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-lg font-medium">Media</h2>
+                          <p className="text-sm text-muted-foreground">
+                            Add photos of your product
+                          </p>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <Media form={form} productId={initialData?.id} />
+                      </CardContent>
+                    </Card>
 
                     {/* Basic Details Section */}
                     <Card>

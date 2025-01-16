@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight, type LucideIcon } from "lucide-react";
 import {
   LayoutDashboard,
   Package,
@@ -14,14 +14,14 @@ import {
   Trophy,
   Settings,
   Users2,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -31,7 +31,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 export function NavMain({
   items,
@@ -234,7 +234,7 @@ export function NavMain({
               <SidebarMenuButton tooltip="Coupons" className="font-medium">
                 <div
                   className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: 'rgb(244, 114, 182, 0.2)' }}
+                  style={{ backgroundColor: "rgb(244, 114, 182, 0.2)" }}
                 >
                   <Ticket className="h-3.5 w-3.5 text-pink-500" />
                 </div>
@@ -273,7 +273,7 @@ export function NavMain({
               >
                 <div
                   className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: 'rgb(147, 197, 253, 0.2)' }}
+                  style={{ backgroundColor: "rgb(147, 197, 253, 0.2)" }}
                 >
                   <Ticket className="h-3.5 w-3.5 text-blue-500" />
                 </div>
@@ -285,7 +285,7 @@ export function NavMain({
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/products2" className="font-medium">
+                    <Link to="/dashboard/events" className="font-medium">
                       <Ticket className="h-3 w-3 text-muted-foreground" />
                       <span>Events</span>
                     </Link>
@@ -293,10 +293,7 @@ export function NavMain({
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/products2/orders"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/events/orders" className="font-medium">
                       <ShoppingCart className="h-3 w-3 text-muted-foreground" />
                       <span>Ticket Orders</span>
                     </Link>
@@ -316,7 +313,7 @@ export function NavMain({
               >
                 <div
                   className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: 'rgb(253, 224, 71, 0.2)' }}
+                  style={{ backgroundColor: "rgb(253, 224, 71, 0.2)" }}
                 >
                   <Gift className="h-3.5 w-3.5 text-yellow-500" />
                 </div>
@@ -367,22 +364,22 @@ export function NavMain({
 
 function getIconColor(title: string): string {
   const colors: Record<string, string> = {
-    Dashboard: '#E9F3FF', // Pastel blue
-    Products: '#FFE9EC', // Pastel pink
-    Customers: '#E9FFE9', // Pastel green
-    Orders: '#FFF3E9', // Pastel orange
-    Profile: '#F3E9FF', // Pastel purple
+    Dashboard: "#E9F3FF", // Pastel blue
+    Products: "#FFE9EC", // Pastel pink
+    Customers: "#E9FFE9", // Pastel green
+    Orders: "#FFF3E9", // Pastel orange
+    Profile: "#F3E9FF", // Pastel purple
   };
-  return colors[title] || '#F5F5F5';
+  return colors[title] || "#F5F5F5";
 }
 
 function getIconTextColor(title: string): string {
   const colors: Record<string, string> = {
-    Dashboard: '#4B96FF', // Blue
-    Products: '#FF4B6B', // Pink
-    Customers: '#4BFF4B', // Green
-    Orders: '#FF964B', // Orange
-    Profile: '#964BFF', // Purple
+    Dashboard: "#4B96FF", // Blue
+    Products: "#FF4B6B", // Pink
+    Customers: "#4BFF4B", // Green
+    Orders: "#FF964B", // Orange
+    Profile: "#964BFF", // Purple
   };
-  return colors[title] || '#666666';
+  return colors[title] || "#666666";
 }

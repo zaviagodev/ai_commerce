@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { useState } from "react";
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -7,18 +7,18 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Product } from '@/types/product';
-import { useLocation } from 'react-router-dom';
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Product } from "@/types/product";
+import { useLocation } from "react-router-dom";
 
 interface ShippingProps {
   form: UseFormReturn<Product>;
@@ -26,7 +26,7 @@ interface ShippingProps {
 
 export function Shipping({ form }: ShippingProps) {
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const [showShipping, setShowShipping] = useState(false);
 
   return (
@@ -39,10 +39,7 @@ export function Shipping({ form }: ShippingProps) {
               Enable if this event requires shipping of physical items
             </FormDescription>
           </div>
-          <Switch
-            checked={showShipping}
-            onCheckedChange={setShowShipping}
-          />
+          <Switch checked={showShipping} onCheckedChange={setShowShipping} />
         </div>
       )}
 

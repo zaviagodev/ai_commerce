@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Plus, Package } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from "react-router-dom";
+import { Plus, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,20 +9,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Product } from '@/types/product';
-import { cn, formatCurrency } from '@/lib/utils';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import Loading from '@/components/loading';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { EventProduct, Product } from "@/types/product";
+import { cn, formatCurrency } from "@/lib/utils";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import Loading from "@/components/loading";
 
 interface EventTicketListProps {
-  products: Product[];
+  events: EventProduct[];
   isLoading: boolean;
 }
 
-export function EventTicketList({ products, isLoading }: EventTicketListProps) {
+export function EventTicketList({ events, isLoading }: EventTicketListProps) {
   const {
     pageIndex,
     pageSize,
@@ -32,7 +32,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedProducts = paginateItems(products);
+  const paginatedEvents = paginateItems(events);
 
   if (isLoading) {
     return (
@@ -57,7 +57,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/products2/new">
+          <Link to="/dashboard/events/new">
             <Plus className="mr-2 h-4 w-4" />
             Add Event
           </Link>
@@ -70,7 +70,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={events.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
               <TableHead>Product</TableHead>
@@ -81,7 +81,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.length === 0 ? (
+            {events.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -90,7 +90,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                       Get started by adding your first event
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/products2/new">
+                      <Link to="/dashboard/events/new">
                         <Plus className="mr-2 h-4 w-4" />
                         Add Event
                       </Link>
@@ -99,14 +99,14 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+              paginatedEvents.map((event) => (
+                <TableRow key={event.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      {product.images[0] ? (
+                      {event.images[0] ? (
                         <img
-                          src={product.images[0].url}
-                          alt={product.images[0].alt}
+                          src={event.images[0].url}
+                          alt={event.images[0].alt}
                           className="h-12 w-12 rounded-sm object-cover"
                         />
                       ) : (
@@ -114,14 +114,14 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                       )}
                       <div>
                         <Link
-                          to={`/dashboard/products2/${product.id}`}
+                          to={`/dashboard/events/${event.id}`}
                           className="font-medium hover:underline"
                         >
-                          {product.name}
+                          {event.name}
                         </Link>
-                        {product.sku && (
+                        {event.sku && (
                           <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
+                            SKU: {event.sku}
                           </p>
                         )}
                       </div>
@@ -130,39 +130,42 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": product.status === 'active',
-                        "!bg-red-100 !text-red-600": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-600": product.status === 'draft',
+                        "!bg-green-100 !text-green-600":
+                          event.status === "active",
+                        "!bg-red-100 !text-red-600":
+                          event.status === "archived",
+                        "!bg-gray-100 !text-gray-600":
+                          event.status === "draft",
                       })}
                     >
-                      {product.status}
+                      {event.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || 'Uncategorized'}
+                    {event.category?.name || "Uncategorized"}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
                       <div className="font-medium">
-                        {formatCurrency(product.price)}
+                        {formatCurrency(event.price)}
                       </div>
-                      {product.compareAtPrice && (
+                      {event.compareAtPrice && (
                         <div className="text-sm text-muted-foreground line-through">
-                          {formatCurrency(product.compareAtPrice)}
+                          {formatCurrency(event.compareAtPrice)}
                         </div>
                       )}
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-                    {product.trackQuantity ? (
+                    {event.trackQuantity ? (
                       <span
                         className={
-                          (product.quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
+                          (event.quantity || 0) > 0
+                            ? "text-green-600"
+                            : "text-red-600"
                         }
                       >
-                        {product.quantity || 0} in stock
+                        {event.quantity || 0} in stock
                       </span>
                     ) : (
                       <span className="text-muted-foreground">Not tracked</span>
@@ -174,7 +177,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
           </TableBody>
         </Table>
 
-        {products.length > 0 && (
+        {events.length > 0 && (
           <motion.div
             className="border-t p-4 bg-white rounded-b-lg"
             initial={{ opacity: 0 }}
@@ -184,8 +187,8 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
-              pageCount={pageCount(products.length)}
-              totalItems={products.length}
+              pageCount={pageCount(events.length)}
+              totalItems={events.length}
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />

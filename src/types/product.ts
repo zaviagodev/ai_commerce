@@ -31,9 +31,9 @@ export interface Product {
   barcode?: string;
   trackQuantity: boolean;
   weight: number;
-  weightUnit: 'kg' | 'lb';
+  weightUnit: "kg" | "lb";
   tags: ProductTag[];
-  status: 'draft' | 'active' | 'archived';
+  status: "draft" | "active" | "archived";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -56,7 +56,7 @@ export interface ProductVariant {
     name: string;
     value: string;
   }[];
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   position: number;
 }
 
@@ -64,4 +64,31 @@ export interface VariantGroup {
   attribute: string;
   variants: ProductVariant[];
   totalStock: number;
+}
+
+export interface Event {
+  id: string;
+  eventId: string;
+  productId: string;
+  storeName: string;
+  startDateTime: Date;
+  endDateTime: Date;
+  venueName: string;
+  venueAddress: string;
+  googleMapsLink?: string;
+  organizerName: string;
+  organizerContact: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface EventProduct extends Product {
+  eventId: string;
+  startDateTime: Date;
+  endDateTime: Date;
+  venueName: string;
+  venueAddress: string;
+  googleMapsLink?: string;
+  organizerName: string;
+  organizerContact: string;
 }
