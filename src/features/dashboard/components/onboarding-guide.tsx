@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Package, Users, ShoppingCart, Store, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '@/lib/i18n/hooks';
+
 
 const ONBOARDING_STEPS = [
   {
@@ -43,6 +45,8 @@ const ONBOARDING_STEPS = [
 export function OnboardingGuide() {
   const [isStarted, setIsStarted] = useState(false);
   const navigate = useNavigate();
+  const t = useTranslation();
+
 
   return (
     <Card className="relative overflow-hidden">
@@ -64,7 +68,7 @@ export function OnboardingGuide() {
             className="text-center"
           >
             <h2 className="text-2xl font-semibold mb-2">
-              Welcome to Your Store
+              <span>{t.navigation.dashboard}</span>
             </h2>
             <p className="text-muted-foreground mb-6">
               Let's get started with setting up your store for success

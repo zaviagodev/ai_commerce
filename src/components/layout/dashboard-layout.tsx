@@ -25,6 +25,8 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
+import { LanguageSwitcher } from '@/components/language-switcher';
+
 
 function getBreadcrumbItems(pathname: string, productName?: string) {
   const segments = pathname.split('/').filter(Boolean);
@@ -155,6 +157,9 @@ export function DashboardLayout() {
                         ))}
                       </BreadcrumbList>
                     </Breadcrumb>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <LanguageSwitcher />
                   </div>
                 </header>
                 <div className="content-area w-full px-6 overflow-hidden top-[-56px] mb-[-56px] pb-6">
