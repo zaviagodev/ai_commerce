@@ -7,6 +7,7 @@ import { ProductCategory } from '@/types/product';
 import { BasicDetails } from './sections/basic-details';
 import { SEO } from './sections/seo';
 import { Folder, Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CategoryFormProps {
   initialData?: ProductCategory;
@@ -35,8 +36,18 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
   return (
     <div className="space-y-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
+        <motion.form onSubmit={form.handleSubmit(handleSubmit)} 
+          className="space-y-8"
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? 'Edit category' : 'Create category'}
@@ -53,9 +64,14 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
               </Button>
               <Button type="submit">Save category</Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6">
+          <motion.div 
+            className="grid gap-6"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             {/* Basic Details Section */}
             <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
@@ -91,8 +107,8 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
                 <SEO form={form} />
               </div>
             </div> */}
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

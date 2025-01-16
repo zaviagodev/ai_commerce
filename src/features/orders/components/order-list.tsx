@@ -99,24 +99,30 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         </Button>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      <motion.div 
+        className="flex flex-col-reverse lg:flex-row justify-between items-end lg:items-center gap-y-2 gap-x-4 mb-4 w-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex flex-col-reverse lg:flex-row justify-between items-end lg:items-center gap-y-2 gap-x-4 mb-4 w-full">
-          <StatusTabs
-            selectedStatus={selectedStatus}
-            onStatusChange={setSelectedStatus}
-            counts={statusCounts}
-          />
-          <ProductSearch
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search orders..."
-          />
-        </div>
+        <StatusTabs
+          selectedStatus={selectedStatus}
+          onStatusChange={setSelectedStatus}
+          counts={statusCounts}
+        />
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search orders..."
+        />
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
         <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>

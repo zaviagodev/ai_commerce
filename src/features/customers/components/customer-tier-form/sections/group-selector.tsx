@@ -62,7 +62,7 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
                   <Button
                     key={group.id}
                     variant={selectedGroups.includes(group.id) ? 'default' : 'outline'}
-                    className="w-full justify-start"
+                    className="w-full justify-start h-fit"
                     onClick={() => toggleGroup(group.id)}
                   >
                     <div className="flex items-center gap-2">

@@ -63,8 +63,10 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
     setIsEditing(false);
   };
 
+  console.log(addresses)
+
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}

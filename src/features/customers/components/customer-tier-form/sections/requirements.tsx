@@ -89,6 +89,9 @@ export function Requirements({ form }: RequirementsProps) {
   return (
     <div className="space-y-6">
       {/* Active Requirements */}
+      {requirements.length === 0 && (
+        <p className='text-center text-[0.8rem] text-muted-foreground py-4'>No requirements. Please add them below.</p>
+      )}
       <div className="space-y-4">
         {requirements.map((requirement) => (
           <Card key={requirement.id} className="p-4">
@@ -118,23 +121,32 @@ export function Requirements({ form }: RequirementsProps) {
 
                 {/* Requirement Value */}
                 {requirement.type !== 'group' && (
-                <div className="relative group">
-                  <Input
-                    type="number"
-                    min="0"
-                    value={requirement.value}
-                    onChange={(e) =>
-                      updateRequirement(requirement.id, {
-                        value: e.target.value === '' ? 0 : Number(e.target.value),
-                      })
-                    }
-                    className="pr-16"
-                    disabled={!requirement.enabled}
-                  />
-                  <div className="flex items-center absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                    {getUnitLabel(requirement.type)}
+                  <div className='flex items-center gap-3'>
+                    <div className="relative w-full">
+                      <Input
+                        type="number"
+                        min="0"
+                        value={requirement.value}
+                        onChange={(e) =>
+                          updateRequirement(requirement.id, {
+                            value: e.target.value === '' ? 0 : Number(e.target.value),
+                          })
+                        }
+                        className="pr-12"
+                        disabled={!requirement.enabled}
+                      />
+                      <div className="flex items-center absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        {getUnitLabel(requirement.type)}
+                      </div>
+                    </div>
+                    {/* <InputCounter 
+                      onChange={(type) => {
+                        updateRequirement(requirement.id, {
+                          value: type === "increase" ? requirement.value + 1 : requirement.value - 1,
+                        })
+                      }}
+                    /> */}
                   </div>
-                </div>
                 )}
                 
                 {/* Group Selection */}

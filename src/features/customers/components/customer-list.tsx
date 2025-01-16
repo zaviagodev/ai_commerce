@@ -84,20 +84,26 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         </Button>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex items-center justify-end gap-4 mb-4">
-          <ProductSearch
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search customers..."
-          />
-        </div>
-        <Table className={customers.length > 0 ? 'rounded-b-none' : ''}>
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customers..."
+        />
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={paginatedCustomers.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
@@ -154,7 +160,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
           </TableBody>
         </Table>
 
-        {customers.length > 0 && (
+        {paginatedCustomers.length > 0 && (
           <motion.div
             className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}

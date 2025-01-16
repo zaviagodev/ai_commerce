@@ -33,53 +33,8 @@ import { motion } from 'framer-motion';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { InviteModal } from '../components/invite-modal';
-import { cn } from '@/lib/utils';
-
-// Mock data for team members
-const TEAM_MEMBERS = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Owner',
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 5), // 5 minutes ago
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'Admin',
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
-  },
-  {
-    id: '3',
-    name: 'Mike Johnson',
-    email: 'mike@example.com',
-    role: 'Staff',
-    status: 'pending',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 60), // 1 hour ago
-  },
-  {
-    id: '4',
-    name: 'Sarah Williams',
-    email: 'sarah@example.com',
-    role: 'Staff',
-    status: 'inactive',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
-  },
-];
-
-const ROLES = {
-  Owner: { color: 'yellow', icon: Crown },
-  Admin: { color: 'blue', icon: Users2 },
-  Staff: { color: 'gray', icon: Users2 },
-} as const;
+import { cn, getTimeAgo } from '@/lib/utils';
+import { TEAM_MEMBERS } from '../data/members';
 
 export function TeamsPage() {
   const [members] = useState(TEAM_MEMBERS);
@@ -97,27 +52,6 @@ export function TeamsPage() {
   });
 
   const paginatedMembers = paginateItems(members);
-
-  const getTimeAgo = (date: Date) => {
-    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-    
-    let interval = seconds / 31536000;
-    if (interval > 1) return `${Math.floor(interval)} year${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 2592000;
-    if (interval > 1) return `${Math.floor(interval)} month${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 86400;
-    if (interval > 1) return `${Math.floor(interval)} day${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 3600;
-    if (interval > 1) return `${Math.floor(interval)} hour${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 60;
-    if (interval > 1) return `${Math.floor(interval)} minute${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    return 'Just now';
-  };
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
     const colors = {
@@ -162,9 +96,11 @@ export function TeamsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button onClick={() => setShowInviteModal(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            Invite member
+          <Button asChild>
+            <div onClick={() => setShowInviteModal(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              Invite member
+            </div>
           </Button>
         </div>
       </motion.div>
@@ -193,20 +129,22 @@ export function TeamsPage() {
               return (
                 <TableRow key={member.id}>
                   <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage src={member.avatar} alt={member.name} />
-                        <AvatarFallback>
-                          {member.name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">{member.name}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {member.email}
+                    <Link to={`/dashboard/members/${member.id}`} className="block">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={member.avatar} alt={member.name} />
+                          <AvatarFallback>
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{member.name}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {member.email}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <Badge 
@@ -262,7 +200,7 @@ export function TeamsPage() {
           </TableBody>
         </Table>
 
-        {TEAM_MEMBERS.length > 0 && (
+        {paginatedMembers.length > 0 && (
           <motion.div
             className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
@@ -288,3 +226,9 @@ export function TeamsPage() {
     </div>
   );
 }
+
+const ROLES = {
+  Owner: { color: 'yellow', icon: Crown },
+  Admin: { color: 'blue', icon: Users2 },
+  Staff: { color: 'gray', icon: Users2 },
+} as const;

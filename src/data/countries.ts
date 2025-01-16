@@ -102,6 +102,7 @@ export const COUNTRY_CHOICE: string[] = [
     'Liechtenstein',
     'Lithuania',
     'Luxembourg',
+    'Macau',
     'Madagascar',
     'Malaysia',
     'Malawi',

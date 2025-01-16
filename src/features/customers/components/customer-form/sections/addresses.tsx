@@ -148,7 +148,7 @@ export function Addresses({ form }: AddressesProps) {
           onOpenChange={(open) => !open && setEditingAddress(null)}
         >
           <DialogContent
-            className="h-[calc(100vh_-_10rem)]"
+            className="h-[calc(100dvh_-_10rem)]"
             aria-labelledby="address-dialog-title"
           >
             <DialogHeader>

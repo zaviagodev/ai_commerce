@@ -88,7 +88,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Products" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-pink-300">
                   <Package className="h-3.5 w-3.5 text-pink-500" />
                 </div>
                 <span>Products</span>
@@ -136,7 +136,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Orders" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-orange-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-orange-300">
                   <ShoppingCart className="h-3.5 w-3.5 text-orange-500" />
                 </div>
                 <span>Orders</span>
@@ -162,7 +162,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Customers" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-purple-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-purple-300">
                   <Users className="h-3.5 w-3.5 text-purple-500" />
                 </div>
                 <span>Customers</span>

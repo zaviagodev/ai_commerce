@@ -149,7 +149,7 @@ export function ProductForm({
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
       <motion.form
           onSubmit={(e) => {

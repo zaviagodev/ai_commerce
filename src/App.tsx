@@ -70,6 +70,8 @@ import { PaymentSettingsPage } from '@/features/settings/pages/payments-settings
 // Dashboard Features
 import { DashboardPage } from '@/features/dashboard/pages/dashboard-page';
 import { TeamsPage } from './features/teams/pages/teams-page';
+import { ThemeSettingsPage } from './features/settings/pages/theme-settings-page';
+import MemberDetailsPage from './features/teams/pages/member-details-page';
 
 export default function App() {
   useEffect(() => {
@@ -209,10 +211,12 @@ export default function App() {
                 <Route index element={<Navigate to="ecommerce" replace />} />
                 <Route path="ecommerce" element={<EcommerceSettingsPage />} />
                 <Route path="payments" element={<PaymentSettingsPage />} />
+                <Route path="theme" element={<ThemeSettingsPage />} />
               </Route>
 
               {/* Teams Routes */}
               <Route path="members" element={<TeamsPage />} />
+              <Route path="members/:id" element={<MemberDetailsPage />} />
             </Route>
 
             {/* Redirect root to dashboard */}
