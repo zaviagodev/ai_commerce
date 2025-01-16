@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { BankAccountSchema, BankAccount } from '../../schemas/payment-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BankAccountDialogProps {
   open: boolean;
@@ -40,6 +41,7 @@ export function BankAccountDialog({
   onSubmit,
   banks,
 }: BankAccountDialogProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(BankAccountSchema),
     defaultValues: {
@@ -61,7 +63,7 @@ export function BankAccountDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Bank Account</DialogTitle>
+          <DialogTitle>{t.settings.payments.bankTransfer.addAccount}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
@@ -70,11 +72,11 @@ export function BankAccountDialog({
               name="bankName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Bank</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.accountDetails.bank}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select bank" />
+                        <SelectValue placeholder={t.settings.payments.bankTransfer.accountDetails.bank} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -95,7 +97,7 @@ export function BankAccountDialog({
               name="accountName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Account Name</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountName}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -109,7 +111,7 @@ export function BankAccountDialog({
               name="accountNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Account Number</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountNumber}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -123,7 +125,7 @@ export function BankAccountDialog({
               name="branch"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Branch (Optional)</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.accountDetails.branch}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -137,7 +139,7 @@ export function BankAccountDialog({
               name="isDefault"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                  <FormLabel>Set as default account</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.accountDetails.defaultAccount}</FormLabel>
                   <FormControl>
                     <Switch
                       checked={field.value}

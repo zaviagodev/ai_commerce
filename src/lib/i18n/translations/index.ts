@@ -1,5 +1,7 @@
 import { dashboard } from './features/dashboard';
 import { ecommerce } from './features/settings/ecommerce';
+import { payments } from './features/settings/payments';
+import { teams } from './features/teams';
 
 
 export const translations = {
@@ -14,7 +16,9 @@ export const translations = {
     dashboard: dashboard.en,
     settings: {
       ecommerce: ecommerce.en,
-    }
+      payments: payments.en,
+    },
+    teams: teams.en,
   },
   'th-TH': {
     navigation: {
@@ -27,7 +31,9 @@ export const translations = {
     dashboard: dashboard.th,
     settings: {
       ecommerce: ecommerce.th,
-    }
+      payments: payments.th,
+    },
+    teams: teams.th,
   },
 } as const;
 

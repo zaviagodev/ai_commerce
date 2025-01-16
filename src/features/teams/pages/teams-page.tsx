@@ -34,6 +34,7 @@ import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { InviteModal } from '../components/invite-modal';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 // Mock data for team members
 const TEAM_MEMBERS = [
@@ -84,6 +85,7 @@ const ROLES = {
 export function TeamsPage() {
   const [members] = useState(TEAM_MEMBERS);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const t = useTranslation();
 
   const {
     pageIndex,
@@ -102,21 +104,21 @@ export function TeamsPage() {
     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
     
     let interval = seconds / 31536000;
-    if (interval > 1) return `${Math.floor(interval)} year${Math.floor(interval) === 1 ? "" : "s"} ago`;
+    if (interval > 1) return t.teams.members.timeAgo.days.replace('{{count}}', Math.floor(interval).toString());
     
     interval = seconds / 2592000;
-    if (interval > 1) return `${Math.floor(interval)} month${Math.floor(interval) === 1 ? "" : "s"} ago`;
+    if (interval > 1) return t.teams.members.timeAgo.days.replace('{{count}}', Math.floor(interval).toString());
     
     interval = seconds / 86400;
-    if (interval > 1) return `${Math.floor(interval)} day${Math.floor(interval) === 1 ? "" : "s"} ago`;
+    if (interval > 1) return t.teams.members.timeAgo.days.replace('{{count}}', Math.floor(interval).toString());
     
     interval = seconds / 3600;
-    if (interval > 1) return `${Math.floor(interval)} hour${Math.floor(interval) === 1 ? "" : "s"} ago`;
+    if (interval > 1) return t.teams.members.timeAgo.hours.replace('{{count}}', Math.floor(interval).toString());
     
     interval = seconds / 60;
-    if (interval > 1) return `${Math.floor(interval)} minute${Math.floor(interval) === 1 ? "" : "s"} ago`;
+    if (interval > 1) return t.teams.members.timeAgo.minutes.replace('{{count}}', Math.floor(interval).toString());
     
-    return 'Just now';
+    return t.teams.members.timeAgo.justNow;
   };
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
@@ -156,15 +158,15 @@ export function TeamsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Team Members</h1>
+          <h1 className="text-2xl font-semibold">{t.teams.members.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your team members and their roles
+            {t.teams.members.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={() => setShowInviteModal(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Invite member
+            {t.teams.members.addMember}
           </Button>
         </div>
       </motion.div>
@@ -178,10 +180,10 @@ export function TeamsPage() {
         <Table className={paginatedMembers.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              <TableHead>Member</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Last active</TableHead>
+              <TableHead>{t.teams.members.table.member}</TableHead>
+              <TableHead>{t.teams.members.table.role}</TableHead>
+              <TableHead>{t.teams.members.table.status}</TableHead>
+              <TableHead>{t.teams.members.table.lastActive}</TableHead>
               <TableHead className="w-[50px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -214,7 +216,7 @@ export function TeamsPage() {
                       className={cn("gap-1", getRoleBadgeStyles(member.role as keyof typeof ROLES))}
                     >
                       <RoleIcon className="h-3 w-3" />
-                      {member.role}
+                      {t.teams.members.roles[member.role.toLowerCase() as keyof typeof t.teams.members.roles]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -223,7 +225,7 @@ export function TeamsPage() {
                       className={cn("gap-1", getStatusBadgeStyles(member.status))}
                     >
                       <StatusIcon className="h-3 w-3" />
-                      {member.status.charAt(0).toUpperCase() + member.status.slice(1)}
+                      {t.teams.members.status[member.status as keyof typeof t.teams.members.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -242,16 +244,16 @@ export function TeamsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                           <Mail className="mr-2 h-4 w-4" />
-                          Send reminder
+                          {t.teams.members.actions.sendReminder}
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Users2 className="mr-2 h-4 w-4" />
-                          Change role
+                          {t.teams.members.actions.changeRole}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-red-600">
                           <XCircle className="mr-2 h-4 w-4" />
-                          Remove member
+                          {t.teams.members.actions.removeMember}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

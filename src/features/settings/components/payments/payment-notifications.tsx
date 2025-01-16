@@ -12,12 +12,14 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Bell } from 'lucide-react';
 import { PaymentSettings } from '../../schemas/payment-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PaymentNotificationsProps {
   form: UseFormReturn<PaymentSettings>;
 }
 
 export function PaymentNotifications({ form }: PaymentNotificationsProps) {
+  const t = useTranslation();
   const notifyLine = form.watch('notifyLine');
 
   return (
@@ -27,9 +29,9 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           <Bell className="h-5 w-5 text-orange-600" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">Payment Notifications</h3>
+          <h3 className="text-lg font-medium">{t.settings.payments.notifications.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure payment notification settings
+            {t.settings.payments.notifications.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -39,16 +41,16 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           name="notifyEmail"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Notifications</FormLabel>
+              <FormLabel>{t.settings.payments.notifications.email.label}</FormLabel>
               <FormControl>
                 <Input 
                   type="email" 
-                  placeholder="notifications@example.com" 
+                  placeholder={t.settings.payments.notifications.email.placeholder}
                   {...field} 
                 />
               </FormControl>
               <FormDescription>
-                Receive payment notifications via email
+                {t.settings.payments.notifications.email.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -61,9 +63,9 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>LINE Notifications</FormLabel>
+                <FormLabel>{t.settings.payments.notifications.line.label}</FormLabel>
                 <FormDescription>
-                  Receive payment notifications via LINE
+                  {t.settings.payments.notifications.line.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -82,12 +84,12 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
             name="lineNotifyToken"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LINE Notify Token</FormLabel>
+                <FormLabel>{t.settings.payments.notifications.line.token.label}</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Your LINE Notify access token
+                  {t.settings.payments.notifications.line.token.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
