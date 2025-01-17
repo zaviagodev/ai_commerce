@@ -151,7 +151,7 @@ export function ProductForm({
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-      <motion.form
+        <motion.form
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit(handleSubmit);

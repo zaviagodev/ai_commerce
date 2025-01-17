@@ -23,11 +23,6 @@ const navItems = [
     href: '/dashboard/settings/payments',
     icon: CreditCard,
   },
-  {
-    title: 'Theme',
-    href: '/dashboard/settings/theme',
-    icon: Palette,
-  },
   // {
   //   title: 'Notifications',
   //   href: '/dashboard/settings/notifications',
