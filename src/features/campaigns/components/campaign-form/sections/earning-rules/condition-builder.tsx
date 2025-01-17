@@ -58,13 +58,14 @@ const CONDITION_TYPES = [
 export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBuilderProps) {
 
   return (
-    <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center float-right">
+    <div className="p-4 rounded-lg border bg-muted/50 relative">
+      <div className="flex items-center">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={onRemove}
+          className='absolute right-0 top-0 !bg-transparent'
         >
           <X className="h-4 w-4" />
         </Button>
@@ -77,7 +78,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
             value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value as CampaignCondition['type'] })}
           >
-            <SelectTrigger>
+            <SelectTrigger className='bg-white'>
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>
@@ -105,7 +106,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
                 value={condition.operator}
                 onValueChange={(value) => onUpdate({ operator: value as CampaignProductRule['operator'] })}
               >
-                <SelectTrigger>
+                <SelectTrigger className='bg-white'>
                   <SelectValue placeholder="Select operator" />
                 </SelectTrigger>
                 <SelectContent>
@@ -122,6 +123,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
                 value={condition.value}
                 onChange={(e) => onUpdate({ value: e.target.value })}
                 placeholder="Enter value"
+                className='bg-white'
               />
             </div>
           </>

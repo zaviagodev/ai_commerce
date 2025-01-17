@@ -14,9 +14,26 @@ import { Badge } from '@/components/ui/badge';
 import { useCustomerTiers } from '../hooks/use-customer-tiers';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
 
 export function CustomerTiersPage() {
   const { tiers, isLoading } = useCustomerTiers();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredTiers = useMemo(() => {
+    let filtered = tiers;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = tiers.filter(
+        (tier) =>
+          tier.name.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [tiers, searchQuery])
 
   if (isLoading) {
     return (
@@ -48,6 +65,19 @@ export function CustomerTiersPage() {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customer tiers..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
@@ -65,7 +95,7 @@ export function CustomerTiersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tiers.length === 0 ? (
+            {filteredTiers.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -83,7 +113,7 @@ export function CustomerTiersPage() {
                 </TableCell>
               </TableRow>
             ) : (
-              tiers.map((tier) => (
+              filteredTiers.map((tier) => (
                 <TableRow key={tier.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">

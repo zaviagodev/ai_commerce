@@ -49,13 +49,14 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
   };
 
   return (
-    <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
-      <div className="flex items-center justify-between float-right">
+    <div className="p-4 rounded-lg border bg-muted/50 relative">
+      <div className="flex items-center justify-between">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={onRemove}
+          className='absolute right-0 top-0 !bg-transparent'
         >
           <X className="h-4 w-4" />
         </Button>
@@ -68,7 +69,7 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
             value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value as CampaignProductRule['type'] })}
           >
-            <SelectTrigger>
+            <SelectTrigger className='bg-white'>
               <SelectValue placeholder="Select rule type" />
             </SelectTrigger>
             <SelectContent>
