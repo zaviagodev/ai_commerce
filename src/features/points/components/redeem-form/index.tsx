@@ -32,7 +32,7 @@ export function RedeemForm({
   const customerName = form.watch('customerName');
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
         <form className="flex flex-col h-full">
           {/* Header */}

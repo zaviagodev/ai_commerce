@@ -91,7 +91,7 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
         onChange={handlePriceChange}
       />
 
-      <Card className="rounded-[18px] card-shadow">
+      <Card className="card-shadow">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">

@@ -134,7 +134,7 @@ export function DashboardLayout() {
         <div className="flex h-screen">
           <AppSidebar />
           <SidebarInset className="flex-1 min-w-0 transition-all duration-300 ease-in-out relative">
-            <div className="m-2 h-[calc(100vh-1rem)] rounded-[18px] bg-main border border-lightgray-100 overflow-hidden flex flex-col relative">
+            <div className="m-2 h-[calc(100dvh-1rem)] rounded-[18px] bg-main border border-lightgray-100 overflow-hidden flex flex-col relative">
               <div className="flex-1 rounded-xl bg-lightgray overflow-hidden flex flex-col">
                 <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-lightgray-100">
                   <div className="flex items-center gap-2">

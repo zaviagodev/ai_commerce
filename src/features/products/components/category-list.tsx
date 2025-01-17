@@ -94,20 +94,26 @@ export function CategoryList({
         </Button>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex items-center justify-end gap-4 mb-4">
-          <ProductSearch
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search categories..."
-          />
-        </div>
-        <Table className={categories.length > 0 ? 'rounded-b-none' : ''}>
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search categories..."
+        />
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={paginatedCategories.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Category</TableHead>
@@ -186,7 +192,7 @@ export function CategoryList({
           </TableBody>
         </Table>
 
-        {categories.length > 0 && (
+        {paginatedCategories.length > 0 && (
           <motion.div
             className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}

@@ -99,7 +99,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                       <Button
                         key={customer.id}
                         variant="ghost"
-                        className="w-full justify-start h-full"
+                        className="w-full justify-start h-fit"
                         onClick={() => {
                           field.onChange(customer.id);
                           form.setValue('customerName', `${customer.firstName} ${customer.lastName}`);

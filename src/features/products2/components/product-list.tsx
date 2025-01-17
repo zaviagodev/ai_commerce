@@ -65,7 +65,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
       </motion.div>
 
       <motion.div
-        className="rounded-sm"
+        className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
@@ -174,7 +174,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
           </TableBody>
         </Table>
 
-        {products.length > 0 && (
+        {paginatedProducts.length > 0 && (
           <motion.div
             className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
