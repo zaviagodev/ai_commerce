@@ -15,6 +15,7 @@ import { Shipping } from './sections/shipping';
 import { Summary } from './sections/summary';
 import { Notes } from './sections/notes';
 import { Order } from '@/types/order';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrderFormProps {
   initialData?: Order;
@@ -31,6 +32,7 @@ export function OrderForm({
   headerActions,
   onFieldChange 
 }: OrderFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(OrderSchema),
     defaultValues: {
@@ -77,30 +79,29 @@ export function OrderForm({
   }
 };
 
+  const title = initialData
+    ? t.orders.orders.form.title.edit.replace('{id}', initialData.id)
+    : t.orders.orders.form.title.create
 
-  const formatDate = (date: Date) => {
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-  };
+  const description = initialData
+    ? t.orders.orders.form.description.edit
+        .replace('{date}', formatDate(initialData.createdAt))
+        .replace('{daysAgo}', formatDaysAgo(initialData.createdAt))
+    : t.orders.orders.form.description.create
 
-  const getDaysAgo = (date: Date) => {
-    const diffTime = Math.abs(new Date().getTime() - date.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays === 0) return 'today';
-    if (diffDays === 1) return 'yesterday';
-    return `${diffDays} days ago`;
-  };
+  function formatDate(date: Date) {
+    const day = date.getDate()
+    const month = t.orders.orders.form.months[date.getMonth()]
+    const year = date.getFullYear()
+    return `${day} ${month} ${year}`
+  }
 
-  const getTitle = () => {
-    if (!initialData) return 'Create order';
-    
-    const orderId = initialData.id.split('-')[0].toUpperCase();
-    const customerName = initialData.customerName || 'Unknown Customer';
-    return `${customerName} #${orderId}`;
-  };
+  function formatDaysAgo(date: Date) {
+    const days = Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24))
+    if (days === 0) return t.orders.orders.form.daysAgo.today
+    if (days === 1) return t.orders.orders.form.daysAgo.yesterday
+    return t.orders.orders.form.daysAgo.other.replace('{days}', days.toString())
+  }
 
   console.log("form =>", form.getValues());
 
@@ -122,10 +123,10 @@ export function OrderForm({
           >
             <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center !bg-transparent">
               <div>
-                <h1 className="text-2xl font-semibold">{getTitle()}</h1>
+                <h1 className="text-2xl font-semibold">{title}</h1>
                 <p className="text-sm text-muted-foreground">
                   {initialData
-                    ? `${formatDate(initialData.createdAt)} • ${getDaysAgo(initialData.createdAt)}`
+                    ? `${formatDate(initialData.createdAt)} • ${formatDaysAgo(initialData.createdAt)}`
                     : 'Create a new order for your store'}
                 </p>
               </div>
@@ -151,21 +152,21 @@ export function OrderForm({
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
                       <TabsTrigger value="overview" disabled={!initialData || isEditing}>
-                        Overview
+                        {t.orders.orders.form.tabs.overview}
                       </TabsTrigger>
                       <TabsTrigger 
                         value="basic" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
-                        Basic Details
+                        {t.orders.orders.form.tabs.basicDetails}
                       </TabsTrigger>
                       <TabsTrigger 
                         value="notes" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
-                        Notes
+                        {t.orders.orders.form.tabs.notes}
                       </TabsTrigger>
                     </TabsList>
                     {/* Show status dropdown when creating new order or editing */}

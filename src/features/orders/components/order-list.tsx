@@ -20,6 +20,7 @@ import { StatusTabs } from './status-tabs';
 import { useState, useMemo } from 'react';
 import Loading from '@/components/loading';
 import { ProductSearch } from '@/features/products/components/product-search';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrderListProps {
   orders: Order[];
@@ -27,6 +28,7 @@ interface OrderListProps {
 }
 
 export function OrderList({ orders, isLoading }: OrderListProps) {
+  const t = useTranslation();
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const {
@@ -86,15 +88,15 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Orders</h1>
+          <h1 className="text-2xl font-semibold">{t.orders.orders.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's orders
+            {t.orders.orders.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/orders/new">
             <Plus className="mr-2 h-4 w-4" />
-            Create order
+            {t.orders.orders.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -115,19 +117,19 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
             <ProductSearch
               value={searchQuery}
               onChange={setSearchQuery}
-              placeholder="Search orders..."
+              placeholder={t.orders.orders.list.search}
             />
           </div>
         </div>
         <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Order</TableHead>
-              <TableHead>Products</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead className="text-right">Total</TableHead>
+              <TableHead>{t.orders.orders.list.columns.order}</TableHead>
+              <TableHead>{t.orders.orders.list.columns.products}</TableHead>
+              <TableHead>{t.orders.orders.list.columns.customer}</TableHead>
+              <TableHead>{t.orders.orders.list.columns.status}</TableHead>
+              <TableHead>{t.orders.orders.list.columns.items}</TableHead>
+              <TableHead className="text-right">{t.orders.orders.list.columns.total}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -135,14 +137,14 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
               <TableRow>
                 <TableCell colSpan={6} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No orders found</p>
+                    <p className="text-lg font-medium">{t.orders.orders.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by creating your first order
+                      {t.orders.orders.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/orders/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Create order
+                        {t.orders.orders.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -174,19 +176,12 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                         </div>
                       </div>
                     ) : (
-                      <span className="text-muted-foreground">No customer</span>
+                      <span className="text-muted-foreground">{t.orders.orders.list.noCustomer}</span>
                     )}
                   </TableCell>
                   <TableCell>
                     <Badge
                       variant="default"
-                      /* variant={
-                        order.status === 'delivered'
-                          ? 'default'
-                          : order.status === 'cancelled'
-                          ? 'destructive'
-                          : 'secondary'
-                      } */
                       className={cn('capitalize shadow-none', {
                         '!bg-red-100 !text-red-600':
                           order.status === 'cancelled',
@@ -200,12 +195,14 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                           order.status === 'processing',
                       })}
                     >
-                      {order.status}
+                      {t.orders.orders.status[order.status as keyof typeof t.orders.orders.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     {order.items.length}{' '}
-                    {order.items.length === 1 ? 'item' : 'items'}
+                    {order.items.length === 1 
+                      ? t.orders.orders.list.itemCount.singular 
+                      : t.orders.orders.list.itemCount.plural}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {formatCurrency(order.total)}

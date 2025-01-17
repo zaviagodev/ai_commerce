@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { MoreVertical, Pencil, Copy, Trash2 } from 'lucide-react';
 import { Product } from '@/types/product';
 import { DeleteConfirmModal } from './product-form/modals/delete-confirm-modal';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductActionsMenuProps {
   product: Product;
@@ -18,6 +19,7 @@ interface ProductActionsMenuProps {
 }
 
 export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProps) {
+  const t = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
     // Create a new product with copied data
     const duplicatedProduct = {
       ...product,
-      name: `${product.name} (Copy)`,
+      name: `${product.name} (${t.products.products.form.modals.itemActions.duplicate.title})`,
       sku: `${product.sku}-copy`,
       status: 'draft' as const,
     };
@@ -50,7 +52,7 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
       <Dialog open={showActions} onOpenChange={setShowActions}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Product Actions</DialogTitle>
+            <DialogTitle>{t.products.products.form.modals.itemActions.title}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4">
             <Button
@@ -66,9 +68,9 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Pencil className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Edit Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Modify product details and settings
+                    {t.products.products.form.modals.itemActions.edit.description}
                   </p>
                 </div>
               </div>
@@ -87,9 +89,9 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Duplicate Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Create a copy with all settings
+                    {t.products.products.form.modals.itemActions.duplicate.description}
                   </p>
                 </div>
               </div>
@@ -108,9 +110,9 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Delete Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Permanently remove this product
+                    {t.products.products.form.modals.itemActions.delete.description}
                   </p>
                 </div>
               </div>
@@ -123,7 +125,7 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
         onConfirm={onDelete}
-        itemName={product.name}
+        itemName={product.name || t.products.products.form.untitled}
       />
     </>
   );

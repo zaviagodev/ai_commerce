@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useProducts } from '@/features/products/hooks/use-products';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductSelectProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ interface ProductSelectProps {
 }
 
 export function ProductSelect({ children, onSelect }: ProductSelectProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const [variantSelectOpen, setVariantSelectOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -50,13 +52,13 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
-            <DialogTitle>Select product</DialogTitle>
+            <DialogTitle>{t.orders.orders.product.select.title}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Search products..."
+                placeholder={t.orders.orders.product.select.placeholder}
                 className="pl-9"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -65,11 +67,11 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
             
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
-                Loading products...
+                {t.orders.orders.product.select.loading}
               </div>
             ) : filteredProducts.length === 0 ? (
               <div className="py-8 text-center text-muted-foreground">
-                No products found
+                {t.orders.orders.product.select.empty}
               </div>
             ) : (
               <div className="max-h-[300px] space-y-2 overflow-y-auto">
@@ -97,7 +99,7 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                           {formatCurrency(product.price)}
                           {product.variants.length > 1 && (
                             <span className="ml-2">
-                              ({product.variants.length} variants)
+                              ({product.variants.length} {t.orders.orders.product.variant.select})
                             </span>
                           )}
                         </div>

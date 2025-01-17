@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ProductImage } from '@/types/product';
 import { cn } from '@/lib/utils';
 import { useReducedMotion } from 'framer-motion';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface DraggableImageProps {
   image: ProductImage;
@@ -12,6 +13,7 @@ interface DraggableImageProps {
 }
 
 export function DraggableImage({ image, isPrimary, onRemove }: DraggableImageProps) {
+  const t = useTranslation();
   const y = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
 
@@ -51,7 +53,7 @@ export function DraggableImage({ image, isPrimary, onRemove }: DraggableImagePro
         {/* Primary Badge */}
         {isPrimary && (
           <div className="absolute top-2 left-2 px-2 py-1 text-xs font-medium bg-primary/90 text-primary-foreground rounded-md backdrop-blur-sm">
-            Primary
+            {t.products.products.form.sections.media.primary}
           </div>
         )}
 

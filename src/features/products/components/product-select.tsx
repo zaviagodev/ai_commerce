@@ -13,6 +13,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useProducts } from '../hooks/use-products';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductSelectProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ interface ProductSelectProps {
 }
 
 export function ProductSelect({ children, onSelect }: ProductSelectProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const [variantSelectOpen, setVariantSelectOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -55,14 +57,14 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
           aria-labelledby="product-select-title"
         >
           <DialogHeader>
-            <DialogTitle id="product-select-title">Select product</DialogTitle>
+            <DialogTitle id="product-select-title">{t.products.products.form.variants.title}</DialogTitle>
           </DialogHeader>
           <ScrollArea className="max-h-[60vh]">
             <div className="space-y-4 p-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="Search by product name or SKU..."
+                  placeholder={t.products.products.list.search}
                   className="pl-9"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -71,11 +73,11 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
               
               {isLoading ? (
                 <div className="py-8 text-center text-muted-foreground">
-                  Loading products...
+                  {t.products.products.list.loading}
                 </div>
               ) : filteredProducts.length === 0 ? (
                 <div className="py-8 text-center text-muted-foreground">
-                  No products found
+                  {t.products.products.list.empty.title}
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -86,8 +88,6 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                       className="w-full justify-start"
                       onClick={() => {
                         handleProductSelect(product);
-                        // onSelect(product);
-                        // setOpen(false);
                         setSearch(''); // Clear search after selection
                       }}
                       disabled={product.trackQuantity && (product.quantity || 0) < 1}
@@ -96,20 +96,20 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                         {product.images[0] ? (
                           <img
                             src={product.images[0].url}
-                            alt={product.images[0].alt}
+                            alt={product.images[0].alt || product.name}
                             className="h-12 w-12 rounded-lg border object-cover"
                           />
                         ) : (
                           <div className="h-12 w-12 rounded-lg border bg-muted" />
                         )}
                         <div className="flex-1 text-left">
-                          <div className="font-medium">{product.name}</div>
+                          <div className="font-medium">{product.name || t.products.products.form.untitled}</div>
                           <div className="text-sm text-muted-foreground">
                             {product.sku && <span>SKU: {product.sku} · </span>}
                             {formatCurrency(product.price)}
                             {product.trackQuantity && (
                               <span className="ml-2">
-                                ({product.quantity || 0} in stock)
+                                ({product.quantity || 0} {t.products.products.list.inStock})
                               </span>
                             )}
                           </div>
@@ -123,7 +123,7 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
           </ScrollArea>
           <div className="flex justify-end px-6 py-4 border-t bg-gray-50/50">
             <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
+              {t.products.products.actions.cancel}
             </Button>
           </div>
         </DialogContent>

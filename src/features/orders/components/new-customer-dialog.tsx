@@ -8,6 +8,7 @@ import { CustomerForm } from './customer-form';
 import { Customer } from '@/types/customer';
 import { useCustomers } from '@/features/customers/hooks/use-customers';
 import { toast } from 'sonner';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface NewCustomerDialogProps {
   open: boolean;
@@ -20,6 +21,7 @@ export function NewCustomerDialog({
   onOpenChange,
   onSuccess,
 }: NewCustomerDialogProps) {
+  const t = useTranslation();
   const { createCustomer } = useCustomers();
 
   const handleSubmit = async (data: Customer) => {
@@ -38,7 +40,7 @@ export function NewCustomerDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Create New Customer</DialogTitle>
+          <DialogTitle>{t.orders.orders.customer.new.title}</DialogTitle>
         </DialogHeader>
         <CustomerForm
           onSubmit={handleSubmit}

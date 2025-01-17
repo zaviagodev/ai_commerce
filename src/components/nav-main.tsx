@@ -16,6 +16,7 @@ import {
   Users2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from '@/lib/i18n/hooks';
 
 import {
   Collapsible,
@@ -33,21 +34,10 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-      icon?: LucideIcon;
-    }[];
-  }[];
-}) {
+export function NavMain() {
+  const t = useTranslation();
+
+
   return (
     <SidebarGroup className="flex h-full flex-col">
       <SidebarMenu>
@@ -57,7 +47,7 @@ export function NavMain({
               <div className="rounded-md bg-opacity-20 p-1 bg-blue-100">
                 <LayoutDashboard className="h-3.5 w-3.5 text-blue-500" />
               </div>
-              <span>Overview</span>
+              <span>{t.navigation.navigation.overview.title}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -67,7 +57,7 @@ export function NavMain({
               <div className="rounded-md bg-opacity-20 p-1 bg-purple-100">
                 <Settings className="h-3.5 w-3.5 text-purple-500" />
               </div>
-              <span>Settings</span>
+              <span>{t.navigation.navigation.settings.title}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -77,7 +67,7 @@ export function NavMain({
               <div className="rounded-md bg-opacity-20 p-1 bg-green-100">
                 <Users2 className="h-3.5 w-3.5 text-green-500" />
               </div>
-              <span>Members</span>
+              <span>{t.navigation.navigation.members.title}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -100,21 +90,23 @@ export function NavMain({
                   <path d="M12 8v8" />
                 </svg>
               </div>
-              <span>Apps Store</span>
+              <span>{t.navigation.navigation.appsStore.title}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-      <SidebarGroupLabel className="mt-4">Platform</SidebarGroupLabel>
+
+      {/* Products Section */}
+      <SidebarGroupLabel className="mt-4">{t.navigation.navigation.products.title}</SidebarGroupLabel>
       <SidebarMenu>
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Products" className="font-medium">
+              <SidebarMenuButton tooltip={t.navigation.navigation.products.subtitle} className="font-medium">
                 <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
                   <Package className="h-3.5 w-3.5 text-pink-500" />
                 </div>
-                <span>Products</span>
+                <span>{t.navigation.navigation.products.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -124,29 +116,23 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/products" className="font-medium">
                       <Package className="h-3 w-3 text-muted-foreground" />
-                      <span>Products</span>
+                      <span>{t.navigation.navigation.products.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/products/categories"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/products/categories" className="font-medium">
                       <Folder className="h-3 w-3 text-muted-foreground" />
-                      <span>Categories</span>
+                      <span>{t.navigation.navigation.categories.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/products/attributes"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/products/attributes" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
-                      <span>Attributes</span>
+                      <span>{t.navigation.navigation.attributes.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -158,11 +144,11 @@ export function NavMain({
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Orders" className="font-medium">
+              <SidebarMenuButton tooltip={t.navigation.navigation.orders.subtitle} className="font-medium">
                 <div className="rounded-md bg-opacity-20 p-1 bg-orange-100">
                   <ShoppingCart className="h-3.5 w-3.5 text-orange-500" />
                 </div>
-                <span>Orders</span>
+                <span>{t.navigation.navigation.orders.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -172,7 +158,7 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/orders" className="font-medium">
                       <ShoppingCart className="h-3 w-3 text-muted-foreground" />
-                      <span>Orders</span>
+                      <span>{t.navigation.navigation.orders.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -184,11 +170,11 @@ export function NavMain({
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Customers" className="font-medium">
+              <SidebarMenuButton tooltip={t.navigation.navigation.customers.subtitle} className="font-medium">
                 <div className="rounded-md bg-opacity-20 p-1 bg-purple-100">
                   <Users className="h-3.5 w-3.5 text-purple-500" />
                 </div>
-                <span>Customers</span>
+                <span>{t.navigation.navigation.customers.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -198,29 +184,23 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/customers" className="font-medium">
                       <Users className="h-3 w-3 text-muted-foreground" />
-                      <span>Customers</span>
+                      <span>{t.navigation.navigation.customers.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/customers/tiers"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/customers/tiers" className="font-medium">
                       <Crown className="h-3 w-3 text-muted-foreground" />
-                      <span>Customer Tiers</span>
+                      <span>{t.navigation.navigation.customerTiers.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/customers/groups"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/customers/groups" className="font-medium">
                       <Users className="h-3 w-3 text-muted-foreground" />
-                      <span>Customer Groups</span>
+                      <span>{t.navigation.navigation.customerGroups.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -228,17 +208,15 @@ export function NavMain({
             </CollapsibleContent>
           </SidebarMenuItem>
         </Collapsible>
+
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip="Coupons" className="font-medium">
-                <div
-                  className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: "rgb(244, 114, 182, 0.2)" }}
-                >
+              <SidebarMenuButton tooltip={t.navigation.navigation.coupons.subtitle} className="font-medium">
+                <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
                   <Ticket className="h-3.5 w-3.5 text-pink-500" />
                 </div>
-                <span>Coupons</span>
+                <span>{t.navigation.navigation.coupons.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -246,12 +224,9 @@ export function NavMain({
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/coupons/campaigns"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/coupons/campaigns" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
-                      <span>Coupon Campaign</span>
+                      <span>{t.navigation.navigation.couponCampaign.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -261,23 +236,17 @@ export function NavMain({
         </Collapsible>
       </SidebarMenu>
 
-      {/* Apps Section */}
-      <SidebarGroupLabel className="mt-2">Apps</SidebarGroupLabel>
+      {/* Events Section */}
+      <SidebarGroupLabel className="mt-4">{t.navigation.navigation.eventTicket.title}</SidebarGroupLabel>
       <SidebarMenu>
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton
-                tooltip="Event & Ticket"
-                className="font-medium"
-              >
-                <div
-                  className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: "rgb(147, 197, 253, 0.2)" }}
-                >
+              <SidebarMenuButton tooltip={t.navigation.navigation.eventTicket.subtitle} className="font-medium">
+                <div className="rounded-md bg-opacity-20 p-1 bg-blue-100">
                   <Ticket className="h-3.5 w-3.5 text-blue-500" />
                 </div>
-                <span>Event & Ticket</span>
+                <span>{t.navigation.navigation.eventTicket.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -287,7 +256,7 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/events" className="font-medium">
                       <Ticket className="h-3 w-3 text-muted-foreground" />
-                      <span>Events</span>
+                      <span>{t.navigation.navigation.events.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -295,7 +264,7 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/events/orders" className="font-medium">
                       <ShoppingCart className="h-3 w-3 text-muted-foreground" />
-                      <span>Ticket Orders</span>
+                      <span>{t.navigation.navigation.ticketOrders.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -307,17 +276,11 @@ export function NavMain({
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton
-                tooltip="Points & Rewards"
-                className="font-medium"
-              >
-                <div
-                  className="rounded-md bg-opacity-20 p-1"
-                  style={{ backgroundColor: "rgb(253, 224, 71, 0.2)" }}
-                >
+              <SidebarMenuButton tooltip={t.navigation.navigation.pointsRewards.subtitle} className="font-medium">
+                <div className="rounded-md bg-opacity-20 p-1 bg-yellow-100">
                   <Gift className="h-3.5 w-3.5 text-yellow-500" />
                 </div>
-                <span>Points & Rewards</span>
+                <span>{t.navigation.navigation.pointsRewards.title}</span>
                 <ChevronRight className="ml-auto h-2 w-2 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -325,23 +288,17 @@ export function NavMain({
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/points/campaigns"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/points/campaigns" className="font-medium">
                       <Trophy className="h-3 w-3 text-muted-foreground" />
-                      <span>Campaigns</span>
+                      <span>{t.navigation.navigation.campaigns.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/points/rewards"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/points/rewards" className="font-medium">
                       <Gift className="h-3 w-3 text-muted-foreground" />
-                      <span>Rewards Items</span>
+                      <span>{t.navigation.navigation.rewardsItems.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -349,7 +306,7 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/points/redeem" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
-                      <span>Redeem List</span>
+                      <span>{t.navigation.navigation.redeemList.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -360,26 +317,4 @@ export function NavMain({
       </SidebarMenu>
     </SidebarGroup>
   );
-}
-
-function getIconColor(title: string): string {
-  const colors: Record<string, string> = {
-    Dashboard: "#E9F3FF", // Pastel blue
-    Products: "#FFE9EC", // Pastel pink
-    Customers: "#E9FFE9", // Pastel green
-    Orders: "#FFF3E9", // Pastel orange
-    Profile: "#F3E9FF", // Pastel purple
-  };
-  return colors[title] || "#F5F5F5";
-}
-
-function getIconTextColor(title: string): string {
-  const colors: Record<string, string> = {
-    Dashboard: "#4B96FF", // Blue
-    Products: "#FF4B6B", // Pink
-    Customers: "#4BFF4B", // Green
-    Orders: "#FF964B", // Orange
-    Profile: "#964BFF", // Purple
-  };
-  return colors[title] || "#666666";
 }

@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { ProductSelect } from '../../product-select';
-import { Order } from '@/types/order';
+import { Order, OrderItem } from '@/types/order';
 import { ProductSkeletons } from './products/product-skeleton';
 import { formatCurrency } from '@/lib/utils';
+import { ProductVariant } from '@/types/product';
+import { Product } from '@/types/product';
 
 interface ProductsProps {
   form: UseFormReturn<Order>;
@@ -16,7 +18,7 @@ export function Products({ form }: ProductsProps) {
   const items = form.watch('items') || [];
 
 const handleProductSelect = (product: Product, variant: ProductVariant) => {
-  const existingItem = items.find(item => item.variantId === variant.id);
+  const existingItem = items.find((item: OrderItem) => item.variantId === variant.id);
 
   if (existingItem) {
     // Update quantity of existing item

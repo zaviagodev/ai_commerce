@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import { OrderItem } from '@/types/order';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductAvatarsProps {
   items: OrderItem[];
@@ -14,6 +15,7 @@ interface ProductAvatarsProps {
 }
 
 export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
+  const t = useTranslation();
   const visibleItems = items.slice(0, maxVisible - 1);
   const remainingCount = Math.max(0, items.length - (maxVisible - 1));
   const hasMore = remainingCount > 0;
@@ -72,7 +74,9 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-[200px]">
               <p className="font-medium">{item.name}</p>
-              <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+              <p className="text-xs text-muted-foreground">
+                {t.orders.orders.product.select.quantity}: {item.quantity}
+              </p>
             </TooltipContent>
           </Tooltip>
         ))}
@@ -96,7 +100,7 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
               </div>
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-[200px]">
-              <p className="font-medium">Additional Products:</p>
+              <p className="font-medium">{t.orders.orders.product.select.additional}:</p>
               <ul className="mt-1 space-y-1">
                 {items.slice(maxVisible - 1).map((item) => (
                   <li key={item.id} className="text-sm">

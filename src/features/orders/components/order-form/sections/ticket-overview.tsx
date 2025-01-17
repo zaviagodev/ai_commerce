@@ -11,6 +11,7 @@ import {
   Clock,
   ChevronRight,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface TicketOverviewProps {
   order: Order;
@@ -28,6 +29,7 @@ export function TicketOverview({
   order,
   shippingAddress,
 }: TicketOverviewProps) {
+  const t = useTranslation();
   const displayAddress = shippingAddress || order.shippingAddress;
   const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
   const orderNumber = order.id.split('-')[0].toUpperCase();
@@ -46,17 +48,17 @@ export function TicketOverview({
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-yellow-500" />
             </span>
-            Pending
+            {t.orders.orders.status.pending}
           </Badge>
         );
       case 'processing':
-        return <Badge variant="primary">Processing</Badge>;
+        return <Badge variant="primary">{t.orders.orders.status.processing}</Badge>;
       case 'shipped':
-        return <Badge variant="secondary">Shipped</Badge>;
+        return <Badge variant="secondary">{t.orders.orders.status.shipped}</Badge>;
       case 'delivered':
-        return <Badge variant="success">Delivered</Badge>;
+        return <Badge variant="success">{t.orders.orders.status.delivered}</Badge>;
       case 'cancelled':
-        return <Badge variant="destructive">Cancelled</Badge>;
+        return <Badge variant="destructive">{t.orders.orders.status.cancelled}</Badge>;
       default:
         return null;
     }
@@ -70,7 +72,7 @@ export function TicketOverview({
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2 mb-1">
               <ShoppingBag className="h-5 w-5 text-primary" />
-              <h3 className="text-xl font-mono">ORDER #{orderNumber}</h3>
+              <h3 className="text-xl font-mono">{t.orders.orders.list.columns.order} #{orderNumber}</h3>
             </div>
           </div>
           <div>
@@ -113,7 +115,7 @@ export function TicketOverview({
                       <span className="relative flex h-2 w-2">
                         <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300/50" />
                       </span>
-                      {nextStatus.label}
+                      {t.orders.orders.status[nextStatus.id as keyof typeof t.orders.orders.status]}
                     </Badge>
                   </div>
                 </>
@@ -139,15 +141,15 @@ export function TicketOverview({
       {/* Main Content */}
       <div className="p-6 pt-8">
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Passenger Section */}
+          {/* Customer Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-2">
               <User className="h-4 w-4 text-primary" />
-              <h4 className="font-medium">Customer Details</h4>
+              <h4 className="font-medium">{t.orders.orders.customer.title}</h4>
             </div>
             <div className="space-y-1">
               <div className="font-mono text-lg">
-                {order.customerName || 'Guest Customer'}
+                {order.customerName || t.orders.orders.list.noCustomer}
               </div>
               {order.customerEmail && (
                 <div className="text-sm text-muted-foreground">
@@ -162,12 +164,12 @@ export function TicketOverview({
             </div>
           </div>
 
-          {/* Destination Section */}
+          {/* Shipping Section */}
           {displayAddress && (
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-2">
                 <MapPin className="h-4 w-4 text-primary" />
-                <h4 className="font-medium">Shipping Address</h4>
+                <h4 className="font-medium">{t.orders.orders.address.select.title}</h4>
               </div>
               <div className="space-y-1">
                 <div className="font-mono">
@@ -188,11 +190,11 @@ export function TicketOverview({
           )}
         </div>
 
-        {/* Cargo Section */}
+        {/* Items Section */}
         <div className="mt-8">
           <div className="flex items-center gap-2 mb-4">
             <Package className="h-4 w-4 text-primary" />
-            <h4 className="font-medium">Order Items</h4>
+            <h4 className="font-medium">{t.orders.orders.list.columns.products}</h4>
           </div>
           <div className="space-y-4">
             {order.items.map((item) => (
@@ -216,7 +218,7 @@ export function TicketOverview({
                 <div className="flex-1 min-w-0">
                   <div className="font-medium truncate">{item.name}</div>
                   <div className="text-sm">
-                    Qty: {item.quantity} × {formatCurrency(item.price)}
+                    {t.orders.orders.product.select.quantity}: {item.quantity} × {formatCurrency(item.price)}
                   </div>
                 </div>
                 <div className="font-mono text-right">
@@ -227,12 +229,12 @@ export function TicketOverview({
           </div>
         </div>
 
-        {/* Fare Summary */}
+        {/* Summary Section */}
         <div className="mt-8 rounded-sm p-4">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">
-                Items ({totalItems})
+                {t.orders.orders.list.columns.items} ({totalItems})
               </span>
               <span className="font-mono">
                 {formatCurrency(order.subtotal)}
@@ -240,7 +242,7 @@ export function TicketOverview({
             </div>
             {order.discount > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-destructive">Discount</span>
+                <span className="text-destructive">{t.orders.orders.invoice.summary.discount}</span>
                 <span className="font-mono text-destructive">
                   -{formatCurrency(order.discount)}
                 </span>
@@ -248,7 +250,7 @@ export function TicketOverview({
             )}
             {order.shipping > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Shipping</span>
+                <span className="text-muted-foreground">{t.orders.orders.invoice.summary.shipping}</span>
                 <span className="font-mono">
                   {formatCurrency(order.shipping)}
                 </span>
@@ -256,13 +258,13 @@ export function TicketOverview({
             )}
             {order.tax > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Tax</span>
+                <span className="text-muted-foreground">{t.orders.orders.invoice.summary.tax}</span>
                 <span className="font-mono">{formatCurrency(order.tax)}</span>
               </div>
             )}
             <Separator className="my-2" />
             <div className="flex justify-between font-medium">
-              <span>Total</span>
+              <span>{t.orders.orders.invoice.summary.total}</span>
               <span className="font-mono text-lg">
                 {formatCurrency(order.total)}
               </span>
@@ -273,7 +275,7 @@ export function TicketOverview({
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
           <div className="font-mono mb-1">*{order.id}*</div>
-          <div>Thank you for your business!</div>
+          <div>{t.orders.orders.invoice.footer}</div>
         </div>
       </div>
     </div>

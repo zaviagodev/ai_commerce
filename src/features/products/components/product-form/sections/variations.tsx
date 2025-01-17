@@ -12,12 +12,14 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Layers, Plus } from 'lucide-react';
 import { Product } from '@/types/product';
 import { VariantBuilder } from './variant-builder';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
 }
 
 export function Variations({ form }: VariationsProps) {
+  const t = useTranslation();
   const variantOptions = form.watch('variantOptions') || [];
 
   return (
@@ -27,9 +29,9 @@ export function Variations({ form }: VariationsProps) {
           <Layers className="h-5 w-5 text-indigo-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Product Variations</h2>
+          <h2 className="text-lg font-medium">{t.products.products.form.sections.variations.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure product variants and options
+            {t.products.products.form.sections.variations.description}
           </p>
         </div>
       </CardHeader>
@@ -40,9 +42,9 @@ export function Variations({ form }: VariationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable Product Variations</FormLabel>
+                <FormLabel>{t.products.products.form.sections.variations.enable}</FormLabel>
                 <FormDescription>
-                  Create multiple variants of this product with different options
+                  {t.products.products.form.sections.variations.enableDescription}
                 </FormDescription>
               </div>
               <FormControl>

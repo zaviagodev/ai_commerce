@@ -17,6 +17,7 @@ import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { QrCode } from 'lucide-react';
 import { TicketScanModal } from './ticket-scanning/ticket-scan-modal';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AttendeesProps {
   form: UseFormReturn<Product>;
@@ -34,6 +35,7 @@ const MOCK_ATTENDEES = Array.from({ length: 50 }, (_, i) => ({
 }));
 
 export function Attendees({ form }: AttendeesProps) {
+  const t = useTranslation();
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [showScanModal, setShowScanModal] = useState(false);
@@ -49,9 +51,9 @@ export function Attendees({ form }: AttendeesProps) {
           <Users className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Attendees</h2>
+          <h2 className="text-lg font-medium">{t.products.products.form.sections.attendees.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Manage event attendees and ticket status
+            {t.products.products.form.sections.attendees.description}
           </p>
         </div>
       </CardHeader>
@@ -65,9 +67,9 @@ export function Attendees({ form }: AttendeesProps) {
                   <QrCode className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="font-medium">Ticket Scanning</h3>
+                  <h3 className="font-medium">{t.products.products.form.sections.attendees.ticketScanning.title}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Scan QR codes or barcodes to validate tickets and track attendance
+                    {t.products.products.form.sections.attendees.ticketScanning.description}
                   </p>
                   <Button
                     variant="default"
@@ -76,7 +78,7 @@ export function Attendees({ form }: AttendeesProps) {
                     onClick={() => setShowScanModal(true)}
                   >
                     <QrCode className="mr-2 h-4 w-4" />
-                    Scan Ticket
+                    {t.products.products.form.sections.attendees.ticketScanning.scanButton}
                   </Button>
                 </div>
               </div>
@@ -88,11 +90,11 @@ export function Attendees({ form }: AttendeesProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Attendee</TableHead>
-                <TableHead>Ticket Type</TableHead>
-                <TableHead>Purchase Date</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.attendee}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.ticketType}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.purchaseDate}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.price}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.status}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -122,17 +124,17 @@ export function Attendees({ form }: AttendeesProps) {
                       {attendee.status === 'paid' ? (
                         <Badge className="bg-green-100 text-green-700 capitalize">
                           <Check className="mr-1 h-3 w-3" />
-                          Paid
+                          {t.products.products.form.sections.attendees.status.paid}
                         </Badge>
                       ) : attendee.status === 'pending' ? (
                         <Badge className="bg-yellow-100 text-yellow-700 capitalize">
                           <Clock className="mr-1 h-3 w-3" />
-                          Pending
+                          {t.products.products.form.sections.attendees.status.pending}
                         </Badge>
                       ) : (
                         <Badge variant="destructive" className='capitalize'>
                           <X className="mr-1 h-3 w-3" />
-                          Failed
+                          {t.products.products.form.sections.attendees.status.failed}
                         </Badge>
                       )}
                     </div>

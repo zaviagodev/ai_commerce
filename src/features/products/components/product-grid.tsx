@@ -3,6 +3,7 @@ import { Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
 import { ImageIcon } from 'lucide-react';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductGridProps {
   products: Product[];
@@ -10,6 +11,7 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products, isLoading }: ProductGridProps) {
+  const t = useTranslation();
   const { storeName } = useParams<{ storeName: string }>();
 
   if (isLoading) {
@@ -23,9 +25,9 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-semibold">No products found</h2>
+        <h2 className="text-2xl font-semibold">{t.products.products.list.empty.title}</h2>
         <p className="text-muted-foreground">
-          Check back later for new products.
+          {t.products.products.list.empty.description}
         </p>
       </div>
     );
@@ -48,7 +50,7 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
                 onError={(e) => {
                   // Fallback to placeholder on image load error
                   e.currentTarget.src = `https://placehold.co/600x600?text=${encodeURIComponent(
-                    product.name
+                    product.name || t.products.products.form.untitled
                   )}`;
                 }}
               />
@@ -60,7 +62,7 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
           </div>
           <div className="mt-4 space-y-1">
             <h3 className="font-medium group-hover:underline">
-              {product.name}
+              {product.name || t.products.products.form.untitled}
             </h3>
             <div className="flex items-center gap-2">
               <span className="text-lg font-semibold">

@@ -36,6 +36,7 @@ import { ProductSearch } from './product-search';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductListProps {
   products: Product[];
@@ -48,6 +49,7 @@ export function ProductList({
   isLoading,
   onDelete,
 }: ProductListProps) {
+  const t = useTranslation();
   const [sortValue, setSortValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -146,22 +148,22 @@ export function ProductList({
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Products</h1>
+          <h1 className="text-2xl font-semibold">{t.products.products.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's products
+            {t.products.products.description}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
             <Link to={`/store/${user?.storeName}`}>
               <ExternalLink className="mr-2 h-4 w-4" />
-              Store
+              {t.products.products.actions.store}
             </Link>
           </Button>
           <Button asChild>
             <Link to="/dashboard/products/new">
               <Plus className="mr-2 h-4 w-4" />
-              Add product
+              {t.products.products.actions.add}
             </Link>
           </Button>
         </div>
@@ -213,11 +215,11 @@ export function ProductList({
                   />
                 </TableHead>
               )}
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>{t.products.products.list.columns.product}</TableHead>
+              <TableHead>{t.products.products.list.columns.status}</TableHead>
+              <TableHead>{t.products.products.list.columns.category}</TableHead>
+              <TableHead className="text-right">{t.products.products.list.columns.price}</TableHead>
+              <TableHead className="text-right">{t.products.products.list.columns.quantity}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -225,14 +227,14 @@ export function ProductList({
               <TableRow>
                 <TableCell colSpan={isBulkMode ? 6 : 5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No products found</p>
+                    <p className="text-lg font-medium">{t.products.products.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first product
+                      {t.products.products.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/products/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add product
+                        {t.products.products.actions.add}
                       </Link>
                     </Button>
                   </div>
@@ -242,90 +244,64 @@ export function ProductList({
               paginatedProducts.map((product) => {
                 const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
                 return (
-                <TableRow key={product.id}>
-                  {isBulkMode && (
-                    <TableCell>
-                      <Checkbox
-                        checked={isSelected(product.id)}
-                        onCheckedChange={() => toggleSelection(product.id)}
-                      />
-                    </TableCell>
-                  )}
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      {product.images[0] ? (
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 0.2 }}
-                          className="h-12 w-12 rounded-sm overflow-hidden"
-                        >
-                          <img
-                            src={product.images[0].url}
-                            alt={product.images[0].alt}
-                            className="h-full w-full object-cover"
-                          />
-                        </motion.div>
-                      ) : (
-                        <div className="h-12 w-12 rounded-sm bg-muted" />
-                      )}
-                      <div>
-                        <Link
-                          to={`/dashboard/products/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
-                        {product.sku && (
-                          <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": product.status === 'active',
-                        "!bg-red-100 !text-red-600": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-600": product.status === 'draft',
-                      })}
-                    >
-                      {product.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {product.category?.name || 'Uncategorized'}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="space-y-1">
-                      <div className="font-medium">
-                        {formatCurrency(product.price)}
-                      </div>
-                      {product.compareAtPrice && (
-                        <div className="text-sm text-muted-foreground line-through">
-                          {formatCurrency(product.compareAtPrice)}
-                        </div>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {product.trackQuantity ? (
-                      <span
-                        className={
-                          (quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
-                        }
-                      >
-                        {quantity || 0} in stock
-                      </span>
-                    ) : (
-                      <span className="text-muted-foreground">Not tracked</span>
+                  <TableRow key={product.id}>
+                    {isBulkMode && (
+                      <TableCell>
+                        <Checkbox
+                          checked={isSelected(product.id)}
+                          onCheckedChange={() => toggleSelection(product.id)}
+                        />
+                      </TableCell>
                     )}
-                  </TableCell>
-                </TableRow>
-              )
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <Package className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <Link
+                            to={`/dashboard/products/${product.id}`}
+                            className="font-medium hover:underline"
+                          >
+                            {product.name || t.products.products.form.untitled}
+                          </Link>
+                          {product.sku && (
+                            <div className="text-sm text-muted-foreground">
+                              {product.sku}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={product.status === 'active' ? 'default' : 'secondary'}>
+                        {t.products.products.status[product.status]}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {product.category?.name || t.products.products.list.uncategorized}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {formatCurrency(product.price)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {product.trackQuantity ? (
+                        <span>
+                          {quantity} {t.products.products.list.inStock}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">
+                          {t.products.products.list.notTracked}
+                        </span>
+                      )}
+                    </TableCell>
+                    {!isBulkMode && (
+                      <TableCell>
+                        <ProductActionsMenu product={product} onDelete={() => onDelete(product.id)} />
+                      </TableCell>
+                    )}
+                  </TableRow>
+                );
               })
             )}
           </TableBody>
@@ -341,8 +317,8 @@ export function ProductList({
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
-              pageCount={pageCount(products.length)}
-              totalItems={products.length}
+              pageCount={pageCount(sortedProducts.length)}
+              totalItems={sortedProducts.length}
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
@@ -354,16 +330,16 @@ export function ProductList({
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         selectedCount={selectedCount}
-        onConfirm={handleBulkDelete}
         isDeleting={isDeleting}
+        onConfirm={handleBulkDelete}
       />
 
       <BulkCategoryDialog
         open={showCategoryDialog}
         onOpenChange={setShowCategoryDialog}
         selectedCount={selectedCount}
-        onConfirm={handleBulkCategoryChange}
         isUpdating={isUpdating}
+        onConfirm={handleBulkCategoryChange}
       />
     </div>
   );

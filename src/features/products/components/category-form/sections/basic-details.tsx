@@ -10,12 +10,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ProductCategory } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<ProductCategory>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
+  
   return (
     <div className="grid gap-6">
       <FormField
@@ -23,12 +26,12 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Category name</FormLabel>
+            <FormLabel>{t.products.categories.form.name}</FormLabel>
             <FormControl>
-              <Input placeholder="e.g., Electronics, Clothing" {...field} />
+              <Input placeholder={t.products.categories.form.namePlaceholder} {...field} />
             </FormControl>
             <FormDescription>
-              Choose a descriptive name for this category
+              {t.products.categories.form.nameHelp}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -40,16 +43,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{t.products.categories.form.description}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe this category..."
+                placeholder={t.products.categories.form.descriptionPlaceholder}
                 className="min-h-[100px]"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              Provide a brief description of what products belong in this category
+              {t.products.categories.form.descriptionHelp}
             </FormDescription>
             <FormMessage />
           </FormItem>

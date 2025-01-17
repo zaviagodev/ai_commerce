@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Crown, Plus, Award, Shield, Medal, Trophy } from 'lucide-react';
 import { DEFAULT_TIERS } from '../../../data/tiers';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface TierSelectorModalProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ interface TierSelectorModalProps {
 }
 
 export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSelectorModalProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,7 +28,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px] p-0 gap-0" aria-labelledby="tier-selector-title">
         <DialogHeader className="px-6 py-4 border-b">
-          <DialogTitle id="tier-selector-title">Select Customer Tier</DialogTitle>
+          <DialogTitle id="tier-selector-title">{t.products.products.form.sections.organization.tiers.selectTier}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
           <div className="flex flex-col gap-4 p-6">
@@ -56,12 +58,12 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
                       </div>
                       <div>
                         <h3 className="font-medium text-xl text-white tracking-tight text-left">{tier.name}</h3>
-                        <p className="text-sm text-white/80 font-light">Membership</p>
+                        <p className="text-sm text-white/80 font-light">{t.products.products.form.sections.organization.tiers.membership}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-medium text-white tracking-tight">0</p>
-                      <p className="text-sm text-white/80 font-light">Active Members</p>
+                      <p className="text-sm text-white/80 font-light">{t.products.products.form.sections.organization.tiers.activeMembers}</p>
                     </div>
                   </div>
                   {/* Decorative Elements */}
@@ -83,7 +85,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
               }}
             >
               <Plus className="mr-2 h-5 w-5" />
-              Add New Tier
+              {t.products.products.form.sections.organization.tiers.addNew}
             </Button>
           </div>
         </ScrollArea>
@@ -93,7 +95,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
             className="w-32"
             onClick={() => setOpen(false)}
           >
-            Cancel
+            {t.products.products.form.sections.organization.tiers.cancel}
           </Button>
         </div>
       </DialogContent>

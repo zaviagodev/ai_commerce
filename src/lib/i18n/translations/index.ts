@@ -2,38 +2,38 @@ import { dashboard } from './features/dashboard';
 import { ecommerce } from './features/settings/ecommerce';
 import { payments } from './features/settings/payments';
 import { teams } from './features/teams';
-
+import { navbar } from './features/navigation';
+import { settingsNav } from './features/settings/settings_nav';
+import { products } from './features/products';
+import { settings } from './features/settings/settings';
+import { orders } from './features/orders';
 
 export const translations = {
   'en-US': {
-    navigation: {
-      dashboard: 'Dashboard',
-      products: 'Products',
-      customers: 'Customers',
-      orders: 'Orders',
-      settings: 'Settings',
-    },
     dashboard: dashboard.en,
     settings: {
       ecommerce: ecommerce.en,
       payments: payments.en,
+      nav: settingsNav.en,
+      settings: settings.en,
     },
     teams: teams.en,
+    navigation: navbar.en,
+    products: products.en,
+    orders: orders.en,
   },
   'th-TH': {
-    navigation: {
-      dashboard: 'แดชบอร์ด',
-      products: 'สินค้า',
-      customers: 'ลูกค้า',
-      orders: 'คำสั่งซื้อ',
-      settings: 'ตั้งค่า',
-    },
     dashboard: dashboard.th,
     settings: {
       ecommerce: ecommerce.th,
       payments: payments.th,
+      nav: settingsNav.th,
+      settings: settings.th,
     },
     teams: teams.th,
+    navigation: navbar.th,
+    products: products.th,
+    orders: orders.th,
   },
 } as const;
 

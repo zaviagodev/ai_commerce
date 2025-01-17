@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CustomerAddress } from '@/types/customer';
 import { Order } from '@/types/order';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AddressSelectProps {
   addresses: CustomerAddress[];
@@ -20,6 +21,7 @@ interface AddressSelectProps {
 }
 
 export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressSelectProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const defaultAddress = addresses.find(a => a.isDefault && a.type === 'shipping');
 
@@ -50,7 +52,7 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
                   `${selectedAddress.firstName} ${selectedAddress.lastName}` :
                   defaultAddress ?
                     `${defaultAddress.firstName} ${defaultAddress.lastName}` :
-                    'Select shipping address'
+                    t.orders.orders.address.select.placeholder
                 }
               </p>
               {(selectedAddress || defaultAddress) && (
@@ -64,13 +66,13 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Select shipping address</DialogTitle>
+          <DialogTitle>{t.orders.orders.address.select.title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
           <div className="space-y-4 py-4">
             {addresses.length === 0 ? (
               <p className="text-center text-muted-foreground py-4">
-                No addresses found
+                {t.orders.orders.address.select.empty}
               </p>
             ) : (
               addresses.map((address) => (
@@ -90,7 +92,7 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
                       </span>
                       {address.isDefault && address.type === 'shipping' && (
                         <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
-                          Default shipping
+                          {t.orders.orders.address.select.default}
                         </span>
                       )}
                     </div>

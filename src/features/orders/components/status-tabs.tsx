@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface StatusTabsProps {
   selectedStatus: string;
@@ -7,12 +8,12 @@ interface StatusTabsProps {
 }
 
 const STATUSES = [
-  { value: 'all', label: 'All' },
-  { value: 'pending', label: 'Pending' },
-  { value: 'processing', label: 'Processing' },
-  { value: 'shipped', label: 'Shipped' },
-  { value: 'delivered', label: 'Delivered' },
-  { value: 'cancelled', label: 'Cancelled' },
+  { value: 'all', label: 'all' },
+  { value: 'pending', label: 'pending' },
+  { value: 'processing', label: 'processing' },
+  { value: 'shipped', label: 'shipped' },
+  { value: 'delivered', label: 'delivered' },
+  { value: 'cancelled', label: 'cancelled' },
 ] as const;
 
 export function StatusTabs({
@@ -20,6 +21,8 @@ export function StatusTabs({
   onStatusChange,
   counts,
 }: StatusTabsProps) {
+  const t = useTranslation();
+
   return (
     <div className="flex space-x-1 rounded-lg bg-muted p-1 w-fit">
       {STATUSES.map((status) => (
@@ -34,7 +37,7 @@ export function StatusTabs({
               : 'text-muted-foreground'
           )}
         >
-          {status.label}
+          {t.orders.orders.status[status.label]}
           {status.value === 'all' ? (
             <span
               className={cn(

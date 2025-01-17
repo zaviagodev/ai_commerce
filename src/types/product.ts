@@ -3,12 +3,14 @@ export interface ProductImage {
   url: string;
   alt: string;
   position: number;
+  path?: string;
 }
 
 export interface ProductCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
+  description?: string;
 }
 
 export interface ProductTag {
@@ -34,6 +36,9 @@ export interface Product {
   weightUnit: "kg" | "lb";
   tags: ProductTag[];
   status: "draft" | "active" | "archived";
+  isRewardItem?: boolean;
+  pointsRequired?: number;
+  pointsValue?: number;
   createdAt: Date;
   updatedAt: Date;
 }
