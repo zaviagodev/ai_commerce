@@ -419,14 +419,14 @@ export function ProductForm({
                     {/* Variations Section */}
                     <Variations form={form} />
 
-                    {/* Shipping Section */}
-                    <Card>
+                    {/* Shipping Section: will be available soon */}
+                    {/* <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
                           <Truck className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Shipping</h2>
+                          <h2 className="text-lg font-medium">Size & Weight Shipping</h2>
                           <p className="text-sm text-muted-foreground">
                             Set up shipping details
                           </p>
@@ -435,7 +435,7 @@ export function ProductForm({
                       <CardContent>
                         <Shipping form={form} />
                       </CardContent>
-                    </Card>
+                    </Card> */}
 
                     {/* Organization Section */}
                     <Card>
