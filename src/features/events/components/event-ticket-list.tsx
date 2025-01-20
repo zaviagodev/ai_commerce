@@ -16,6 +16,7 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { DataTablePagination } from "@/components/ui/data-table/pagination";
 import { usePagination } from "@/hooks/use-pagination";
 import Loading from "@/components/loading";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface EventTicketListProps {
   events: EventProduct[];
@@ -23,6 +24,11 @@ interface EventTicketListProps {
 }
 
 export function EventTicketList({ events, isLoading }: EventTicketListProps) {
+  const t = useTranslation();
+
+  console.log(t.events.event.ticketList.table.statu);
+
+
   const {
     pageIndex,
     pageSize,
@@ -51,15 +57,15 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Event & Ticket</h1>
+          <h1 className="text-2xl font-semibold">{t.events.event.ticketList.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your events and tickets
+            {t.events.event.ticketList.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/events/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add Event
+            {t.events.event.ticketList.actions.addEvent}
           </Link>
         </Button>
       </motion.div>
@@ -73,11 +79,11 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
         <Table className={events.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>{t.events.event.ticketList.table.headers.product}</TableHead>
+              <TableHead>{t.events.event.ticketList.table.headers.status}</TableHead>
+              <TableHead>{t.events.event.ticketList.table.headers.category}</TableHead>
+              <TableHead className="text-right">{t.events.event.ticketList.table.headers.price}</TableHead>
+              <TableHead className="text-right">{t.events.event.ticketList.table.headers.quantity}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,14 +91,14 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No events found</p>
+                    <p className="text-lg font-medium">{t.events.event.ticketList.table.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first event
+                      {t.events.event.ticketList.table.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/events/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add Event
+                        {t.events.event.ticketList.actions.addEvent}
                       </Link>
                     </Button>
                   </div>
@@ -121,7 +127,7 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                         </Link>
                         {event.sku && (
                           <p className="text-sm text-muted-foreground">
-                            SKU: {event.sku}
+                            {t.events.event.ticketList.table.cells.sku.replace('{value}', event.sku)}
                           </p>
                         )}
                       </div>
@@ -138,11 +144,11 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                           event.status === "draft",
                       })}
                     >
-                      {event.status}
+                      {t.events.event.ticketList.table.status[event.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {event.category?.name || "Uncategorized"}
+                    {event.category?.name || t.events.ticketList.table.cells.uncategorized}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
@@ -165,10 +171,10 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                             : "text-red-600"
                         }
                       >
-                        {event.quantity || 0} in stock
+                        {t.events.event.ticketList.table.cells.inStock.replace('{count}', String(event.quantity || 0))}
                       </span>
                     ) : (
-                      <span className="text-muted-foreground">Not tracked</span>
+                      <span className="text-muted-foreground">{t.events.event.ticketList.table.cells.notTracked}</span>
                     )}
                   </TableCell>
                 </TableRow>

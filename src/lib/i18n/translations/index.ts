@@ -8,7 +8,8 @@ import { products } from './features/products';
 import { settings } from './features/settings/settings';
 import { orders } from './features/orders';
 import { customer } from './features/customers';
-import { campaign } from './features/campaigns';
+import { events } from './features/events';
+
 
 export const translations = {
   'en-US': {
@@ -24,7 +25,7 @@ export const translations = {
     products: products.en,
     orders: orders.en,
     customers: customer.en,
-    campaigns: campaign.en,
+    events: events.en,
   },
   'th-TH': {
     dashboard: dashboard.th,
@@ -38,8 +39,8 @@ export const translations = {
     navigation: navbar.th,
     products: products.th,
     orders: orders.th,
+    events: events.th,
     customers: customer.th,
-    campaigns: campaign.th,
   },
 } as const;
 
