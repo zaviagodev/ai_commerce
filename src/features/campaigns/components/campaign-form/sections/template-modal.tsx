@@ -30,7 +30,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Share Link to Get Points',
     description: 'Reward customers for sharing and clicking links',
     type: 'bonus_points',
-    icon: <Link2 className="h-6 w-6 text-white" />,
+    icon: <Link2 className="h-6 w-6 text-main" />,
     gradient: 'from-green-500 to-teal-600',
     defaults: {
       type: 'bonus_points',
@@ -46,7 +46,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Scan to Get Points',
     description: 'Reward customers for scanning QR codes',
     type: 'bonus_points',
-    icon: <QrCode className="h-6 w-6 text-white" />,
+    icon: <QrCode className="h-6 w-6 text-main" />,
     gradient: 'from-blue-500 to-indigo-600',
     defaults: {
       type: 'bonus_points',
@@ -63,7 +63,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Double Points Days',
     description: 'Double points on all purchases',
     type: 'points_multiplier',
-    icon: <Star className="h-6 w-6 text-white" />,
+    icon: <Star className="h-6 w-6 text-main" />,
     gradient: 'from-purple-500 to-pink-600',
     defaults: {
       type: 'points_multiplier',
@@ -76,7 +76,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Bonus Points',
     description: 'Award bonus points for specific actions',
     type: 'bonus_points',
-    icon: <Gift className="h-6 w-6 text-white" />,
+    icon: <Gift className="h-6 w-6 text-main" />,
     gradient: 'from-orange-500 to-red-600',
     defaults: {
       type: 'bonus_points',
@@ -89,7 +89,7 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
     name: 'Tier Points Boost',
     description: 'Increased points for specific customer tiers',
     type: 'points_multiplier',
-    icon: <Crown className="h-6 w-6 text-white" />,
+    icon: <Crown className="h-6 w-6 text-main" />,
     gradient: 'from-yellow-500 to-orange-600',
     defaults: {
       type: 'points_multiplier',
@@ -160,7 +160,7 @@ export function TemplateModal({ form }: TemplateModalProps) {
               key={template.id}
               type="button"
               className={cn(
-                "relative w-[80%] mx-auto rounded-lg p-4 text-left transition-all",
+                "relative w-full mx-auto rounded-lg p-4 text-left transition-all",
                 "hover:scale-[1.02] hover:shadow-md active:scale-[0.98]",
                 "bg-[#F9F9F9] border border-[#E0E0E0]",
                 "flex items-center gap-4",
@@ -185,7 +185,6 @@ export function TemplateModal({ form }: TemplateModalProps) {
             </button>
           ))}
         </div>
-        <div className="h-px w-full bg-[#E0E0E0] my-4" />
       </DialogContent>
     </Dialog>
   );

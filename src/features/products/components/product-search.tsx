@@ -40,29 +40,25 @@ export function ProductSearch({
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full lg:max-w-[300px] flex justify-end">
       <AnimatePresence>
         {isExpanded ? (
           <motion.div
             style={{ width: 36 }}
             initial={{ width: 36, opacity: 0 }}
-            animate={{ width: isClosing ? 36 : 250, opacity: 1 }}
+            animate={{ width: isClosing ? 36 : "100%", opacity: 1 }}
             exit={{ width: 36, opacity: 0 }}
             transition={{ duration:0.2 }}
-            className="flex items-center justify-end"
+            className={cn("flex items-center justify-end")}
           >
             <Input
               type="text"
               placeholder={placeholder || t.products.products.list.search}
               value={value}
               onChange={(e) => onChange(e.target.value)}
-              className={cn('pr-7 transition-all duration-200', {
-                'placeholder:opacity-0': isOpening || isClosing,
-              })}
+              className={cn('pr-7 show-placeholder', {"not-show-placeholder": isClosing || isOpening})}
               onKeyDown={(e) => {
-                if (e.key === 'Escape') {
-                  handleCloseSearch();
-                }
+                if (e.key === 'Escape') handleCloseSearch();
               }}
               autoFocus
             />
@@ -82,6 +78,7 @@ export function ProductSearch({
             exit={{ opacity: 0 }}
             style={{ width: 36 }}
             transition={{ duration: 0.3 }}
+            className="fade-in"
           >
             <Button 
               variant="outline" 

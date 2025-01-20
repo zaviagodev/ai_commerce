@@ -48,7 +48,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.customers.customer.form.fields.firstName.label}</FormLabel>
+                <FormLabel>{t.customers.customer.form.fields.firstName.label} <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input 
                     className="w-full" 
@@ -66,7 +66,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.customers.customer.form.fields.lastName.label}</FormLabel>
+                <FormLabel>{t.customers.customer.form.fields.lastName.label} <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input 
                     className="w-full" 
@@ -79,12 +79,27 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="company"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Company (Optional)</FormLabel>
+              <FormControl>
+                <Input className="w-full" placeholder="Company" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.customers.customer.form.fields.email.label}</FormLabel>
+              <FormLabel>{t.customers.customer.form.fields.email.label} <span className='text-destructive'>*</span></FormLabel>
               <FormControl>
                 <Input 
                   className="w-full"
@@ -146,7 +161,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           control={form.control}
           name="isVerified"
           render={({ field }) => (
-            <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-blue-50/50">
+            <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-blue-50/50 dark:bg-blue-950/50">
               <div className="space-y-0.5">
                 <FormLabel>{t.customers.customer.form.fields.verified.label}</FormLabel>
                 <FormDescription>

@@ -54,7 +54,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.name.label}</FormLabel>
+            <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.name.label} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
                 placeholder={ t.customers.customer.campaignForm.sections.basicDetails.fields.name.placeholder} 

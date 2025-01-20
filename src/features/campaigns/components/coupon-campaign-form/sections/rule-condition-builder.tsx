@@ -76,7 +76,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
             value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value })}
           >
-            <SelectTrigger className='bg-white'>
+            <SelectTrigger className='bg-main'>
               <SelectValue placeholder={t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.type.placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -104,7 +104,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
                 value={condition.operator}
                 onValueChange={(value) => onUpdate({ operator: value })}
               >
-                <SelectTrigger className='bg-white'>
+                <SelectTrigger className='bg-main'>
                   <SelectValue placeholder={t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
@@ -126,7 +126,7 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
                     type="number"
                     min="0"
                     step="0.01"
-                    className="pl-8 bg-white"
+                    className="pl-8 bg-main"
                     value={condition.value}
                     onChange={(e) => onUpdate({ value: e.target.value })}
                   />

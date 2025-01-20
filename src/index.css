@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --main: 0 100% 100%;
     --background: 0 0% 98%;
     --foreground: 240 10% 3.9%;
 
@@ -41,10 +42,15 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --lightgray: 252 24% 96%;
+    --lightgray2: 230 13% 91%;
+    --lightgray3: 210 20% 98%
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --main: 240 5.9% 10%;
+    --background: 240 5.9% 10%;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;
@@ -79,6 +85,10 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --lightgray: 252 24% 4%;
+    --lightgray2: 230 13% 9%;
+    --lightgray3: 240 3.7% 15.9%;
   }
 }
 
@@ -146,6 +156,11 @@ body {
 }
 
 /* Shimmer effect */
+.shimmer-gradient,
+.dark .shimmer-gradient {
+  animation: shimmer 2s infinite;
+}
+
 .shimmer-gradient {
   background: linear-gradient(
     to right,
@@ -153,7 +168,15 @@ body {
     rgba(255, 255, 255, 0.1) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  animation: shimmer 2s infinite;
+}
+
+.dark .shimmer-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 @keyframes pulse-subtle {
@@ -294,6 +317,10 @@ header {
   background: rgba(245, 245, 245, 0.5);
 }
 
+.dark .sticky.top-0.z-10.pt-14 {
+  background: rgba(10, 10, 10, 0.5);
+}
+
 header.h-14.shrink-0 {
   z-index: 45;
 }
@@ -422,4 +449,14 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.show-placeholder::placeholder {
+  opacity:1;
+  transition:all 200ms;
+}
+
+.not-show-placeholder::placeholder {
+  opacity:0;
+  transition:all 100ms;
 }

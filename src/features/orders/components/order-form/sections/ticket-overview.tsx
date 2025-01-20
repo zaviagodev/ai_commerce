@@ -65,7 +65,7 @@ export function TicketOverview({
   };
 
   return (
-    <div className="bg-white rounded-sm shadow-md overflow-hidden print:shadow-none">
+    <div className="bg-main rounded-sm shadow-md overflow-hidden print:shadow-none">
       {/* Header Section */}
       <div className="bg-primary/5 p-6 relative">
         <div className="flex items-center justify-between">
@@ -202,7 +202,7 @@ export function TicketOverview({
                 key={item.id}
                 className="flex items-center gap-4 p-4 rounded-lg bg-muted/30"
               >
-                <div className="h-12 w-12 rounded-sm bg-white overflow-hidden flex-shrink-0">
+                <div className="h-12 w-12 rounded-sm bg-main overflow-hidden flex-shrink-0">
                   {item.product?.images?.[0] ? (
                     <img
                       src={item.product.images[0].url}

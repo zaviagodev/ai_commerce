@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ProductAvatars } from './product-avatars';
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { ProductAvatars } from "./product-avatars";
 import {
   Table,
   TableBody,
@@ -25,12 +25,20 @@ import { useTranslation } from '@/lib/i18n/hooks';
 interface OrderListProps {
   orders: Order[];
   isLoading: boolean;
+  title?: string;
+  description?: string;
+  path?: string;
 }
 
-export function OrderList({ orders, isLoading }: OrderListProps) {
-  const t = useTranslation();
-  const [selectedStatus, setSelectedStatus] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+export function OrderList({
+  orders,
+  isLoading,
+  title = "Orders",
+  description = "Manage your store's orders",
+  path = "/dashboard/orders",
+}: OrderListProps) {
+  const [selectedStatus, setSelectedStatus] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const {
     pageIndex,
     pageSize,
@@ -43,7 +51,7 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
   // Filter orders by status
   const filteredOrders = useMemo(() => {
     let orderItems =
-      selectedStatus === 'all'
+      selectedStatus === "all"
         ? orders
         : orders.filter((order) => order.status === selectedStatus);
 
@@ -88,39 +96,41 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{t.orders.orders.title}</h1>
-          <p className="text-sm text-muted-foreground">
-            {t.orders.orders.description}
-          </p>
+          <h1 className="text-2xl font-semibold">{title}</h1>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/orders/new">
+          <Link to={`${path}/new`}>
             <Plus className="mr-2 h-4 w-4" />
             {t.orders.orders.actions.create}
           </Link>
         </Button>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      <motion.div 
+        className="flex flex-col-reverse lg:flex-row justify-between items-end lg:items-center gap-y-2 gap-x-4 mb-4 w-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex justify-between items-center gap-4 mb-4 w-full">
-          <StatusTabs
-            selectedStatus={selectedStatus}
-            onStatusChange={setSelectedStatus}
-            counts={statusCounts}
-          />
-          <div className="flex justify-end">
-            <ProductSearch
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder={t.orders.orders.list.search}
-            />
-          </div>
-        </div>
+        <StatusTabs
+          selectedStatus={selectedStatus}
+          onStatusChange={setSelectedStatus}
+          counts={statusCounts}
+        />
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search orders..."
+        />
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
         <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
@@ -155,10 +165,10 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                 <TableRow key={order.id}>
                   <TableCell>
                     <Link
-                      to={`/dashboard/orders/${order.id}`}
+                      to={`${path}/${order.id}`}
                       className="font-medium hover:underline"
                     >
-                      #{order.id.split('-')[0]}
+                      #{order.id.split("-")[0]}
                     </Link>
                     <div className="text-sm text-muted-foreground">
                       {new Date(order.createdAt).toLocaleDateString()}
@@ -181,17 +191,16 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant="default"
                       className={cn('capitalize shadow-none', {
-                        '!bg-red-100 !text-red-600':
+                        '!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100':
                           order.status === 'cancelled',
-                        '!bg-yellow-100 !text-yellow-600':
+                        '!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100':
                           order.status === 'pending',
-                        '!bg-green-100 !text-green-400':
+                        '!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100':
                           order.status === 'delivered',
-                        '!bg-purple-100 !text-purple-600':
+                        '!bg-purple-100 !text-purple-700 dark:!bg-purple-700 dark:!text-purple-100':
                           order.status === 'shipped',
-                        '!bg-blue-100 !text-blue-600':
+                        '!bg-blue-100 !text-blue-700 dark:!bg-blue-700 dark:!text-blue-100':
                           order.status === 'processing',
                       })}
                     >
@@ -213,23 +222,21 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
           </TableBody>
         </Table>
 
-        {filteredOrders.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(filteredOrders.length)}
-              totalItems={filteredOrders.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": filteredOrders.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(filteredOrders.length)}
+            totalItems={filteredOrders.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

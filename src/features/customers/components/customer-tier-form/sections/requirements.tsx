@@ -13,7 +13,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { CustomerTier } from '@/types/customer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, X } from 'lucide-react';
+import { Minus, MinusCircle, Plus, PlusCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { GroupSelector } from './group-selector';
 import {
@@ -24,6 +24,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { useRef } from 'react';
+import InputCounter from '@/components/input-counter';
 
 interface RequirementsProps {
   form: UseFormReturn<CustomerTier>;
@@ -66,6 +68,7 @@ const DEMO_GROUPS = [
 export function Requirements({ form }: RequirementsProps) {
   const t = useTranslation();
   const requirements = form.watch('requirements') || [];
+  const numRef = useRef(null);
 
   const addRequirement = (type: string) => {
     const newRequirement = {
@@ -95,6 +98,9 @@ export function Requirements({ form }: RequirementsProps) {
   return (
     <div className="space-y-6">
       {/* Active Requirements */}
+      {requirements.length === 0 && (
+        <p className='text-center text-[0.8rem] text-muted-foreground py-4'>No requirements. Please add them below.</p>
+      )}
       <div className="space-y-4">
         {requirements.map((requirement) => (
           <Card key={requirement.id} className="p-4">
@@ -124,23 +130,32 @@ export function Requirements({ form }: RequirementsProps) {
 
                 {/* Requirement Value */}
                 {requirement.type !== 'group' && (
-                <div className="relative">
-                  <Input
-                    type="number"
-                    min="0"
-                    value={requirement.value}
-                    onChange={(e) =>
-                      updateRequirement(requirement.id, {
-                        value: e.target.value === '' ? 0 : Number(e.target.value),
-                      })
-                    }
-                    className="pr-12"
-                    disabled={!requirement.enabled}
-                  />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                    {getUnitLabel(requirement.type)}
+                  <div className='flex items-center gap-3'>
+                    <div className="relative w-full">
+                      <Input
+                        type="number"
+                        min="0"
+                        value={requirement.value}
+                        onChange={(e) =>
+                          updateRequirement(requirement.id, {
+                            value: e.target.value === '' ? 0 : Number(e.target.value),
+                          })
+                        }
+                        className="pr-12"
+                        disabled={!requirement.enabled}
+                      />
+                      <div className="flex items-center absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        {getUnitLabel(requirement.type)}
+                      </div>
+                    </div>
+                    {/* <InputCounter 
+                      onChange={(type) => {
+                        updateRequirement(requirement.id, {
+                          value: type === "increase" ? requirement.value + 1 : requirement.value - 1,
+                        })
+                      }}
+                    /> */}
                   </div>
-                </div>
                 )}
                 
                 {/* Group Selection */}
@@ -154,7 +169,7 @@ export function Requirements({ form }: RequirementsProps) {
                         <Button variant="outline" className="w-full justify-start">
                           <span className="flex-1 text-left">
                             {requirement.groups?.length
-                              ? `${requirement.groups.length} groups selected`
+                              ? `${requirement.groups.length} group${requirement.groups.length === 1 ? "" : "s"} selected`
                               : 'Select groups'}
                           </span>
                         </Button>
@@ -173,12 +188,13 @@ export function Requirements({ form }: RequirementsProps) {
 
       {/* Add Requirement */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-sm text-muted-foreground">Add requirement</span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-
+        {REQUIREMENT_TYPES.filter((type) => !requirements.find((req) => req.type === type.id))?.length > 0 && (
+          <div className="flex items-center gap-2">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-sm text-muted-foreground">Add requirement</span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        )}
         <RadioGroup
           onValueChange={(value) => addRequirement(value)}
           className="grid gap-2"
@@ -297,13 +313,13 @@ export function Requirements({ form }: RequirementsProps) {
 function getUnitLabel(type: string): string {
   switch (type) {
     case 'points':
-      return 'points';
+      return 'point(s)';
     case 'spending':
       return 'USD';
     case 'orders':
-      return 'orders';
+      return 'order(s)';
     case 'duration':
-      return 'days';
+      return 'day(s)';
     default:
       return '';
   }

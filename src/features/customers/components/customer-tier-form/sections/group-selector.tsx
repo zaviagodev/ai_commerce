@@ -41,7 +41,7 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md top-[10%] translate-y-0">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Select Customer Groups</DialogTitle>
         </DialogHeader>
@@ -56,26 +56,30 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
             />
           </div>
           <ScrollArea className="max-h-[300px]">
-            <div className="space-y-2">
-              {filteredGroups.map((group) => (
-                <Button
-                  key={group.id}
-                  variant={selectedGroups.includes(group.id) ? 'default' : 'outline'}
-                  className="w-full justify-start"
-                  onClick={() => toggleGroup(group.id)}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300"
-                      checked={selectedGroups.includes(group.id)}
-                      onChange={() => toggleGroup(group.id)}
-                    />
-                    <span>{group.name}</span>
-                  </div>
-                </Button>
-              ))}
-            </div>
+            {filteredGroups.length > 0 ? (
+              <div className="space-y-2">
+                {filteredGroups.map((group) => (
+                  <Button
+                    key={group.id}
+                    variant={selectedGroups.includes(group.id) ? 'default' : 'outline'}
+                    className="w-full justify-start h-fit"
+                    onClick={() => toggleGroup(group.id)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300"
+                        checked={selectedGroups.includes(group.id)}
+                        onChange={() => toggleGroup(group.id)}
+                      />
+                      <span>{group.name}</span>
+                    </div>
+                  </Button>
+                ))}
+              </div>
+            ) : (
+              <p className='text-center'>No groups found</p>
+            )}
           </ScrollArea>
         </div>
         <div className="flex justify-end gap-2 pt-4 border-t">

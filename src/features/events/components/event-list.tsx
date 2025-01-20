@@ -67,7 +67,7 @@ export function EventList({ products, isLoading }: EventListProps) {
       </motion.div>
 
       <motion.div
-        className="rounded-sm"
+        className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
@@ -132,12 +132,9 @@ export function EventList({ products, isLoading }: EventListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600":
-                          product.status === "active",
-                        "!bg-red-100 !text-red-600":
-                          product.status === "archived",
-                        "!bg-gray-100 !text-gray-600":
-                          product.status === "draft",
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": product.status === 'active',
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": product.status === 'archived',
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
                       })}
                     >
                       {t.events.list.table.status[product.status]}
@@ -179,9 +176,9 @@ export function EventList({ products, isLoading }: EventListProps) {
           </TableBody>
         </Table>
 
-        {products.length > 0 && (
+        {paginatedProducts.length > 0 && (
           <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
+            className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}

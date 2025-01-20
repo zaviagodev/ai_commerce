@@ -46,7 +46,7 @@ export function DraggableImage({ image, isPrimary, onRemove }: DraggableImagePro
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="absolute inset-0 flex items-center justify-center">
-            <GripVertical className="h-6 w-6 text-white cursor-grab active:cursor-grabbing" />
+            <GripVertical className="h-6 w-6 text-main cursor-grab active:cursor-grabbing" />
           </div>
         </div>
 

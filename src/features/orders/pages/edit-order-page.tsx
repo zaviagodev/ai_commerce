@@ -18,7 +18,7 @@ export function EditOrderPage() {
   const order = orders.find((o) => o.id === id);
 
   if (!order) {
-    return <div>Order not found</div>;
+    return <div className='pt-14'>Order not found</div>;
   }
 
   const handleCancel = () => {
@@ -34,28 +34,16 @@ export function EditOrderPage() {
 
   const headerActions = (
     <div className="flex items-center gap-2">
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <PrintButton order={order} />
-      </motion.div>
+      <PrintButton order={order} />
       {!isEditing ? (
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+        <Button 
+          onClick={() => setIsEditing(true)} 
+          variant="default"
+          className="bg-blue-600 hover:bg-blue-700"
         >
-          <Button 
-            onClick={() => setIsEditing(true)} 
-            variant="default"
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            <Pencil className="mr-2 h-4 w-4" />
-            Edit Order
-          </Button>
-        </motion.div>
+          <Pencil className="mr-2 h-4 w-4" />
+          Edit Order
+        </Button>
       ) : (
         <motion.div 
           className="flex items-center gap-2"

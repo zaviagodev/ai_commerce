@@ -1,29 +1,13 @@
 import { UseFormReturn } from 'react-hook-form';
 import { useState } from 'react';
-import { Plus, X, Home, Pencil } from 'lucide-react';
+import { Plus, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from '@/components/ui/dialog';
 import { AddressForm } from './address-form';
 import { Customer, CustomerAddress } from '@/types/customer';
@@ -170,7 +154,7 @@ export function Addresses({ form }: AddressesProps) {
           onOpenChange={(open) => !open && setEditingAddress(null)}
         >
           <DialogContent
-            className="h-[calc(100vh_-_10rem)]"
+            className="h-[calc(100dvh_-_10rem)]"
             aria-labelledby="address-dialog-title"
           >
             <DialogHeader>

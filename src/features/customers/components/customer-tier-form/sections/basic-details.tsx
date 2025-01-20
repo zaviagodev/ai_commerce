@@ -33,7 +33,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.name.label}</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.name.label} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
                 placeholder={ t.customers.customer.tier.sections.basicDetails.fields.name.placeholder} 
@@ -58,35 +58,6 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                 {...field}
               />
             </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="color"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.color.label}</FormLabel>
-            <FormControl>
-              <div className="flex items-center gap-2">
-                <Input
-                  type="color"
-                  className="h-10 w-20"
-                  {...field}
-                />
-                <Input
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="#000000"
-                  className="flex-1"
-                />
-              </div>
-            </FormControl>
-            <FormDescription>
-              { t.customers.customer.tier.sections.basicDetails.fields.color.description}
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

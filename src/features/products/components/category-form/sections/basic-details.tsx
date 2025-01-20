@@ -26,7 +26,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.categories.form.name}</FormLabel>
+            <FormLabel>{t.products.categories.form.name} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input placeholder={t.products.categories.form.namePlaceholder} {...field} />
             </FormControl>

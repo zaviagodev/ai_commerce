@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Plus, Users } from 'lucide-react';
+import { MoreHorizontal, Plus, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -10,23 +10,39 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import { useCustomerGroups } from '../hooks/use-customer-groups';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
 
 export function CustomerGroupsPage() {
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
   const t = useTranslation();
 
-  if (isLoading) {
-    return (
-      <div className="pt-14">
-        <Loading />
-      </div>
-    );
-  }
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredGroups = useMemo(() => {
+    let filtered = groups;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = groups.filter(
+        (group) =>
+          group.name.toLowerCase().includes(query) ||
+          group.description?.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [groups, searchQuery]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -35,6 +51,14 @@ export function CustomerGroupsPage() {
       console.error('Failed to delete group:', error);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -58,6 +82,19 @@ export function CustomerGroupsPage() {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customer groups..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
@@ -71,11 +108,11 @@ export function CustomerGroupsPage() {
               <TableHead>{t.customers.customer.group.list.columns.members}</TableHead>
               <TableHead>{t.customers.customer.group.list.columns.autoAssign}</TableHead>
               <TableHead>{t.customers.customer.group.list.columns.status}</TableHead>
-              <TableHead className="w-[100px]">{t.customers.customer.group.list.columns.actions}</TableHead>
+              <TableHead className="w-[70px]">{t.customers.customer.group.list.columns.actions}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {groups.length === 0 ? (
+            {filteredGroups.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -93,7 +130,7 @@ export function CustomerGroupsPage() {
                 </TableCell>
               </TableRow>
             ) : (
-              groups.map((group) => (
+              filteredGroups.map((group) => (
                 <TableRow key={group.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -132,28 +169,36 @@ export function CustomerGroupsPage() {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": group.status === "active",
-                        "!bg-gray-100 !text-gray-600": group.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": group.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": group.status === "inactive"
                       })}
                     >
                       {t.customers.customer.group.list.status[group.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Button variant="secondary" size="sm" asChild>
-                        <Link to={`/dashboard/customers/groups/${group.id}`}>
-                          {t.customers.customer.group.list.actions.edit}
-                        </Link>
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDelete(group.id)}
-                      >
-                        {t.customers.customer.group.list.actions.delete}
-                      </Button>
-                    </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to={`/dashboard/customers/groups/${group.id}`}
+                          >
+                            {t.customers.customer.group.list.actions.edit}
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="text-destructive"
+                          onClick={() => handleDelete(group.id)}
+                        >
+                          {t.customers.customer.group.list.actions.delete}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))

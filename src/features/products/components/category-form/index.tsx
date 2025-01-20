@@ -8,6 +8,7 @@ import { BasicDetails } from './sections/basic-details';
 import { SEO } from './sections/seo';
 import { Folder, Search } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CategoryFormProps {
   initialData?: ProductCategory;
@@ -37,8 +38,18 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
   return (
     <div className="space-y-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
+        <motion.form onSubmit={form.handleSubmit(handleSubmit)} 
+          className="space-y-8"
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? t.products.categories.actions.edit : t.products.categories.actions.add}
@@ -53,11 +64,16 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
               </Button>
               <Button type="submit">{t.products.products.actions.save}</Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6">
+          <motion.div 
+            className="grid gap-6"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             {/* Basic Details Section */}
-            <div className="rounded-lg border bg-white">
+            <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                   <Folder className="h-5 w-5 text-blue-600" />
@@ -75,7 +91,7 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
             </div>
 
             {/* SEO Section */}
-            <div className="rounded-lg border bg-white">
+            {/* <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                   <Search className="h-5 w-5 text-purple-600" />
@@ -90,9 +106,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
               <div className="p-6">
                 <SEO form={form} />
               </div>
-            </div>
-          </div>
-        </form>
+            </div> */}
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

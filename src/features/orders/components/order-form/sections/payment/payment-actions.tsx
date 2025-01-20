@@ -54,7 +54,7 @@ export function PaymentActions({
               >
                 <Button
                   variant="outline"
-                  className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                  className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                   onClick={onPaymentClick}
                   type="button"
                 >
@@ -73,7 +73,7 @@ export function PaymentActions({
                 >
                   <Button
                     variant="outline"
-                    className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                    className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                     onClick={onActionsClick}
                     type="button"
                   >
@@ -90,7 +90,7 @@ export function PaymentActions({
                 >
                   <Button
                     variant="outline"
-                    className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                    className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                     onClick={onShippingClick}
                     type="button"
                   >

@@ -66,7 +66,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Enter Redeem Code</DialogTitle>
         </DialogHeader>
@@ -158,7 +158,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                           ease: 'easeInOut',
                         }}
                       />
-                      <p className="text-white font-medium">Scanning...</p>
+                      <p className="text-main font-medium">Scanning...</p>
                     </motion.div>
                   ) : scanResult ? (
                     <motion.div
@@ -185,7 +185,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
                         {/* Redeem Details */}
                         <div className="mt-4 space-y-3">
-                          <div className="p-3 rounded-lg bg-white border border-gray-200 space-y-2">
+                          <div className="p-3 rounded-lg bg-main border border-gray-200 space-y-2">
                             {/* Product Image */}
                             <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
                               <div className="h-16 w-16 rounded-lg border border-gray-200 overflow-hidden">
@@ -208,7 +208,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                             </div>
                           </div>
 
-                          <div className="p-3 rounded-lg bg-white border border-gray-200">
+                          <div className="p-3 rounded-lg bg-main border border-gray-200">
                             <div className="flex justify-between items-center">
                               <span className="text-sm font-medium">
                                 Coupon Code
@@ -262,7 +262,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end gap-2 fixed w-[calc(100%_-_24px)] bg-main p-6 !m-0">
             <Button
               type="button"
               variant="outline"

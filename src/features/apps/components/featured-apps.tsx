@@ -27,11 +27,11 @@ export function FeaturedApps({ apps }: FeaturedAppsProps) {
                 className="absolute inset-0 bg-gradient-to-br opacity-90 transition-opacity group-hover:opacity-100"
                 style={{ background: app.color }}
               />
-              <div className="absolute inset-0 p-6 text-white">
+              <div className="absolute inset-0 p-6 text-main">
                 <div className="flex h-full flex-col justify-between">
                   <div>
                     <h3 className="text-2xl font-bold">{app.name}</h3>
-                    <p className="mt-2 text-lg text-white/90">{app.description}</p>
+                    <p className="mt-2 text-lg text-main/90">{app.description}</p>
                   </div>
                 </div>
               </div>

@@ -32,12 +32,12 @@ export function VariantSelectModal({
         <DialogHeader>
           <DialogTitle>{t.orders.orders.product.variant.title}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4">
+        <div className="space-y-2">
           {product.variants.map((variant) => (
             <Button
               key={variant.id}
               variant="ghost"
-              className="w-full justify-start"
+              className="w-full justify-start h-fit"
               onClick={() => {
                 onSelect(variant);
                 onOpenChange(false);

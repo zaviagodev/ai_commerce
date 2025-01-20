@@ -17,6 +17,8 @@ import { useCoupons } from '../hooks/use-coupons';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { useMemo, useState } from 'react';
+import { ProductSearch } from '@/features/products/components/product-search';
 
 export function CouponCampaignsPage() {
   const { coupons, isLoading } = useCoupons();
@@ -30,7 +32,22 @@ export function CouponCampaignsPage() {
     pageCount,
   } = usePagination();
 
-  const paginatedCoupons = paginateItems(coupons);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCoupons = useMemo(() => {
+    let filtered = coupons;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = coupons.filter(
+        (coupon) =>
+          coupon.code.toLowerCase().includes(query) ||
+          coupon.description?.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [coupons, searchQuery])
+  const paginatedCoupons = paginateItems(filteredCoupons);
 
   if (isLoading) {
     return (
@@ -83,6 +100,19 @@ export function CouponCampaignsPage() {
             { t.customers.customer.coupon.actions.create}
           </Link>
         </Button>
+      </motion.div>
+
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search coupon campaigns..."
+        />
       </motion.div>
 
       <motion.div
@@ -170,10 +200,10 @@ export function CouponCampaignsPage() {
                           : 'destructive'
                       }
                       className={cn("capitalize shadow-none", {
-                        '!bg-red-100 !text-red-600': coupon.status === "expired",
-                        '!bg-yellow-100 !text-yellow-600': coupon.status === "scheduled",
-                        '!bg-green-100 !text-green-600': coupon.status === "active",
-                        '!bg-gray-100 !text-gray-600': coupon.status === "draft"
+                        '!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100': coupon.status === "expired",
+                        '!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100': coupon.status === "scheduled",
+                        '!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100': coupon.status === "active",
+                        '!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100': coupon.status === "draft"
                       })}
                     >
                       { t.customers.customer.coupon.list.status[coupon.status]}
@@ -185,23 +215,21 @@ export function CouponCampaignsPage() {
           </TableBody>
         </Table>
 
-        {coupons.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(coupons.length)}
-              totalItems={coupons.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCoupons.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(coupons.length)}
+            totalItems={coupons.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

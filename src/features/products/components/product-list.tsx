@@ -169,42 +169,48 @@ export function ProductList({
         </div>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      {/* Table Controls */}
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        {/* Table Controls */}
-        <div className="flex items-center justify-end gap-4 mb-4">
-          <ProductSearch value={searchQuery} onChange={setSearchQuery} />
+        <ProductSearch value={searchQuery} onChange={setSearchQuery} />
 
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleBulkMode}
-              className={cn('transition-colors', isBulkMode && 'text-primary')}
-            >
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleBulkMode}
+            className={cn('transition-colors', isBulkMode && 'text-primary')}
+          >
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
 
-            {isBulkMode && selectedCount > 0 && (
-              <BulkActionsMenu
-                selectedCount={selectedCount}
-                onArchive={handleBulkArchive}
-                onDelete={() => setShowDeleteDialog(true)}
-                onChangeCategory={() => setShowCategoryDialog(true)}
-              />
-            )}
-          </div>
-
-          <div className="flex items-center gap-4">
-            <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
-            <ProductSort value={sortValue} onValueChange={setSortValue} />
-          </div>
+          {isBulkMode && selectedCount > 0 && (
+            <BulkActionsMenu
+              selectedCount={selectedCount}
+              onArchive={handleBulkArchive}
+              onDelete={() => setShowDeleteDialog(true)}
+              onChangeCategory={() => setShowCategoryDialog(true)}
+            />
+          )}
         </div>
-        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
+
+        <div className="flex items-center gap-4">
+          <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+          <ProductSort value={sortValue} options={SORT_OPTIONS} onValueChange={setSortValue} />
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               {(isBulkMode && paginatedProducts.length > 0) && (
@@ -244,15 +250,88 @@ export function ProductList({
               paginatedProducts.map((product) => {
                 const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
                 return (
-                  <TableRow key={product.id}>
-                    {isBulkMode && (
-                      <TableCell>
-                        <Checkbox
-                          checked={isSelected(product.id)}
-                          onCheckedChange={() => toggleSelection(product.id)}
-                        />
-                      </TableCell>
+                <TableRow key={product.id}>
+                  {isBulkMode && (
+                    <TableCell>
+                      <Checkbox
+                        checked={isSelected(product.id)}
+                        onCheckedChange={() => toggleSelection(product.id)}
+                      />
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      {product.images[0] ? (
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                          className="h-12 w-12 rounded-sm overflow-hidden"
+                        >
+                          <img
+                            src={product.images[0].url}
+                            alt={product.images[0].alt}
+                            className="h-full w-full object-cover"
+                          />
+                        </motion.div>
+                      ) : (
+                        <div className="h-12 w-12 rounded-sm bg-muted" />
+                      )}
+                      <div>
+                        <Link
+                          to={`/dashboard/products/${product.id}`}
+                          className="font-medium hover:underline"
+                        >
+                          {product.name}
+                        </Link>
+                        {product.sku && (
+                          <p className="text-sm text-muted-foreground">
+                            SKU: {product.sku}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      className={cn("capitalize shadow-none", {
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": product.status === 'active',
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": product.status === 'archived',
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
+                      })}
+                    >
+                      {product.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    {product.category?.name || 'Uncategorized'}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="space-y-1">
+                      <div className="font-medium">
+                        {formatCurrency(product.price)}
+                      </div>
+                      {product.compareAtPrice && (
+                        <div className="text-sm text-muted-foreground line-through">
+                          {formatCurrency(product.compareAtPrice)}
+                        </div>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {product.trackQuantity ? (
+                      <span
+                        className={
+                          (quantity || 0) > 0
+                            ? 'text-green-600'
+                            : 'text-red-600'
+                        }
+                      >
+                        {quantity || 0} in stock
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">Not tracked</span>
                     )}
+                  </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
@@ -307,23 +386,21 @@ export function ProductList({
           </TableBody>
         </Table>
 
-        {products.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(sortedProducts.length)}
-              totalItems={sortedProducts.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedProducts.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(products.length)}
+            totalItems={products.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
 
       <BulkDeleteDialog

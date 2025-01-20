@@ -78,7 +78,7 @@ export function Products({ form }: ProductsProps) {
           <Package className="h-5 w-5 text-pink-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.orders.orders.list.columns.products}</h2>
+          <h2 className="text-lg font-medium">{t.orders.orders.list.columns.products} <span className='text-destructive'>*</span></h2>
           <p className="text-sm text-muted-foreground">
             {t.orders.orders.form.sections.products.description}
           </p>
@@ -92,6 +92,7 @@ export function Products({ form }: ProductsProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
+          <span className='text-destructive text-[0.8rem]'>{form.formState.errors.items?.message}</span>
           {items.map((item, index) => (
             <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg">
               <div className="relative group">
@@ -111,7 +112,7 @@ export function Products({ form }: ProductsProps) {
                 </div>
                 {/* Hover preview */}
                 <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-10">
-                  <div className="h-[150px] w-[150px] rounded-lg border shadow-lg bg-white overflow-hidden">
+                  <div className="h-[150px] w-[150px] rounded-lg border shadow-lg bg-main overflow-hidden">
                     {item.product?.images?.[0] ? (
                       <img
                         src={item.product.images[0].url}
@@ -167,7 +168,7 @@ export function Products({ form }: ProductsProps) {
 
               <Button
                 type="button"
-                variant="ghost"
+                variant="destructive"
                 size="sm"
                 onClick={() => {
                   const newItems = [...items];

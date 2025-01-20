@@ -15,10 +15,27 @@ import { useCustomerTiers } from '../hooks/use-customer-tiers';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
 
 export function CustomerTiersPage() {
   const { tiers, isLoading } = useCustomerTiers();
   const t = useTranslation();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredTiers = useMemo(() => {
+    let filtered = tiers;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = tiers.filter(
+        (tier) =>
+          tier.name.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [tiers, searchQuery])
 
   if (isLoading) {
     return (
@@ -43,11 +60,24 @@ export function CustomerTiersPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/customers/tiers/new">
+          <Link to="/dashboard/points/tiers/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.customers.customer.tier.list.actions.create}
           </Link>
         </Button>
+      </motion.div>
+
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customer tiers..."
+        />
       </motion.div>
 
       <motion.div
@@ -67,7 +97,7 @@ export function CustomerTiersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tiers.length === 0 ? (
+            {filteredTiers.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -76,7 +106,7 @@ export function CustomerTiersPage() {
                       {t.customers.customer.tier.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/customers/tiers/new">
+                      <Link to="/dashboard/points/tiers/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.customers.customer.tier.list.actions.create}
                       </Link>
@@ -85,7 +115,7 @@ export function CustomerTiersPage() {
                 </TableCell>
               </TableRow>
             ) : (
-              tiers.map((tier) => (
+              filteredTiers.map((tier) => (
                 <TableRow key={tier.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -96,7 +126,7 @@ export function CustomerTiersPage() {
                       </div>
                       <div>
                         <Link
-                          to={`/dashboard/customers/tiers/${tier.id}`}
+                          to={`/dashboard/points/tiers/${tier.id}`}
                           className="font-medium hover:underline"
                         >
                           {tier.name}
@@ -127,8 +157,8 @@ export function CustomerTiersPage() {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": tier.status === "active",
-                        "!bg-gray-100 !text-gray-600": tier.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": tier.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": tier.status === "inactive"
                       })}
                     >
                       {t.customers.customer.tier.list.status[tier.status]}

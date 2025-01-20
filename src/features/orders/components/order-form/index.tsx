@@ -17,12 +17,19 @@ import { Notes } from './sections/notes';
 import { Order } from '@/types/order';
 import { useTranslation } from '@/lib/i18n/hooks';
 
+interface ExtraTab {
+  label: string;
+  value: string;
+  component: React.ReactNode;
+}
+
 interface OrderFormProps {
   initialData?: Order;
   onSubmit: (data: Order) => Promise<void>;
   isEditing?: boolean;
   headerActions?: React.ReactNode;
   onFieldChange?: () => void;
+  extraTabs?: ExtraTab[];
 }
 
 export function OrderForm({ 
@@ -30,7 +37,8 @@ export function OrderForm({
   onSubmit, 
   isEditing, 
   headerActions,
-  onFieldChange 
+  onFieldChange,
+  extraTabs = []
 }: OrderFormProps) {
   const t = useTranslation();
   const form = useForm({
@@ -103,10 +111,8 @@ export function OrderForm({
     return t.orders.orders.form.daysAgo.other.replace('{days}', days.toString())
   }
 
-  console.log("form =>", form.getValues());
-
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
         <motion.form 
           onSubmit={form.handleSubmit(handleSubmit)} 
@@ -147,7 +153,7 @@ export function OrderForm({
                 <Tabs 
                   defaultValue="overview" 
                   className="w-full"
-                  value={!initialData ? "basic" : isEditing ? "basic" : "overview"}
+                  // value={!initialData ? "basic" : isEditing ? "basic" : "overview"}
                 >
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
@@ -161,13 +167,18 @@ export function OrderForm({
                       >
                         {t.orders.orders.form.tabs.basicDetails}
                       </TabsTrigger>
-                      <TabsTrigger 
+                      {/* <TabsTrigger 
                         value="notes" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
-                        {t.orders.orders.form.tabs.notes}
-                      </TabsTrigger>
+                        Notes
+                      </TabsTrigger> */}
+                      {extraTabs?.map((tab, index) => (
+                        <TabsTrigger value={tab.value} key={index}>
+                          {tab.label}
+                        </TabsTrigger>
+                      ))}
                     </TabsList>
                     {/* Show status dropdown when creating new order or editing */}
                     {(!initialData || isEditing) && (
@@ -191,9 +202,14 @@ export function OrderForm({
                       <Summary form={form} />
                     </div>
                   </TabsContent>
-                  <TabsContent value="notes">
+                  {/* <TabsContent value="notes">
                     <Notes form={form} />
-                  </TabsContent>
+                  </TabsContent> */}
+                  {extraTabs?.map((tab, index) => (
+                    <TabsContent value={tab.value} key={index}>
+                      {tab.component}
+                    </TabsContent>
+                  ))}
                 </Tabs>
               </div>
             </div>

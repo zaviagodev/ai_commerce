@@ -1,30 +1,31 @@
-export type MemberRole = 'owner' | 'admin' | 'manager' | 'staff';
-
 export interface Member {
   id: string;
-  email: string;
   name: string;
-  role: MemberRole;
-  avatar?: string;
+  email: string;
+  role: 'Owner' | 'Admin' | 'Staff';
   status: 'active' | 'pending' | 'inactive';
-  lastActive?: Date;
-  joinedAt: Date;
-  permissions: {
+  avatar: string;
+  lastActive: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  permissions?: {
     manageProducts: boolean;
     manageOrders: boolean;
     manageCustomers: boolean;
-    manageSettings: boolean;
     manageTeam: boolean;
+    manageSettings: boolean;
   };
-}
-
-export interface InviteLink {
-  id: string;
-  code: string;
-  role: MemberRole;
-  expiresAt: Date;
-  maxUses?: number;
-  uses: number;
-  createdBy: string;
-  createdAt: Date;
+  twoFactorEnabled?: boolean;
+  notificationPreferences?: {
+    email: boolean;
+    push: boolean;
+    slack: boolean;
+  };
+  activityLog?: {
+    id: string;
+    action: string;
+    timestamp: Date;
+    ip: string;
+    location: string;
+  }[];
 }

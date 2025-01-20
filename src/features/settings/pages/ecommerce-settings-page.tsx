@@ -75,10 +75,10 @@ export function EcommerceSettingsPage() {
 
         <div className="grid gap-6">
           <GeneralSettings form={form} />
-          <CheckoutSettings form={form} />
+          {/* <CheckoutSettings form={form} /> */}
           <ShippingSettings form={form} />
           <TaxSettings form={form} />
-          <InventorySettings form={form} />
+          {/* <InventorySettings form={form} /> */}
         </div>
       </form>
     </Form>

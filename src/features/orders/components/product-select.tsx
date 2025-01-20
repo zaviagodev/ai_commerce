@@ -79,7 +79,7 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                   <Button
                     key={product.id}
                     variant="ghost"
-                    className="w-full justify-start h-full"
+                    className="w-full justify-start h-fit"
                     onClick={() => handleProductSelect(product)}
                   >
                     <div className="flex items-center gap-3 w-full">

@@ -25,7 +25,7 @@ export function SEO({ form }: SEOProps) {
         name="slug"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.categories.form.slug}</FormLabel>
+            <FormLabel>{t.products.categories.form.slug} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input placeholder={t.products.categories.form.slugPlaceholder} {...field} />
             </FormControl>

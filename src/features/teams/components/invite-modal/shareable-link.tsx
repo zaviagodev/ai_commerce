@@ -157,12 +157,12 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             </div>
 
             <div className="flex gap-2">
-              <TextShimmer duration={2} className="flex-1">
+              <TextShimmer duration={2} className="flex-1 rounded-[8px]">
                 <Input
                   value={inviteLink}
                   readOnly
                   className={cn(
-                    "font-mono text-sm bg-white transition-colors",
+                    "font-mono text-sm bg-main transition-colors",
                     isCopying && "bg-primary/5 text-primary"
                   )}
                 />
@@ -246,16 +246,31 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             <motion.h3 
               className="mb-1 font-medium"
               animate={isGenerating ? {
-                opacity: [0, 1],
+                // scale: [1, 1.1, 1],
+                opacity:[0, 1, 0],
                 transition: {
-                  duration: 1.2,
+                  duration: 2,
                   repeat: Infinity,
                 }
               } : {}}
             >
               {isGenerating ? t.teams.invite.link.generating : t.teams.invite.link.empty}
             </motion.h3>
-            
+            <motion.p 
+              className="text-sm text-muted-foreground mb-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isGenerating ? {
+                opacity:[0, 1, 0],
+                transition: {
+                  duration: 2,
+                  repeat: Infinity,
+                },
+                y: 0
+              } : { opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              {isGenerating ? "This will only take a moment" : "Generate a link to invite team members"}
+            </motion.p>
             <Button 
               onClick={generateLink} 
               disabled={isGenerating}

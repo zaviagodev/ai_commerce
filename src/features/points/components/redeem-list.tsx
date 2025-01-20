@@ -16,8 +16,9 @@ import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { cn, formatDate } from '@/lib/utils';
 import { RedeemCodeModal } from './redeem-code-modal';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Loading from '@/components/loading';
+import { ProductSearch } from '@/features/products/components/product-search';
 
 interface RedeemListProps {
   redeems: Redeem[];
@@ -36,7 +37,24 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedRedeems = paginateItems(redeems);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredRedeems = useMemo(() => {
+    let filtered = redeems;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = redeems.filter(
+        (redeem) =>
+          redeem.code.toLowerCase().includes(query) ||
+          redeem.customerName.toLowerCase().includes(query) ||
+          redeem.customerEmail.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [redeems, searchQuery])
+
+  const paginatedRedeems = paginateItems(filteredRedeems);
 
   if (isLoading) {
     return (
@@ -66,13 +84,26 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search redeem list..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={redeems.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedRedeems.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Redeem Code</TableHead>
@@ -83,7 +114,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {redeems.length === 0 ? (
+            {paginatedRedeems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -127,9 +158,9 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600": redeem.status === 'completed',
-                        "!bg-red-100 !text-red-600": redeem.status === 'cancelled',
-                        "!bg-yellow-100 !text-yellow-600": redeem.status === 'pending',
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": redeem.status === 'completed',
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": redeem.status === 'cancelled',
+                        "!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100": redeem.status === 'pending',
                       })}
                     >
                       {redeem.status}
@@ -142,23 +173,21 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
           </TableBody>
         </Table>
 
-        {redeems.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(redeems.length)}
-              totalItems={redeems.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedRedeems.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(redeems.length)}
+            totalItems={redeems.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
 
       <RedeemCodeModal open={isModalOpen} onOpenChange={setIsModalOpen} />

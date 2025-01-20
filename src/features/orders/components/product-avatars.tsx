@@ -42,7 +42,7 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
                       "flex items-center justify-center",
                       "min-w-[18px] h-[18px] px-1",
                       "text-[10px] font-medium leading-none",
-                      "rounded-full bg-white/90 text-gray-700",
+                      "rounded-full bg-main/90 text-gray-700",
                       "shadow-[0_1px_2px_rgba(0,0,0,0.1)]",
                       "border border-gray-100/50",
                       "backdrop-blur-sm",

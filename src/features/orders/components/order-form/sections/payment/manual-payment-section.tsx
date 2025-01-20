@@ -95,7 +95,7 @@ export function ManualPaymentSection({
           type="button"
           variant="ghost"
           onClick={onCancel}
-          className="text-gray-300 hover:text-white hover:bg-gray-700"
+          className="text-gray-300 hover:text-main hover:bg-gray-700"
         >
           Cancel
         </Button>

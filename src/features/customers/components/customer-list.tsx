@@ -16,6 +16,9 @@ import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { useMemo, useState } from 'react';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { cn } from '@/lib/utils';
 
 interface CustomerListProps {
   customers: Customer[];
@@ -33,7 +36,24 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedCustomers = paginateItems(customers);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCustomers = useMemo(() => {
+    let filtered = customers;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = customers.filter(
+        (customer) =>
+          customer.firstName.toLowerCase().includes(query) ||
+          customer.lastName.toLowerCase().includes(query) ||
+          customer.email.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [customers, searchQuery])
+
+  const paginatedCustomers = paginateItems(filteredCustomers);
 
 
   console.log(t.customers.customer);
@@ -68,13 +88,26 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customers..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={customers.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedCustomers.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>{t.customers.customer.list.columns.name}</TableHead>
@@ -85,7 +118,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {customers.length === 0 ? (
+            {paginatedCustomers.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -133,23 +166,21 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
           </TableBody>
         </Table>
 
-        {customers.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(customers.length)}
-              totalItems={customers.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCustomers.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(customers.length)}
+            totalItems={customers.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

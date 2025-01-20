@@ -40,24 +40,31 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           control={form.control}
           name="notifyEmail"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.settings.payments.notifications.email.label}</FormLabel>
+            <FormItem className="flex items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>{t.settings.payments.notifications.email.label}</FormLabel>
+                <FormDescription>
+                {t.settings.payments.notifications.email.description}
+                </FormDescription>
+              </div>
               <FormControl>
-                <Input 
+                {/* This field was firstly set as string input */}
+                {/* <Input 
                   type="email" 
                   placeholder={t.settings.payments.notifications.email.placeholder}
                   {...field} 
+                /> */}
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormDescription>
-                {t.settings.payments.notifications.email.description}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="notifyLine"
           render={({ field }) => (
@@ -95,7 +102,7 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
               </FormItem>
             )}
           />
-        )}
+        )} */}
       </CardContent>
     </Card>
   );
