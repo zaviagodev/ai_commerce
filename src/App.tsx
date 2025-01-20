@@ -34,6 +34,7 @@ import { AttributesPage } from "@/features/products/pages/attributes-page";
 import { EventsPage } from "@/features/events/pages/events-page";
 import { NewEventPage } from "@/features/events/pages/new-event-page";
 import { EditEventPage } from "@/features/events/pages/edit-event-page";
+import EventOrdersPage from "@/features/tickets/pages/event-orders-page";
 
 // Customer Features
 import { CustomersPage } from "@/features/customers/pages/customers-page";
@@ -73,6 +74,8 @@ import { PaymentSettingsPage } from "@/features/settings/pages/payments-settings
 import { DashboardPage } from "@/features/dashboard/pages/dashboard-page";
 import { CustomPage } from "@/features/custom-page";
 import { TeamsPage } from "./features/teams/pages/teams-page";
+import { EditEventOrderPage } from "./features/tickets/pages/edit-event-order-page";
+import { NewEventOrderPage } from "./features/tickets/pages/new-event-order-page";
 
 export default function App() {
   useEffect(() => {
@@ -148,6 +151,10 @@ export default function App() {
               <Route path="events" element={<EventsPage />} />
               <Route path="events/new" element={<NewEventPage />} />
               <Route path="events/:id" element={<EditEventPage />} />
+              <Route path="events/orders" element={<EventOrdersPage />} />
+              <Route path="events/orders/new" element={<NewEventOrderPage/>} />
+              <Route path="events/orders/:id" element={<EditEventOrderPage />} />
+
 
               {/* Customer Routes */}
               <Route path="customers" element={<CustomersPage />} />

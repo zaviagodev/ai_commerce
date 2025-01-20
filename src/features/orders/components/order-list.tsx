@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ProductAvatars } from './product-avatars';
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { ProductAvatars } from "./product-avatars";
 import {
   Table,
   TableBody,
@@ -10,25 +10,34 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Order } from '@/types/order';
-import { cn, formatCurrency } from '@/lib/utils';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import { StatusTabs } from './status-tabs';
-import { useState, useMemo } from 'react';
-import Loading from '@/components/loading';
-import { ProductSearch } from '@/features/products/components/product-search';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Order } from "@/types/order";
+import { cn, formatCurrency } from "@/lib/utils";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import { StatusTabs } from "./status-tabs";
+import { useState, useMemo } from "react";
+import Loading from "@/components/loading";
+import { ProductSearch } from "@/features/products/components/product-search";
 
 interface OrderListProps {
   orders: Order[];
   isLoading: boolean;
+  title?: string;
+  description?: string;
+  path?: string;
 }
 
-export function OrderList({ orders, isLoading }: OrderListProps) {
-  const [selectedStatus, setSelectedStatus] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+export function OrderList({
+  orders,
+  isLoading,
+  title = "Orders",
+  description = "Manage your store's orders",
+  path = "/dashboard/orders",
+}: OrderListProps) {
+  const [selectedStatus, setSelectedStatus] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const {
     pageIndex,
     pageSize,
@@ -41,7 +50,7 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
   // Filter orders by status
   const filteredOrders = useMemo(() => {
     let orderItems =
-      selectedStatus === 'all'
+      selectedStatus === "all"
         ? orders
         : orders.filter((order) => order.status === selectedStatus);
 
@@ -86,13 +95,11 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Orders</h1>
-          <p className="text-sm text-muted-foreground">
-            Manage your store's orders
-          </p>
+          <h1 className="text-2xl font-semibold">{title}</h1>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/orders/new">
+          <Link to={`${path}/new`}>
             <Plus className="mr-2 h-4 w-4" />
             Create order
           </Link>
@@ -119,7 +126,7 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
             />
           </div>
         </div>
-        <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={filteredOrders.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
               <TableHead>Order</TableHead>
@@ -153,10 +160,10 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                 <TableRow key={order.id}>
                   <TableCell>
                     <Link
-                      to={`/dashboard/orders/${order.id}`}
+                      to={`${path}/${order.id}`}
                       className="font-medium hover:underline"
                     >
-                      #{order.id.split('-')[0]}
+                      #{order.id.split("-")[0]}
                     </Link>
                     <div className="text-sm text-muted-foreground">
                       {new Date(order.createdAt).toLocaleDateString()}
@@ -187,25 +194,25 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
                           ? 'destructive'
                           : 'secondary'
                       } */
-                      className={cn('capitalize shadow-none', {
-                        '!bg-red-100 !text-red-600':
-                          order.status === 'cancelled',
-                        '!bg-yellow-100 !text-yellow-600':
-                          order.status === 'pending',
-                        '!bg-green-100 !text-green-400':
-                          order.status === 'delivered',
-                        '!bg-purple-100 !text-purple-600':
-                          order.status === 'shipped',
-                        '!bg-blue-100 !text-blue-600':
-                          order.status === 'processing',
+                      className={cn("capitalize shadow-none", {
+                        "!bg-red-100 !text-red-600":
+                          order.status === "cancelled",
+                        "!bg-yellow-100 !text-yellow-600":
+                          order.status === "pending",
+                        "!bg-green-100 !text-green-400":
+                          order.status === "delivered",
+                        "!bg-purple-100 !text-purple-600":
+                          order.status === "shipped",
+                        "!bg-blue-100 !text-blue-600":
+                          order.status === "processing",
                       })}
                     >
                       {order.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {order.items.length}{' '}
-                    {order.items.length === 1 ? 'item' : 'items'}
+                    {order.items.length}{" "}
+                    {order.items.length === 1 ? "item" : "items"}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {formatCurrency(order.total)}

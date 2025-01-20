@@ -16,12 +16,19 @@ import { Summary } from './sections/summary';
 import { Notes } from './sections/notes';
 import { Order } from '@/types/order';
 
+interface ExtraTab {
+  label: string;
+  value: string;
+  component: React.ReactNode;
+}
+
 interface OrderFormProps {
   initialData?: Order;
   onSubmit: (data: Order) => Promise<void>;
   isEditing?: boolean;
   headerActions?: React.ReactNode;
   onFieldChange?: () => void;
+  extraTabs?: ExtraTab[];
 }
 
 export function OrderForm({ 
@@ -29,7 +36,8 @@ export function OrderForm({
   onSubmit, 
   isEditing, 
   headerActions,
-  onFieldChange 
+  onFieldChange,
+  extraTabs = []
 }: OrderFormProps) {
   const form = useForm({
     resolver: zodResolver(OrderSchema),
@@ -102,8 +110,6 @@ export function OrderForm({
     return `${customerName} #${orderId}`;
   };
 
-  console.log("form =>", form.getValues());
-
   return (
     <div className="flex h-screen flex-col">
       <Form {...form}>
@@ -146,7 +152,7 @@ export function OrderForm({
                 <Tabs 
                   defaultValue="overview" 
                   className="w-full"
-                  value={!initialData ? "basic" : isEditing ? "basic" : "overview"}
+                  // value={!initialData ? "basic" : isEditing ? "basic" : "overview"}
                 >
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
@@ -167,6 +173,11 @@ export function OrderForm({
                       >
                         Notes
                       </TabsTrigger>
+                      {extraTabs?.map((tab, index) => (
+                        <TabsTrigger value={tab.value} key={index}>
+                          {tab.label}
+                        </TabsTrigger>
+                      ))}
                     </TabsList>
                     {/* Show status dropdown when creating new order or editing */}
                     {(!initialData || isEditing) && (
@@ -193,6 +204,11 @@ export function OrderForm({
                   <TabsContent value="notes">
                     <Notes form={form} />
                   </TabsContent>
+                  {extraTabs?.map((tab, index) => (
+                    <TabsContent value={tab.value} key={index}>
+                      {tab.component}
+                    </TabsContent>
+                  ))}
                 </Tabs>
               </div>
             </div>

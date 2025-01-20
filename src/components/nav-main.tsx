@@ -295,7 +295,7 @@ export function NavMain({
                   <SidebarMenuSubButton asChild>
                     <Link to="/dashboard/events/orders" className="font-medium">
                       <ShoppingCart className="h-3 w-3 text-muted-foreground" />
-                      <span>Ticket Orders</span>
+                      <span>Tickets</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>

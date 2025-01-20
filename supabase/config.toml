@@ -9,4 +9,3 @@ enabled = false
 
 [auth]
 site_url = "http://localhost:3000"
-max_frequency = "1m0s"
