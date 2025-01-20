@@ -3,9 +3,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal, CheckCircle2, Clock, XCircle } from 'lucide-react';
-import { cn, getTimeAgo } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Member } from '@/types/member';
 import { ROLES } from '../../data/roles';
+import { getTimeAgo } from '@/lib/utils'; 
+import { RemoveMemberModal } from './remove-member-modal';
+import { useState } from 'react';
 
 interface HeaderProps {
   member: Member;
@@ -13,7 +16,17 @@ interface HeaderProps {
 }
 
 export function Header({ member, onShowActions }: HeaderProps) {
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
   const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
+
+  const handleRemoveMember = async () => {
+    try {
+      // Handle member removal logic here
+      console.log('Member removed:', member.id);
+    } catch (error) {
+      console.error('Failed to remove member:', error);
+    }
+  };
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
     const colors = {
@@ -96,7 +109,7 @@ export function Header({ member, onShowActions }: HeaderProps) {
         </div>
 
         {/* Right Section: Actions */}
-        <div className="flex items-center gap-2" onClick={(e) => e.preventDefault()}>
+        <div className="flex items-center" onClick={(e) => e.preventDefault()}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -112,10 +125,20 @@ export function Header({ member, onShowActions }: HeaderProps) {
             </Button>
           </motion.div>
           <div className="mx-2 sm:mx-4 h-4 w-px bg-border" />
-          <Button variant="outline">Suspend Account</Button>
-          <Button variant="destructive">Remove Member</Button>
+          <Button 
+            variant="destructive"
+            onClick={() => setShowRemoveModal(true)}
+          >
+            Remove Member
+          </Button>
         </div>
       </div>
+      <RemoveMemberModal
+        open={showRemoveModal}
+        onOpenChange={setShowRemoveModal}
+        member={member}
+        onConfirm={handleRemoveMember}
+      />
     </motion.div>
   );
 }

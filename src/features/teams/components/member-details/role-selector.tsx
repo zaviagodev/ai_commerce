@@ -11,8 +11,8 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-full h-auto p-3 flex items-center gap-3">
-        {value && (
-          <div className='flex items-center gap-3'>
+        {value ? (
+          <div className="flex items-center gap-3">
             <div className={cn(
               "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
               value === "Owner" && "bg-yellow-100",
@@ -32,8 +32,9 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               </span>
             </div>
           </div>
+        ) : (
+          <SelectValue placeholder="Select role" />
         )}
-        {!value && <SelectValue placeholder="Select role" />}
       </SelectTrigger>
       <SelectContent className="p-2">
         <SelectItem value="Owner" className="relative h-auto p-3 rounded-md focus:bg-accent [&_svg]:size-4">
