@@ -164,7 +164,7 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {event.category?.name || t.events.ticketList.table.cells.uncategorized}
+                    {event.category?.name || t.events.event.ticketList.table.cells.uncategorized}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">

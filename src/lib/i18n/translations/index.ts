@@ -9,6 +9,7 @@ import { settings } from './features/settings/settings';
 import { orders } from './features/orders';
 import { customer } from './features/customers';
 import { events } from './features/events';
+import { campaign } from './features/campaigns';
 
 
 export const translations = {
@@ -26,6 +27,7 @@ export const translations = {
     orders: orders.en,
     customers: customer.en,
     events: events.en,
+    campaigns: campaign.en,
   },
   'th-TH': {
     dashboard: dashboard.th,
@@ -41,6 +43,7 @@ export const translations = {
     orders: orders.th,
     events: events.th,
     customers: customer.th,
+    campaigns: campaign.th,
   },
 } as const;
 

@@ -39,6 +39,7 @@ export function OrderList({
 }: OrderListProps) {
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const t = useTranslation();
   const {
     pageIndex,
     pageSize,
