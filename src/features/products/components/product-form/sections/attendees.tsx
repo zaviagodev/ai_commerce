@@ -60,15 +60,17 @@ export function Attendees({ form }: AttendeesProps) {
         <div className="mb-6">
           <Card className="bg-blue-50/50 border-blue-100">
             <CardContent className="p-6">
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100">
                   <QrCode className="h-5 w-5 text-blue-600" />
                 </div>
-                <div className="flex-1 space-y-2">
-                  <h3 className="font-medium">Ticket Scanning</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Scan QR codes or barcodes to validate tickets and track attendance
-                  </p>
+                <div className="flex-1 md:space-y-2 space-y-4 text-center md:text-left">
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Ticket Scanning</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Scan QR codes or barcodes to validate tickets and track attendance
+                    </p>
+                  </div>
                   <Button
                     variant="default"
                     className="bg-blue-600 hover:bg-blue-700"

@@ -5,9 +5,10 @@ import { Product } from '@/types/product';
 
 interface PricingProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function Pricing({ form }: PricingProps) {
+export function Pricing({ form, isEventProduct }: PricingProps) {
   const price = form.watch('price') || 0;
   const compareAtPrice = form.watch('compareAtPrice');
 
@@ -24,6 +25,7 @@ export function Pricing({ form }: PricingProps) {
                 form.setValue('price', price);
                 form.setValue('compareAtPrice', compareAtPrice);
               }}
+              isEventProduct={isEventProduct}
             />
           </FormItem>
         )}

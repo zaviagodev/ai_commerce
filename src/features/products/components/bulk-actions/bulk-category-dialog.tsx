@@ -49,11 +49,17 @@ export function BulkCategoryDialog({
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
-              {categories.map((category) => (
-                <SelectItem key={category.id} value={category.id}>
-                  {category.name}
+              {categories.length === 0 ? (
+                <SelectItem value="empty" disabled>
+                  No categories found
                 </SelectItem>
-              ))}
+              ) : (
+                categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))
+              )}
             </SelectContent>
           </Select>
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
   Users2,
@@ -39,6 +39,7 @@ import { cn, getTimeAgo } from '@/lib/utils';
 import { TEAM_MEMBERS } from '../data/members';
 
 export function TeamsPage() {
+  const navigate = useNavigate();
   const [members] = useState(TEAM_MEMBERS);
   const [showInviteModal, setShowInviteModal] = useState(false);
 
@@ -176,11 +177,12 @@ export function TeamsPage() {
             {paginatedMembers.map((member) => {
               const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
               const StatusIcon = getStatusIcon(member.status);
+              const navigateToMember = () => navigate(`/dashboard/members/${member.id}`)
 
               return (
-                <TableRow key={member.id}>
+                <TableRow key={member.id} className='cursor-pointer' onClick={navigateToMember}>
                   <TableCell>
-                    <Link to={`/dashboard/members/${member.id}`} className="block">
+                    <div className="block">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={member.avatar} alt={member.name} />
@@ -195,7 +197,7 @@ export function TeamsPage() {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   </TableCell>
                   <TableCell>
                     <Badge 
@@ -221,7 +223,7 @@ export function TeamsPage() {
                       {getTimeAgo(member.lastActive)}
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">

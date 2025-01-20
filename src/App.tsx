@@ -143,9 +143,9 @@ export default function App() {
               {/* <Route path="products/attributes" element={<AttributesPage />} /> */}
 
               {/* Event & Ticket Routes */}
-              <Route path="products2" element={<Products2Page />} />
-              <Route path="products2/new" element={<NewProductPage />} />
-              <Route path="products2/:id" element={<EditProductPage />} />
+              <Route path="events" element={<Products2Page />} />
+              <Route path="events/new" element={<NewProductPage />} />
+              <Route path="events/:id" element={<EditProductPage />} />
 
               {/* Customer Routes */}
               <Route path="customers" element={<CustomersPage />} />

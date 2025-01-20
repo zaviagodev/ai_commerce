@@ -26,7 +26,7 @@ interface ShippingProps {
 
 export function Shipping({ form }: ShippingProps) {
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const isEventProduct = location.pathname.startsWith('/dashboard/events');
   const [showShipping, setShowShipping] = useState(false);
 
   return (

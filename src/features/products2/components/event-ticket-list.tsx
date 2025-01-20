@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Package, ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,6 +29,7 @@ interface EventTicketListProps {
 }
 
 export function EventTicketList({ products, isLoading }: EventTicketListProps) {
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -91,7 +92,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/products2/new">
+          <Link to="/dashboard/events/new">
             <Plus className="mr-2 h-4 w-4" />
             Add Event
           </Link>
@@ -122,7 +123,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
         <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
+              <TableHead>Event</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Category</TableHead>
               <TableHead className="text-right">Price</TableHead>
@@ -139,7 +140,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                       Get started by adding your first event
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/products2/new">
+                      <Link to="/dashboard/events/new">
                         <Plus className="mr-2 h-4 w-4" />
                         Add Event
                       </Link>
@@ -149,7 +150,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/events/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -162,12 +163,7 @@ export function EventTicketList({ products, isLoading }: EventTicketListProps) {
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <Link
-                          to={`/dashboard/products2/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{product.name}</span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
                             SKU: {product.sku}

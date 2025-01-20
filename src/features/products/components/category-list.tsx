@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Folder, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -36,6 +36,7 @@ export function CategoryList({
   isLoading,
   onDelete,
 }: CategoryListProps) {
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -141,19 +142,14 @@ export function CategoryList({
               </TableRow>
             ) : (
               paginatedCategories.map((category) => (
-                <TableRow key={category.id}>
+                <TableRow key={category.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/categories/${category.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                         <Folder className="h-5 w-5 text-blue-600" />
                       </div>
-                      <div>
-                        <Link
-                          to={`/dashboard/products/categories/${category.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {category.name}
-                        </Link>
+                      <div className="font-medium hover:underline">
+                        {category.name}
                       </div>
                     </div>
                   </TableCell>
@@ -161,7 +157,7 @@ export function CategoryList({
                   <TableCell className="max-w-[300px] truncate">
                     {category.description}
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">

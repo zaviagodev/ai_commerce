@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Gift, Calendar, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,6 +25,7 @@ interface CampaignListProps {
 }
 
 export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -131,19 +132,14 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               </TableRow>
             ) : (
               paginatedCampaigns.map((campaign) => (
-                <TableRow key={campaign.id}>
+                <TableRow key={campaign.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/campaigns/${campaign.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                         <Gift className="h-5 w-5 text-purple-600" />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/points/campaigns/${campaign.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {campaign.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{campaign.name}</span>
                         <p className="text-sm text-muted-foreground">
                           {campaign.description}
                         </p>

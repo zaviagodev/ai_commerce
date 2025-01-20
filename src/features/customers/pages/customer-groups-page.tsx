@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MoreHorizontal, Plus, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,6 +24,7 @@ import { ProductSearch } from '@/features/products/components/product-search';
 import { useMemo, useState } from 'react';
 
 export function CustomerGroupsPage() {
+  const navigate = useNavigate();
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -129,7 +130,7 @@ export function CustomerGroupsPage() {
               </TableRow>
             ) : (
               filteredGroups.map((group) => (
-                <TableRow key={group.id}>
+                <TableRow key={group.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customers/groups/${group.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -138,12 +139,7 @@ export function CustomerGroupsPage() {
                         <Users className={`h-5 w-5 text-${group.color}-600`} />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/customers/groups/${group.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {group.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{group.name}</span>
                         {group.description && (
                           <p className="text-sm text-muted-foreground">
                             {group.description}
@@ -168,7 +164,7 @@ export function CustomerGroupsPage() {
                       {group.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">

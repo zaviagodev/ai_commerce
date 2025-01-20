@@ -24,9 +24,10 @@ import { Link } from 'react-router-dom';
 
 interface OrganizationProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function Organization({ form }: OrganizationProps) {
+export function Organization({ form, isEventProduct }: OrganizationProps) {
   const { categories, isLoading } = useCategories();
   const tags = form.watch('tags') || [];
 
@@ -72,7 +73,7 @@ export function Organization({ form }: OrganizationProps) {
             </Select>
             <div className="flex items-center justify-between">
               <FormDescription>
-                Choose a category for your products
+                Choose a category for your {isEventProduct ? 'event' : 'product'}s
               </FormDescription>
               <Button variant="link" className="px-0" asChild>
                 <Link to="/dashboard/products/categories/new">
@@ -159,7 +160,7 @@ export function Organization({ form }: OrganizationProps) {
               </div>
             </FormControl>
             <FormDescription>
-              Tags can help customers find your products easily
+              Tags can help customers find your {isEventProduct ? 'event' : 'product'}s easily
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -7,12 +7,12 @@ interface StatusTabsProps {
 }
 
 const STATUSES = [
-  { value: 'all', label: 'All' },
-  { value: 'pending', label: 'Pending' },
-  { value: 'processing', label: 'Processing' },
-  { value: 'shipped', label: 'Shipped' },
-  { value: 'delivered', label: 'Delivered' },
-  { value: 'cancelled', label: 'Cancelled' },
+  { value: 'all', label: 'All', className:'!bg-gray-100 !text-gray-800' },
+  { value: 'pending', label: 'Pending', className:'!bg-yellow-100 !text-yellow-800' },
+  { value: 'processing', label: 'Processing', className:'!bg-blue-100 !text-blue-800' },
+  { value: 'shipped', label: 'Shipped', className:'!bg-purple-100 !text-purple-800' },
+  { value: 'delivered', label: 'Delivered', className:'!bg-green-100 !text-green-800' },
+  { value: 'cancelled', label: 'Cancelled', className:'!bg-red-100 !text-red-800' },
 ] as const;
 
 export function StatusTabs({
@@ -40,7 +40,7 @@ export function StatusTabs({
               className={cn(
                 'ml-1.5 rounded-full px-1.5 text-xs',
                 selectedStatus === status.value
-                  ? 'bg-primary/10 text-primary'
+                  ? status.className
                   : 'bg-muted-foreground/20 text-muted-foreground'
               )}
             >
@@ -52,7 +52,7 @@ export function StatusTabs({
                 className={cn(
                   'ml-1.5 rounded-full px-1.5 text-xs',
                   selectedStatus === status.value
-                    ? 'bg-primary/10 text-primary'
+                    ? status.className
                     : 'bg-muted-foreground/20 text-muted-foreground'
                 )}
               >

@@ -79,7 +79,7 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <div className="h-full">
-              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 {/* Basic Details Section */}
                 <div className="rounded-lg border bg-main">
                   <div className="flex items-center gap-4 p-6 border-b">

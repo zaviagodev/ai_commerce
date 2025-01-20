@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 export function NewProductPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const isEventProduct = location.pathname.startsWith('/dashboard/events');
   const { createProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
 
@@ -38,7 +38,7 @@ export function NewProductPage() {
   const handleSubmit = async (data: Product) => {
     try {
       await createProduct.mutateAsync(data);
-      navigate(isEventProduct ? '/dashboard/products2' : '/dashboard/products');
+      navigate(isEventProduct ? '/dashboard/events' : '/dashboard/products');
     } catch (error) {
       console.error('Failed to create product:', error);
     }

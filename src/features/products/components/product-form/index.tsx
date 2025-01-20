@@ -55,7 +55,7 @@ export function ProductForm({
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const isEventProduct = location.pathname.startsWith('/dashboard/events');
   const isRewardProduct = location.pathname.startsWith(
     '/dashboard/points/rewards'
   );
@@ -207,7 +207,7 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || 'Untitled Product'}
+                          {productName || `Untitled ${isEventProduct ? 'Event' : 'Product'}`}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
@@ -281,20 +281,20 @@ export function ProductForm({
 
               {/* Right Section: Actions */}
               <div
-                className="flex items-center gap-2"
+                className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || 'Untitled Product'}
+                  title={productName || `Untitled ${isEventProduct ? 'Event' : 'Product'}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
                   <Button
                     type="button"
                     variant="outline"
-                    className="hidden sm:flex"
+                    className="flex"
                   >
                     <Share2 className="mr-2 h-4 w-4" />
                     Share
@@ -322,7 +322,7 @@ export function ProductForm({
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <div className="h-full">
-              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
                   <TabsList className="mb-6">
                     {isEventProduct && (
@@ -350,7 +350,7 @@ export function ProductForm({
                     <div className="flex-1">
                       <h2 className="text-lg font-medium">Media</h2>
                       <p className="text-sm text-muted-foreground">
-                        Add photos of your product
+                        Add photos of your {isEventProduct ? 'event' : 'product'}
                       </p>
                     </div>
                   </CardHeader>
@@ -368,12 +368,12 @@ export function ProductForm({
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">Basic Details</h2>
                           <p className="text-sm text-muted-foreground">
-                            Add the essential information about your product
+                            Add the essential information about your {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <BasicDetails form={form} />
+                        <BasicDetails form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -394,7 +394,7 @@ export function ProductForm({
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} />
+                        <Pricing form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -407,7 +407,7 @@ export function ProductForm({
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">Inventory</h2>
                           <p className="text-sm text-muted-foreground">
-                            Manage your product's inventory
+                            Manage your {isEventProduct ? 'event' : 'product'}'s inventory
                           </p>
                         </div>
                       </CardHeader>
@@ -417,7 +417,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Variations Section */}
-                    <Variations form={form} />
+                    <Variations form={form} isEventProduct={isEventProduct}/>
 
                     {/* Shipping Section */}
                     <Card>
@@ -446,12 +446,12 @@ export function ProductForm({
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">Organization</h2>
                           <p className="text-sm text-muted-foreground">
-                            Organize and categorize your product
+                            Organize and categorize your {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization form={form} />
+                        <Organization form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 

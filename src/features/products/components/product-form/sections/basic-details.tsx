@@ -13,9 +13,10 @@ import { Product } from '@/types/product';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function BasicDetails({ form }: BasicDetailsProps) {
+export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
   return (
     <div className="grid gap-6 w-full">
       <FormField
@@ -23,10 +24,10 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>Product name <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>{isEventProduct ? 'Event' : 'Product'} name <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
-                placeholder="Enter product name" 
+                placeholder={`Enter ${isEventProduct ? 'event' : 'product'} name`} 
                 className="w-full"
                 {...field} 
               />
@@ -47,13 +48,13 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             <FormLabel>Description</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe your product..."
+                placeholder={`Describe your ${isEventProduct ? 'event' : 'product'}...`}
                 className="min-h-[120px] w-full"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              Write a detailed description of your product
+              Write a detailed description of your {isEventProduct ? 'event' : 'product'}
             </FormDescription>
             <FormMessage />
           </FormItem>

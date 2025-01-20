@@ -123,12 +123,12 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-hidden">
         <DialogHeader>
           <DialogTitle>Scan Ticket</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 overflow-auto pb-16 px-[1px]">
+        <form onSubmit={handleSubmit} className="space-y-6 overflow-auto pb-16 px-[1px] max-h-[75vh]">
           {/* Input Method Selection */}
           <div className="grid grid-cols-3 gap-2">
             <Button
@@ -267,7 +267,7 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-2 fixed w-[calc(100%_-_24px)] bg-main p-6 !m-0">
+          <div className="flex justify-end gap-2 fixed bottom-0 w-[calc(100%_-_24px)] bg-main p-6 !m-0">
             <Button
               type="button"
               variant="outline"

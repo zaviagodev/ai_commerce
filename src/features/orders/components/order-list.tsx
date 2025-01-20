@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,6 +27,7 @@ interface OrderListProps {
 }
 
 export function OrderList({ orders, isLoading }: OrderListProps) {
+  const navigate = useNavigate();
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const {
@@ -154,14 +155,9 @@ export function OrderList({ orders, isLoading }: OrderListProps) {
               </TableRow>
             ) : (
               paginatedOrders.map((order) => (
-                <TableRow key={order.id}>
+                <TableRow key={order.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/orders/${order.id}`)}>
                   <TableCell>
-                    <Link
-                      to={`/dashboard/orders/${order.id}`}
-                      className="font-medium hover:underline"
-                    >
-                      #{order.id.split('-')[0]}
-                    </Link>
+                    <span className="font-medium hover:underline">#{order.id.split('-')[0]}</span>
                     <div className="text-sm text-muted-foreground">
                       {new Date(order.createdAt).toLocaleDateString()}
                     </div>

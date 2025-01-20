@@ -81,7 +81,7 @@ export function ShareModal({ children, title, url, image }: ShareModalProps) {
               </div>
             )}
           </div>
-          <div className="flex-1">
+          <div className="flex-1 text-left">
             <DialogTitle id="share-dialog-title">Share {title}</DialogTitle>
             <DialogDescription>Choose who can access this item</DialogDescription>
           </div>

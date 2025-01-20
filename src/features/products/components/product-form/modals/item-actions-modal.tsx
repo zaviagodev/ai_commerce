@@ -24,6 +24,7 @@ interface ItemActionsModalProps {
   onOpenChange: (open: boolean) => void;
   product: Product;
   onDelete: () => Promise<void>;
+  isEventProduct?: boolean
 }
 
 export function ItemActionsModal({ 
@@ -31,6 +32,7 @@ export function ItemActionsModal({
   onOpenChange,
   product,
   onDelete,
+  isEventProduct
 }: ItemActionsModalProps) {
   const navigate = useNavigate();
   const [showAdvancedTypes, setShowAdvancedTypes] = useState(false);
@@ -58,7 +60,7 @@ export function ItemActionsModal({
               variant="ghost"
               className="justify-start h-auto py-4"
               onClick={() => {
-                navigate(`/dashboard/products/${product.id}`);
+                navigate(`/dashboard/${isEventProduct ? 'events' : 'products'}/${product.id}`);
                 onOpenChange(false);
               }}
             >
@@ -67,9 +69,9 @@ export function ItemActionsModal({
                   <PencilRuler className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Edit Product</div>
+                  <div className="font-medium">Edit {isEventProduct ? 'Event' : 'Product'}</div>
                   <p className="text-sm text-muted-foreground">
-                    Modify product details and settings
+                    Modify {isEventProduct ? 'event' : 'product'} details and settings
                   </p>
                 </div>
               </div>
@@ -85,7 +87,7 @@ export function ItemActionsModal({
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Duplicate Product</div>
+                  <div className="font-medium">Duplicate {isEventProduct ? 'Event' : 'Product'}</div>
                   <p className="text-sm text-muted-foreground">
                     Create a copy with all settings
                   </p>
@@ -127,9 +129,9 @@ export function ItemActionsModal({
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Delete Product</div>
+                  <div className="font-medium">Delete {isEventProduct ? 'Event' : 'Product'}</div>
                   <p className="text-sm text-muted-foreground">
-                    Permanently remove this product
+                    Permanently remove this {isEventProduct ? 'event' : 'product'}
                   </p>
                 </div>
               </div>

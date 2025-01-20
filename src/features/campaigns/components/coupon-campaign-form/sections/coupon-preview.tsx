@@ -22,7 +22,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <Card className="relative overflow-hidden">
+        <Card className="relative overflow-hidden shadow-md">
           {/* Perforated edges */}
           <div className="absolute left-0 right-0 h-4 flex items-center justify-between px-2">
             {Array.from({ length: 40 }).map((_, i) => (
@@ -148,7 +148,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
           </div>
 
           {/* Bottom border */}
-          <div className="h-1.5 w-full bg-primary/10">
+          {/* <div className="h-1.5 w-full bg-primary/10">
             <div 
               className="h-full bg-primary transition-all duration-500"
               style={{ 
@@ -158,7 +158,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                 )}%` 
               }}
             />
-          </div>
+          </div> */}
         </Card>
       </motion.div>
 

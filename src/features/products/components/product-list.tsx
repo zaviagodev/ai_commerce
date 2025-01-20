@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
   Package,
@@ -48,6 +48,7 @@ export function ProductList({
   isLoading,
   onDelete,
 }: ProductListProps) {
+  const navigate = useNavigate();
   const [sortValue, setSortValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -248,9 +249,9 @@ export function ProductList({
               paginatedProducts.map((product) => {
                 const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
                 return (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/${product.id}`)}>
                   {isBulkMode && (
-                    <TableCell>
+                    <TableCell onClick={(e) => e.stopPropagation()}>
                       <Checkbox
                         checked={isSelected(product.id)}
                         onCheckedChange={() => toggleSelection(product.id)}
@@ -275,12 +276,7 @@ export function ProductList({
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <Link
-                          to={`/dashboard/products/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{product.name}</span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
                             SKU: {product.sku}

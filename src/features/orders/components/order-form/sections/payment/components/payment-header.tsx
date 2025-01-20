@@ -43,29 +43,29 @@ export function PaymentHeader({
             }
             className={`flex items-center gap-1.5 ${
               isCancelled
-                ? 'border-red-500/20 bg-red-500/10 text-red-500'
+                ? 'border-red-500/20 !bg-red-500/10 text-red-500'
                 : isPaid || isShipped
-                ? 'border-green-500/20 bg-green-500/10 text-green-500'
-                : 'border-yellow-500/20 bg-yellow-500/10 text-yellow-500'
+                ? 'border-green-500/20 !bg-green-500/10 !text-green-500'
+                : 'border-yellow-500/20 !bg-yellow-500/10 !text-yellow-500'
             }`}
           >
             <span className="relative flex h-2 w-2">
               <span
                 className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
                   isCancelled
-                    ? 'bg-red-400'
+                    ? '!bg-red-400'
                     : isPaid || isShipped
-                    ? 'bg-green-400'
-                    : 'bg-yellow-400'
+                    ? '!bg-green-400'
+                    : '!bg-yellow-400'
                 }`}
               />
               <span
                 className={`relative inline-flex h-2 w-2 rounded-full ${
                   isCancelled
-                    ? 'bg-red-500'
+                    ? '!bg-red-500'
                     : isPaid || isShipped
-                    ? 'bg-green-500'
-                    : 'bg-yellow-500'
+                    ? '!bg-green-500'
+                    : '!bg-yellow-500'
                 }`}
               />
             </span>
@@ -80,19 +80,19 @@ export function PaymentHeader({
               variant="secondary"
               className={`flex items-center gap-1.5 ${
                 isShipped
-                  ? 'bg-green-500/10 text-green-500 border-green-500/20'
-                  : 'bg-blue-500/10 text-blue-500 border-blue-500/20'
+                  ? '!bg-purple-500/10 text-purple-500 border-purple-500/20'
+                  : '!bg-blue-500/10 text-blue-500 border-blue-500/20'
               }`}
             >
               <span className="relative flex h-2 w-2">
                 <span
                   className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
-                    isShipped ? 'bg-green-400' : 'bg-blue-400'
+                    isShipped ? 'bg-purple-400' : 'bg-blue-400'
                   }`}
                 />
                 <span
                   className={`relative inline-flex h-2 w-2 rounded-full ${
-                    isShipped ? 'bg-green-500' : 'bg-blue-500'
+                    isShipped ? 'bg-purple-500' : 'bg-blue-500'
                   }`}
                 />
               </span>

@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 export function EditProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isEventProduct = location.pathname.startsWith('/dashboard/events');
   const { products, updateProduct, deleteProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
   
@@ -20,7 +21,7 @@ export function EditProductPage() {
   console.log("product =>", product)
 
   if (!product) {
-    return <div className='pt-14'>Product not found</div>;
+    return <div className='pt-14'>{isEventProduct ? 'Event' : 'Product'} not found</div>;
   }
 
   const handleSubmit = async (data: Product) => {
@@ -50,9 +51,9 @@ export function EditProductPage() {
           })),
         }
       });
-      navigate('/dashboard/products');
+      navigate(`/dashboard/${isEventProduct ? 'events' : 'products'}`);
     } catch (error) {
-      console.error('Failed to update product:', error);
+      console.error(`Failed to update ${isEventProduct ? 'event' : 'product'}:`, error);
     }
   };
 
@@ -60,10 +61,10 @@ export function EditProductPage() {
     try {
       await deleteProduct.mutateAsync(product.id);
       toast.success('Product deleted successfully');
-      navigate('/dashboard/products');
+      navigate(`/dashboard/${isEventProduct ? 'events' : 'products'}`);
     } catch (error) {
-      console.error('Failed to delete product:', error);
-      toast.error('Failed to delete product');
+      console.error(`Failed to delete ${isEventProduct ? 'event' : 'product'}:`, error);
+      toast.error(`Failed to delete ${isEventProduct ? 'event' : 'product'}`);
     }
   };
 
@@ -99,6 +100,7 @@ export function EditProductPage() {
         onOpenChange={setShowActions}
         product={product}
         onDelete={handleDelete}
+        isEventProduct={isEventProduct}
       />
     </>
   );
