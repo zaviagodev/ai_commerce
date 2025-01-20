@@ -14,8 +14,10 @@ import { Badge } from '@/components/ui/badge';
 import { Campaign } from '@/types/campaign';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import Loading from '@/components/loading';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
 
 interface CampaignListProps {
   campaigns: Campaign[];
@@ -32,7 +34,23 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
     pageCount,
   } = usePagination();
 
-  const paginatedCampaigns = paginateItems(campaigns);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCampaigns = useMemo(() => {
+    let filtered = campaigns;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = campaigns.filter(
+        (campaign) =>
+          campaign.name.toLowerCase().includes(query) ||
+          campaign.description?.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [campaigns, searchQuery])
+
+  const paginatedCampaigns = paginateItems(filteredCampaigns);
 
   if (isLoading) {
     return (
@@ -64,13 +82,26 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search campaigns..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={campaigns.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedCampaigns.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Campaign</TableHead>
@@ -81,7 +112,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {campaigns.length === 0 ? (
+            {paginatedCampaigns.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -169,23 +200,24 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
           </TableBody>
         </Table>
 
-        {campaigns.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(campaigns.length)}
-              totalItems={campaigns.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        {/* {paginatedCampaigns.length > 0 && (
+
+        )} */}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCampaigns.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(campaigns.length)}
+            totalItems={campaigns.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

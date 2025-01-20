@@ -1,5 +1,3 @@
-"use client"
-
 import { Link } from 'react-router-dom';
 import { Plus, Folder, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,6 +23,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
 import { ProductSearch } from './product-search';
 import { useMemo, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -192,23 +191,21 @@ export function CategoryList({
           </TableBody>
         </Table>
 
-        {paginatedCategories.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(categories.length)}
-              totalItems={categories.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCategories.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(categories.length)}
+            totalItems={categories.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

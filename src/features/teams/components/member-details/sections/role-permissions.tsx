@@ -43,36 +43,36 @@ export function RolePermissions({ member, onRoleChange }: RolePermissionsProps) 
             />
             <PermissionItem
               icon={ShoppingCart}
-              title="Orders"
-              description="Manage orders and fulfillment"
+              title='Orders'
+              description='Manage orders and fulfillment'
               checked={member.permissions?.manageOrders}
               color="orange"
             />
             <PermissionItem
               icon={Users2}
-              title="Customers"
-              description="Manage customer data and groups"
+              title='Customers'
+              description='Manage customer data and groups'
               checked={member.permissions?.manageCustomers}
               color="blue"
             />
             <PermissionItem
               icon={Ticket}
-              title="Coupons"
-              description="Manage discounts and promotions"
+              title='Coupons'
+              description='Manage discounts and promotions'
               checked={member.permissions?.manageCoupons}
               color="purple"
             />
             <PermissionItem
               icon={Calendar}
-              title="Events & Tickets"
-              description="Manage events and ticket sales"
+              title='Events & Tickets'
+              description='Manage events and ticket sales'
               checked={member.permissions?.manageEvents}
               color="indigo"
             />
             <PermissionItem
               icon={Gift}
-              title="Points & Rewards"
-              description="Manage loyalty program and rewards"
+              title='Points & Rewards'
+              description='Manage loyalty program and rewards'
               checked={member.permissions?.manageRewards}
               color="yellow"
             />

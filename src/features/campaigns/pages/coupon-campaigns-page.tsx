@@ -16,6 +16,8 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useCoupons } from '../hooks/use-coupons';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
+import { useMemo, useState } from 'react';
+import { ProductSearch } from '@/features/products/components/product-search';
 
 export function CouponCampaignsPage() {
   const { coupons, isLoading } = useCoupons();
@@ -28,7 +30,22 @@ export function CouponCampaignsPage() {
     pageCount,
   } = usePagination();
 
-  const paginatedCoupons = paginateItems(coupons);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCoupons = useMemo(() => {
+    let filtered = coupons;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = coupons.filter(
+        (coupon) =>
+          coupon.code.toLowerCase().includes(query) ||
+          coupon.description?.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered
+  }, [coupons, searchQuery])
+  const paginatedCoupons = paginateItems(filteredCoupons);
 
   if (isLoading) {
     return (
@@ -58,6 +75,19 @@ export function CouponCampaignsPage() {
             Create Campaign
           </Link>
         </Button>
+      </motion.div>
+
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search coupon campaigns..."
+        />
       </motion.div>
 
       <motion.div
@@ -173,23 +203,21 @@ export function CouponCampaignsPage() {
           </TableBody>
         </Table>
 
-        {coupons.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(coupons.length)}
-              totalItems={coupons.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCoupons.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(coupons.length)}
+            totalItems={coupons.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

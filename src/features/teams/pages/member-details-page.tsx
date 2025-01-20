@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { TEAM_MEMBERS } from '../data/members';
-import { Header } from '../components/member-details/header'; 
+import { Header } from '../components/member-details/header';
 import { BasicInfo } from '../components/member-details/sections/basic-info';
 import { RolePermissions } from '../components/member-details/sections/role-permissions';
 

@@ -1,5 +1,3 @@
-"use client"
-
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,6 +17,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
 import { useMemo, useState } from 'react';
 import { ProductSearch } from '@/features/products/components/product-search';
+import { cn } from '@/lib/utils';
 
 interface CustomerListProps {
   customers: Customer[];
@@ -160,23 +159,21 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
           </TableBody>
         </Table>
 
-        {paginatedCustomers.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(customers.length)}
-              totalItems={customers.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCustomers.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(customers.length)}
+            totalItems={customers.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

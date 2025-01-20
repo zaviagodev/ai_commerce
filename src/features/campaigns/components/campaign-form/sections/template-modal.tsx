@@ -158,7 +158,7 @@ export function TemplateModal({ form }: TemplateModalProps) {
               key={template.id}
               type="button"
               className={cn(
-                "relative w-[80%] mx-auto rounded-lg p-4 text-left transition-all",
+                "relative w-full mx-auto rounded-lg p-4 text-left transition-all",
                 "hover:scale-[1.02] hover:shadow-md active:scale-[0.98]",
                 "bg-[#F9F9F9] border border-[#E0E0E0]",
                 "flex items-center gap-4",
@@ -183,7 +183,6 @@ export function TemplateModal({ form }: TemplateModalProps) {
             </button>
           ))}
         </div>
-        <div className="h-px w-full bg-[#E0E0E0] my-4" />
       </DialogContent>
     </Dialog>
   );
