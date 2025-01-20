@@ -299,4 +299,72 @@ export class OrderService {
       return null;
     }
   }
+
+  static async getEventOrdersByProduct(productId: string): Promise<Order[]> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error("Store not found");
+
+      const { data: orders, error } = await supabase
+        .from("event_orders")
+        .select(
+          `
+          *,
+          order_items!inner (
+            id,
+            variant_id,
+            quantity,
+            price,
+            total,
+            product_variant:product_variants!inner (
+              name,
+              options,
+              product_id
+            )
+          )
+        `
+        )
+        .eq("store_name", user.storeName)
+        .eq("order_items.product_variants.product_id", productId)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      // Transform the materialized view data to match Order type
+      return (orders || []).map((order) => ({
+        id: order.id,
+        customerId: order.customer_id,
+        customerName: `${order.customer_first_name} ${order.customer_last_name}`,
+        customerEmail: order.customer_email,
+        customerPhone: order.customer_phone,
+        status: order.status,
+        items: order.order_items.map((item: any) => ({
+          id: item.id,
+          variantId: item.variant_id,
+          name: item.product_variant?.product?.name || "",
+          variant: {
+            name: item.product_variant?.name || "",
+            options: item.product_variant?.options || [],
+          },
+          price: item.price,
+          quantity: item.quantity,
+          total: item.total,
+        })),
+        subtotal: order.subtotal,
+        discount: order.discount,
+        shipping: order.shipping,
+        tax: order.tax,
+        total: order.total,
+        notes: order.notes,
+        tags: order.tags,
+        appliedCoupons: order.applied_coupons || [],
+        createdAt: new Date(order.created_at),
+        updatedAt: new Date(order.updated_at),
+      }));
+    } catch (error) {
+      console.error("Failed to fetch event orders:", error);
+      toast.error("Failed to load event orders");
+      return [];
+    }
+  }
 }
