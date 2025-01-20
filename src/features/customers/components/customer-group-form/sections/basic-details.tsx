@@ -17,12 +17,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CustomerGroup } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<CustomerGroup>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
+
   return (
     <div className="grid gap-6">
       <FormField
@@ -30,12 +33,15 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Group name</FormLabel>
+            <FormLabel>{ t.customers.customer.group.sections.basicDetails.fields.name.label}</FormLabel>
             <FormControl>
-              <Input placeholder="e.g., VIP Customers, Wholesale" {...field} />
+              <Input 
+                placeholder={ t.customers.customer.group.sections.basicDetails.fields.name.placeholder} 
+                {...field} 
+              />
             </FormControl>
             <FormDescription>
-              Choose a descriptive name for this customer group
+              { t.customers.customer.group.sections.basicDetails.fields.name.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -47,16 +53,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{ t.customers.customer.group.sections.basicDetails.fields.description.label}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe the purpose of this group..."
+                placeholder={ t.customers.customer.group.sections.basicDetails.fields.description.placeholder}
                 className="min-h-[100px]"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              Explain how this group will be used
+              { t.customers.customer.group.sections.basicDetails.fields.description.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -68,7 +74,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="color"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Group color</FormLabel>
+            <FormLabel>{ t.customers.customer.group.sections.basicDetails.fields.color.label}</FormLabel>
             <FormControl>
               <div className="flex items-center gap-2">
                 <Input
@@ -85,7 +91,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              Choose a color to represent this group
+              { t.customers.customer.group.sections.basicDetails.fields.color.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -97,20 +103,20 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="status"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Status</FormLabel>
+            <FormLabel>{ t.customers.customer.group.sections.basicDetails.fields.status.label}</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder={ t.customers.customer.group.sections.basicDetails.fields.status.label} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
+                <SelectItem value="active">{ t.customers.customer.group.sections.basicDetails.fields.status.active}</SelectItem>
+                <SelectItem value="inactive">{ t.customers.customer.group.sections.basicDetails.fields.status.inactive}</SelectItem>
               </SelectContent>
             </Select>
             <FormDescription>
-              Control whether this group is currently active
+              { t.customers.customer.group.sections.basicDetails.fields.status.description}
             </FormDescription>
             <FormMessage />
           </FormItem>

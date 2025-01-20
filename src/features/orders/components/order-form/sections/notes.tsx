@@ -12,12 +12,14 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { StickyNote, X } from 'lucide-react';
 import { Order } from '@/types/order';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface NotesProps {
   form: UseFormReturn<Order>;
 }
 
 export function Notes({ form }: NotesProps) {
+  const t = useTranslation();
   const tags = form.watch('tags') || [];
 
   return (
@@ -27,9 +29,9 @@ export function Notes({ form }: NotesProps) {
           <StickyNote className="h-5 w-5 text-yellow-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Order Notes</h2>
+          <h2 className="text-lg font-medium">{t.orders.orders.form.tabs.notes}</h2>
           <p className="text-sm text-muted-foreground">
-            Add notes and tags to this order
+            {t.orders.orders.form.sections.notes.description}
           </p>
         </div>
       </CardHeader>
@@ -39,10 +41,10 @@ export function Notes({ form }: NotesProps) {
           name="notes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Notes</FormLabel>
+              <FormLabel>{t.orders.orders.form.tabs.notes}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Add any notes about this order..."
+                  placeholder={t.orders.orders.notes.placeholder}
                   className="min-h-[100px]"
                   value={field.value || ''}
                   {...field}
@@ -58,11 +60,11 @@ export function Notes({ form }: NotesProps) {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tags</FormLabel>
+              <FormLabel>{t.orders.orders.form.sections.notes.tags}</FormLabel>
               <FormControl>
                 <div className="space-y-2">
                   <Input
-                    placeholder="Press enter to add tags"
+                    placeholder={t.orders.orders.form.sections.notes.tagsPlaceholder}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();

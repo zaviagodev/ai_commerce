@@ -7,12 +7,14 @@ import { Order } from '@/types/order';
 import { ShippingTypeDialog } from './shipping/shipping-type-dialog';
 import { DynamicShipping } from './shipping/dynamic-shipping';
 import { ManualShipping } from './shipping/manual-shipping'; 
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ShippingProps {
   form: UseFormReturn<Order>;
 }
 
 export function Shipping({ form }: ShippingProps) {
+  const t = useTranslation();
   const [shippingType, setShippingType] = useState<'dynamic' | 'manual'>('manual'); 
   const currentShipping = form.watch('shipping') || 0;
 
@@ -34,9 +36,9 @@ export function Shipping({ form }: ShippingProps) {
           <Truck className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Shipping</h2>
+          <h2 className="text-lg font-medium">{t.orders.orders.form.sections.shipping.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure shipping details and costs
+            {t.orders.orders.form.sections.shipping.description}
           </p>
         </div>
         <ShippingTypeDialog 
@@ -45,7 +47,9 @@ export function Shipping({ form }: ShippingProps) {
         >
           <Button variant="outline" size="sm">
             <Settings className="h-4 w-4 mr-2" />
-            {shippingType === 'dynamic' ? 'Dynamic Shipping' : 'Manual Shipping'}
+            {shippingType === 'dynamic' 
+              ? t.orders.orders.form.sections.shipping.types.dynamic 
+              : t.orders.orders.form.sections.shipping.types.manual}
           </Button>
         </ShippingTypeDialog>
       </CardHeader>

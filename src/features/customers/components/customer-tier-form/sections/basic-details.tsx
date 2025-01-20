@@ -17,12 +17,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CustomerTier } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<CustomerTier>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
+
   return (
     <div className="grid gap-6">
       <FormField
@@ -30,13 +33,13 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Tier name</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.name.label}</FormLabel>
             <FormControl>
-              <Input placeholder="e.g., Gold, Platinum, Diamond" {...field} />
+              <Input 
+                placeholder={ t.customers.customer.tier.sections.basicDetails.fields.name.placeholder} 
+                {...field} 
+              />
             </FormControl>
-            <FormDescription>
-              Choose a memorable name for this customer tier
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -47,17 +50,14 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.description.label}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe the benefits and requirements of this tier..."
+                placeholder={ t.customers.customer.tier.sections.basicDetails.fields.description.placeholder}
                 className="min-h-[100px]"
                 {...field}
               />
             </FormControl>
-            <FormDescription>
-              Explain what makes this tier special
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -68,7 +68,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="color"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Tier color</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.color.label}</FormLabel>
             <FormControl>
               <div className="flex items-center gap-2">
                 <Input
@@ -85,7 +85,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              Choose a color to represent this tier
+              { t.customers.customer.tier.sections.basicDetails.fields.color.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -97,21 +97,18 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="status"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Status</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.basicDetails.fields.status.label}</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder={ t.customers.customer.tier.sections.basicDetails.fields.status.label} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
+                <SelectItem value="active">{ t.customers.customer.tier.sections.basicDetails.fields.status.active}</SelectItem>
+                <SelectItem value="inactive">{ t.customers.customer.tier.sections.basicDetails.fields.status.inactive}</SelectItem>
               </SelectContent>
             </Select>
-            <FormDescription>
-              Control whether this tier is currently active
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

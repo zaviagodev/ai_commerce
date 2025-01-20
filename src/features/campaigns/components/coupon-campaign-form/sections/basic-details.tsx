@@ -19,12 +19,15 @@ import {
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Tags } from 'lucide-react';
 import { Coupon } from '@/types/coupon';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Coupon>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -32,9 +35,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           <Tags className="h-5 w-5 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Basic Details</h2>
+          <h2 className="text-lg font-medium">{t.campaigns.campaign.coupon.sections.basicDetails.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure the coupon's basic information
+            {t.campaigns.campaign.coupon.sections.basicDetails.description}
           </p>
         </div>
       </CardHeader>
@@ -44,16 +47,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="code"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Coupon Code</FormLabel>
+              <FormLabel>{t.campaigns.campaign.coupon.sections.basicDetails.fields.code.label}</FormLabel>
               <FormControl>
                 <Input 
-                  placeholder="e.g., SUMMER2024" 
+                  placeholder={t.campaigns.campaign.coupon.sections.basicDetails.fields.code.placeholder}
                   {...field}
                   onChange={(e) => field.onChange(e.target.value.toUpperCase())}
                 />
               </FormControl>
               <FormDescription>
-                This is the code customers will enter to apply the discount
+                {t.campaigns.campaign.coupon.sections.basicDetails.fields.code.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -65,16 +68,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>{t.campaigns.campaign.coupon.sections.basicDetails.fields.description.label}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Describe your coupon campaign..."
+                  placeholder={t.campaigns.campaign.coupon.sections.basicDetails.fields.description.placeholder}
                   className="min-h-[100px]"
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                Internal description for your reference
+                {t.campaigns.campaign.coupon.sections.basicDetails.fields.description.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -87,7 +90,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="startDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t.campaigns.campaign.coupon.sections.basicDetails.fields.startDate.label}</FormLabel>
                 <FormControl>
                   <Input
                     type="datetime-local"
@@ -96,6 +99,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                     onChange={(e) => field.onChange(new Date(e.target.value))}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t.campaigns.campaign.coupon.sections.basicDetails.fields.startDate.description}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -106,7 +112,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="endDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>End Date</FormLabel>
+                <FormLabel>{t.campaigns.campaign.coupon.sections.basicDetails.fields.endDate.label}</FormLabel>
                 <FormControl>
                   <Input
                     type="datetime-local"
@@ -115,6 +121,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                     onChange={(e) => field.onChange(new Date(e.target.value))}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t.campaigns.campaign.coupon.sections.basicDetails.fields.endDate.description}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -126,7 +135,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Status</FormLabel>
+              <FormLabel>{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.label}</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -134,14 +143,14 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="scheduled">Scheduled</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="expired">Expired</SelectItem>
+                  <SelectItem value="draft">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.draft}</SelectItem>
+                  <SelectItem value="scheduled">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.scheduled}</SelectItem>
+                  <SelectItem value="active">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.active}</SelectItem>
+                  <SelectItem value="expired">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.ended}</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                Control whether this coupon is currently active
+                {t.campaigns.campaign.coupon.sections.basicDetails.fields.status.description}
               </FormDescription>
               <FormMessage />
             </FormItem>

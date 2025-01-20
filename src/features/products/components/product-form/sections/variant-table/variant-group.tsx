@@ -4,6 +4,7 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { VariantGroup as IVariantGroup, ProductVariant } from '@/types/product';
 import { VariantTableRow } from './variant-row';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantGroupRowProps {
   group: IVariantGroup;
@@ -20,6 +21,8 @@ export function VariantGroupRow({
   onToggle,
   onUpdateVariant,
 }: VariantGroupRowProps) {
+  const t = useTranslation();
+  
   return (
     <>
       <TableRow
@@ -36,7 +39,7 @@ export function VariantGroupRow({
             <span className="font-medium">{group.attribute}</span>
             {trackQuantity && (
               <Badge variant="outline" className="ml-2">
-                Total Stock: {group.totalStock}
+                {t.products.products.form.sections.variations.totalStock}: {group.totalStock}
               </Badge>
             )}
           </div>

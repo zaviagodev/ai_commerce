@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ShippingTrackingProps {
   onCancel: () => void;
@@ -32,6 +33,7 @@ export function ShippingTrackingSection({
   onCancel,
   onConfirm,
 }: ShippingTrackingProps) {
+  const t = useTranslation();
   const [courier, setCourier] = useState<string>('');
   const [trackingNumber, setTrackingNumber] = useState<string>('');
 
@@ -43,10 +45,10 @@ export function ShippingTrackingSection({
       className="space-y-4 p-4 m-6 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700"
     >
       <div className="space-y-2">
-        <label className="text-sm text-gray-300">Courier Service</label>
+        <label className="text-sm text-gray-300">{t.orders.orders.form.sections.payment.shipping.courier}</label>
         <Select value={courier} onValueChange={setCourier}>
           <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-white">
-            <SelectValue placeholder="Select courier" />
+            <SelectValue placeholder={t.orders.orders.form.sections.payment.shipping.courierPlaceholder} />
           </SelectTrigger>
           <SelectContent>
             {COURIERS.map((c) => (
@@ -59,11 +61,11 @@ export function ShippingTrackingSection({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-300">Tracking Number</label>
+        <label className="text-sm text-gray-300">{t.orders.orders.form.sections.payment.shipping.trackingNumber}</label>
         <Input
           value={trackingNumber}
           onChange={(e) => setTrackingNumber(e.target.value)}
-          placeholder="Enter tracking number"
+          placeholder={t.orders.orders.form.sections.payment.shipping.trackingNumberPlaceholder}
           className="bg-gray-800 border-gray-700 text-white"
         />
       </div>
@@ -75,7 +77,7 @@ export function ShippingTrackingSection({
           onClick={onCancel}
           className="text-gray-300 hover:text-white hover:bg-gray-700"
         >
-          Cancel
+          {t.orders.orders.actions.cancel}
         </Button>
         <Button
           type="button"
@@ -83,7 +85,7 @@ export function ShippingTrackingSection({
           disabled={!courier || !trackingNumber}
           className="bg-green-600 hover:bg-green-700"
         >
-          Add Tracking
+          {t.orders.orders.form.sections.payment.shipping.confirm}
         </Button>
       </div>
     </motion.div>

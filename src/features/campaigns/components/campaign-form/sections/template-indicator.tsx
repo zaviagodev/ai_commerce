@@ -2,6 +2,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { Link2, QrCode, Star, Gift, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Campaign } from '@/types/campaign';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface TemplateIndicatorProps {
   type: 'points_multiplier' | 'bonus_points';
@@ -44,6 +45,8 @@ const TEMPLATE_INFO = {
 } as const;
 
 export function TemplateIndicator({ type, qrEnabled, clickLinkEnabled, targetType }: TemplateIndicatorProps) {
+  const t = useTranslation();
+
   // Determine which template is being used
   const templateKey = qrEnabled 
     ? 'scan_points'
@@ -67,7 +70,7 @@ export function TemplateIndicator({ type, qrEnabled, clickLinkEnabled, targetTyp
       {/* Label */}
       <div className="absolute right-4 top-4">
         <div className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
-          Selected Template
+          { t.campaigns.sections.basicDetails.template.indicator.label}
         </div>
       </div>
 
@@ -77,30 +80,32 @@ export function TemplateIndicator({ type, qrEnabled, clickLinkEnabled, targetTyp
           <Icon className="h-5 w-5" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold mb-2">{template.name}</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            { t.campaigns.sections.basicDetails.template.types[templateKey]?.title || template.name}
+          </h3>
           <p className="text-sm text-white/90 mb-3">
-            {template.description}
+            { t.campaigns.sections.basicDetails.template.types[templateKey]?.description || template.description}
           </p>
           <div className="text-sm text-white/80">
-            <p>✨ This template is configured for:</p>
+            <p>{ t.campaigns.sections.basicDetails.template.indicator.features.title}</p>
             <ul className="list-disc list-inside mt-1 space-y-1">
               {qrEnabled ? (
                 <>
-                  <li>QR code scanning rewards</li>
-                  <li>Fixed point rewards per scan</li>
-                  <li>Scan limits and tracking</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.qr.scanning}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.qr.points}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.qr.limits}</li>
                 </>
               ) : type === 'points_multiplier' ? (
                 <>
-                  <li>Multiplied points on purchases</li>
-                  <li>Stackable with other rewards</li>
-                  <li>Time-based activation</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.multiplier.points}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.multiplier.stackable}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.multiplier.timing}</li>
                 </>
               ) : (
                 <>
-                  <li>Fixed bonus point rewards</li>
-                  <li>Action-based triggers</li>
-                  <li>Customer targeting options</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.bonus.points}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.bonus.triggers}</li>
+                  <li>{ t.campaigns.sections.basicDetails.template.indicator.features.bonus.targeting}</li>
                 </>
               )}
             </ul>

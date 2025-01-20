@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Campaign } from '@/types/campaign';
 import { Sparkles, QrCode, Star, Gift, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CampaignTemplate {
   id: string;
@@ -80,6 +81,7 @@ interface TemplateSelectorProps {
 
 export function TemplateSelector({ form }: TemplateSelectorProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const t = useTranslation();
 
   const handleTemplateSelect = (template: CampaignTemplate) => {
     setSelectedTemplate(template.id);
@@ -98,9 +100,9 @@ export function TemplateSelector({ form }: TemplateSelectorProps) {
           <Sparkles className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Campaign Template</h2>
+          <h2 className="text-lg font-medium">{ t.campaigns.campaign.sections.basicDetails.template.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Choose a template to get started quickly
+            { t.campaigns.campaign.sections.basicDetails.template.description}
           </p>
         </div>
       </CardHeader>
@@ -125,10 +127,10 @@ export function TemplateSelector({ form }: TemplateSelectorProps) {
                   {template.icon}
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">
-                  {template.name}
+                  { t.campaigns.campaign.sections.basicDetails.template.types[template.id]?.title || template.name}
                 </h3>
                 <p className="text-sm text-white/80">
-                  {template.description}
+                  { t.campaigns.campaign.sections.basicDetails.template.types[template.id]?.description || template.description}
                 </p>
               </div>
 

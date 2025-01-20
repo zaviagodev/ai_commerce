@@ -7,6 +7,8 @@ import { settingsNav } from './features/settings/settings_nav';
 import { products } from './features/products';
 import { settings } from './features/settings/settings';
 import { orders } from './features/orders';
+import { customer } from './features/customers';
+import { campaign } from './features/campaigns';
 
 export const translations = {
   'en-US': {
@@ -21,6 +23,8 @@ export const translations = {
     navigation: navbar.en,
     products: products.en,
     orders: orders.en,
+    customers: customer.en,
+    campaigns: campaign.en,
   },
   'th-TH': {
     dashboard: dashboard.th,
@@ -34,6 +38,8 @@ export const translations = {
     navigation: navbar.th,
     products: products.th,
     orders: orders.th,
+    customers: customer.th,
+    campaigns: campaign.th,
   },
 } as const;
 

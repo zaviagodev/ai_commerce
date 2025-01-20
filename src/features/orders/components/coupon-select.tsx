@@ -88,14 +88,14 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
         aria-labelledby="coupon-select-title"
       >
         <DialogHeader>
-          <DialogTitle id="coupon-select-title">{t.orders.orders.coupon.title}</DialogTitle>
+          <DialogTitle id="coupon-select-title">{t.orders.orders.form.sections.coupon.title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
           <div className="space-y-4 p-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder={t.orders.orders.coupon.placeholder}
+                placeholder={t.orders.orders.form.sections.coupon.placeholder}
                 className="pl-9"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -104,11 +104,11 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
             
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
-                {t.orders.orders.coupon.empty}
+                {t.orders.orders.form.sections.coupon.empty}
               </div>
             ) : availableCoupons.length === 0 ? (
               <div className="py-8 text-center text-muted-foreground">
-                {t.orders.orders.coupon.empty}
+                {t.orders.orders.form.sections.coupon.empty}
               </div>
             ) : (
               <div className="space-y-2">

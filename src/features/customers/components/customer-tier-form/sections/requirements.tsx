@@ -16,6 +16,14 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { GroupSelector } from './group-selector';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RequirementsProps {
   form: UseFormReturn<CustomerTier>;
@@ -56,6 +64,7 @@ const DEMO_GROUPS = [
 ];
 
 export function Requirements({ form }: RequirementsProps) {
+  const t = useTranslation();
   const requirements = form.watch('requirements') || [];
 
   const addRequirement = (type: string) => {
@@ -201,6 +210,86 @@ export function Requirements({ form }: RequirementsProps) {
           ))}
         </RadioGroup>
       </div>
+
+      <FormField
+        control={form.control}
+        name="spendingAmount"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.spendingAmount.label}</FormLabel>
+            <FormControl>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  $
+                </span>
+                <Input
+                  type="number"
+                  placeholder={ t.customers.customer.tier.sections.requirements.fields.spendingAmount.placeholder}
+                  className="pl-6"
+                  {...field}
+                />
+              </div>
+            </FormControl>
+            <FormDescription>
+              { t.customers.customer.tier.sections.requirements.fields.spendingAmount.description}
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="orderCount"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.orderCount.label}</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                placeholder={ t.customers.customer.tier.sections.requirements.fields.orderCount.placeholder}
+                {...field}
+              />
+            </FormControl>
+            <FormDescription>
+              { t.customers.customer.tier.sections.requirements.fields.orderCount.description}
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="timeframe"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.timeframe.label}</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder={ t.customers.customer.tier.sections.requirements.fields.timeframe.label} />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="lifetime">
+                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.lifetime}
+                </SelectItem>
+                <SelectItem value="yearly">
+                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.yearly}
+                </SelectItem>
+                <SelectItem value="monthly">
+                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.monthly}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <FormDescription>
+              { t.customers.customer.tier.sections.requirements.fields.timeframe.description}
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 }

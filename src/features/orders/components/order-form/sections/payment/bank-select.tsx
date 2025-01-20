@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 const THAI_BANKS = [
   'Kasikorn Bank (KBANK)',
@@ -22,9 +23,11 @@ interface BankSelectProps {
 }
 
 export function BankSelect({ value, onValueChange }: BankSelectProps) {
+  const t = useTranslation();
+  
   return (
     <div className="space-y-2.5">
-      <label className="text-sm font-medium text-gray-200">Select Bank</label>
+      <label className="text-sm font-medium text-gray-200">{t.orders.orders.form.sections.payment.manual.bankName}</label>
       <Select value={value} onValueChange={onValueChange}>
         <SelectTrigger 
           className={cn(
@@ -34,7 +37,7 @@ export function BankSelect({ value, onValueChange }: BankSelectProps) {
             "h-11"
           )}
         >
-          <SelectValue placeholder="Select bank" />
+          <SelectValue placeholder={t.orders.orders.form.sections.payment.manual.bankName} />
         </SelectTrigger>
         <SelectContent 
           className="bg-gray-800 border-gray-700"

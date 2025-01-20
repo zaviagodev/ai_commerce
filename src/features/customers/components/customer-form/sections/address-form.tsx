@@ -21,6 +21,7 @@ import { CustomerAddress } from '@/types/customer';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomerAddressSchema } from '@/features/customers/schemas/customer-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AddressFormProps {
   address: CustomerAddress;
@@ -35,6 +36,7 @@ export function AddressForm({
   onDelete,
   onCancel,
 }: AddressFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerAddressSchema),
     defaultValues: address,
@@ -51,16 +53,16 @@ export function AddressForm({
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address type</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.type.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
+                    <SelectValue placeholder={t.customers.customer.form.sections.addresses.fields.type.placeholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="shipping">Shipping</SelectItem>
-                  <SelectItem value="billing">Billing</SelectItem>
+                  <SelectItem value="shipping">{t.customers.customer.form.sections.addresses.fields.type.shipping}</SelectItem>
+                  <SelectItem value="billing">{t.customers.customer.form.sections.addresses.fields.type.billing}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -74,9 +76,9 @@ export function AddressForm({
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.firstName.label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder={t.customers.customer.form.sections.addresses.fields.firstName.placeholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -88,9 +90,9 @@ export function AddressForm({
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last name</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.lastName.label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder={t.customers.customer.form.sections.addresses.fields.lastName.placeholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -103,9 +105,9 @@ export function AddressForm({
           name="company"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company (optional)</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.company.label}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder={t.customers.customer.form.sections.addresses.fields.company.placeholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -117,9 +119,9 @@ export function AddressForm({
           name="address1"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.address1.label}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder={t.customers.customer.form.sections.addresses.fields.address1.placeholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -131,9 +133,9 @@ export function AddressForm({
           name="address2"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Apartment, suite, etc. (optional)</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.address2.label}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder={t.customers.customer.form.sections.addresses.fields.address2.placeholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -146,9 +148,9 @@ export function AddressForm({
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.city.label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder={t.customers.customer.form.sections.addresses.fields.city.placeholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -160,9 +162,9 @@ export function AddressForm({
             name="state"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>State</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.state.label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder={t.customers.customer.form.sections.addresses.fields.state.placeholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -174,9 +176,9 @@ export function AddressForm({
             name="postalCode"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Postal code</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.postalCode.label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder={t.customers.customer.form.sections.addresses.fields.postalCode.placeholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -189,9 +191,9 @@ export function AddressForm({
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Country</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.country.label}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder={t.customers.customer.form.sections.addresses.fields.country.placeholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -203,9 +205,13 @@ export function AddressForm({
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone (optional)</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.addresses.fields.phone.label}</FormLabel>
               <FormControl>
-                <Input type="tel" {...field} />
+                <Input 
+                  type="tel" 
+                  placeholder={t.customers.customer.form.sections.addresses.fields.phone.placeholder} 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -218,7 +224,7 @@ export function AddressForm({
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Set as default</FormLabel>
+                <FormLabel>{t.customers.customer.form.sections.addresses.fields.isDefault.label}</FormLabel>
               </div>
               <FormControl>
                 <Switch
@@ -233,14 +239,16 @@ export function AddressForm({
         <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-white pt-6">
           {onDelete && (
             <Button type="button" variant="destructive" onClick={onDelete}>
-              Delete address
+              {t.customers.customer.form.sections.addresses.actions.delete}
             </Button>
           )}
           <div className="flex gap-4">
             <Button type="button" variant="outline" onClick={onCancel}>
-              Cancel
+              {t.customers.customer.form.sections.addresses.actions.cancel}
             </Button>
-            <Button type="submit">Save address</Button>
+            <Button type="submit">
+              {t.customers.customer.form.sections.addresses.actions.save}
+            </Button>
           </div>
         </div>
       </form>

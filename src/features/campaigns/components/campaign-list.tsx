@@ -16,6 +16,7 @@ import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { formatDate } from '@/lib/utils';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CampaignListProps {
   campaigns: Campaign[];
@@ -23,6 +24,7 @@ interface CampaignListProps {
 }
 
 export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
+  const t = useTranslation();
   const {
     pageIndex,
     pageSize,
@@ -51,15 +53,15 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Campaigns</h1>
+          <h1 className="text-2xl font-semibold">{ t.customers.customer.campaign.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your points and rewards campaigns
+            { t.customers.customer.campaign.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/points/campaigns/new">
             <Plus className="mr-2 h-4 w-4" />
-            Create campaign
+            { t.customers.customer.campaign.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -73,11 +75,11 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         <Table className={campaigns.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Campaign</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Target</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.campaign}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.type}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.duration}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.target}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,14 +87,14 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No campaigns found</p>
+                    <p className="text-lg font-medium">{ t.customers.customer.campaign.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by creating your first campaign
+                      { t.customers.customer.campaign.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/points/campaigns/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Create campaign
+                        { t.customers.customer.campaign.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -121,9 +123,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">
-                      {campaign.type === 'points_multiplier'
-                        ? 'Points Multiplier'
-                        : 'Bonus Points'}
+                      { t.customers.customer.campaign.list.types[campaign.type]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -132,7 +132,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                       <div className="text-sm">
                         <div>{formatDate(campaign.startDate)}</div>
                         <div className="text-muted-foreground">
-                          to {formatDate(campaign.endDate)}
+                          { t.customers.customer.campaign.list.duration.to} {formatDate(campaign.endDate)}
                         </div>
                       </div>
                     </div>
@@ -141,11 +141,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-muted-foreground" />
                       <span>
-                        {campaign.targetType === 'all'
-                          ? 'All Customers'
-                          : campaign.targetType === 'tier'
-                          ? 'Specific Tiers'
-                          : 'Specific Groups'}
+                        { t.customers.customer.campaign.list.target[campaign.targetType]}
                       </span>
                     </div>
                   </TableCell>
@@ -160,7 +156,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                       }
                       className="capitalize"
                     >
-                      {campaign.status}
+                      { t.customers.customer.campaign.list.status[campaign.status]}
                     </Badge>
                   </TableCell>
                 </TableRow>

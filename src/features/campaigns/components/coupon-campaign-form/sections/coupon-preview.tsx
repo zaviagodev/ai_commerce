@@ -5,12 +5,14 @@ import { motion } from 'framer-motion';
 import { Coupon } from '@/types/coupon';
 import { Ticket, Calendar, Users, ShoppingCart, Sparkles } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CouponPreviewProps {
   form: UseFormReturn<Coupon>;
 }
 
 export function CouponPreview({ form }: CouponPreviewProps) {
+  const t = useTranslation();
   const coupon = form.watch();
   const isValid = coupon.startDate <= new Date() && coupon.endDate >= new Date();
 
@@ -39,13 +41,13 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                   variant={isValid ? "default" : "secondary"}
                   className="mb-4"
                 >
-                  {isValid ? 'Valid' : 'Invalid'}
+                  {isValid ? t.campaigns.campaign.coupon.sections.preview.fields.status.valid : t.campaigns.campaign.coupon.sections.preview.fields.status.invalid}
                 </Badge>
                 <h2 className="text-3xl font-mono font-bold tracking-tight">
-                  {coupon.code || 'COUPON'}
+                  {coupon.code || t.campaigns.campaign.coupon.sections.preview.fields.code.placeholder}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  {coupon.description || 'No description'}
+                  {coupon.description || t.campaigns.campaign.coupon.sections.preview.fields.description.placeholder}
                 </p>
               </div>
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
@@ -60,15 +62,15 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                   <Sparkles className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Discount</p>
+                  <p className="text-sm font-medium">{t.campaigns.campaign.coupon.sections.preview.fields.discount.label}</p>
                   <p className="text-2xl font-semibold">
                     {coupon.type === 'percentage' 
-                      ? `${coupon.value}% OFF`
+                      ? `${coupon.value}% ${t.campaigns.campaign.coupon.sections.preview.fields.discount.off}`
                       : coupon.type === 'fixed'
                       ? formatCurrency(coupon.value)
                       : coupon.type === 'shipping'
-                      ? 'FREE SHIPPING'
-                      : `${coupon.value}x POINTS`
+                      ? t.campaigns.campaign.coupon.sections.preview.fields.discount.freeShipping
+                      : `${coupon.value}x ${t.campaigns.campaign.coupon.sections.preview.fields.discount.points}`
                     }
                   </p>
                 </div>
@@ -78,7 +80,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                 <div className="flex items-center gap-2 rounded-lg border p-4">
                   <Calendar className="h-4 w-4 text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-muted-foreground">Valid Until</p>
+                    <p className="text-xs text-muted-foreground">{t.campaigns.campaign.coupon.sections.preview.fields.validity.label}</p>
                     <p className="text-sm font-medium">
                       {coupon.endDate.toLocaleDateString()}
                     </p>
@@ -88,10 +90,10 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                 <div className="flex items-center gap-2 rounded-lg border p-4">
                   <Users className="h-4 w-4 text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-muted-foreground">Usage</p>
+                    <p className="text-xs text-muted-foreground">{t.campaigns.campaign.coupon.sections.preview.fields.usage.label}</p>
                     <p className="text-sm font-medium">
                       {coupon.usageCount || 0}
-                      {coupon.usageLimit ? `/${coupon.usageLimit}` : ' uses'}
+                      {coupon.usageLimit ? `/${coupon.usageLimit}` : ` ${t.campaigns.campaign.coupon.sections.preview.fields.usage.uses}`}
                     </p>
                   </div>
                 </div>
@@ -99,11 +101,11 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                 <div className="flex items-center gap-2 rounded-lg border p-4">
                   <ShoppingCart className="h-4 w-4 text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-muted-foreground">Min. Purchase</p>
+                    <p className="text-xs text-muted-foreground">{t.campaigns.campaign.coupon.sections.preview.fields.minPurchase.label}</p>
                     <p className="text-sm font-medium">
                       {coupon.minPurchaseAmount 
                         ? formatCurrency(coupon.minPurchaseAmount)
-                        : 'No minimum'
+                        : t.campaigns.campaign.coupon.sections.preview.fields.minPurchase.noMinimum
                       }
                     </p>
                   </div>
@@ -114,7 +116,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
             {/* Advanced Conditions */}
             {coupon.advancedMode && coupon.conditions && coupon.conditions.length > 0 && (
               <div className="mt-6">
-                <h4 className="text-sm font-medium mb-2">Conditions</h4>
+                <h4 className="text-sm font-medium mb-2">{t.campaigns.campaign.coupon.sections.preview.fields.conditions.label}</h4>
                 <div className="space-y-2">
                   {coupon.conditions.map((condition, index) => (
                     <div 
@@ -128,16 +130,16 @@ export function CouponPreview({ form }: CouponPreviewProps) {
                       )}
                       <span>
                         {condition.type === 'cart_total' && (
-                          <>Cart total is {condition.operator.replace('_', ' ')} {formatCurrency(Number(condition.value))}</>
+                          <>{t.campaigns.campaign.coupon.sections.preview.fields.conditions.cartTotal} {condition.operator.replace('_', ' ')} {formatCurrency(Number(condition.value))}</>
                         )}
                         {condition.type === 'product_quantity' && (
-                          <>Product quantity is {condition.operator.replace('_', ' ')} {condition.value}</>
+                          <>{t.campaigns.campaign.coupon.sections.preview.fields.conditions.productQuantity} {condition.operator.replace('_', ' ')} {condition.value}</>
                         )}
                         {condition.type === 'customer_group' && (
-                          <>Customer belongs to {condition.value} group</>
+                          <>{t.campaigns.campaign.coupon.sections.preview.fields.conditions.customerGroup} {condition.value}</>
                         )}
                         {condition.type === 'first_purchase' && (
-                          <>Customer's first purchase</>
+                          <>{t.campaigns.campaign.coupon.sections.preview.fields.conditions.firstPurchase}</>
                         )}
                       </span>
                     </div>
@@ -168,13 +170,13 @@ export function CouponPreview({ form }: CouponPreviewProps) {
           <div className="p-6">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-muted-foreground" />
-              <h3 className="font-medium">Total Collected</h3>
+              <h3 className="font-medium">{t.campaigns.campaign.coupon.sections.preview.fields.stats.totalCollected.label}</h3>
             </div>
             <p className="mt-2 text-2xl font-bold">{coupon.usageCount || 0}</p>
             <p className="text-xs text-muted-foreground">
               {coupon.usageLimit 
-                ? `${coupon.usageLimit - (coupon.usageCount || 0)} available`
-                : 'Unlimited'
+                ? `${coupon.usageLimit - (coupon.usageCount || 0)} ${t.campaigns.campaign.coupon.sections.preview.fields.stats.totalCollected.available}`
+                : t.campaigns.campaign.coupon.sections.preview.fields.stats.totalCollected.unlimited
               }
             </p>
           </div>
@@ -184,11 +186,11 @@ export function CouponPreview({ form }: CouponPreviewProps) {
           <div className="p-6">
             <div className="flex items-center gap-2">
               <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-              <h3 className="font-medium">Total Orders</h3>
+              <h3 className="font-medium">{t.campaigns.campaign.coupon.sections.preview.fields.stats.totalOrders.label}</h3>
             </div>
             <p className="mt-2 text-2xl font-bold">142</p>
             <p className="text-xs text-muted-foreground">
-              Using this coupon
+              {t.campaigns.campaign.coupon.sections.preview.fields.stats.totalOrders.description}
             </p>
           </div>
         </Card>
@@ -197,11 +199,11 @@ export function CouponPreview({ form }: CouponPreviewProps) {
           <div className="p-6">
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-muted-foreground" />
-              <h3 className="font-medium">Total Saved</h3>
+              <h3 className="font-medium">{t.campaigns.campaign.coupon.sections.preview.fields.stats.totalSaved.label}</h3>
             </div>
             <p className="mt-2 text-2xl font-bold">{formatCurrency(1234.56)}</p>
             <p className="text-xs text-muted-foreground">
-              By customers
+              {t.campaigns.campaign.coupon.sections.preview.fields.stats.totalSaved.description}
             </p>
           </div>
         </Card>

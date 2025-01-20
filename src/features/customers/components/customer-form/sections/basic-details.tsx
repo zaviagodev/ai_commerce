@@ -14,12 +14,14 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Customer } from '@/types/customer';
 import { CustomerService } from '../../../services/customer-service';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Customer>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t  = useTranslation();
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
 
   // Remove metrics dashboard from new customer form
@@ -32,9 +34,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           <UserCircle className="h-5 w-5 text-green-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Basic Details</h2>
+          <h2 className="text-lg font-medium">{t.customers.customer.form.sections.basicDetails.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Add the essential information about your customer
+            {t.customers.customer.form.sections.basicDetails.description}
           </p>
         </div>
       </CardHeader>
@@ -46,9 +48,13 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>{t.customers.customer.form.fields.firstName.label}</FormLabel>
                 <FormControl>
-                  <Input className="w-full" placeholder="John" {...field} />
+                  <Input 
+                    className="w-full" 
+                    placeholder={t.customers.customer.form.fields.firstName.placeholder} 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -60,9 +66,13 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last name</FormLabel>
+                <FormLabel>{t.customers.customer.form.fields.lastName.label}</FormLabel>
                 <FormControl>
-                  <Input className="w-full" placeholder="Doe" {...field} />
+                  <Input 
+                    className="w-full" 
+                    placeholder={t.customers.customer.form.fields.lastName.placeholder} 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,12 +84,12 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t.customers.customer.form.fields.email.label}</FormLabel>
               <FormControl>
                 <Input 
                   className="w-full"
                   type="email" 
-                  placeholder="john@example.com"
+                  placeholder={t.customers.customer.form.fields.email.placeholder}
                   {...field}
                   onChange={async (e) => {
                     field.onChange(e);
@@ -92,7 +102,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                         if (!isAvailable) {
                           form.setError('email', {
                             type: 'manual',
-                            message: 'This email is already in use',
+                            message: t.customers.customer.form.fields.email.errors.inUse,
                           });
                         } else {
                           form.clearErrors('email');
@@ -106,7 +116,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               </FormControl>
               {isCheckingEmail && (
                 <p className="text-sm text-muted-foreground">
-                  Checking email availability...
+                  {t.customers.customer.form.fields.email.checking}
                 </p>
               )}
               <FormMessage />
@@ -118,12 +128,12 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone number</FormLabel>
+              <FormLabel>{t.customers.customer.form.fields.phone.label}</FormLabel>
               <FormControl>
                 <Input 
                   className="w-full"
                   type="tel" 
-                  placeholder="+1234567890" 
+                  placeholder={t.customers.customer.form.fields.phone.placeholder}
                   {...field} 
                 />
               </FormControl>
@@ -138,9 +148,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-blue-50/50">
               <div className="space-y-0.5">
-                <FormLabel>Verified Customer</FormLabel>
+                <FormLabel>{t.customers.customer.form.fields.verified.label}</FormLabel>
                 <FormDescription>
-                  Mark this customer as verified with a checkmark badge
+                  {t.customers.customer.form.fields.verified.description}
                 </FormDescription>
               </div>
               <FormControl>

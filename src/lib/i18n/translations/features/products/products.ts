@@ -233,9 +233,11 @@ export const productsTranslations = {
             grouping: {
               title: "Variant Grouping",
               description: "Group variants by attribute for better organization",
-              ungrouped: "Ungrouped",
-              selectAttribute: "Select attribute"
-            }
+              ungrouped: "No grouping",
+              selectAttribute: "Select attribute to group by"
+            },
+            inStock: "in stock",
+            totalStock: "Total Stock"
           }
         },
         tabs: {
@@ -625,8 +627,10 @@ export const productsTranslations = {
               title: "การจัดกลุ่มตัวเลือก",
               description: "จัดกลุ่มตัวเลือกตามคุณลักษณะเพื่อการจัดการที่ดีขึ้น",
               ungrouped: "ไม่จัดกลุ่ม",
-              selectAttribute: "เลือกคุณลักษณะ"
-            }
+              selectAttribute: "เลือกคุณลักษณะที่ต้องการจัดกลุ่ม"
+            },
+            inStock: "ในสต็อก",
+            totalStock: "จำนวนทั้งหมด"
           }
         },
         tabs: {

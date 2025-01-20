@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { VariantOption } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface GroupSelectorProps {
   value: string;
@@ -14,13 +15,15 @@ interface GroupSelectorProps {
 }
 
 export function GroupSelector({ value, onChange, options }: GroupSelectorProps) {
+  const t = useTranslation();
+  
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[200px]">
-        <SelectValue placeholder="Group by attribute" />
+        <SelectValue placeholder={t.products.products.form.sections.variations.grouping.selectAttribute} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="ungrouped">No grouping</SelectItem>
+        <SelectItem value="ungrouped">{t.products.products.form.sections.variations.grouping.ungrouped}</SelectItem>
         {options.map((option) => (
           option.name && (
             <SelectItem key={option.id} value={option.name}>

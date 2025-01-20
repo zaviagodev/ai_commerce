@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { X } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 const CONDITION_TYPES = [
   {
@@ -52,6 +53,8 @@ interface RuleConditionBuilderProps {
 }
 
 export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleConditionBuilderProps) {
+  const t = useTranslation();
+
   return (
     <div className="p-4 rounded-lg border bg-muted/50 relative">
       <div className="absolute right-0 top-0">
@@ -68,23 +71,23 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
 
       <div className="grid gap-4">
         <div className="grid gap-2">
-          <label className="text-sm font-medium">Condition Type</label>
+          <label className="text-sm font-medium">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.type.label}</label>
           <Select 
             value={condition.type} 
             onValueChange={(value) => onUpdate({ type: value })}
           >
             <SelectTrigger className='bg-white'>
-              <SelectValue placeholder="Select condition type" />
+              <SelectValue placeholder={t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.type.placeholder} />
             </SelectTrigger>
             <SelectContent>
               {CONDITION_TYPES.map((group) => (
                 <div key={group.id}>
                   <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground">
-                    {group.label}
+                    {t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.type.groups[group.id]}
                   </div>
                   {group.options.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
-                      {option.label}
+                      {t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.type.options[option.value]}
                     </SelectItem>
                   ))}
                 </div>
@@ -96,24 +99,24 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
         {condition.type && condition.type !== 'first_purchase' && (
           <>
             <div className="grid gap-2">
-              <label className="text-sm font-medium">Operator</label>
+              <label className="text-sm font-medium">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.label}</label>
               <Select
                 value={condition.operator}
                 onValueChange={(value) => onUpdate({ operator: value })}
               >
                 <SelectTrigger className='bg-white'>
-                  <SelectValue placeholder="Select operator" />
+                  <SelectValue placeholder={t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="greater_than">Greater than</SelectItem>
-                  <SelectItem value="less_than">Less than</SelectItem>
-                  <SelectItem value="equal_to">Equal to</SelectItem>
+                  <SelectItem value="greater_than">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.options.greaterThan}</SelectItem>
+                  <SelectItem value="less_than">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.options.lessThan}</SelectItem>
+                  <SelectItem value="equal_to">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.operator.options.equalTo}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="grid gap-2">
-              <label className="text-sm font-medium">Value</label>
+              <label className="text-sm font-medium">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.value.label}</label>
               {condition.type === 'cart_total' ? (
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
@@ -145,9 +148,9 @@ export function RuleConditionBuilder({ condition, onUpdate, onRemove }: RuleCond
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="vip">VIP Customers</SelectItem>
-                    <SelectItem value="wholesale">Wholesale</SelectItem>
-                    <SelectItem value="new">New Customers</SelectItem>
+                    <SelectItem value="vip">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.value.customerGroups.vip}</SelectItem>
+                    <SelectItem value="wholesale">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.value.customerGroups.wholesale}</SelectItem>
+                    <SelectItem value="new">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleConditionBuilder.value.customerGroups.new}</SelectItem>
                   </SelectContent>
                 </Select>
               ) : (

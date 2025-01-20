@@ -9,50 +9,51 @@ import { ProductSkeletons } from './products/product-skeleton';
 import { formatCurrency } from '@/lib/utils';
 import { ProductVariant } from '@/types/product';
 import { Product } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductsProps {
   form: UseFormReturn<Order>;
 }
 
 export function Products({ form }: ProductsProps) {
+  const t = useTranslation();
   const items = form.watch('items') || [];
 
-const handleProductSelect = (product: Product, variant: ProductVariant) => {
-  const existingItem = items.find((item: OrderItem) => item.variantId === variant.id);
+  const handleProductSelect = (product: Product, variant: ProductVariant) => {
+    const existingItem = items.find((item: OrderItem) => item.variantId === variant.id);
 
-  if (existingItem) {
-    // Update quantity of existing item
-    const updatedItems = items.map(item => {
-      if (item.variantId === variant.id) {
-        const newQuantity = item.quantity + 1;
-        return {
-          ...item,
-          quantity: newQuantity,
-          total: variant.price * newQuantity
-        };
-      }
-      return item;
-    });
-    form.setValue('items', updatedItems);
-  } else {
-    console.log("variant =>", variant);
-    // Add new item
-    const newItem = {
-      id: crypto.randomUUID(),
-      variantId: variant.id,
-      name: product.name,
-      variant: {
-        name: variant.name,
-        options: variant.options
-      },
-      price: variant.price,
-      quantity: 1,
-      total: variant.price,
-    };
-    form.setValue('items', [...items, newItem]);
-  }
-};
-
+    if (existingItem) {
+      // Update quantity of existing item
+      const updatedItems = items.map(item => {
+        if (item.variantId === variant.id) {
+          const newQuantity = item.quantity + 1;
+          return {
+            ...item,
+            quantity: newQuantity,
+            total: variant.price * newQuantity
+          };
+        }
+        return item;
+      });
+      form.setValue('items', updatedItems);
+    } else {
+      console.log("variant =>", variant);
+      // Add new item
+      const newItem = {
+        id: crypto.randomUUID(),
+        variantId: variant.id,
+        name: product.name,
+        variant: {
+          name: variant.name,
+          options: variant.options
+        },
+        price: variant.price,
+        quantity: 1,
+        total: variant.price,
+      };
+      form.setValue('items', [...items, newItem]);
+    }
+  };
 
   const updateQuantity = (index: number, newQuantity: number) => {
     if (newQuantity < 1) return;
@@ -77,15 +78,15 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
           <Package className="h-5 w-5 text-pink-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Products</h2>
+          <h2 className="text-lg font-medium">{t.orders.orders.list.columns.products}</h2>
           <p className="text-sm text-muted-foreground">
-            Add products to this order
+            {t.orders.orders.form.sections.products.description}
           </p>
         </div>
         <ProductSelect onSelect={handleProductSelect}>
           <Button type="button" variant="outline" size="sm">
             <Plus className="h-4 w-4 mr-2" />
-            Add product
+            {t.orders.orders.form.sections.products.add}
           </Button>
         </ProductSelect>
       </CardHeader>
@@ -128,7 +129,7 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
               <div className="flex-1">
                 <div className="font-medium">{item.name}</div>
                 <div className="text-sm text-muted-foreground">
-                  {formatCurrency(item.price)} per unit
+                  {formatCurrency(item.price)} {t.orders.orders.form.sections.products.perUnit}
                 </div>
               </div>
               
@@ -174,7 +175,7 @@ const handleProductSelect = (product: Product, variant: ProductVariant) => {
                   form.setValue('items', newItems);
                 }}
               >
-                Remove
+                {t.orders.orders.form.sections.products.remove}
               </Button>
             </div>
           ))}

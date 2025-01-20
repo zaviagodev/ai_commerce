@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { CreditCard, MoreHorizontal, RefreshCw } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PaymentActionsProps {
   isSaving: boolean;
@@ -21,7 +22,12 @@ export function PaymentActions({
   onShippingClick,
   onReopenClick,
 }: PaymentActionsProps) {
+  const t = useTranslation();
+  
   if (isSaving) return null;
+
+
+  console.log(t.orders.orders.form.sections.payment.types);
 
   return (
     <motion.div
@@ -52,7 +58,7 @@ export function PaymentActions({
                   type="button"
                 >
                   <CreditCard className="mr-2 h-4 w-4" />
-                  Select Payment Type
+                  {t.orders.orders.form.sections.payment.types.title}
                 </Button>
               </motion.div>
             ) : (
@@ -71,7 +77,7 @@ export function PaymentActions({
                     type="button"
                   >
                     <MoreHorizontal className="mr-2 h-4 w-4" />
-                    Order Actions
+                    {t.orders.orders.form.sections.payment.actions.title}
                   </Button>
                 </motion.div>
                 <motion.div
@@ -104,7 +110,7 @@ export function PaymentActions({
                       <path d="M7 5v4" />
                       <path d="M17 5v4" />
                     </svg>
-                    Add Shipping
+                    {t.orders.orders.payment.shipping.addTracking}
                   </Button>
                 </motion.div>
               </div>
@@ -133,7 +139,7 @@ export function PaymentActions({
             onClick={onReopenClick}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
-            Reopen Order
+            {t.orders.payment.actions.reopen}
           </Button>
           <Button
             variant="outline"
@@ -141,7 +147,7 @@ export function PaymentActions({
             onClick={onActionsClick}
           >
             <MoreHorizontal className="mr-2 h-4 w-4" />
-            Order Actions
+            {t.orders.payment.actions.title}
           </Button>
         </motion.div>
       )}

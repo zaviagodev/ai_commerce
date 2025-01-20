@@ -16,9 +16,11 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useCoupons } from '../hooks/use-coupons';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function CouponCampaignsPage() {
   const { coupons, isLoading } = useCoupons();
+  const t = useTranslation();
   const {
     pageIndex,
     pageSize,
@@ -38,6 +40,29 @@ export function CouponCampaignsPage() {
     );
   }
 
+  const getDiscountText = (coupon: any) => {
+    if (coupon.type === 'percentage') {
+      return  t.customers.customer.coupon.list.discount.percentage.replace('{value}', coupon.value);
+    } else if (coupon.type === 'fixed') {
+      return  t.customers.customer.coupon.list.discount.fixed.replace('{value}', coupon.value);
+    } else if (coupon.type === 'shipping') {
+      return  t.customers.customer.coupon.list.discount.shipping;
+    } else {
+      return  t.customers.customer.coupon.list.discount.points.replace('{value}', coupon.value);
+    }
+  };
+
+  const getUsageText = (coupon: any) => {
+    const countText =  t.customers.customer.coupon.list.usage.count.replace('{count}', coupon.usageCount);
+    if (!coupon.usageLimit) {
+      return `${countText} (${ t.customers.customer.coupon.list.usage.limit.unlimited})`;
+    }
+    const limitText = coupon.usageLimit === 1 
+      ?  t.customers.customer.coupon.list.usage.limit.one 
+      :  t.customers.customer.coupon.list.usage.limit.many;
+    return `${countText} (${limitText.replace('{count}', coupon.usageLimit)})`;
+  };
+
   return (
     <div className="space-y-4">
       <motion.div
@@ -47,15 +72,15 @@ export function CouponCampaignsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Coupon Campaigns</h1>
+          <h1 className="text-2xl font-semibold">{ t.customers.customer.coupon.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's coupon campaigns
+            { t.customers.customer.coupon.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/coupons/campaigns/new">
             <Plus className="mr-2 h-4 w-4" />
-            Create Campaign
+            { t.customers.customer.coupon.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -69,11 +94,11 @@ export function CouponCampaignsPage() {
         <Table className={paginatedCoupons.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Campaign</TableHead>
-              <TableHead>Discount</TableHead>
-              <TableHead>Usage</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>{ t.customers.customer.coupon.list.columns.campaign}</TableHead>
+              <TableHead>{ t.customers.customer.coupon.list.columns.discount}</TableHead>
+              <TableHead>{ t.customers.customer.coupon.list.columns.usage}</TableHead>
+              <TableHead>{ t.customers.customer.coupon.list.columns.duration}</TableHead>
+              <TableHead>{ t.customers.customer.coupon.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -82,15 +107,15 @@ export function CouponCampaignsPage() {
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
                     <p className="text-lg font-medium">
-                      No coupon campaigns found
+                      { t.customers.customer.coupon.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by creating your first coupon campaign
+                      { t.customers.customer.coupon.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/coupons/campaigns/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Create Campaign
+                        { t.customers.customer.coupon.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -119,32 +144,19 @@ export function CouponCampaignsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">
-                      {coupon.type === 'percentage'
-                        ? `${coupon.value}% off`
-                        : coupon.type === 'fixed'
-                        ? `$${coupon.value} off`
-                        : coupon.type === 'shipping'
-                        ? 'Free Shipping'
-                        : `${coupon.value}x Points`}
+                      {getDiscountText(coupon)}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <div className="text-sm">
-                      <p>{coupon.usageCount} used</p>
-                      <p className="text-muted-foreground">
-                        {coupon.usageLimit
-                          ? `${coupon.usageLimit} ${
-                              coupon.usageLimit === 1 ? 'limit' : 'limits'
-                            }`
-                          : 'Unlimited'}
-                      </p>
+                      {getUsageText(coupon)}
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="text-sm">
                       <p>{coupon.startDate.toLocaleDateString()}</p>
                       <p className="text-muted-foreground">
-                        to {coupon.endDate.toLocaleDateString()}
+                        { t.customers.customer.coupon.list.duration.to} {coupon.endDate.toLocaleDateString()}
                       </p>
                     </div>
                   </TableCell>
@@ -164,7 +176,7 @@ export function CouponCampaignsPage() {
                         '!bg-gray-100 !text-gray-600': coupon.status === "draft"
                       })}
                     >
-                      {coupon.status}
+                      { t.customers.customer.coupon.list.status[coupon.status]}
                     </Badge>
                   </TableCell>
                 </TableRow>

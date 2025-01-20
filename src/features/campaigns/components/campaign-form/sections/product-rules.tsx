@@ -11,6 +11,7 @@ import {
   FormControl,
   FormDescription,
 } from '@/components/ui/form';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductRulesProps {
   form: UseFormReturn<Campaign>;
@@ -18,6 +19,7 @@ interface ProductRulesProps {
 
 export function ProductRules({ form }: ProductRulesProps) {
   const hasProductRules = form.watch('hasProductRules');
+  const t = useTranslation();
 
   return (
     <Card>
@@ -26,9 +28,9 @@ export function ProductRules({ form }: ProductRulesProps) {
           <Package className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Product Rules</h2>
+          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.productRules.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Define rules based on products and categories
+            { t.customers.customer.campaignForm.sections.productRules.description}
           </p>
         </div>
       </CardHeader>
@@ -39,9 +41,9 @@ export function ProductRules({ form }: ProductRulesProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable Product Rules</FormLabel>
+                <FormLabel>{ t.customers.customer.campaignForm.sections.productRules.fields.enabled.label}</FormLabel>
                 <FormDescription>
-                  Add rules based on specific products or categories
+                  { t.customers.customer.campaignForm.sections.productRules.fields.enabled.description}
                 </FormDescription>
               </div>
               <FormControl>

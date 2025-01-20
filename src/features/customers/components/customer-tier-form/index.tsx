@@ -8,6 +8,7 @@ import { BasicDetails } from './sections/basic-details';
 import { Requirements } from './sections/requirements';
 import { Benefits } from './sections/benefits';
 import { Crown } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CustomerTierFormProps {
   initialData?: Partial<CustomerTier>;
@@ -15,6 +16,7 @@ interface CustomerTierFormProps {
 }
 
 export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerTierSchema),
     defaultValues: {
@@ -49,19 +51,19 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
           <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? 'Edit tier' : 'Create tier'}
+                {initialData ? t.customers.customer.tier.title.edit : t.customers.customer.tier.title.create}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {initialData
-                  ? 'Update tier details'
-                  : 'Create a new customer loyalty tier'}
+                  ? t.customers.customer.tier.description.edit
+                  : t.customers.customer.tier.description.create}
               </p>
             </div>
             <div className="flex items-center gap-4">
               <Button type="button" variant="outline">
-                Discard
+                {t.customers.customer.tier.actions.discard}
               </Button>
-              <Button type="submit">Save tier</Button>
+              <Button type="submit">{t.customers.customer.tier.actions.save}</Button>
             </div>
           </div>
 

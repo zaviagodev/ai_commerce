@@ -23,12 +23,14 @@ import { Order } from '@/types/order';
 import { cn, formatCurrency } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 import { DiscountSettings } from './discount-settings';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface SummaryProps {
   form: UseFormReturn<Order>;
 }
 
 export function Summary({ form }: SummaryProps) {
+  const t = useTranslation();
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
   const [isTaxEnabled, setIsTaxEnabled] = useState(false);
   const [taxType, setTaxType] = useState<'percentage' | 'value'>('percentage');
@@ -122,9 +124,9 @@ export function Summary({ form }: SummaryProps) {
           <Calculator className="h-5 w-5 text-orange-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Order Summary</h2>
+          <h2 className="text-lg font-medium">{t.orders.orders.form.sections.summary.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Review order totals and adjustments
+            {t.orders.orders.form.sections.summary.description}
           </p>
         </div>
       </CardHeader>
@@ -138,9 +140,9 @@ export function Summary({ form }: SummaryProps) {
               <div className="rounded-lg border">
                 <div className="flex items-center justify-between p-4">
                   <div className="space-y-0.5">
-                    <FormLabel className="font-medium">Discount</FormLabel>
+                    <FormLabel className="font-medium">{t.orders.orders.form.sections.summary.discount.title}</FormLabel>
                     <FormDescription className="text-sm">
-                      Apply a discount to this order
+                      {t.orders.orders.form.sections.summary.discount.description}
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -181,9 +183,9 @@ export function Summary({ form }: SummaryProps) {
               <div className="rounded-lg border">
                 <div className="flex items-center justify-between p-4">
                   <div className="space-y-0.5">
-                    <FormLabel className="font-medium">Tax / VAT</FormLabel>
+                    <FormLabel className="font-medium">{t.orders.orders.form.sections.summary.tax.title}</FormLabel>
                     <FormDescription className="text-sm">
-                      Enable tax calculation for this order
+                      {t.orders.orders.form.sections.summary.tax.description}
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -213,19 +215,19 @@ export function Summary({ form }: SummaryProps) {
                       <SelectItem value="percentage">
                         <div className="flex items-center">
                           <Percent className="mr-2 h-4 w-4" /> 
-                          Percentage
+                          {t.orders.orders.form.sections.summary.tax.types.percentage}
                         </div>
                       </SelectItem>
                       <SelectItem value="thai-vat">
                         <div className="flex items-center">
                           <Percent className="mr-2 h-4 w-4" />
-                          Thailand VAT 7%
+                          {t.orders.orders.form.sections.summary.tax.types.thaiVat}
                         </div>
                       </SelectItem>
                       <SelectItem value="value">
                         <div className="flex items-center">
                           <DollarSign className="mr-2 h-4 w-4" />
-                          Fixed Amount
+                          {t.orders.orders.form.sections.summary.tax.types.fixed}
                         </div>
                       </SelectItem>
                     </SelectContent>
@@ -233,7 +235,7 @@ export function Summary({ form }: SummaryProps) {
 
                   {taxType === 'percentage' ? (
                     <div className="space-y-2">
-                      <Label>Tax Percentage</Label>
+                      <Label>{t.orders.orders.form.sections.summary.tax.percentage}</Label>
                       <div className="relative">
                         <Input
                           type="number"
@@ -248,38 +250,25 @@ export function Summary({ form }: SummaryProps) {
                             setTaxPercentage(value);
                           }}
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                          %
-                        </span>
+                        <span className="absolute right-3 top-1/2">%</span>
                       </div>
                     </div>
-                  ) : (
+                  ) : taxType === 'value' ? (
                     <div className="space-y-2">
-                      <Label>Tax Amount</Label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                          $
-                        </span>
-                        <Input
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          placeholder="0.00"
-                          className="pl-6"
-                          value={taxValue || ''}
-                          onChange={(e) => {
-                            const value = Number(e.target.value);
-                            setTaxValue(value);
-                          }}
-                        />
-                      </div>
+                      <Label>{t.orders.orders.form.sections.summary.tax.amount}</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={taxValue || ''}
+                        onChange={(e) => {
+                          const value = Number(e.target.value);
+                          setTaxValue(value);
+                        }}
+                      />
                     </div>
-                  )}
-
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Calculated Tax</span>
-                    <span>{formatCurrency(currentTax)}</span>
-                  </div>
+                  ) : null}
                 </div>
               </div>
             </FormItem>

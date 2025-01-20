@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RuleGroup {
   id: string;
@@ -26,6 +27,7 @@ interface RuleGroupProps {
 }
 
 export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps) {
+  const t = useTranslation();
   const addCondition = () => {
     const newCondition = {
       id: crypto.randomUUID(),
@@ -88,7 +90,7 @@ export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps)
 
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">Match</span>
+            <span className="text-sm font-medium">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleGroup.match.label}</span>
             <Select 
               value={group.match} 
               onValueChange={(value) => onUpdate({ ...group, match: value as 'all' | 'any' })}
@@ -97,8 +99,8 @@ export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps)
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All conditions</SelectItem>
-                <SelectItem value="any">Any condition</SelectItem>
+                <SelectItem value="all">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleGroup.match.all}</SelectItem>
+                <SelectItem value="any">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleGroup.match.any}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -121,7 +123,7 @@ export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps)
               onClick={addCondition}
             >
               <Plus className="mr-2 h-4 w-4" />
-              Add condition
+              {t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleGroup.actions.addCondition}
             </Button>
           </div>
         </div>

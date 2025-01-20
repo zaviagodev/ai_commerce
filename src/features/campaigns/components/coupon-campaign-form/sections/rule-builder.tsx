@@ -11,12 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RuleBuilderProps {
   form: UseFormReturn<Coupon>;
 }
 
 export function RuleBuilder({ form }: RuleBuilderProps) {
+  const t = useTranslation();
   const [groups, setGroups] = useState([{ id: '1', operator: 'and', rules: [] }]);
 
   const addGroup = () => {
@@ -103,8 +105,8 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="AND">AND</SelectItem>
-                <SelectItem value="OR">OR</SelectItem>
+                <SelectItem value="AND">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.operators.and}</SelectItem>
+                <SelectItem value="OR">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.operators.or}</SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -118,7 +120,7 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
         onClick={addGroup}
       >
         <Plus className="mr-2 h-4 w-4" />
-        Add rule group
+        {t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.actions.addGroup}
       </Button>
     </div>
   );

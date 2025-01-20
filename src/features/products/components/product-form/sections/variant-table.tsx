@@ -18,17 +18,22 @@ import { GroupSelector } from './variant-table/group-selector';
 import { VariantTableRow } from './variant-table/variant-row';
 import { VariantGroupRow } from './variant-table/variant-group';
 import React from 'react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantTableProps {
   form: UseFormReturn<Product>;
 }
 
 export function VariantTable({ form }: VariantTableProps) {
+  const t = useTranslation();
   const variants = form.watch('variants') || [];
   const variantOptions = form.watch('variantOptions') || [];
   const trackQuantity = form.watch('trackQuantity');
   const [groupBy, setGroupBy] = useState<string>('ungrouped');
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+
+
+  console.log(t.products.products.form.sections.variations);
 
   const {
     pageIndex,
@@ -110,9 +115,9 @@ export function VariantTable({ form }: VariantTableProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between border-b pb-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium">Variant Grouping</h3>
+          <h3 className="text-sm font-medium">{t.products.products.form.sections.variations.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Group variants by attribute for better organization
+            {t.products.products.form.sections.variations.description}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -128,11 +133,11 @@ export function VariantTable({ form }: VariantTableProps) {
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50">
-              <TableHead>Variant</TableHead>
-              <TableHead>SKU</TableHead>
-              <TableHead>Price</TableHead>
+              <TableHead>{t.products.products.form.sections.variations.variantName}</TableHead>
+              <TableHead>{t.products.products.form.sections.variations.sku}</TableHead>
+              <TableHead>{t.products.products.form.sections.variations.price}</TableHead>
               {trackQuantity && (
-                <TableHead>Quantity</TableHead>
+                <TableHead>{t.products.products.form.sections.variations.quantity}</TableHead>
               )}
             </TableRow>
           </TableHeader>
@@ -154,7 +159,7 @@ export function VariantTable({ form }: VariantTableProps) {
             {variants.length === 0 && (
               <TableRow>
                 <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                  No variants created yet. Add variant options above to generate variants.
+                  {t.products.products.form.sections.variations.noVariants}
                 </TableCell>
               </TableRow>
             )}

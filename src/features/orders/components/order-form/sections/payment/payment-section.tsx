@@ -4,6 +4,7 @@ import { useOrders } from '@/features/orders/hooks/use-orders';
 import { useAuth } from '@/lib/auth/auth-hooks';
 import { Order } from '@/types/order';
 import { toast } from 'sonner';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 import { PaymentHeader } from './components/payment-header';
 import { AmountDisplay } from './components/amount-display';
@@ -22,6 +23,7 @@ interface PaymentSectionProps {
 }
 
 export function PaymentSection({ order }: PaymentSectionProps) {
+  const t = useTranslation();
   const { updateOrder } = useOrders();
   const { user } = useAuth();
 
@@ -46,7 +48,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     order.status === 'processing' ||
     Boolean(order.payment_details?.confirmed_at);
   const [displayText, setDisplayText] = useState(
-    isPaid ? 'Payment Completed' : 'Total Outstanding'
+    isPaid ? t.orders.orders.form.sections.payment.status.completed : t.orders.orders.form.sections.payment.status.outstanding
   );
   const isLocked = isPaid || isShipped;
   const gradientColor = isCancelled
@@ -62,11 +64,11 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     // Only show initial status text on first load
     if (isInitialLoad) {
       if (isShipped) {
-        setDisplayText('Completed and Shipped');
+        setDisplayText(t.orders.orders.form.sections.payment.status.shipped);
       } else if (isPaid) {
-        setDisplayText('Payment Completed');
+        setDisplayText(t.orders.orders.form.sections.payment.status.completed);
       } else if (!isCancelled) {
-        setDisplayText('Total Outstanding');
+        setDisplayText(t.orders.orders.form.sections.payment.status.outstanding);
       }
     }
 
@@ -74,25 +76,25 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     if (!isInitialLoad) {
       if (isCancelled) {
         timer = setTimeout(() => {
-          setDisplayText('Order Cancelled');
+          setDisplayText(t.orders.orders.form.sections.payment.status.cancelled);
         }, 4000);
       } else if (isShipped) {
         timer = setTimeout(() => {
-          setDisplayText('Completed and Shipped');
+          setDisplayText(t.orders.orders.form.sections.payment.status.shipped);
         }, 4000);
       } else if (isPaid) {
         timer = setTimeout(() => {
-          setDisplayText('Payment Completed');
+          setDisplayText(t.orders.orders.form.sections.payment.status.completed);
         }, 4000);
       } else {
         timer = setTimeout(() => {
-          setDisplayText('Total Outstanding');
+          setDisplayText(t.orders.orders.form.sections.payment.status.outstanding);
         }, 4000);
       }
     }
 
     return () => clearTimeout(timer);
-  }, [isPaid, isInitialLoad, isCancelled, isShipped]);
+  }, [isPaid, isInitialLoad, isCancelled, isShipped, t]);
 
   useEffect(() => {
     setIsInitialLoad(false);
@@ -119,9 +121,10 @@ export function PaymentSection({ order }: PaymentSectionProps) {
           },
         },
       });
+      toast.success(t.orders.orders.form.sections.payment.messages.paymentSuccess);
     } catch (error) {
       console.error('Failed to update order:', error);
-      toast.error('Failed to confirm payment');
+      toast.error(t.orders.orders.form.sections.payment.messages.paymentError);
       setIsSaving(false);
     }
   };
@@ -147,10 +150,10 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         },
       });
       setIsShipped(true);
-      toast.success('Shipping tracking added successfully');
+      toast.success(t.orders.orders.form.sections.payment.messages.shippingSuccess);
     } catch (error) {
       console.error('Failed to update order:', error);
-      toast.error('Failed to add shipping tracking');
+      toast.error(t.orders.orders.form.sections.payment.messages.shippingError);
       setIsSaving(false);
       setIsTransitioning(false);
     }
@@ -189,8 +192,8 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       setIsCancelled(newStatus === 'cancelled');
       toast.success(
         newStatus === 'cancelled'
-          ? 'Order cancelled successfully'
-          : 'Order reopened successfully'
+          ? t.orders.orders.form.sections.payment.messages.cancelSuccess
+          : t.orders.orders.form.sections.payment.messages.reopenSuccess
       );
     } catch (error) {
       console.error(
@@ -198,7 +201,9 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         error
       );
       toast.error(
-        `Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order`
+        newStatus === 'cancelled'
+          ? t.orders.orders.form.sections.payment.messages.cancelError
+          : t.orders.orders.form.sections.payment.messages.reopenError
       );
     } finally {
       setIsTransitioning(false);

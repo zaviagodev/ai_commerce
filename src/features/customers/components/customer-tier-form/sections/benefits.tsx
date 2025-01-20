@@ -10,20 +10,23 @@ import {
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { CustomerTier } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BenefitsProps {
   form: UseFormReturn<CustomerTier>;
 }
 
 export function Benefits({ form }: BenefitsProps) {
+  const t = useTranslation();
+
   return (
-    <div className="space-y-6">
+    <div className="grid gap-6">
       <FormField
         control={form.control}
         name="rewardsMultiplier"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Rewards multiplier</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.rewardsMultiplier.label}</FormLabel>
             <FormControl>
               <div className="relative">
                 <Input
@@ -41,7 +44,7 @@ export function Benefits({ form }: BenefitsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              Multiply points earned from purchases (e.g., 1.5x, 2x)
+              { t.customers.customer.tier.sections.benefits.fields.rewardsMultiplier.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -53,18 +56,14 @@ export function Benefits({ form }: BenefitsProps) {
         name="discountPercentage"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Discount percentage</FormLabel>
+            <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.discountPercentage.label}</FormLabel>
             <FormControl>
               <div className="relative">
                 <Input
                   type="number"
-                  min="0"
-                  max="100"
-                  step="1"
-                  placeholder="0"
+                  placeholder={ t.customers.customer.tier.sections.benefits.fields.discountPercentage.placeholder}
                   className="pr-8"
-                  onChange={(e) => field.onChange(Number(e.target.value))}
-                  value={field.value}
+                  {...field}
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   %
@@ -72,7 +71,7 @@ export function Benefits({ form }: BenefitsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              Percentage discount on all purchases
+              { t.customers.customer.tier.sections.benefits.fields.discountPercentage.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -85,9 +84,9 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Free shipping</FormLabel>
+              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.freeShipping.label}</FormLabel>
               <FormDescription>
-                Offer free shipping on all orders
+                { t.customers.customer.tier.sections.benefits.fields.freeShipping.description}
               </FormDescription>
             </div>
             <FormControl>
@@ -106,9 +105,9 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Priority support</FormLabel>
+              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.prioritySupport.label}</FormLabel>
               <FormDescription>
-                Access to priority customer support
+                { t.customers.customer.tier.sections.benefits.fields.prioritySupport.description}
               </FormDescription>
             </div>
             <FormControl>
@@ -127,9 +126,9 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Early access</FormLabel>
+              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.earlyAccess.label}</FormLabel>
               <FormDescription>
-                Early access to new products and sales
+                { t.customers.customer.tier.sections.benefits.fields.earlyAccess.description}
               </FormDescription>
             </div>
             <FormControl>
