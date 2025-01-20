@@ -21,6 +21,9 @@ import { ProductCategory } from '@/types/product';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { ProductSearch } from './product-search';
+import { useMemo, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -42,7 +45,23 @@ export function CategoryList({
     pageCount,
   } = usePagination();
 
-  const paginatedCategories = paginateItems(categories);
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredCategories = useMemo(() => {
+    let filtered = categories;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = categories.filter(
+        (category) =>
+          category.name.toLowerCase().includes(query) ||
+          category.slug.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [categories, searchQuery]);
+
+  const paginatedCategories = paginateItems(filteredCategories);
 
   if (isLoading) {
     return (
@@ -74,13 +93,26 @@ export function CategoryList({
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search categories..."
+        />
+      </motion.div>
+
       <motion.div
         className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={categories.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedCategories.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Category</TableHead>
@@ -90,7 +122,7 @@ export function CategoryList({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories.length === 0 ? (
+            {paginatedCategories.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
                   <div className="py-12">
@@ -159,23 +191,21 @@ export function CategoryList({
           </TableBody>
         </Table>
 
-        {categories.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(categories.length)}
-              totalItems={categories.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCategories.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(categories.length)}
+            totalItems={categories.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

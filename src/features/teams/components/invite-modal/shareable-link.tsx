@@ -161,12 +161,12 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             </motion.div>
 
             <div className="flex gap-2">
-              <TextShimmer duration={2} className="flex-1">
+              <TextShimmer duration={2} className="flex-1 rounded-[8px]">
                 <Input
                   value={inviteLink}
                   readOnly
                   className={cn(
-                    "font-mono text-sm bg-white transition-colors",
+                    "font-mono text-sm bg-main transition-colors",
                     isCopying && "bg-primary/5 text-primary"
                   )}
                 />
@@ -338,9 +338,9 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
               className="mb-1 font-medium"
               animate={isGenerating ? {
                 // scale: [1, 1.1, 1],
-                opacity:[0, 1],
+                opacity:[0, 1, 0],
                 transition: {
-                  duration: 1.2,
+                  duration: 2,
                   repeat: Infinity,
                 }
               } : {}}
@@ -351,9 +351,9 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
               className="text-sm text-muted-foreground mb-4"
               initial={{ opacity: 0, y: 10 }}
               animate={isGenerating ? {
-                opacity:[0, 1],
+                opacity:[0, 1, 0],
                 transition: {
-                  duration: 1.2,
+                  duration: 2,
                   repeat: Infinity,
                 },
                 y: 0

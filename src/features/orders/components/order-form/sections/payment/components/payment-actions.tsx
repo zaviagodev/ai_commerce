@@ -47,7 +47,7 @@ export function PaymentActions({
               >
                 <Button
                   variant="outline"
-                  className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                  className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                   onClick={onPaymentClick}
                   type="button"
                 >
@@ -66,7 +66,7 @@ export function PaymentActions({
                 >
                   <Button
                     variant="outline"
-                    className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                    className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                     onClick={onActionsClick}
                     type="button"
                   >
@@ -83,7 +83,7 @@ export function PaymentActions({
                 >
                   <Button
                     variant="outline"
-                    className="w-full bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+                    className="w-full bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
                     onClick={onShippingClick}
                     type="button"
                   >
@@ -129,7 +129,7 @@ export function PaymentActions({
         >
           <Button
             variant="outline"
-            className="w-1/2 bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+            className="w-1/2 bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
             onClick={onReopenClick}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -137,7 +137,7 @@ export function PaymentActions({
           </Button>
           <Button
             variant="outline"
-            className="w-1/2 bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
+            className="w-1/2 bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
             onClick={onActionsClick}
           >
             <MoreHorizontal className="mr-2 h-4 w-4" />

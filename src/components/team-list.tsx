@@ -76,7 +76,7 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
         </Tooltip>
       ))}
       
-      <div className="my-1.5 border-t border-gray-200" />
+      <div className="my-1.5 border-t border-gray-200 dark:border-gray-700" />
       
       <Tooltip>
         <TooltipTrigger asChild>

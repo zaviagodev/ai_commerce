@@ -94,7 +94,6 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
     try {
       const result = await TicketService.scanTicketByCode(ticketCode);
       console.log("result = >", result);
-      
 
       // Transform the data to match our UI format
       const transformedResult: ScanResultData = {
@@ -126,7 +125,7 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Scan Ticket</DialogTitle>
         </DialogHeader>
@@ -195,6 +194,117 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
             )}
           </AnimatePresence>
         </div>
+        {/*
+                    {inputMethod === 'qr' && (
+              <div className="space-y-2">
+                <Label>QR Code Scanner</Label>
+                <AnimatePresence mode="wait">
+                  {!isScanning && !scanResult ? (
+                    <motion.div
+                      key="scanner"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="aspect-square rounded-lg border-2 border-dashed flex items-center justify-center bg-muted cursor-pointer"
+                      onClick={simulateScan}
+                    >
+                      <div className="text-center">
+                        <QrCode className="h-10 w-10 mx-auto text-muted-foreground mb-2" />
+                        <p className="text-sm text-muted-foreground">
+                          Click to scan QR code
+                        </p>
+                      </div>
+                    </motion.div>
+                  ) : isScanning ? (
+                    <motion.div
+                      key="scanning"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="aspect-square rounded-lg border-2 relative bg-black/90 flex items-center justify-center"
+                    >
+                      {/* Scanning animation /}
+                      <motion.div
+                        className="absolute inset-4 border-2 border-primary rounded-lg"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          opacity: [0.5, 1, 0.5],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <p className="text-main font-medium">Scanning...</p>
+                    </motion.div>
+                  ) : scanResult ? (
+                    <motion.div
+                      key="result"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="rounded-lg border-2 border-green-600/20 bg-gray-50/80 p-6"
+                    >
+                      <div className="space-y-6">
+                        <ScanResult
+                          attendeeName={scanResult.attendeeName}
+                          phone={scanResult.phone}
+                          ticketNumber={scanResult.ticketNumber}
+                          ticketType={scanResult.ticketType}
+                          status={scanResult.status}
+                          isGroupPurchase={!!scanResult.groupTickets}
+                        />
+
+                        {/* Group Tickets /}
+                        {scanResult.groupTickets && (
+                          <TicketGroup
+                            tickets={scanResult.groupTickets}
+                            selectedTickets={selectedTickets}
+                            onSelectTicket={handleSelectTicket}
+                            onSelectAll={handleSelectAll}
+                            onValidateSelected={handleValidateSelected}
+                          />
+                        )}
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            )}
+
+            {inputMethod === 'barcode' && (
+              <div className="space-y-2">
+                <Label>Barcode Scanner</Label>
+                <div className="aspect-video rounded-lg border-2 border-dashed flex items-center justify-center bg-muted">
+                  <div className="text-center">
+                    <Barcode className="h-10 w-10 mx-auto text-muted-foreground mb-2" />
+                    <p className="text-sm text-muted-foreground">
+                      Point camera at barcode
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Action Buttons /}
+          <div className="flex justify-end gap-2 fixed w-[calc(100%_-_24px)] bg-main p-6 !m-0">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
+              Cancel
+            </Button>
+            <Button 
+              type="submit"
+              disabled={!scanResult && !ticketNumber}
+            >
+              Validate Ticket
+            </Button>
+          </div>
+        </form> 
+         */}
       </DialogContent>
     </Dialog>
   );

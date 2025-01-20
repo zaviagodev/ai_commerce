@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Plus, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Package, ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -16,6 +17,9 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { DataTablePagination } from "@/components/ui/data-table/pagination";
 import { usePagination } from "@/hooks/use-pagination";
 import Loading from "@/components/loading";
+import { ProductSearch } from '@/features/products/components/product-search';
+import { ProductSort } from '@/features/products/components/product-sort';
+import { SORT_OPTIONS } from '@/features/products/types/sorting';
 
 interface EventTicketListProps {
   events: EventProduct[];
@@ -23,6 +27,8 @@ interface EventTicketListProps {
 }
 
 export function EventTicketList({ events, isLoading }: EventTicketListProps) {
+  const [sortValue, setSortValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const {
     pageIndex,
     pageSize,
@@ -64,8 +70,23 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
         </Button>
       </motion.div>
 
+      {/* Table Controls */}
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch value={searchQuery} onChange={setSearchQuery} placeholder='Search events...'/>
+
+        <div className="flex items-center gap-4">
+          <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+          <ProductSort value={sortValue} options={SORT_OPTIONS} onValueChange={setSortValue} />
+        </div>
+      </motion.div>
+
       <motion.div
-        className="rounded-sm"
+        className="rounded-lg border"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
@@ -77,7 +98,7 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
               <TableHead>Status</TableHead>
               <TableHead>Category</TableHead>
               <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead className="text-right">Ticket Sold</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -99,7 +120,9 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedEvents.map((event) => (
+              paginatedEvents.map((event) => {
+                const quantity = event.variants.reduce((acc, variant) => acc + variant.quantity, 0)
+                return (
                 <TableRow key={event.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -130,12 +153,9 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-600":
-                          event.status === "active",
-                        "!bg-red-100 !text-red-600":
-                          event.status === "archived",
-                        "!bg-gray-100 !text-gray-600":
-                          event.status === "draft",
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": event.status === 'active',
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": event.status === 'archived',
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": event.status === 'draft',
                       })}
                     >
                       {event.status}
@@ -160,26 +180,26 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                     {event.trackQuantity ? (
                       <span
                         className={
-                          (event.quantity || 0) > 0
+                          (quantity || 0) > 0
                             ? "text-green-600"
                             : "text-red-600"
                         }
                       >
-                        {event.quantity || 0} in stock
+                        {quantity || 0} in stock
                       </span>
                     ) : (
                       <span className="text-muted-foreground">Not tracked</span>
                     )}
                   </TableCell>
                 </TableRow>
-              ))
+              )})
             )}
           </TableBody>
         </Table>
 
         {events.length > 0 && (
           <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": events.length === 0})}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}

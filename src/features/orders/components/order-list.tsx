@@ -106,27 +106,31 @@ export function OrderList({
         </Button>
       </motion.div>
 
-      <motion.div
-        className="rounded-sm"
+      <motion.div 
+        className="flex flex-col-reverse lg:flex-row justify-between items-end lg:items-center gap-y-2 gap-x-4 mb-4 w-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <div className="flex justify-between items-center gap-4 mb-4 w-full">
-          <StatusTabs
-            selectedStatus={selectedStatus}
-            onStatusChange={setSelectedStatus}
-            counts={statusCounts}
-          />
-          <div className="flex justify-end">
-            <ProductSearch
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search orders..."
-            />
-          </div>
-        </div>
-        <Table className={filteredOrders.length > 0 ? "rounded-b-none" : ""}>
+        <StatusTabs
+          selectedStatus={selectedStatus}
+          onStatusChange={setSelectedStatus}
+          counts={statusCounts}
+        />
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search orders..."
+        />
+      </motion.div>
+
+      <motion.div
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Table className={filteredOrders.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Order</TableHead>
@@ -186,25 +190,17 @@ export function OrderList({
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant="default"
-                      /* variant={
-                        order.status === 'delivered'
-                          ? 'default'
-                          : order.status === 'cancelled'
-                          ? 'destructive'
-                          : 'secondary'
-                      } */
-                      className={cn("capitalize shadow-none", {
-                        "!bg-red-100 !text-red-600":
-                          order.status === "cancelled",
-                        "!bg-yellow-100 !text-yellow-600":
-                          order.status === "pending",
-                        "!bg-green-100 !text-green-400":
-                          order.status === "delivered",
-                        "!bg-purple-100 !text-purple-600":
-                          order.status === "shipped",
-                        "!bg-blue-100 !text-blue-600":
-                          order.status === "processing",
+                      className={cn('capitalize shadow-none', {
+                        '!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100':
+                          order.status === 'cancelled',
+                        '!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100':
+                          order.status === 'pending',
+                        '!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100':
+                          order.status === 'delivered',
+                        '!bg-purple-100 !text-purple-700 dark:!bg-purple-700 dark:!text-purple-100':
+                          order.status === 'shipped',
+                        '!bg-blue-100 !text-blue-700 dark:!bg-blue-700 dark:!text-blue-100':
+                          order.status === 'processing',
                       })}
                     >
                       {order.status}
@@ -223,23 +219,21 @@ export function OrderList({
           </TableBody>
         </Table>
 
-        {filteredOrders.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(filteredOrders.length)}
-              totalItems={filteredOrders.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": filteredOrders.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(filteredOrders.length)}
+            totalItems={filteredOrders.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

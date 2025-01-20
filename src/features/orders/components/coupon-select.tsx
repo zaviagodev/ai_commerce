@@ -82,14 +82,14 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent 
-        className="sm:max-w-[600px] top-[10%] translate-y-0" 
+        className="sm:max-w-[600px]" 
         aria-labelledby="coupon-select-title"
       >
         <DialogHeader>
           <DialogTitle id="coupon-select-title">Select Coupon</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
-          <div className="space-y-4 p-4">
+          <div className="space-y-4 p-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -158,7 +158,7 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
             )}
           </div>
         </ScrollArea>
-        <div className="flex justify-end px-6 py-4 border-t bg-gray-50/50">
+        <div className="flex justify-end"> {/*additional classes: px-6 py-4 border-t bg-gray-50/50 */}
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>

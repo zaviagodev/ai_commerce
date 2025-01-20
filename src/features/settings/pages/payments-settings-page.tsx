@@ -46,7 +46,7 @@ export function PaymentSettingsPage() {
 
         <div className="grid gap-6">
           <ThaiPaymentMethods form={form} />
-          <PaymentGateways form={form} />
+          {/* <PaymentGateways form={form} /> */}
           <PaymentNotifications form={form} />
         </div>
       </form>

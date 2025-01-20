@@ -46,7 +46,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>First name <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input className="w-full" placeholder="John" {...field} />
                 </FormControl>
@@ -60,7 +60,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last name</FormLabel>
+                <FormLabel>Last name <span className='text-destructive'>*</span></FormLabel>
                 <FormControl>
                   <Input className="w-full" placeholder="Doe" {...field} />
                 </FormControl>
@@ -69,12 +69,27 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="company"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Company (Optional)</FormLabel>
+              <FormControl>
+                <Input className="w-full" placeholder="Company" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email <span className='text-destructive'>*</span></FormLabel>
               <FormControl>
                 <Input 
                   className="w-full"
@@ -136,7 +151,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           control={form.control}
           name="isVerified"
           render={({ field }) => (
-            <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-blue-50/50">
+            <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-blue-50/50 dark:bg-blue-950/50">
               <div className="space-y-0.5">
                 <FormLabel>Verified Customer</FormLabel>
                 <FormDescription>

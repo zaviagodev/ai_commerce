@@ -10,8 +10,10 @@ import {
   CheckCircle2,
   XCircle,
   Crown,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import {
   Table,
   TableBody,
@@ -33,53 +35,8 @@ import { motion } from 'framer-motion';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import { InviteModal } from '../components/invite-modal';
-import { cn } from '@/lib/utils';
-
-// Mock data for team members
-const TEAM_MEMBERS = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Owner',
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 5), // 5 minutes ago
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'Admin',
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
-  },
-  {
-    id: '3',
-    name: 'Mike Johnson',
-    email: 'mike@example.com',
-    role: 'Staff',
-    status: 'pending',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 60), // 1 hour ago
-  },
-  {
-    id: '4',
-    name: 'Sarah Williams',
-    email: 'sarah@example.com',
-    role: 'Staff',
-    status: 'inactive',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=32&h=32&q=90&fit=crop',
-    lastActive: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
-  },
-];
-
-const ROLES = {
-  Owner: { color: 'yellow', icon: Crown },
-  Admin: { color: 'blue', icon: Users2 },
-  Staff: { color: 'gray', icon: Users2 },
-} as const;
+import { cn, getTimeAgo } from '@/lib/utils';
+import { TEAM_MEMBERS } from '../data/members';
 
 export function TeamsPage() {
   const [members] = useState(TEAM_MEMBERS);
@@ -97,27 +54,6 @@ export function TeamsPage() {
   });
 
   const paginatedMembers = paginateItems(members);
-
-  const getTimeAgo = (date: Date) => {
-    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-    
-    let interval = seconds / 31536000;
-    if (interval > 1) return `${Math.floor(interval)} year${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 2592000;
-    if (interval > 1) return `${Math.floor(interval)} month${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 86400;
-    if (interval > 1) return `${Math.floor(interval)} day${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 3600;
-    if (interval > 1) return `${Math.floor(interval)} hour${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    interval = seconds / 60;
-    if (interval > 1) return `${Math.floor(interval)} minute${Math.floor(interval) === 1 ? "" : "s"} ago`;
-    
-    return 'Just now';
-  };
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
     const colors = {
@@ -170,12 +106,63 @@ export function TeamsPage() {
       </motion.div>
 
       <motion.div
-        className="rounded-lg border"
+        className="rounded-lg border bg-card"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={paginatedMembers.length > 0 ? "rounded-b-none" : ""}>
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-transparent">
+              <TableCell colSpan={5} className="p-4 hover:bg-transparent">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-50">
+                      <Users2 className="h-4 w-4 text-gray-500/80" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-medium">Free Plan</h3>
+                        <span className="text-xs text-muted-foreground">•</span>
+                        <span className="text-xs text-muted-foreground">
+                          {String(5 - members.length)} seat{(5 - members.length === 1 ? "" : "s")} available
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <Progress 
+                          value={(members.length / 5) * 100} 
+                          className="h-1.5 w-[120px]"
+                        />
+                        <span className="text-xs text-muted-foreground">
+                          {String(members.length)}/5 members
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  {members.length >= 4 && (
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="h-8 text-xs"
+                    >
+                      <Sparkles className="mr-2 h-3 w-3" />
+                      Upgrade Plan
+                    </Button>
+                  )}
+                </div>
+                {members.length >= 5 && (
+                  <p className="text-xs text-red-600 mt-3">
+                    You've reached your member limit. Upgrade to add more members.
+                  </p>
+                )}
+                {members.length === 4 && (
+                  <p className="text-xs text-yellow-600 mt-3">
+                    You're approaching your member limit. Consider upgrading your plan.
+                  </p>
+                )}
+              </TableCell>
+            </TableRow>
+          </TableHeader>
           <TableHeader>
             <TableRow>
               <TableHead>Member</TableHead>
@@ -193,20 +180,22 @@ export function TeamsPage() {
               return (
                 <TableRow key={member.id}>
                   <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage src={member.avatar} alt={member.name} />
-                        <AvatarFallback>
-                          {member.name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">{member.name}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {member.email}
+                    <Link to={`/dashboard/members/${member.id}`} className="block">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={member.avatar} alt={member.name} />
+                          <AvatarFallback>
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{member.name}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {member.email}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <Badge 
@@ -262,9 +251,9 @@ export function TeamsPage() {
           </TableBody>
         </Table>
 
-        {TEAM_MEMBERS.length > 0 && (
+        {paginatedMembers.length > 0 && (
           <motion.div
-            className="border-t p-4 bg-white rounded-b-lg"
+            className="border-t p-4 bg-main rounded-b-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}
@@ -288,3 +277,9 @@ export function TeamsPage() {
     </div>
   );
 }
+
+const ROLES = {
+  Owner: { color: 'yellow', icon: Crown },
+  Admin: { color: 'blue', icon: Users2 },
+  Staff: { color: 'gray', icon: Users2 },
+} as const;

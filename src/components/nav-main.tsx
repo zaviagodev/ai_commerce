@@ -81,29 +81,6 @@ export function NavMain({
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
-        <SidebarMenuItem>
-          <SidebarMenuButton asChild>
-            <Link to="/dashboard/apps-store" className="font-medium">
-              <div className="rounded-md bg-opacity-20 p-1 bg-indigo-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-3.5 w-3.5 text-indigo-500"
-                >
-                  <rect width="18" height="18" x="3" y="3" rx="2" />
-                  <path d="M8 12h8" />
-                  <path d="M12 8v8" />
-                </svg>
-              </div>
-              <span>Apps Store</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
       </SidebarMenu>
       <SidebarGroupLabel className="mt-4">Platform</SidebarGroupLabel>
       <SidebarMenu>
@@ -111,7 +88,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Products" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-pink-300">
                   <Package className="h-3.5 w-3.5 text-pink-500" />
                 </div>
                 <span>Products</span>
@@ -139,7 +116,7 @@ export function NavMain({
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
-                <SidebarMenuSubItem>
+                {/* <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link
                       to="/dashboard/products/attributes"
@@ -149,7 +126,7 @@ export function NavMain({
                       <span>Attributes</span>
                     </Link>
                   </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
+                </SidebarMenuSubItem> */}
               </SidebarMenuSub>
             </CollapsibleContent>
           </SidebarMenuItem>
@@ -159,7 +136,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Orders" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-orange-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-orange-300">
                   <ShoppingCart className="h-3.5 w-3.5 text-orange-500" />
                 </div>
                 <span>Orders</span>
@@ -185,7 +162,7 @@ export function NavMain({
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton tooltip="Customers" className="font-medium">
-                <div className="rounded-md bg-opacity-20 p-1 bg-purple-100">
+                <div className="rounded-md bg-opacity-20 p-1 bg-purple-300">
                   <Users className="h-3.5 w-3.5 text-purple-500" />
                 </div>
                 <span>Customers</span>
@@ -199,17 +176,6 @@ export function NavMain({
                     <Link to="/dashboard/customers" className="font-medium">
                       <Users className="h-3 w-3 text-muted-foreground" />
                       <span>Customers</span>
-                    </Link>
-                  </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
-                <SidebarMenuSubItem>
-                  <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/customers/tiers"
-                      className="font-medium"
-                    >
-                      <Crown className="h-3 w-3 text-muted-foreground" />
-                      <span>Customer Tiers</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -350,6 +316,17 @@ export function NavMain({
                     <Link to="/dashboard/points/redeem" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
                       <span>Redeem List</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link
+                      to="/dashboard/points/tiers"
+                      className="font-medium"
+                    >
+                      <Crown className="h-3 w-3 text-muted-foreground" />
+                      <span>Customer Tiers</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>

@@ -28,7 +28,7 @@ export function BankSelect({ value, onValueChange }: BankSelectProps) {
       <Select value={value} onValueChange={onValueChange}>
         <SelectTrigger 
           className={cn(
-            "w-full bg-gray-800/50 border-gray-700/50 text-white",
+            "w-full bg-gray-800/50 border-gray-700/50 text-main",
             "hover:bg-gray-800 hover:border-gray-600",
             "focus:ring-offset-gray-900",
             "h-11"
@@ -45,7 +45,7 @@ export function BankSelect({ value, onValueChange }: BankSelectProps) {
             <SelectItem 
               key={bank} 
               value={bank}
-              className="text-gray-100 focus:bg-gray-700 focus:text-white"
+              className="text-gray-100 focus:bg-gray-700 focus:text-main"
             >
               {bank}
             </SelectItem>

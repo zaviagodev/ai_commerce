@@ -111,7 +111,7 @@ export function OrderForm({
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
         <motion.form 
           onSubmit={form.handleSubmit(handleSubmit)} 
@@ -166,13 +166,13 @@ export function OrderForm({
                       >
                         Basic Details
                       </TabsTrigger>
-                      <TabsTrigger 
+                      {/* <TabsTrigger 
                         value="notes" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
                         Notes
-                      </TabsTrigger>
+                      </TabsTrigger> */}
                       {extraTabs?.map((tab, index) => (
                         <TabsTrigger value={tab.value} key={index}>
                           {tab.label}
@@ -201,9 +201,9 @@ export function OrderForm({
                       <Summary form={form} />
                     </div>
                   </TabsContent>
-                  <TabsContent value="notes">
+                  {/* <TabsContent value="notes">
                     <Notes form={form} />
-                  </TabsContent>
+                  </TabsContent> */}
                   {extraTabs?.map((tab, index) => (
                     <TabsContent value={tab.value} key={index}>
                       {tab.component}

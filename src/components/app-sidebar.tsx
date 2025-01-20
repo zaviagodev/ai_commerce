@@ -74,11 +74,6 @@ const dashboardMenus = [
         icon: UsersRound,
       },
       {
-        title: 'Customer Tiers',
-        url: '/dashboard/customers/tiers',
-        icon: Crown,
-      },
-      {
         title: 'Customer Groups',
         url: '/dashboard/customers/groups',
         icon: Users,
@@ -252,7 +247,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {/* Left sidebar */}
       <Sidebar
         collapsible="none"
-        className="w-12 shrink-0 border-r border-gray-200 h-full"
+        className="w-12 shrink-0 border-r border-gray-200 dark:border-gray-700 h-full"
       >
         <SidebarHeader>
           <div
@@ -262,7 +257,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Command className="h-4 w-4 text-primary" />
           </div>
         </SidebarHeader>
-        <SidebarContent className="flex-1">
+        {/* <SidebarContent className="flex-1">
           <TeamList
             teams={data.teams.map((team) => ({
               id: team.name,
@@ -276,14 +271,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               if (team) setActiveItem(data.navMain[0]);
             }}
           />
-        </SidebarContent>
+        </SidebarContent> */}
         <SidebarRail />
       </Sidebar>
 
       {/* Right sidebar is collapisble */}
       <Sidebar
         collapsible="none"
-        className="h-full flex-1 flex absolute md:relative top-0 ml-12 md:ml-0 bg-[hsl(0deg_0%_98.04%)] w-[calc(100%_-_48px)]"
+        className="h-full flex-1 flex absolute md:relative top-0 ml-12 md:ml-0 bg-background w-[calc(100%_-_48px)]"
       >
         <SidebarHeader>
           <TeamSwitcher storeName={user?.storeName || ''} />

@@ -152,7 +152,7 @@ export function Summary({ form }: SummaryProps) {
                 </div>
                 
                 <div className={cn(
-                  "border-t space-y-4 overflow-hidden transition-all duration-200",
+                  "border-t space-y-4 overflow-hidden",
                   isDiscountEnabled ? "p-4" : "h-0 p-0 border-t-0"
                 )}>
                   <DiscountSettings
@@ -195,7 +195,7 @@ export function Summary({ form }: SummaryProps) {
                 </div>
                 
                 <div className={cn(
-                  "border-t space-y-4 overflow-hidden transition-all duration-200",
+                  "border-t space-y-4 overflow-hidden",
                   isTaxEnabled ? "p-4" : "h-0 p-0 border-t-0"
                 )}>
                   <Select

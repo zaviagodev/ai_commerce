@@ -183,7 +183,7 @@ export function Attendees({ form }: AttendeesProps) {
             </TableBody>
           </Table>
 
-          <div className="border-t p-4 bg-white rounded-b-lg">
+          <div className="border-t p-4 bg-main rounded-b-lg">
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}

@@ -42,7 +42,7 @@ export function AppScreenshots({ screenshots }: AppScreenshotsProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white"
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-main"
           onClick={showPrevious}
         >
           <ChevronLeft className="h-8 w-8" />
@@ -50,7 +50,7 @@ export function AppScreenshots({ screenshots }: AppScreenshotsProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white"
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-main"
           onClick={showNext}
         >
           <ChevronRight className="h-8 w-8" />
@@ -63,8 +63,8 @@ export function AppScreenshots({ screenshots }: AppScreenshotsProps) {
               key={index}
               className={`h-2 w-2 rounded-full transition-all ${
                 index === currentIndex 
-                  ? 'bg-white w-4' 
-                  : 'bg-white/50 hover:bg-white/75'
+                  ? 'bg-main w-4' 
+                  : 'bg-main/50 hover:bg-main/75'
               }`}
               onClick={() => setCurrentIndex(index)}
             />

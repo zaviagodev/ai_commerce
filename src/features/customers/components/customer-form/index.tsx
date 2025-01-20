@@ -12,6 +12,7 @@ import { Marketing } from './sections/marketing';
 import { Customer } from '@/types/customer';
 import { ShareModal } from '@/components/share/share-modal';
 import { Share2, MessageSquare, Heart, MoreHorizontal } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CustomerFormProps {
   initialData?: Customer;
@@ -24,6 +25,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
     defaultValues: {
       firstName: '',
       lastName: '',
+      company: '',
       email: '',
       phone: '',
       isVerified: false,
@@ -63,14 +65,22 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
-        <form
+        <motion.form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <div className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14">
+          <motion.div 
+            className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             {/* Image Placeholder */}
             <div className="relative h-16 w-16 shrink-0 rounded-lg border bg-muted overflow-hidden mr-3">
               <div className="flex h-full w-full items-center justify-center">
@@ -164,18 +174,23 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
               <div className="mx-2 h-4 w-px bg-border" />
               <Button type="submit">Save customer</Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex-1 overflow-y-auto move-top">
+          <motion.div 
+            className="flex-1 overflow-y-auto move-top"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
                 <BasicDetails form={form} />
                 <Addresses form={form} />
-                <Marketing form={form} />
+                {/* <Marketing form={form} /> */}
               </div>
             </div>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

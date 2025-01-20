@@ -11,7 +11,7 @@ const Table = React.forwardRef<
       ref={ref}
       className={cn(
         "w-full caption-bottom text-sm",
-        "bg-white rounded-lg overflow-hidden",
+        "bg-main rounded-lg overflow-hidden",
         className
       )}
       {...props}
@@ -26,7 +26,7 @@ const TableHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <thead
     ref={ref}
-    className={cn("[&_tr]:border-b bg-white", className)}
+    className={cn("[&_tr]:border-b bg-main", className)}
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ const TableBody = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn("[&_tr:last-child]:border-0 bg-white", className)}
+    className={cn("[&_tr:last-child]:border-0 bg-main", className)}
     {...props}
   />
 ));
@@ -50,7 +50,7 @@ const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn("border-t bg-white font-medium [&>tr]:last:border-b-0", className)}
+    className={cn("border-t bg-main font-medium [&>tr]:last:border-b-0", className)}
     {...props}
   />
 ));

@@ -36,7 +36,11 @@ function getBreadcrumbItems(pathname: string, productName?: string) {
         segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
       items.push({
         title: section,
-        href: `/dashboard/${segments[1]}`,
+        href: segments[1] === "coupons" ? 
+          `/dashboard/coupons/${segments[2]}` 
+          : segments[1] === "points" ?
+          `/dashboard/points/${segments[2]}`
+          : `/dashboard/${segments[1]}`,
         current: segments.length === 2,
       });
 
@@ -130,9 +134,9 @@ export function DashboardLayout() {
         <div className="flex h-screen">
           <AppSidebar />
           <SidebarInset className="flex-1 min-w-0 transition-all duration-300 ease-in-out relative">
-            <div className="m-2 h-[calc(100vh-1rem)] rounded-[18px] bg-white border border-[rgb(229,230,235)] overflow-hidden flex flex-col relative">
-              <div className="flex-1 rounded-xl bg-[#F3F2F7] overflow-hidden flex flex-col">
-                <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-[rgb(229,230,235)]">
+            <div className="m-2 h-[calc(100dvh-1rem)] rounded-[18px] bg-main border border-lightgray-100 overflow-hidden flex flex-col relative">
+              <div className="flex-1 rounded-xl bg-lightgray overflow-hidden flex flex-col">
+                <header className="flex h-14 shrink-0 items-center justify-between px-6 border-b border-lightgray-100">
                   <div className="flex items-center gap-2">
                     <SidebarTrigger className="-ml-1" />
                     <Breadcrumb>

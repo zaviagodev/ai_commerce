@@ -36,8 +36,8 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
                 type="button"
                 variant="outline"
                 className={`
-                  w-full h-auto p-0 overflow-hidden hover:border-primary/50 transition-all duration-200
-                  ${selectedTierId === tier.id ? 'ring-2 ring-primary' : ''}
+                  w-full h-auto p-0 overflow-hidden hover:border-black/50 transition-all duration-200
+                  ${selectedTierId === tier.id ? 'ring-4 ring-black/60' : ''}
                 `}
                 onClick={() => {
                   onSelect(tier.id);
@@ -55,13 +55,13 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
                         {getTierIcon(tier.name)}
                       </div>
                       <div>
-                        <h3 className="font-medium text-xl text-white tracking-tight text-left">{tier.name}</h3>
-                        <p className="text-sm text-white/80 font-light">Membership</p>
+                        <h3 className="font-medium text-xl text-main tracking-tight text-left">{tier.name}</h3>
+                        <p className="text-sm text-main/80 font-light">Membership</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-3xl font-medium text-white tracking-tight">0</p>
-                      <p className="text-sm text-white/80 font-light">Active Members</p>
+                      <p className="text-3xl font-medium text-main tracking-tight">0</p>
+                      <p className="text-sm text-main/80 font-light">Active Members</p>
                     </div>
                   </div>
                   {/* Decorative Elements */}
@@ -69,7 +69,7 @@ export function TierSelectorModal({ children, selectedTierId, onSelect }: TierSe
                 </div>
               </Button>
               {selectedTierId === tier.id && (
-                <div className="absolute inset-0 ring-2 ring-primary rounded-lg pointer-events-none" />
+                <div className="absolute inset-0 ring-6 ring-black/60 rounded-lg pointer-events-none" />
               )}
               </div>
             ))}
@@ -113,10 +113,10 @@ function getTierGradient(tierName: string) {
 
 function getTierIcon(tierName: string) {
   const icons: Record<string, React.ReactNode> = {
-    Bronze: <Medal className="h-6 w-6 text-white" />,
-    Silver: <Shield className="h-6 w-6 text-white" />,
-    Gold: <Trophy className="h-6 w-6 text-white" />,
-    Platinum: <Crown className="h-6 w-6 text-white" />,
+    Bronze: <Medal className="h-6 w-6 text-main" />,
+    Silver: <Shield className="h-6 w-6 text-main" />,
+    Gold: <Trophy className="h-6 w-6 text-main" />,
+    Platinum: <Crown className="h-6 w-6 text-main" />,
   };
-  return icons[tierName] || <Award className="h-6 w-6 text-white" />;
+  return icons[tierName] || <Award className="h-6 w-6 text-main" />;
 }

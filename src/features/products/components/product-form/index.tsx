@@ -147,7 +147,7 @@ export function ProductForm({
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Form {...form}>
         <motion.form
           onSubmit={(e) => {
@@ -210,13 +210,13 @@ export function ProductForm({
                         {initialData?.status && !isEditing && (
                           <Badge
                             variant="secondary"
-                            className={cn("whitespace-nowrap gap-2", {
-                              "!bg-green-200 text-green-700":
-                                initialData.status === "active",
-                              "!bg-red-200 text-red-700":
-                                initialData.status === "archived",
-                              "!bg-gray-200 text-gray-700":
-                                initialData.status === "draft",
+                            className={cn('whitespace-nowrap gap-2', {
+                              '!bg-green-200 text-green-700 dark:!bg-green-700 dark:text-green-200':
+                                initialData.status === 'active',
+                              '!bg-red-200 text-red-700 dark:!bg-red-700 dark:text-red-200':
+                                initialData.status === 'archived',
+                              '!bg-gray-200 text-gray-700 dark:!bg-gray-700 dark:text-gray-200':
+                                initialData.status === 'draft',
                             })}
                           >
                             <span className="relative flex h-1.5 w-1.5">
@@ -224,12 +224,12 @@ export function ProductForm({
                                 className={cn(
                                   "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
                                   {
-                                    "!bg-green-400":
-                                      initialData.status === "active",
-                                    "!bg-red-400":
-                                      initialData.status === "archived",
-                                    "!bg-gray-400":
-                                      initialData.status === "draft",
+                                    '!bg-green-400 dark:!bg-green-500':
+                                      initialData.status === 'active',
+                                    '!bg-red-400 dark:!bg-red-500':
+                                      initialData.status === 'archived',
+                                    '!bg-gray-400 dark:!bg-gray-500':
+                                      initialData.status === 'draft',
                                   }
                                 )}
                               />
@@ -237,12 +237,12 @@ export function ProductForm({
                                 className={cn(
                                   "relative inline-flex h-1.5 w-1.5 rounded-full",
                                   {
-                                    "!bg-green-500":
-                                      initialData.status === "active",
-                                    "!bg-red-500":
-                                      initialData.status === "archived",
-                                    "!bg-gray-500":
-                                      initialData.status === "draft",
+                                    '!bg-green-500 dark:!bg-green-400':
+                                      initialData.status === 'active',
+                                    '!bg-red-500 dark:!bg-red-400':
+                                      initialData.status === 'archived',
+                                    '!bg-gray-500 dark:!bg-gray-400':
+                                      initialData.status === 'draft',
                                   }
                                 )}
                               />
@@ -329,9 +329,6 @@ export function ProductForm({
                       </TabsTrigger>
                     )}
                     <TabsTrigger value="item-info">Item Info</TabsTrigger>
-                    <TabsTrigger value="points-rewards">
-                      Points & Rewards
-                    </TabsTrigger>
                     {isEventProduct && (
                       <TabsTrigger value="attendees">Attendees</TabsTrigger>
                     )}
@@ -399,9 +396,6 @@ export function ProductForm({
                       </CardContent>
                     </Card>
 
-                    {/* Variations Section */}
-                    <Variations form={form} />
-
                     {/* Inventory Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -419,6 +413,9 @@ export function ProductForm({
                         <Inventory form={form} />
                       </CardContent>
                     </Card>
+
+                    {/* Variations Section */}
+                    <Variations form={form} />
 
                     {/* Shipping Section */}
                     <Card>
@@ -480,9 +477,6 @@ export function ProductForm({
                         />
                       </CardContent>
                     </Card> */}
-                  </TabsContent>
-                  <TabsContent value="points-rewards" className="space-y-8">
-                    <PointsRewards form={form} />
                   </TabsContent>
                   {isEventProduct && (
                     <TabsContent value="attendees" className="space-y-8">

@@ -68,7 +68,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
       name="customerId"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Customer</FormLabel>
+          <FormLabel>Customer <span className='text-destructive'>*</span></FormLabel>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <FormControl>
@@ -99,7 +99,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                       <Button
                         key={customer.id}
                         variant="ghost"
-                        className="w-full justify-start h-full"
+                        className="w-full justify-start h-fit"
                         onClick={() => {
                           field.onChange(customer.id);
                           form.setValue('customerName', `${customer.firstName} ${customer.lastName}`);

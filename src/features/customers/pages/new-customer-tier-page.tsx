@@ -10,7 +10,7 @@ export function NewCustomerTierPage() {
   const handleSubmit = async (data: CustomerTier) => {
     try {
       await createTier.mutateAsync(data);
-      navigate('/dashboard/customers/tiers');
+      navigate('/dashboard/points/tiers');
     } catch (error) {
       console.error('Failed to create tier:', error);
     }

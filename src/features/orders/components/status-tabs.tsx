@@ -21,7 +21,7 @@ export function StatusTabs({
   counts,
 }: StatusTabsProps) {
   return (
-    <div className="flex space-x-1 rounded-lg bg-muted p-1 w-fit">
+    <div className="flex space-x-1 rounded-lg bg-muted p-1 w-full lg:w-fit">
       {STATUSES.map((status) => (
         <button
           key={status.value}

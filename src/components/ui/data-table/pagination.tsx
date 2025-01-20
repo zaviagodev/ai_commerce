@@ -31,11 +31,11 @@ export function DataTablePagination({
   onPageSizeChange,
 }: DataTablePaginationProps) {
   return (
-    <div className="flex items-center justify-between bg-white">
+    <div className="flex flex-col md:flex-row items-center justify-between bg-main gap-y-4">
       <div className="flex-1 text-sm text-muted-foreground">
         {totalItems} {totalItems === 1 ? 'total item' : 'total items'}
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Items per page</p>
           <Select
