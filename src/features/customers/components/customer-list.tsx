@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { BadgeCheck, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,6 +15,7 @@ import { Customer } from '@/types/customer';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 import { useMemo, useState } from 'react';
 import { ProductSearch } from '@/features/products/components/product-search';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,8 @@ interface CustomerListProps {
 }
 
 export function CustomerList({ customers, isLoading }: CustomerListProps) {
+  const navigate = useNavigate();
+  const t = useTranslation();
   const {
     pageIndex,
     pageSize,
@@ -53,6 +56,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
 
   const paginatedCustomers = paginateItems(filteredCustomers);
 
+
   if (isLoading) {
     return (
       <div className="pt-14">
@@ -70,15 +74,15 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Customers</h1>
+          <h1 className="text-2xl font-semibold">{t.customers.customer.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's customers
+            {t.customers.customer.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/customers/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add customer
+            {t.customers.customer.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -105,11 +109,11 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         <Table className={paginatedCustomers.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Tags</TableHead>
-              <TableHead>Orders</TableHead>
+              <TableHead>{t.customers.customer.list.columns.name}</TableHead>
+              <TableHead>{t.customers.customer.list.columns.email}</TableHead>
+              <TableHead>{t.customers.customer.list.columns.phone}</TableHead>
+              <TableHead>{t.customers.customer.list.columns.tags}</TableHead>
+              <TableHead>{t.customers.customer.list.columns.orders}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -117,14 +121,14 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No customers found</p>
+                    <p className="text-lg font-medium">{t.customers.customer.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first customer
+                      {t.customers.customer.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/customers/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add customer
+                        {t.customers.customer.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -132,14 +136,12 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               </TableRow>
             ) : (
               paginatedCustomers.map((customer) => (
-                <TableRow key={customer.id}>
+                <TableRow key={customer.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customers/${customer.id}`)}>
                   <TableCell>
-                    <Link
-                      to={`/dashboard/customers/${customer.id}`}
-                      className="font-medium hover:underline"
-                    >
-                      {customer.firstName} {customer.lastName}
-                    </Link>
+                    <div className='flex items-center gap-1'>
+                      <span className="font-medium hover:underline">{customer.firstName} {customer.lastName} </span>
+                      {customer.isVerified && <BadgeCheck className="h-4 w-4 text-blue-500 shrink-0" />}
+                    </div>
                   </TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone || '-'}</TableCell>
@@ -152,7 +154,9 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
                       ))}
                     </div>
                   </TableCell>
-                  <TableCell>0 orders</TableCell>
+                  <TableCell>
+                    {customer.orders?.length || 0} {t.customers.customer.list.orders}
+                  </TableCell>
                 </TableRow>
               ))
             )}

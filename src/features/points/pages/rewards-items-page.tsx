@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpDown, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,6 +23,7 @@ import { sortProducts } from '@/features/products/utils/sorting';
 import { ProductSort } from '@/features/products/components/product-sort';
 
 export function RewardsItemsPage() {
+  const navigate = useNavigate();
   const { products, isLoading } = useProducts();
   const {
     pageIndex,
@@ -147,7 +148,7 @@ export function RewardsItemsPage() {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/rewards/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -160,12 +161,7 @@ export function RewardsItemsPage() {
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <Link
-                          to={`/dashboard/points/rewards/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{product.name}</span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
                             SKU: {product.sku}

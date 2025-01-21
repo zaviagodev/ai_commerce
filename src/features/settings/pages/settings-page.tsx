@@ -1,13 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import { SettingsNav } from '../components/settings-nav';
+import { useTranslation } from '@/lib/i18n/hooks';
 
-export function SettingsPage(){
+export function SettingsPage() {
+  const t  = useTranslation();
+
   return (
     <div className="space-y-6">
       <div className='-mx-6 py-3 px-6 sticky top-0 z-10 pt-14'>
-        <h1 className="text-2xl font-semibold">Settings</h1>
+        <h1 className="text-2xl font-semibold">{t.settings.settings.title}</h1>
         <p className="text-sm text-muted-foreground">
-          Manage your store settings and configurations
+          {t.settings.settings.description}
         </p>
       </div>
 

@@ -19,19 +19,24 @@ import {
 import { Campaign } from '@/types/campaign';
 import { TemplateModal } from './template-modal';
 import { TemplateIndicator } from './template-indicator';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
+
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-base font-medium">Campaign Template</h3>
+          <h3 className="text-base font-medium">{ t.customers.customer.campaignForm.sections.basicDetails.template.title}</h3>
           <p className="text-sm text-muted-foreground">
-            {form.watch('type') === 'points_multiplier' ? 'Points Multiplier Campaign' : 'Bonus Points Campaign'}
+            {form.watch('type') === 'points_multiplier' 
+              ?  t.customers.customer.campaignForm.sections.basicDetails.template.types.points_multiplier 
+              :  t.customers.customer.campaignForm.sections.basicDetails.template.types.bonus_points}
           </p>
         </div>
         <TemplateModal form={form} />
@@ -49,12 +54,15 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Campaign name <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.name.label} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
-              <Input placeholder="e.g., Summer Sale Double Points" {...field} />
+              <Input 
+                placeholder={ t.customers.customer.campaignForm.sections.basicDetails.fields.name.placeholder} 
+                {...field} 
+              />
             </FormControl>
             <FormDescription>
-              Choose a descriptive name for this campaign
+              { t.customers.customer.campaignForm.sections.basicDetails.fields.name.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -66,16 +74,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.description.label}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe your campaign..."
+                placeholder={ t.customers.customer.campaignForm.sections.basicDetails.fields.description.placeholder}
                 className="min-h-[100px]"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              Provide details about the campaign's purpose and benefits
+              { t.customers.customer.campaignForm.sections.basicDetails.fields.description.description}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -88,7 +96,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="startDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.startDate.label}</FormLabel>
               <FormControl>
                 <Input
                   type="datetime-local"
@@ -107,7 +115,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="endDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.endDate.label}</FormLabel>
               <FormControl>
                 <Input
                   type="datetime-local"
@@ -128,17 +136,17 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Status</FormLabel>
+              <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.status.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
+                    <SelectValue placeholder={ t.customers.customer.campaignForm.sections.basicDetails.fields.status.placeholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="scheduled">Scheduled</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="draft">{ t.customers.customer.campaignForm.sections.basicDetails.fields.status.options.draft}</SelectItem>
+                  <SelectItem value="scheduled">{ t.customers.customer.campaignForm.sections.basicDetails.fields.status.options.scheduled}</SelectItem>
+                  <SelectItem value="active">{ t.customers.customer.campaignForm.sections.basicDetails.fields.status.options.active}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -151,16 +159,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Campaign type</FormLabel>
+              <FormLabel>{ t.customers.customer.campaignForm.sections.basicDetails.fields.type.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
+                    <SelectValue placeholder={ t.customers.customer.campaignForm.sections.basicDetails.fields.type.placeholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="points_multiplier">Points Multiplier</SelectItem>
-                  <SelectItem value="bonus_points">Bonus Points</SelectItem>
+                  <SelectItem value="points_multiplier">{ t.customers.customer.campaignForm.sections.basicDetails.fields.type.options.points_multiplier}</SelectItem>
+                  <SelectItem value="bonus_points">{ t.customers.customer.campaignForm.sections.basicDetails.fields.type.options.bonus_points}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -9,6 +9,7 @@ import { BasicDetails } from './sections/basic-details';
 import { Members } from './sections/members';
 import { Automation } from './sections/automation';
 import { Users } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CustomerGroupFormProps {
   initialData?: Partial<CustomerGroup>;
@@ -16,6 +17,7 @@ interface CustomerGroupFormProps {
 }
 
 export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerGroupSchema),
     defaultValues: {
@@ -56,19 +58,19 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? 'Edit group' : 'Create group'}
+                {initialData ?  t.customers.customer.group.title.edit :  t.customers.customer.group.title.create}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {initialData
-                  ? 'Update group details'
-                  : 'Create a new customer group'}
+                  ?  t.customers.customer.group.description.edit
+                  :  t.customers.customer.group.description.create}
               </p>
             </div>
             <div className="flex items-center gap-4">
               <Button type="button" variant="outline">
-                Discard
+                { t.customers.customer.group.actions.discard}
               </Button>
-              <Button type="submit">Save group</Button>
+              <Button type="submit">{ t.customers.customer.group.actions.save}</Button>
             </div>
           </motion.div>
 
@@ -79,7 +81,7 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <div className="h-full">
-              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 {/* Basic Details Section */}
                 <div className="rounded-lg border bg-main">
                   <div className="flex items-center gap-4 p-6 border-b">
@@ -87,9 +89,9 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
                       <Users className="h-5 w-5 text-blue-600" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-medium">Basic Details</h2>
+                      <h2 className="text-lg font-medium">{ t.customers.customer.group.sections.basicDetails.title}</h2>
                       <p className="text-sm text-muted-foreground">
-                        Configure the group's basic information
+                        { t.customers.customer.group.sections.basicDetails.description}
                       </p>
                     </div>
                   </div>
@@ -105,9 +107,9 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
                       <Users className="h-5 w-5 text-purple-600" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-medium">Members</h2>
+                      <h2 className="text-lg font-medium">{ t.customers.customer.group.sections.members.title}</h2>
                       <p className="text-sm text-muted-foreground">
-                        Add or remove customers from this group
+                        { t.customers.customer.group.sections.members.description}
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,11 +14,14 @@ import { Badge } from '@/components/ui/badge';
 import { useCustomerTiers } from '../hooks/use-customer-tiers';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 import { ProductSearch } from '@/features/products/components/product-search';
 import { useMemo, useState } from 'react';
 
 export function CustomerTiersPage() {
+  const navigate = useNavigate();
   const { tiers, isLoading } = useCustomerTiers();
+  const t = useTranslation();
 
   const [searchQuery, setSearchQuery] = useState('');
   const filteredTiers = useMemo(() => {
@@ -52,15 +55,15 @@ export function CustomerTiersPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Customer Tiers</h1>
+          <h1 className="text-2xl font-semibold">{t.customers.customer.tier.list.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage customer loyalty tiers and rewards
+            {t.customers.customer.tier.list.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/points/tiers/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add tier
+            {t.customers.customer.tier.list.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -87,11 +90,11 @@ export function CustomerTiersPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Tier</TableHead>
-              <TableHead>Rewards Multiplier</TableHead>
-              <TableHead>Discount</TableHead>
-              <TableHead>Benefits</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>{t.customers.customer.tier.list.columns.tier}</TableHead>
+              <TableHead>{t.customers.customer.tier.list.columns.rewardsMultiplier}</TableHead>
+              <TableHead>{t.customers.customer.tier.list.columns.discount}</TableHead>
+              <TableHead>{t.customers.customer.tier.list.columns.benefits}</TableHead>
+              <TableHead>{t.customers.customer.tier.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -99,14 +102,14 @@ export function CustomerTiersPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No tiers found</p>
+                    <p className="text-lg font-medium">{t.customers.customer.tier.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by creating your first customer tier
+                      {t.customers.customer.tier.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/points/tiers/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add tier
+                        {t.customers.customer.tier.list.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -114,7 +117,7 @@ export function CustomerTiersPage() {
               </TableRow>
             ) : (
               filteredTiers.map((tier) => (
-                <TableRow key={tier.id}>
+                <TableRow key={tier.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/tiers/${tier.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -123,12 +126,7 @@ export function CustomerTiersPage() {
                         <Crown className={`h-5 w-5 text-${tier.color}-600`} />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/points/tiers/${tier.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {tier.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{tier.name}</span>
                         {tier.description && (
                           <p className="text-sm text-muted-foreground">
                             {tier.description}
@@ -142,13 +140,13 @@ export function CustomerTiersPage() {
                   <TableCell>
                     <div className="flex gap-1">
                       {tier.freeShipping && (
-                        <Badge variant="secondary">Free Shipping</Badge>
+                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.freeShipping}</Badge>
                       )}
                       {tier.prioritySupport && (
-                        <Badge variant="secondary">Priority Support</Badge>
+                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.prioritySupport}</Badge>
                       )}
                       {tier.earlyAccess && (
-                        <Badge variant="secondary">Early Access</Badge>
+                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.earlyAccess}</Badge>
                       )}
                     </div>
                   </TableCell>
@@ -159,7 +157,7 @@ export function CustomerTiersPage() {
                         "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": tier.status === "inactive"
                       })}
                     >
-                      {tier.status}
+                      {t.customers.customer.tier.list.status[tier.status]}
                     </Badge>
                   </TableCell>
                 </TableRow>

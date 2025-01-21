@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Order } from '@/types/order';
 import { InvoiceModal } from './invoice-modal';
 import { useCallback } from 'react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PrintButtonProps {
   order: Order;
 }
 
 export function PrintButton({ order }: PrintButtonProps) {
+  const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   
   const handleClick = useCallback((e: React.MouseEvent) => {
@@ -26,7 +28,7 @@ export function PrintButton({ order }: PrintButtonProps) {
         onClick={handleClick}
       >
         <Printer className="mr-2 h-4 w-4" />
-        Print Invoice
+        {t.orders.orders.actions.print}
       </Button>
 
       <InvoiceModal

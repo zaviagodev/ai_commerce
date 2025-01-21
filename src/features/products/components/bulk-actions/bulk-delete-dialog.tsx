@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BulkDeleteDialogProps {
   open: boolean;
@@ -24,7 +25,9 @@ export function BulkDeleteDialog({
   onConfirm,
   isDeleting,
 }: BulkDeleteDialogProps) {
+  const t = useTranslation();
   const handleCloseModal = () => onOpenChange(false);
+  
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -34,9 +37,9 @@ export function BulkDeleteDialog({
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div>
-              <DialogTitle>Delete Product{selectedCount === 1 ? "" : "s"}</DialogTitle>
+              <DialogTitle>{t.products.products.bulk.delete.title}</DialogTitle>
               <DialogDescription>
-                This action cannot be undone
+                {t.products.products.bulk.delete.description}
               </DialogDescription>
             </div>
           </div>
@@ -45,7 +48,7 @@ export function BulkDeleteDialog({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              Are you sure you want to delete {selectedCount} selected product{selectedCount === 1 ? "" : "s"}? This will permanently remove {selectedCount === 1 ? "it" : "them"} from your store.
+              {t.products.products.bulk.delete.warning.replace('{count}', selectedCount.toString())}
             </p>
           </div>
         </div>
@@ -56,14 +59,14 @@ export function BulkDeleteDialog({
             onClick={handleCloseModal}
             disabled={isDeleting}
           >
-            Cancel
+            {t.products.products.bulk.delete.cancel}
           </Button>
           <Button
             variant="destructive"
             onClick={onConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? 'Deleting...' : `Delete Product${selectedCount === 1 ? "" : "s"}`}
+            {isDeleting ? t.products.products.bulk.delete.deleting : t.products.products.bulk.actions.delete}
           </Button>
         </DialogFooter>
       </DialogContent>

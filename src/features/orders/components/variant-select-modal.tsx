@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { ProductVariant, Product } from '@/types/product';
 import { formatCurrency } from '@/lib/utils';
 import { Package } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantSelectModalProps {
   open: boolean;
@@ -23,11 +24,13 @@ export function VariantSelectModal({
   product, 
   onSelect 
 }: VariantSelectModalProps) {
+  const t = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Select Variant</DialogTitle>
+          <DialogTitle>{t.orders.orders.product.variant.title}</DialogTitle>
         </DialogHeader>
         <div className="space-y-2">
           {product.variants.map((variant) => (
@@ -60,7 +63,7 @@ export function VariantSelectModal({
                     {formatCurrency(variant.price)}
                     {product.trackQuantity && (
                       <span className="ml-2">
-                        ({variant.quantity || 0} in stock)
+                        ({variant.quantity || 0} {t.orders.orders.product.variant.inStock})
                       </span>
                     )}
                   </div>

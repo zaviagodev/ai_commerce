@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ProductSearchProps {
   value: string;
@@ -16,6 +17,7 @@ export function ProductSearch({
   onChange,
   placeholder,
 }: ProductSearchProps) {
+  const t = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -51,7 +53,7 @@ export function ProductSearch({
           >
             <Input
               type="text"
-              placeholder={placeholder || 'Search products...'}
+              placeholder={placeholder || t.products.products.list.search}
               value={value}
               onChange={(e) => onChange(e.target.value)}
               className={cn('pr-7 show-placeholder', {"not-show-placeholder": isClosing || isOpening})}
@@ -78,7 +80,12 @@ export function ProductSearch({
             transition={{ duration: 0.3 }}
             className="fade-in"
           >
-            <Button variant="outline" size="icon" onClick={handleOpenSearch}>
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={handleOpenSearch}
+              aria-label={t.products.products.list.search}
+            >
               <Search className="h-4 w-4" />
             </Button>
           </motion.div>

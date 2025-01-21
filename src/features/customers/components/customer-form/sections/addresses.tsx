@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { AddressForm } from './address-form';
 import { Customer, CustomerAddress } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AddressesProps {
   form: UseFormReturn<Customer>;
@@ -23,6 +24,8 @@ function AddressCard({
   address: CustomerAddress;
   onEdit: () => void;
 }) {
+  const t = useTranslation();
+  
   return (
     <button
       type="button"
@@ -41,7 +44,7 @@ function AddressCard({
               </p>
               {address.isDefault && (
                 <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                  Default {address.type}
+                  {t.customers.customer.form.sections.addresses.default} {address.type}
                 </div>
               )}
             </div>
@@ -60,7 +63,9 @@ function AddressCard({
     </button>
   );
 }
+
 export function Addresses({ form }: AddressesProps) {
+  const t = useTranslation();
   const addresses = form.watch('addresses') || [];
   const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(
     null
@@ -110,6 +115,7 @@ export function Addresses({ form }: AddressesProps) {
     );
     setEditingAddress(null);
   };
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -117,9 +123,9 @@ export function Addresses({ form }: AddressesProps) {
           <Home className="h-5 w-5 text-blue-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Addresses</h2>
+          <h2 className="text-lg font-medium">{t.customers.customer.form.sections.addresses.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Manage customer shipping and billing addresses
+            {t.customers.customer.form.sections.addresses.description}
           </p>
         </div>
       </CardHeader>
@@ -141,7 +147,7 @@ export function Addresses({ form }: AddressesProps) {
           onClick={addAddress}
         >
           <Plus className="mr-2 h-4 w-4" />
-          Add address
+          {t.customers.customer.form.sections.addresses.actions.add}
         </Button>
         <Dialog
           open={!!editingAddress}
@@ -153,7 +159,9 @@ export function Addresses({ form }: AddressesProps) {
           >
             <DialogHeader>
               <DialogTitle id="address-dialog-title">
-                {editingAddress?.id ? 'Edit address' : 'Add new address'}
+                {editingAddress?.id 
+                  ? t.customers.customer.form.sections.addresses.actions.edit
+                  : t.customers.customer.form.sections.addresses.actions.add}
               </DialogTitle>
             </DialogHeader>
             {editingAddress && (

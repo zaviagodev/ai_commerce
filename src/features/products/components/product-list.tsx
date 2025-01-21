@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
   Package,
@@ -6,8 +6,8 @@ import {
   ArrowUpDown,
   Check,
   MoreHorizontal,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -15,27 +15,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { motion } from 'framer-motion';
-import { Product } from '@/types/product';
-import { formatCurrency } from '@/lib/utils';
-import { useAuth } from '@/lib/auth/auth-hooks';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { ProductActionsMenu } from './product-actions-menu';
-import { usePagination } from '@/hooks/use-pagination';
-import { ProductSort } from './product-sort';
-import { sortProducts } from '../utils/sorting';
-import { SORT_OPTIONS } from '../types/sorting';
-import { useBulkSelection } from '../hooks/use-bulk-selection';
-import { BulkActionsMenu } from './bulk-actions/bulk-actions-menu';
-import { BulkDeleteDialog } from './bulk-actions/bulk-delete-dialog';
-import { BulkCategoryDialog } from './bulk-actions/bulk-category-dialog';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ProductSearch } from './product-search';
-import { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils';
-import Loading from '@/components/loading';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { Product } from "@/types/product";
+import { formatCurrency } from "@/lib/utils";
+import { useAuth } from "@/lib/auth/auth-hooks";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { ProductActionsMenu } from "./product-actions-menu";
+import { usePagination } from "@/hooks/use-pagination";
+import { ProductSort } from "./product-sort";
+import { sortProducts } from "../utils/sorting";
+import { SORT_OPTIONS } from "../types/sorting";
+import { useBulkSelection } from "../hooks/use-bulk-selection";
+import { BulkActionsMenu } from "./bulk-actions/bulk-actions-menu";
+import { BulkDeleteDialog } from "./bulk-actions/bulk-delete-dialog";
+import { BulkCategoryDialog } from "./bulk-actions/bulk-category-dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ProductSearch } from "./product-search";
+import { useState, useMemo } from "react";
+import { cn } from "@/lib/utils";
+import Loading from "@/components/loading";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductListProps {
   products: Product[];
@@ -48,8 +49,10 @@ export function ProductList({
   isLoading,
   onDelete,
 }: ProductListProps) {
-  const [sortValue, setSortValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+const navigate = useNavigate();
+const t = useTranslation();
+  const [sortValue, setSortValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showCategoryDialog, setShowCategoryDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -92,7 +95,7 @@ export function ProductList({
     // Apply sorting
     if (!sortValue) return filtered;
 
-    const [field, direction] = sortValue.split('-');
+    const [field, direction] = sortValue.split("-");
     const option = SORT_OPTIONS.find(
       (opt) => opt.field === field && opt.direction === direction
     );
@@ -125,7 +128,7 @@ export function ProductList({
     try {
       setShowCategoryDialog(false);
     } finally {
-      setIsUpdating(false)
+      setIsUpdating(false);
     }
   };
 
@@ -136,7 +139,7 @@ export function ProductList({
       </div>
     );
   }
-  
+
   return (
     <div className="space-y-4">
       <motion.div
@@ -146,29 +149,31 @@ export function ProductList({
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Products</h1>
+          <h1 className="text-2xl font-semibold">
+            {t.products.products.title}
+          </h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's products
+            {t.products.products.description}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
             <Link to={`/store/${user?.storeName}`}>
               <ExternalLink className="mr-2 h-4 w-4" />
-              Store
+              {t.products.products.actions.store}
             </Link>
           </Button>
           <Button asChild>
             <Link to="/dashboard/products/new">
               <Plus className="mr-2 h-4 w-4" />
-              Add product
+              {t.products.products.actions.add}
             </Link>
           </Button>
         </div>
       </motion.div>
 
       {/* Table Controls */}
-      <motion.div 
+      <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -181,7 +186,7 @@ export function ProductList({
             variant="ghost"
             size="icon"
             onClick={toggleBulkMode}
-            className={cn('transition-colors', isBulkMode && 'text-primary')}
+            className={cn("transition-colors", isBulkMode && "text-primary")}
           >
             <MoreHorizontal className="h-4 w-4" />
           </Button>
@@ -198,7 +203,11 @@ export function ProductList({
 
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
-          <ProductSort value={sortValue} options={SORT_OPTIONS} onValueChange={setSortValue} />
+          <ProductSort
+            value={sortValue}
+            options={SORT_OPTIONS}
+            onValueChange={setSortValue}
+          />
         </div>
       </motion.div>
 
@@ -208,10 +217,10 @@ export function ProductList({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedProducts.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              {(isBulkMode && paginatedProducts.length > 0) && (
+              {isBulkMode && paginatedProducts.length > 0 && (
                 <TableHead className="w-[50px]">
                   <Checkbox
                     checked={selectedCount === paginatedProducts.length}
@@ -219,11 +228,15 @@ export function ProductList({
                   />
                 </TableHead>
               )}
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>{t.products.products.list.columns.product}</TableHead>
+              <TableHead>{t.products.products.list.columns.status}</TableHead>
+              <TableHead>{t.products.products.list.columns.category}</TableHead>
+              <TableHead className="text-right">
+                {t.products.products.list.columns.price}
+              </TableHead>
+              <TableHead className="text-right">
+                {t.products.products.list.columns.quantity}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -231,14 +244,16 @@ export function ProductList({
               <TableRow>
                 <TableCell colSpan={isBulkMode ? 6 : 5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No products found</p>
+                    <p className="text-lg font-medium">
+                      {t.products.products.list.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first product
+                      {t.products.products.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/products/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add product
+                        {t.products.products.actions.add}
                       </Link>
                     </Button>
                   </div>
@@ -246,99 +261,117 @@ export function ProductList({
               </TableRow>
             ) : (
               paginatedProducts.map((product) => {
-                const quantity = product.variants.reduce((acc, variant) => acc + variant.quantity, 0)
+                const quantity = product.variants.reduce(
+                  (acc, variant) => acc + variant.quantity,
+                  0
+                );
                 return (
-                <TableRow key={product.id}>
-                  {isBulkMode && (
+                  <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/${product.id}`)}>
+                    {isBulkMode && (
+                      <TableCell onClick={(e) => e.stopPropagation()}>
+                        <Checkbox
+                          checked={isSelected(product.id)}
+                          onCheckedChange={() => toggleSelection(product.id)}
+                        />
+                      </TableCell>
+                    )}
                     <TableCell>
-                      <Checkbox
-                        checked={isSelected(product.id)}
-                        onCheckedChange={() => toggleSelection(product.id)}
-                      />
+                      <div className="flex items-center gap-3">
+                        {product.images[0] ? (
+                          <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                            className="h-12 w-12 rounded-sm overflow-hidden"
+                          >
+                            <img
+                              src={product.images[0].url}
+                              alt={product.images[0].alt}
+                              className="h-full w-full object-cover"
+                            />
+                          </motion.div>
+                        ) : (
+                          <div className="h-12 w-12 rounded-sm bg-muted" />
+                        )}
+                        <div>
+                          <Link
+                            to={`/dashboard/products/${product.id}`}
+                            className="font-medium hover:underline"
+                          >
+                            {product.name}
+                          </Link>
+                          {product.sku && (
+                            <p className="text-sm text-muted-foreground">
+                              SKU: {product.sku}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </TableCell>
-                  )}
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      {product.images[0] ? (
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 0.2 }}
-                          className="h-12 w-12 rounded-sm overflow-hidden"
-                        >
-                          <img
-                            src={product.images[0].url}
-                            alt={product.images[0].alt}
-                            className="h-full w-full object-cover"
-                          />
-                        </motion.div>
-                      ) : (
-                        <div className="h-12 w-12 rounded-sm bg-muted" />
-                      )}
-                      <div>
-                        <Link
-                          to={`/dashboard/products/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
-                        {product.sku && (
-                          <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
-                          </p>
+                    <TableCell>
+                      <Badge
+                        className={cn("capitalize shadow-none", {
+                          "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                            product.status === "active",
+                          "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                            product.status === "archived",
+                          "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                            product.status === "draft",
+                        })}
+                      >
+                        {product.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {product.category?.name || "Uncategorized"}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="space-y-1">
+                        <div className="font-medium">
+                          {formatCurrency(product.price)}
+                        </div>
+                        {product.compareAtPrice && (
+                          <div className="text-sm text-muted-foreground line-through">
+                            {formatCurrency(product.compareAtPrice)}
+                          </div>
                         )}
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": product.status === 'active',
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
-                      })}
-                    >
-                      {product.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {product.category?.name || 'Uncategorized'}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="space-y-1">
-                      <div className="font-medium">
-                        {formatCurrency(product.price)}
-                      </div>
-                      {product.compareAtPrice && (
-                        <div className="text-sm text-muted-foreground line-through">
-                          {formatCurrency(product.compareAtPrice)}
-                        </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {product.trackQuantity ? (
+                        <span
+                          className={
+                            (quantity || 0) > 0
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }
+                        >
+                          {quantity || 0} in stock
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">
+                          Not tracked
+                        </span>
                       )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {product.trackQuantity ? (
-                      <span
-                        className={
-                          (quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
-                        }
-                      >
-                        {quantity || 0} in stock
-                      </span>
-                    ) : (
-                      <span className="text-muted-foreground">Not tracked</span>
+                    </TableCell>
+                    {!isBulkMode && (
+                      <TableCell>
+                        <ProductActionsMenu
+                          product={product}
+                          onDelete={() => onDelete(product.id)}
+                        />
+                      </TableCell>
                     )}
-                  </TableCell>
-                </TableRow>
-              )
+                  </TableRow>
+                );
               })
             )}
           </TableBody>
         </Table>
 
         <motion.div
-          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedProducts.length === 0})}
+          className={cn("border-t p-4 bg-main rounded-b-lg", {
+            hidden: paginatedProducts.length === 0,
+          })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.4 }}
@@ -358,16 +391,16 @@ export function ProductList({
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         selectedCount={selectedCount}
-        onConfirm={handleBulkDelete}
         isDeleting={isDeleting}
+        onConfirm={handleBulkDelete}
       />
 
       <BulkCategoryDialog
         open={showCategoryDialog}
         onOpenChange={setShowCategoryDialog}
         selectedCount={selectedCount}
-        onConfirm={handleBulkCategoryChange}
         isUpdating={isUpdating}
+        onConfirm={handleBulkCategoryChange}
       />
     </div>
   );

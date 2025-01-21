@@ -1,27 +1,29 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useOrders } from '@/features/orders/hooks/use-orders';
-import { useAuth } from '@/lib/auth/auth-hooks';
-import { Order } from '@/types/order';
-import { toast } from 'sonner';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useOrders } from "@/features/orders/hooks/use-orders";
+import { useAuth } from "@/lib/auth/auth-hooks";
+import { Order } from "@/types/order";
+import { toast } from "sonner";
+import { useTranslation } from "@/lib/i18n/hooks";
 
-import { PaymentHeader } from './components/payment-header';
-import { AmountDisplay } from './components/amount-display';
-import { PaymentActions } from './components/payment-actions';
-import { AnimatedContainer } from './animated-container';
-import { ProgressLine } from './progress-line';
-import { SuccessAnimation } from './success-animation';
-import { PaymentTypeModal } from './payment-type-modal';
-import { OrderActionsModal } from './order-actions-modal';
-import { ManualPaymentSection } from './manual-payment-section';
-import { CheckoutLinkSection } from './checkout-link-section';
-import { ShippingTrackingSection } from './shipping-tracking-section';
+import { PaymentHeader } from "./components/payment-header";
+import { AmountDisplay } from "./components/amount-display";
+import { PaymentActions } from "./components/payment-actions";
+import { AnimatedContainer } from "./animated-container";
+import { ProgressLine } from "./progress-line";
+import { SuccessAnimation } from "./success-animation";
+import { PaymentTypeModal } from "./payment-type-modal";
+import { OrderActionsModal } from "./order-actions-modal";
+import { ManualPaymentSection } from "./manual-payment-section";
+import { CheckoutLinkSection } from "./checkout-link-section";
+import { ShippingTrackingSection } from "./shipping-tracking-section";
 
 interface PaymentSectionProps {
   order: Order;
 }
 
 export function PaymentSection({ order }: PaymentSectionProps) {
+  const t = useTranslation();
   const { updateOrder } = useOrders();
   const { user } = useAuth();
 
@@ -38,22 +40,24 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   const [showAmount, setShowAmount] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [isCancelled, setIsCancelled] = useState(order.status === 'cancelled');
-  const [isShipped, setIsShipped] = useState(order.status === 'shipped');
+  const [isCancelled, setIsCancelled] = useState(order.status === "cancelled");
+  const [isShipped, setIsShipped] = useState(order.status === "shipped");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const isPaid =
-    order.status === 'processing' ||
+    order.status === "processing" ||
     Boolean(order.payment_details?.confirmed_at);
   const [displayText, setDisplayText] = useState(
-    isPaid ? 'Payment Completed' : 'Total Outstanding'
+    isPaid
+      ? t.orders.orders.form.sections.payment.status.completed
+      : t.orders.orders.form.sections.payment.status.outstanding
   );
   const isLocked = isPaid || isShipped;
   const gradientColor = isCancelled
-    ? 'rgba(239, 68, 68, 0.3)'
+    ? "rgba(239, 68, 68, 0.3)"
     : isLocked
-    ? 'rgba(74, 222, 128, 0.3)'
-    : 'rgba(250, 204, 21, 0.3)';
+    ? "rgba(74, 222, 128, 0.3)"
+    : "rgba(250, 204, 21, 0.3)";
 
   // Effects
   useEffect(() => {
@@ -62,11 +66,13 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     // Only show initial status text on first load
     if (isInitialLoad) {
       if (isShipped) {
-        setDisplayText('Completed and Shipped');
+        setDisplayText(t.orders.orders.form.sections.payment.status.shipped);
       } else if (isPaid) {
-        setDisplayText('Payment Completed');
+        setDisplayText(t.orders.orders.form.sections.payment.status.completed);
       } else if (!isCancelled) {
-        setDisplayText('Total Outstanding');
+        setDisplayText(
+          t.orders.orders.form.sections.payment.status.outstanding
+        );
       }
     }
 
@@ -74,25 +80,31 @@ export function PaymentSection({ order }: PaymentSectionProps) {
     if (!isInitialLoad) {
       if (isCancelled) {
         timer = setTimeout(() => {
-          setDisplayText('Order Cancelled');
+          setDisplayText(
+            t.orders.orders.form.sections.payment.status.cancelled
+          );
         }, 4000);
       } else if (isShipped) {
         timer = setTimeout(() => {
-          setDisplayText('Completed and Shipped');
+          setDisplayText(t.orders.orders.form.sections.payment.status.shipped);
         }, 4000);
       } else if (isPaid) {
         timer = setTimeout(() => {
-          setDisplayText('Payment Completed');
+          setDisplayText(
+            t.orders.orders.form.sections.payment.status.completed
+          );
         }, 4000);
       } else {
         timer = setTimeout(() => {
-          setDisplayText('Total Outstanding');
+          setDisplayText(
+            t.orders.orders.form.sections.payment.status.outstanding
+          );
         }, 4000);
       }
     }
 
     return () => clearTimeout(timer);
-  }, [isPaid, isInitialLoad, isCancelled, isShipped]);
+  }, [isPaid, isInitialLoad, isCancelled, isShipped, t]);
 
   useEffect(() => {
     setIsInitialLoad(false);
@@ -110,18 +122,21 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       await updateOrder.mutateAsync({
         id: order.id,
         data: {
-          status: 'processing',
+          status: "processing",
           payment_details: {
-            type: 'bank_transfer',
+            type: "bank_transfer",
             bank_name: data.bankName,
             slip_image: data.slipImage,
             confirmed_at: new Date().toISOString(),
           },
         },
       });
+      toast.success(
+        t.orders.orders.form.sections.payment.messages.paymentSuccess
+      );
     } catch (error) {
-      console.error('Failed to update order:', error);
-      toast.error('Failed to confirm payment');
+      console.error("Failed to update order:", error);
+      toast.error(t.orders.orders.form.sections.payment.messages.paymentError);
       setIsSaving(false);
     }
   };
@@ -138,7 +153,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       await updateOrder.mutateAsync({
         id: order.id,
         data: {
-          status: 'shipped',
+          status: "shipped",
           shipping_details: {
             courier: data.courier,
             tracking_number: data.trackingNumber,
@@ -147,10 +162,12 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         },
       });
       setIsShipped(true);
-      toast.success('Shipping tracking added successfully');
+      toast.success(
+        t.orders.orders.form.sections.payment.messages.shippingSuccess
+      );
     } catch (error) {
-      console.error('Failed to update order:', error);
-      toast.error('Failed to add shipping tracking');
+      console.error("Failed to update order:", error);
+      toast.error(t.orders.orders.form.sections.payment.messages.shippingError);
       setIsSaving(false);
       setIsTransitioning(false);
     }
@@ -161,7 +178,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       setIsSaving(false);
       setShowAmount(false);
       setIsComplete(true);
-      setIsCancelled(order.status === 'cancelled');
+      setIsCancelled(order.status === "cancelled");
 
       setTimeout(() => {
         setIsComplete(false);
@@ -172,8 +189,8 @@ export function PaymentSection({ order }: PaymentSectionProps) {
 
   const handlePaymentTypeSelect = (type: string) => {
     setSelectedPaymentType(type);
-    setShowCheckoutLink(type === 'checkout');
-    setShowManualPayment(type === 'manual');
+    setShowCheckoutLink(type === "checkout");
+    setShowManualPayment(type === "manual");
     setIsModalOpen(false);
   };
 
@@ -186,19 +203,21 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         id: order.id,
         data: { status: newStatus },
       });
-      setIsCancelled(newStatus === 'cancelled');
+      setIsCancelled(newStatus === "cancelled");
       toast.success(
-        newStatus === 'cancelled'
-          ? 'Order cancelled successfully'
-          : 'Order reopened successfully'
+        newStatus === "cancelled"
+          ? t.orders.orders.form.sections.payment.messages.cancelSuccess
+          : t.orders.orders.form.sections.payment.messages.reopenSuccess
       );
     } catch (error) {
       console.error(
-        `Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order:`,
+        `Failed to ${newStatus === "cancelled" ? "cancel" : "reopen"} order:`,
         error
       );
       toast.error(
-        `Failed to ${newStatus === 'cancelled' ? 'cancel' : 'reopen'} order`
+        newStatus === "cancelled"
+          ? t.orders.orders.form.sections.payment.messages.cancelError
+          : t.orders.orders.form.sections.payment.messages.reopenError
       );
     } finally {
       setIsTransitioning(false);
@@ -215,21 +234,21 @@ export function PaymentSection({ order }: PaymentSectionProps) {
             opacity: [0.3, 0.5, 0.3],
             background: isCancelled
               ? `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
-                  '0.3',
-                  '0.1'
+                  "0.3",
+                  "0.1"
                 )} 40%, transparent 70%)`
               : `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
-                  '0.3',
-                  '0.1'
+                  "0.3",
+                  "0.1"
                 )} 40%, transparent 70%)`,
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: 'linear',
+            ease: "linear",
             background: {
               duration: 0.5,
-              ease: 'easeInOut',
+              ease: "easeInOut",
             },
           }}
         />
@@ -238,7 +257,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
           isCancelled={isCancelled}
           isPaid={isPaid}
           isShipped={isShipped}
-          isProcessing={order.status === 'processing'}
+          isProcessing={order.status === "processing"}
         />
 
         <AmountDisplay
@@ -252,11 +271,11 @@ export function PaymentSection({ order }: PaymentSectionProps) {
           isTransitioning={isTransitioning}
         />
 
-        <div className={isComplete ? 'pt-0' : 'pt-[164px]'}>
+        <div className={isComplete ? "pt-0" : "pt-[164px]"}>
           {isSaving && (
             <ProgressLine
               onComplete={handleProgressComplete}
-              isCancelled={order.status === 'cancelled'}
+              isCancelled={order.status === "cancelled"}
               isShipped={isShipped}
             />
           )}
@@ -269,7 +288,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
             >
               <SuccessAnimation
                 onComplete={() => setIsComplete(false)}
-                isCancelled={order.status === 'cancelled'}
+                isCancelled={order.status === "cancelled"}
                 isShipped={isShipped}
               />
             </motion.div>
@@ -284,7 +303,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
             onPaymentClick={() => setShowPaymentType(true)}
             onActionsClick={() => setShowOrderActions(true)}
             onShippingClick={() => setShowShippingTracking(true)}
-            onReopenClick={() => handleStatusChange('pending')}
+            onReopenClick={() => handleStatusChange("pending")}
           />
 
           {/* Additional sections */}
@@ -314,8 +333,8 @@ export function PaymentSection({ order }: PaymentSectionProps) {
             open={showPaymentType}
             onOpenChange={setShowPaymentType}
             order={order}
-            onManualPaymentSelect={() => handlePaymentTypeSelect('manual')}
-            onCheckoutLinkSelect={() => handlePaymentTypeSelect('checkout')}
+            onManualPaymentSelect={() => handlePaymentTypeSelect("manual")}
+            onCheckoutLinkSelect={() => handlePaymentTypeSelect("checkout")}
           />
 
           <OrderActionsModal

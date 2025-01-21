@@ -18,12 +18,14 @@ import { toast } from 'sonner';
 import { Product } from '@/types/product';
 import { AdvancedTypesModal } from './advanced-types-modal';
 import { DeleteConfirmModal } from './delete-confirm-modal';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ItemActionsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   product: Product;
   onDelete: () => Promise<void>;
+  isEventProduct?: boolean
 }
 
 export function ItemActionsModal({ 
@@ -31,7 +33,9 @@ export function ItemActionsModal({
   onOpenChange,
   product,
   onDelete,
+  isEventProduct
 }: ItemActionsModalProps) {
+  const t = useTranslation();
   const navigate = useNavigate();
   const [showAdvancedTypes, setShowAdvancedTypes] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -39,10 +43,10 @@ export function ItemActionsModal({
   const handleDuplicate = async () => {
     try {
       // Logic for duplicating product will be implemented later
-      toast.success('Product duplicated successfully');
+      toast.success(t.products.products.messages.duplicateSuccess);
       onOpenChange(false);
     } catch (error) {
-      toast.error('Failed to duplicate product');
+      toast.error(t.products.products.messages.duplicateError);
     }
   };
 
@@ -51,14 +55,14 @@ export function ItemActionsModal({
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Item Actions</DialogTitle>
+            <DialogTitle>{t.products.products.form.modals.itemActions.title}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-2">
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
               onClick={() => {
-                navigate(`/dashboard/products/${product.id}`);
+                navigate(`/dashboard/${isEventProduct ? 'events' : 'products'}/${product.id}`);
                 onOpenChange(false);
               }}
             >
@@ -67,9 +71,9 @@ export function ItemActionsModal({
                   <PencilRuler className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Edit Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title} {isEventProduct ? 'Event' : 'Product'}</div>
                   <p className="text-sm text-muted-foreground">
-                    Modify product details and settings
+                    {t.products.products.form.modals.itemActions.edit.description} {isEventProduct ? 'event' : 'product'}
                   </p>
                 </div>
               </div>
@@ -85,34 +89,13 @@ export function ItemActionsModal({
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Duplicate Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title} {isEventProduct ? 'Event' : 'Product'}</div>
                   <p className="text-sm text-muted-foreground">
-                    Create a copy with all settings
+                    {t.products.products.form.modals.itemActions.duplicate.description}
                   </p>
                 </div>
               </div>
             </Button>
-
-            {/* <Button
-              variant="ghost"
-              className="justify-start h-auto py-4"
-              onClick={() => {
-                setShowAdvancedTypes(true);
-                onOpenChange(false);
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
-                  <Sparkles className="h-5 w-5 text-green-600" />
-                </div>
-                <div className="text-left">
-                  <div className="font-medium">Advanced Types</div>
-                  <p className="text-sm text-muted-foreground">
-                    Configure special product features
-                  </p>
-                </div>
-              </div>
-            </Button> */}
 
             <Button
               variant="ghost"
@@ -127,9 +110,9 @@ export function ItemActionsModal({
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Delete Product</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Permanently remove this product
+                    {t.products.products.form.modals.itemActions.delete.description} {isEventProduct ? 'event' : 'product'}
                   </p>
                 </div>
               </div>

@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AutomationProps {
   form: UseFormReturn<CustomerGroup>;
@@ -64,6 +65,7 @@ const OPERATOR_LABELS = {
 };
 
 export function Automation({ form }: AutomationProps) {
+  const t = useTranslation();
   const autoAssign = form.watch('autoAssign');
   const conditions = form.watch('conditions') || [];
 
@@ -105,9 +107,9 @@ export function Automation({ form }: AutomationProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Automatic Assignment</FormLabel>
+              <FormLabel>{ t.customers.customer.group.sections.automation.fields.autoAssign.label}</FormLabel>
               <FormDescription>
-                Automatically add customers to this group when they meet certain conditions
+                { t.customers.customer.group.sections.automation.fields.autoAssign.description}
               </FormDescription>
             </div>
             <FormControl>
@@ -148,6 +150,7 @@ export function Automation({ form }: AutomationProps) {
                           variant="ghost"
                           size="sm"
                           onClick={() => removeCondition(condition.id)}
+                          title={ t.customers.customer.group.sections.automation.fields.conditions.remove}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -164,12 +167,12 @@ export function Automation({ form }: AutomationProps) {
                               }
                             >
                               <SelectTrigger>
-                                <SelectValue placeholder="Select operator" />
+                                <SelectValue placeholder={ t.customers.customer.group.sections.automation.fields.conditions.operator.placeholder} />
                               </SelectTrigger>
                               <SelectContent>
                                 {conditionType.operators.map((op) => (
                                   <SelectItem key={op} value={op}>
-                                    {OPERATOR_LABELS[op]}
+                                    { t.customers.customer.group.sections.automation.fields.conditions.operators[op]}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -184,7 +187,7 @@ export function Automation({ form }: AutomationProps) {
                               onChange={(e) =>
                                 updateCondition(condition.id, { value: e.target.value })
                               }
-                              placeholder={`Enter ${conditionType.valueType}`}
+                              placeholder={ t.customers.customer.group.sections.automation.fields.conditions.value.placeholder}
                               className={conditionType.valueType === 'currency' ? 'pl-6' : ''}
                             />
                             {conditionType.valueType === 'currency' && (
@@ -194,7 +197,7 @@ export function Automation({ form }: AutomationProps) {
                             )}
                             {conditionType.valueType === 'days' && (
                               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                                days
+                                { t.customers.customer.group.sections.automation.fields.conditions.days}
                               </span>
                             )}
                           </div>
@@ -211,9 +214,17 @@ export function Automation({ form }: AutomationProps) {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="h-px flex-1 bg-border" />
-              <span className="text-sm text-muted-foreground">Add condition</span>
+              <span className="text-sm text-muted-foreground">
+                { t.customers.customer.group.sections.automation.fields.conditions.add}
+              </span>
               <div className="h-px flex-1 bg-border" />
             </div>
+
+            {conditions.length === 0 && (
+              <p className="text-sm text-muted-foreground text-center py-4">
+                { t.customers.customer.group.sections.automation.fields.conditions.empty}
+              </p>
+            )}
 
             <RadioGroup
               onValueChange={(value) => addCondition(value)}

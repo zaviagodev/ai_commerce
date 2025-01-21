@@ -18,12 +18,15 @@ import {
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Calculator } from 'lucide-react';
 import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface TaxSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
 }
 
 export function TaxSettings({ form }: TaxSettingsProps) {
+  const t = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -31,9 +34,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           <Calculator className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">Tax Settings</h3>
+          <h3 className="text-lg font-medium">{t.settings.ecommerce.tax.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure tax calculation settings
+            {t.settings.ecommerce.tax.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -43,7 +46,7 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           name="taxCalculation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tax Calculation</FormLabel>
+              <FormLabel>{t.settings.ecommerce.tax.taxCalculation.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -51,12 +54,16 @@ export function TaxSettings({ form }: TaxSettingsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="line_items">Per Line Item</SelectItem>
-                  <SelectItem value="total">On Order Total</SelectItem>
+                  <SelectItem value="line_items">
+                    {t.settings.ecommerce.tax.taxCalculation.options.lineItems}
+                  </SelectItem>
+                  <SelectItem value="total">
+                    {t.settings.ecommerce.tax.taxCalculation.options.total}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                How tax should be calculated for orders
+                {t.settings.ecommerce.tax.taxCalculation.description}
               </FormDescription>
             </FormItem>
           )}
@@ -68,9 +75,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Tax Inclusive Pricing</FormLabel>
+                <FormLabel>{t.settings.ecommerce.tax.taxInclusive.label}</FormLabel>
                 <FormDescription>
-                  Display prices with tax included
+                  {t.settings.ecommerce.tax.taxInclusive.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -88,7 +95,7 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           name="defaultTaxRate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Default Tax Rate (%)</FormLabel>
+              <FormLabel>{t.settings.ecommerce.tax.defaultTaxRate.label}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -100,7 +107,7 @@ export function TaxSettings({ form }: TaxSettingsProps) {
                 />
               </FormControl>
               <FormDescription>
-                Default tax rate to apply when no specific rate is set
+                {t.settings.ecommerce.tax.defaultTaxRate.description}
               </FormDescription>
             </FormItem>
           )}

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Order } from '@/types/order';
 import { useState } from 'react';
 import { ManualPaymentSection } from './manual-payment-section';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PaymentTypeModalProps {
   open: boolean;
@@ -25,6 +26,7 @@ export function PaymentTypeModal({
   onManualPaymentSelect,
   onCheckoutLinkSelect
 }: PaymentTypeModalProps) {
+  const t = useTranslation();
   const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(null);
 
   const handleManualPayment = () => {
@@ -47,7 +49,7 @@ export function PaymentTypeModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md" onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
-          <DialogTitle>Select Payment Type</DialogTitle>
+          <DialogTitle>{t.orders.orders.payment.type.title}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4">
           <Button
@@ -58,9 +60,9 @@ export function PaymentTypeModal({
           >
             <Receipt className="h-5 w-5" />
             <div className="text-left">
-              <div className="font-medium">Manual Payment</div>
+              <div className="font-medium">{t.orders.orders.payment.type.manual.title}</div>
               <p className="text-sm text-muted-foreground">
-                Record a manual payment for this order
+                {t.orders.orders.payment.type.manual.description}
               </p>
             </div>
           </Button>
@@ -73,9 +75,9 @@ export function PaymentTypeModal({
           >
             <Link2 className="h-5 w-5" />
             <div className="text-left">
-              <div className="font-medium">Share Checkout Link</div>
+              <div className="font-medium">{t.orders.orders.payment.type.checkout.title}</div>
               <p className="text-sm text-muted-foreground">
-                Share a secure payment link with your customer
+                {t.orders.orders.payment.type.checkout.description}
               </p>
             </div>
           </Button>

@@ -3,12 +3,14 @@ export interface ProductImage {
   url: string;
   alt: string;
   position: number;
+  path?: string;
 }
 
 export interface ProductCategory {
-  id: string;
+  id?: string;
   name: string;
   slug: string;
+  description?: string;
 }
 
 export interface ProductTag {
@@ -37,7 +39,10 @@ export interface Product {
   height: number;
   dimensionUnit: 'cm' | 'in';
   tags: ProductTag[];
-  status: 'draft' | 'active' | 'archived';
+  status: "draft" | "active" | "archived";
+  isRewardItem?: boolean;
+  pointsRequired?: number;
+  pointsValue?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -60,7 +65,7 @@ export interface ProductVariant {
     name: string;
     value: string;
   }[];
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   position: number;
 }
 
@@ -68,4 +73,31 @@ export interface VariantGroup {
   attribute: string;
   variants: ProductVariant[];
   totalStock: number;
+}
+
+export interface Event {
+  id: string;
+  eventId: string;
+  productId: string;
+  storeName: string;
+  startDateTime: Date;
+  endDateTime: Date;
+  venueName: string;
+  venueAddress: string;
+  googleMapsLink?: string;
+  organizerName: string;
+  organizerContact: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface EventProduct extends Product {
+  eventId: string;
+  startDateTime: Date;
+  endDateTime: Date;
+  venueName: string;
+  venueAddress: string;
+  googleMapsLink?: string;
+  organizerName: string;
+  organizerContact: string;
 }

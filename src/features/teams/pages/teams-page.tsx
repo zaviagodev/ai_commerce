@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
   Users2,
@@ -37,10 +37,19 @@ import { usePagination } from '@/hooks/use-pagination';
 import { InviteModal } from '../components/invite-modal';
 import { cn, getTimeAgo } from '@/lib/utils';
 import { TEAM_MEMBERS } from '../data/members';
+import { useTranslation } from '@/lib/i18n/hooks';
+
+const ROLES = {
+  Owner: { color: 'yellow', icon: Crown },
+  Admin: { color: 'blue', icon: Users2 },
+  Staff: { color: 'gray', icon: Users2 },
+} as const;
 
 export function TeamsPage() {
+  const navigate = useNavigate();
   const [members] = useState(TEAM_MEMBERS);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const t = useTranslation();
 
   const {
     pageIndex,
@@ -92,15 +101,15 @@ export function TeamsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Team Members</h1>
+          <h1 className="text-2xl font-semibold">{t.teams.members.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your team members and their roles
+            {t.teams.members.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={() => setShowInviteModal(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Invite member
+            {t.teams.members.addMember}
           </Button>
         </div>
       </motion.div>
@@ -165,10 +174,10 @@ export function TeamsPage() {
           </TableHeader>
           <TableHeader>
             <TableRow>
-              <TableHead>Member</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Last active</TableHead>
+              <TableHead>{t.teams.members.table.member}</TableHead>
+              <TableHead>{t.teams.members.table.role}</TableHead>
+              <TableHead>{t.teams.members.table.status}</TableHead>
+              <TableHead>{t.teams.members.table.lastActive}</TableHead>
               <TableHead className="w-[50px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -176,11 +185,12 @@ export function TeamsPage() {
             {paginatedMembers.map((member) => {
               const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
               const StatusIcon = getStatusIcon(member.status);
+              const navigateToMember = () => navigate(`/dashboard/members/${member.id}`)
 
               return (
-                <TableRow key={member.id}>
+                <TableRow key={member.id} className='cursor-pointer' onClick={navigateToMember}>
                   <TableCell>
-                    <Link to={`/dashboard/members/${member.id}`} className="block">
+                    <div className="block">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={member.avatar} alt={member.name} />
@@ -195,7 +205,7 @@ export function TeamsPage() {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   </TableCell>
                   <TableCell>
                     <Badge 
@@ -203,7 +213,7 @@ export function TeamsPage() {
                       className={cn("gap-1", getRoleBadgeStyles(member.role as keyof typeof ROLES))}
                     >
                       <RoleIcon className="h-3 w-3" />
-                      {member.role}
+                      {t.teams.members.roles[member.role.toLowerCase() as keyof typeof t.teams.members.roles]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -212,7 +222,7 @@ export function TeamsPage() {
                       className={cn("gap-1", getStatusBadgeStyles(member.status))}
                     >
                       <StatusIcon className="h-3 w-3" />
-                      {member.status.charAt(0).toUpperCase() + member.status.slice(1)}
+                      {t.teams.members.status[member.status as keyof typeof t.teams.members.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -221,7 +231,7 @@ export function TeamsPage() {
                       {getTimeAgo(member.lastActive)}
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
@@ -231,16 +241,16 @@ export function TeamsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                           <Mail className="mr-2 h-4 w-4" />
-                          Send reminder
+                          {t.teams.members.actions.sendReminder}
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Users2 className="mr-2 h-4 w-4" />
-                          Change role
+                          {t.teams.members.actions.changeRole}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-red-600">
                           <XCircle className="mr-2 h-4 w-4" />
-                          Remove member
+                          {t.teams.members.actions.removeMember}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -277,9 +287,3 @@ export function TeamsPage() {
     </div>
   );
 }
-
-const ROLES = {
-  Owner: { color: 'yellow', icon: Crown },
-  Admin: { color: 'blue', icon: Users2 },
-  Staff: { color: 'gray', icon: Users2 },
-} as const;

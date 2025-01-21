@@ -10,12 +10,15 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { CreditCard } from 'lucide-react';
 import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CheckoutSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
 }
 
 export function CheckoutSettings({ form }: CheckoutSettingsProps) {
+  const t = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -23,9 +26,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           <CreditCard className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">Checkout Settings</h3>
+          <h2 className="text-lg font-medium">{t.settings.ecommerce.checkout.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure checkout process settings
+            {t.settings.ecommerce.checkout.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -36,9 +39,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Guest Checkout</FormLabel>
+                <FormLabel>{t.settings.ecommerce.checkout.guestCheckout.label}</FormLabel>
                 <FormDescription>
-                  Allow customers to check out without creating an account
+                  {t.settings.ecommerce.checkout.guestCheckout.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -57,9 +60,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Require Phone Number</FormLabel>
+                <FormLabel>{t.settings.ecommerce.checkout.requirePhone.label}</FormLabel>
                 <FormDescription>
-                  Make phone number mandatory during checkout
+                  {t.settings.ecommerce.checkout.requirePhone.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -78,9 +81,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Require Shipping Address</FormLabel>
+                <FormLabel>{t.settings.ecommerce.checkout.requireShipping.label}</FormLabel>
                 <FormDescription>
-                  Make shipping address mandatory for all orders
+                  {t.settings.ecommerce.checkout.requireShipping.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -99,9 +102,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Require Billing Address</FormLabel>
+                <FormLabel>{t.settings.ecommerce.checkout.requireBilling.label}</FormLabel>
                 <FormDescription>
-                  Make billing address mandatory for all orders
+                  {t.settings.ecommerce.checkout.requireBilling.description}
                 </FormDescription>
               </div>
               <FormControl>

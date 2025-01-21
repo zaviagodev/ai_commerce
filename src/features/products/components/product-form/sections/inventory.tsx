@@ -10,12 +10,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Product } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface InventoryProps {
   form: UseFormReturn<Product>;
 }
 
 export function Inventory({ form }: InventoryProps) {
+  const t = useTranslation();
   const trackQuantity = form.watch('trackQuantity');
   const variantOptions = form.watch('variantOptions') || [];
   const hasVariants = variantOptions.length > 0;
@@ -27,12 +29,15 @@ export function Inventory({ form }: InventoryProps) {
         name="sku"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>SKU (Stock Keeping Unit)</FormLabel>
+            <FormLabel>{t.products.products.form.sku}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter SKU" {...field} />
+              <Input 
+                placeholder={t.products.products.form.sections.inventory.skuPlaceholder} 
+                {...field} 
+              />
             </FormControl>
             <FormDescription>
-              A unique identifier for your product
+              {t.products.products.form.sections.inventory.skuDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -44,12 +49,15 @@ export function Inventory({ form }: InventoryProps) {
         name="barcode"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Barcode (ISBN, UPC, GTIN, etc.)</FormLabel>
+            <FormLabel>{t.products.products.form.sections.inventory.barcode}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter barcode" {...field} />
+              <Input 
+                placeholder={t.products.products.form.sections.inventory.barcodePlaceholder} 
+                {...field} 
+              />
             </FormControl>
             <FormDescription>
-              A unique barcode for your product (optional)
+              {t.products.products.form.sections.inventory.barcodeDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -62,9 +70,9 @@ export function Inventory({ form }: InventoryProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Track quantity</FormLabel>
+              <FormLabel>{t.products.products.form.sections.inventory.trackQuantity}</FormLabel>
               <FormDescription>
-                Track and manage inventory quantities
+                {t.products.products.form.sections.inventory.trackQuantityDescription}
               </FormDescription>
             </div>
             <FormControl>
@@ -83,7 +91,7 @@ export function Inventory({ form }: InventoryProps) {
           name="quantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Available quantity</FormLabel>
+              <FormLabel>{t.products.products.form.sections.inventory.quantity}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -94,7 +102,7 @@ export function Inventory({ form }: InventoryProps) {
                 />
               </FormControl>
               <FormDescription>
-                Current stock quantity
+                {t.products.products.form.sections.inventory.quantityDescription}
               </FormDescription>
               <FormMessage />
             </FormItem>
