@@ -144,14 +144,14 @@ export function TemplateModal({ form }: TemplateModalProps) {
           type="button"
         >
           <Sparkles className="mr-2 h-4 w-4" />
-          { t.campaigns.sections.basicDetails.template.actions.change}
+          { t.campaigns.campaign.sections.basicDetails.template.actions.change}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">{ t.campaigns.sections.basicDetails.template.modal.title}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">{ t.campaigns.campaign.sections.basicDetails.template.modal.title}</DialogTitle>
           <p className="text-sm text-muted-foreground mt-1">
-            { t.campaigns.sections.basicDetails.template.modal.description}
+            { t.campaigns.campaign.sections.basicDetails.template.modal.description}
           </p>
         </DialogHeader>
         <div className="mt-6 space-y-4">
@@ -173,10 +173,10 @@ export function TemplateModal({ form }: TemplateModalProps) {
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#3A3A3A]">{template.icon}</div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-medium text-[#3A3A3A] mb-1">
-                  { t.campaigns.sections.basicDetails.template.types[template.id]?.title || template.name}
+                  { t.campaigns.campaign.sections.basicDetails.template.types[template.id]?.title || template.name}
                 </h3>
                 <p className="text-sm text-[#6D6D6D]">
-                  { t.campaigns.sections.basicDetails.template.types[template.id]?.description || template.description}
+                  { t.campaigns.campaign.sections.basicDetails.template.types[template.id]?.description || template.description}
                 </p>
               </div>
 

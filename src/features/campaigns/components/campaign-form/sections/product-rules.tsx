@@ -28,9 +28,9 @@ export function ProductRules({ form }: ProductRulesProps) {
           <Package className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.productRules.title}</h2>
+          <h2 className="text-lg font-medium">{ t.campaigns.campaign.sections.productRules.title}</h2>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.campaignForm.sections.productRules.description}
+            { t.campaigns.campaign.sections.productRules.description}
           </p>
         </div>
       </CardHeader>
@@ -41,9 +41,9 @@ export function ProductRules({ form }: ProductRulesProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{ t.customers.customer.campaignForm.sections.productRules.fields.enabled.label}</FormLabel>
+                <FormLabel>{ t.campaigns.campaign.sections.productRules.fields.enabled.label}</FormLabel>
                 <FormDescription>
-                  { t.customers.customer.campaignForm.sections.productRules.fields.enabled.description}
+                  { t.campaigns.campaign.sections.productRules.fields.enabled.description}
                 </FormDescription>
               </div>
               <FormControl>
