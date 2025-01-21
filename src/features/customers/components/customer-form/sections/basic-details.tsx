@@ -85,9 +85,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           name="company"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company (Optional)</FormLabel>
+              <FormLabel>{t.customers.customer.form.fields.company.label}</FormLabel>
               <FormControl>
-                <Input className="w-full" placeholder="Company" {...field} />
+                <Input className="w-full" placeholder={t.customers.customer.form.fields.company.placeholder}  {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

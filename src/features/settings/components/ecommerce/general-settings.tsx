@@ -81,8 +81,8 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="kg">Kilograms (kg)</SelectItem>
-                    <SelectItem value="lb">Pounds (lb)</SelectItem>
+                    <SelectItem value="kg">{t.products.products.form.sections.shipping.weightUnits.kg}</SelectItem>
+                    <SelectItem value="lb">{t.products.products.form.sections.shipping.weightUnits.lb}</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -105,8 +105,8 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="cm">Centimeters (cm)</SelectItem>
-                    <SelectItem value="in">Inches (in)</SelectItem>
+                    <SelectItem value="cm">{t.products.products.form.sections.shipping.dimensionUnits.cm}</SelectItem>
+                    <SelectItem value="in">{t.products.products.form.sections.shipping.dimensionUnits.in}</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>

@@ -21,8 +21,10 @@ import { useMemo, useState } from 'react';
 import { SORT_OPTIONS } from '@/features/products/types/sorting';
 import { sortProducts } from '@/features/products/utils/sorting';
 import { ProductSort } from '@/features/products/components/product-sort';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function RewardsItemsPage() {
+  const t = useTranslation();
   const navigate = useNavigate();
   const { products, isLoading } = useProducts();
   const {
@@ -82,13 +84,13 @@ export function RewardsItemsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Rewards Items</h1>
+          <h1 className="text-2xl font-semibold">Reward Items</h1>
           <p className="text-sm text-muted-foreground">
             Manage your store's redeemable reward items
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/points/rewards/new">
+          <Link to="/dashboard/reward-items/new">
             <Plus className="mr-2 h-4 w-4" />
             Add reward item
           </Link>
@@ -104,7 +106,7 @@ export function RewardsItemsPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search rewards items..."
+          placeholder="Search reward items..."
         />
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
@@ -138,7 +140,7 @@ export function RewardsItemsPage() {
                       Get started by adding your first reward item
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/points/rewards/new">
+                      <Link to="/dashboard/reward-items/new">
                         <Plus className="mr-2 h-4 w-4" />
                         Add reward item
                       </Link>
@@ -148,7 +150,7 @@ export function RewardsItemsPage() {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/rewards/${product.id}`)}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/reward-items/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (

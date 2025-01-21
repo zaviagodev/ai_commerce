@@ -96,7 +96,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search customers..."
+          placeholder={t.customers.customer.list.search}
         />
       </motion.div>
 

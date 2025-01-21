@@ -66,12 +66,12 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-hidden">
         <DialogHeader>
           <DialogTitle>Enter Redeem Code</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 pb-20 overflow-auto max-h-[75vh]">
           {/* Input Method Selection */}
           <div className="grid grid-cols-3 gap-2">
             <Button
@@ -262,7 +262,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-2 fixed w-[calc(100%_-_24px)] bg-main p-6 !m-0">
+          <div className="flex justify-end gap-2 fixed w-full bottom-0 left-0 bg-main p-6 !m-0">
             <Button
               type="button"
               variant="outline"

@@ -139,7 +139,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                   key={redeem.id}
                   className="cursor-pointer hover:bg-muted/50"
                   onClick={() =>
-                    navigate(`/dashboard/points/redeem/${redeem.id}`)
+                    navigate(`/dashboard/redeem-list/${redeem.id}`)
                   }
                 >
                   <TableCell>

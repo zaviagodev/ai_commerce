@@ -18,7 +18,7 @@ export function EditCustomerGroupPage() {
   const handleSubmit = async (data: CustomerGroup) => {
     try {
       await updateGroup.mutateAsync({ id, data });
-      navigate('/dashboard/customers/groups');
+      navigate('/dashboard/customer-groups');
     } catch (error) {
       console.error('Failed to update group:', error);
     }

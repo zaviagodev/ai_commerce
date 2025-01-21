@@ -72,15 +72,15 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{ t.customers.customer.campaign.title}</h1>
+          <h1 className="text-2xl font-semibold">{t.customers.customer.campaign.title}</h1>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.campaign.description}
+            {t.customers.customer.campaign.description}
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/points/campaigns/new">
+          <Link to="/dashboard/campaigns/new">
             <Plus className="mr-2 h-4 w-4" />
-            { t.customers.customer.campaign.actions.create}
+            {t.customers.customer.campaign.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -94,7 +94,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search campaigns..."
+          placeholder={t.customers.customer.campaign.list.search}
         />
       </motion.div>
 
@@ -124,7 +124,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                       { t.customers.customer.campaign.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/points/campaigns/new">
+                      <Link to="/dashboard/campaigns/new">
                         <Plus className="mr-2 h-4 w-4" />
                         { t.customers.customer.campaign.actions.create}
                       </Link>
@@ -134,7 +134,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               </TableRow>
             ) : (
               paginatedCampaigns.map((campaign) => (
-                <TableRow key={campaign.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/campaigns/${campaign.id}`)}>
+                <TableRow key={campaign.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/campaigns/${campaign.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">

@@ -79,7 +79,7 @@ export function BankAccountDialog({
                 name="bankName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.bank}</FormLabel>
+                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.bank} <span className='text-destructive'>*</span></FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -104,7 +104,7 @@ export function BankAccountDialog({
                 name="accountName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountName}</FormLabel>
+                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountName} <span className='text-destructive'>*</span></FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -118,7 +118,7 @@ export function BankAccountDialog({
                 name="accountNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountNumber}</FormLabel>
+                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountNumber} <span className='text-destructive'>*</span></FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

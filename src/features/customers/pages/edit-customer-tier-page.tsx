@@ -18,7 +18,7 @@ export function EditCustomerTierPage() {
   const handleSubmit = async (data: CustomerTier) => {
     try {
       await updateTier.mutateAsync({ id, data });
-      navigate('/dashboard/points/tiers');
+      navigate('/dashboard/customer-tiers');
     } catch (error) {
       console.error('Failed to update tier:', error);
     }

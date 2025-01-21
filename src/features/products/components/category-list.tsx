@@ -89,7 +89,7 @@ export function CategoryList({
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/products/categories/new">
+          <Link to="/dashboard/categories/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.products.products.categories.actions.add}
           </Link>
@@ -105,7 +105,7 @@ export function CategoryList({
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search categories..."
+          placeholder={t.products.products.categories.list.search}
         />
       </motion.div>
 
@@ -134,7 +134,7 @@ export function CategoryList({
                       {t.products.products.categories.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/products/categories/new">
+                      <Link to="/dashboard/categories/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.products.products.categories.actions.add}
                       </Link>
@@ -144,7 +144,7 @@ export function CategoryList({
               </TableRow>
             ) : (
               paginatedCategories.map((category) => (
-                <TableRow key={category.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/categories/${category.id}`)}>
+                <TableRow key={category.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/categories/${category.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
@@ -169,7 +169,7 @@ export function CategoryList({
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
                           <Link
-                            to={`/dashboard/products/categories/${category.id}`}
+                            to={`/dashboard/categories/${category.id}`}
                           >
                             {t.products.products.categories.actions.edit}
                           </Link>

@@ -73,7 +73,7 @@ export const navMain = {
       subtitle: 'Create and manage reward campaigns',
     },
     rewardsItems: {
-      title: 'Rewards Items',
+      title: 'Reward Items',
       subtitle: 'Create and manage reward items',
     },
     redeemList: {
@@ -135,16 +135,16 @@ export const navMain = {
       subtitle: 'ตั้งค่าและติดตามแคมเปญคูปอง',
     },
     eventTicket: {
-      title: 'กิจกรรมและตั๋ว',
-      subtitle: 'สร้างและจัดการกิจกรรมและการขายตั๋ว',
+      title: 'อีเวนต์และตั๋ว',
+      subtitle: 'สร้างและจัดการอีเวนต์และการขายตั๋ว',
     },
     events: {
-      title: 'กิจกรรม',
-      subtitle: 'จัดการกิจกรรมและการจำหน่ายตั๋ว',
+      title: 'อีเวนต์',
+      subtitle: 'จัดการอีเวนต์และการจำหน่ายตั๋ว',
     },
     ticketOrders: {
       title: 'คำสั่งซื้อตั๋ว',
-      subtitle: 'ติดตามคำสั่งซื้อตั๋วสำหรับกิจกรรม',
+      subtitle: 'ติดตามคำสั่งซื้อตั๋วสำหรับอีเวนต์',
     },
     pointsRewards: {
       title: 'คะแนนและรางวัล',

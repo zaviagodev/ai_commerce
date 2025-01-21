@@ -13,6 +13,7 @@ export function NewProductPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const isEventProduct = location.pathname.startsWith("/dashboard/events");
+  const isRewardProduct = location.pathname.startsWith('/dashboard/reward-items');
   const { createProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
 
@@ -38,7 +39,7 @@ export function NewProductPage() {
   const handleSubmit = async (data: Product) => {
     try {
       await createProduct.mutateAsync(data);
-      navigate(isEventProduct ? "/dashboard/events" : "/dashboard/products");
+      navigate(isEventProduct ? "/dashboard/events" : isRewardProduct ? "/dashboard/reward-items" : "/dashboard/products");
     } catch (error) {
       console.error("Failed to create product:", error);
     }
@@ -79,6 +80,8 @@ export function NewProductPage() {
         onDelete={async () => {
           toast.error("Cannot delete a product that hasn't been created yet");
         }}
+        isEventProduct={isEventProduct}
+        isRewardProduct={isRewardProduct}
       />
     </>
   );

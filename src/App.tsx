@@ -136,37 +136,42 @@ export default function App() {
               <Route path="products" element={<ProductsPage />} />
               <Route path="products/new" element={<NewProductPage />} />
               <Route path="products/:id" element={<EditProductPage />} />
-              <Route path="products/categories" element={<CategoriesPage />} />
+              {/* <Route path="products/attributes" element={<AttributesPage />} /> */}
+
+              {/* Category Routes */}
+              <Route path="categories" element={<CategoriesPage />} />
               <Route
-                path="products/categories/new"
+                path="categories/new"
                 element={<NewCategoryPage />}
               />
               <Route
-                path="products/categories/:id"
+                path="categories/:id"
                 element={<EditCategoryPage />}
               />
-              {/* <Route path="products/attributes" element={<AttributesPage />} /> */}
 
               {/* Event & Ticket Routes */}
               <Route path="events" element={<EventsPage />} />
               <Route path="events/new" element={<NewEventPage />} />
               <Route path="events/:id" element={<EditEventPage />} />
-              <Route path="events/orders" element={<EventOrdersPage />} />
-              <Route path="events/orders/new" element={<NewEventOrderPage/>} />
-              <Route path="events/orders/:id" element={<EditEventOrderPage />} />
 
+              {/* Event Orders Routes */}
+              <Route path="event-orders" element={<EventOrdersPage />} />
+              <Route path="event-orders/new" element={<NewEventOrderPage/>} />
+              <Route path="event-orders/:id" element={<EditEventOrderPage />} />
 
               {/* Customer Routes */}
               <Route path="customers" element={<CustomersPage />} />
               <Route path="customers/new" element={<NewCustomerPage />} />
               <Route path="customers/:id" element={<EditCustomerPage />} />
-              <Route path="customers/groups" element={<CustomerGroupsPage />} />
+
+              {/* Customer Groups Routes */}
+              <Route path="customer-groups" element={<CustomerGroupsPage />} />
               <Route
-                path="customers/groups/new"
+                path="customer-groups/new"
                 element={<NewCustomerGroupPage />}
               />
               <Route
-                path="customers/groups/:id"
+                path="customer-groups/:id"
                 element={<EditCustomerGroupPage />}
               />
               {/* <Route path="apps-store" element={<AppsStorePage />} />
@@ -177,40 +182,47 @@ export default function App() {
               <Route path="orders/new" element={<NewOrderPage />} />
               <Route path="orders/:id" element={<EditOrderPage />} />
 
-              {/* Points & Rewards Routes */}
-              <Route path="points/campaigns" element={<CampaignsPage />} />
+              {/* Campaigns Routes */}
+              <Route path="campaigns" element={<CampaignsPage />} />
               <Route
-                path="points/campaigns/new"
+                path="campaigns/new"
                 element={<NewCampaignPage />}
               />
               <Route
-                path="points/campaigns/:id"
+                path="campaigns/:id"
                 element={<EditCampaignPage />}
               />
+
+              {/* Coupon Campaigns Routes */}
               <Route
-                path="coupons/campaigns"
+                path="coupon-campaigns"
                 element={<CouponCampaignsPage />}
               />
               <Route
-                path="coupons/campaigns/new"
+                path="coupon-campaigns/new"
                 element={<NewCouponCampaignPage />}
               />
               <Route
-                path="coupons/campaigns/:id"
+                path="coupon-campaigns/:id"
                 element={<EditCouponCampaignPage />}
               />
-              <Route path="points/redeem" element={<RedeemListPage />} />
-              <Route path="points/redeem/:id" element={<EditRedeemPage />} />
-              <Route path="points/rewards" element={<RewardsItemsPage />} />
-              <Route path="points/rewards/new" element={<NewProductPage />} />
-              <Route path="points/rewards/:id" element={<EditProductPage />} />
-              <Route path="points/tiers" element={<CustomerTiersPage />} />
+
+              {/* Redeem List Routes */}
+              <Route path="redeem-list" element={<RedeemListPage />} />
+              <Route path="redeem-list/:id" element={<EditRedeemPage />} />
+
+              {/* Reward Items Routes */}
+              <Route path="reward-items" element={<RewardsItemsPage />} />
+              <Route path="reward-items/new" element={<NewProductPage />} />
+              <Route path="reward-items/:id" element={<EditProductPage />} />
+
+              <Route path="customer-tiers" element={<CustomerTiersPage />} />
               <Route
-                path="points/tiers/new"
+                path="customer-tiers/new"
                 element={<NewCustomerTierPage />}
               />
               <Route
-                path="points/tiers/:id"
+                path="customer-tiers/:id"
                 element={<EditCustomerTierPage />}
               />
 

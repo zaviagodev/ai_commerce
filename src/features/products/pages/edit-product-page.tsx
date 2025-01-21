@@ -13,6 +13,7 @@ export function EditProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEventProduct = location.pathname.startsWith('/dashboard/events');
+  const isRewardProduct = location.pathname.startsWith('/dashboard/reward-items');
   const { products, updateProduct, deleteProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
   
@@ -99,6 +100,7 @@ export function EditProductPage() {
         product={product}
         onDelete={handleDelete}
         isEventProduct={isEventProduct}
+        isRewardProduct={isRewardProduct}
       />
     </>
   );

@@ -58,7 +58,7 @@ const dashboardMenus = [
       },
       {
         title: 'Categories',
-        url: '/dashboard/products/categories',
+        url: '/dashboard/categories',
         icon: Folder,
       }
     ],
@@ -75,7 +75,7 @@ const dashboardMenus = [
       },
       {
         title: 'Customer Groups',
-        url: '/dashboard/customers/groups',
+        url: '/dashboard/customer-groups',
         icon: Users,
       },
     ],

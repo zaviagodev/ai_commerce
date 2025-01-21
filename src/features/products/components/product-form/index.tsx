@@ -59,7 +59,7 @@ export function ProductForm({
   const t  = useTranslation();
   const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const isRewardProduct = location.pathname.startsWith(
-    "/dashboard/points/rewards"
+    "/dashboard/reward-items"
   );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
@@ -148,6 +148,11 @@ export function ProductForm({
     }
   };
 
+  const checkTypeofItem: string = 
+    isEventProduct ? 'event' : 
+    isRewardProduct ? 'rewardItem' : 
+    'product'
+
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -207,7 +212,7 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || t.products.products.form.untitled}
+                          {productName || t.products.products.form.untitled[checkTypeofItem]}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
@@ -287,7 +292,7 @@ export function ProductForm({
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || `${t.products.products.form.untitled} ${isEventProduct ? 'Event' : 'Product'}`}
+                  title={productName || `${t.products.products.form.untitled[checkTypeofItem]}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
@@ -354,7 +359,7 @@ export function ProductForm({
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.media.description} {isEventProduct ? 'event' : 'product'}
+                            {t.products.products.form.sections.media.description[checkTypeofItem]}
                           </p>
                         </div>
                       </CardHeader>
@@ -374,12 +379,12 @@ export function ProductForm({
                             {t.products.products.form.sections.basicDetails.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.basicDetails.description} {isEventProduct ? 'event' : 'product'}
+                            {t.products.products.form.sections.basicDetails.description[checkTypeofItem]}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <BasicDetails form={form} isEventProduct={isEventProduct}/>
+                        <BasicDetails form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
                       </CardContent>
                     </Card>
 
@@ -397,7 +402,7 @@ export function ProductForm({
                             {t.products.products.form.sections.pricing.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.pricing.description}
+                            {t.products.products.form.sections.pricing.description[checkTypeofItem]}
                           </p>
                         </div>
                       </CardHeader>
@@ -417,12 +422,12 @@ export function ProductForm({
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.inventory.description} {isEventProduct ? 'event' : 'product'}'s inventory
+                            {t.products.products.form.sections.inventory.description[checkTypeofItem]}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Inventory form={form} />
+                        <Inventory form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
                       </CardContent>
                     </Card>
 
@@ -430,7 +435,7 @@ export function ProductForm({
                     <Variations form={form} isEventProduct={isEventProduct}/>
 
                     {/* Shipping Section */}
-                    <Card>
+                    {/* <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
                           <Truck className="h-5 w-5 text-orange-600" />
@@ -447,7 +452,7 @@ export function ProductForm({
                       <CardContent>
                         <Shipping form={form} />
                       </CardContent>
-                    </Card>
+                    </Card> */}
 
                     {/* Organization Section */}
                     <Card>
@@ -460,12 +465,12 @@ export function ProductForm({
                             {t.products.products.form.sections.organization.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.organization.description} {isEventProduct ? 'event' : 'product'}
+                            {t.products.products.form.sections.organization.description[checkTypeofItem]}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization form={form} isEventProduct={isEventProduct}/>
+                        <Organization form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
                       </CardContent>
                     </Card>
 

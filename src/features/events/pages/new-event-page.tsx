@@ -11,6 +11,7 @@ import { ProductForm } from "@/features/products/components/product-form";
 export function NewEventPage() {
   const navigate = useNavigate();
   const { createEvent } = useEvents();
+  const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const [showActions, setShowActions] = useState(false);
 
   // Create a temporary product object for the actions modal
@@ -98,6 +99,7 @@ export function NewEventPage() {
         onDelete={async () => {
           toast.error("Cannot delete an event that hasn't been created yet");
         }}
+        isEventProduct={isEventProduct}
       />
     </>
   );

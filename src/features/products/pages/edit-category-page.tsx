@@ -16,7 +16,7 @@ export function EditCategoryPage() {
   const handleSubmit = async (data: ProductCategory) => {
     try {
       await updateCategory.mutateAsync({ id, data });
-      navigate('/dashboard/products/categories');
+      navigate('/dashboard/categories');
     } catch (error) {
       console.error('Failed to update category:', error);
     }

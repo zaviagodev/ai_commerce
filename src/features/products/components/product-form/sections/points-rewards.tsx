@@ -32,7 +32,7 @@ interface PointsRewardsProps {
 
 export function PointsRewards({ form }: PointsRewardsProps) {
   const location = useLocation();
-  const isRewardProduct = location.pathname.startsWith('/dashboard/points/rewards');
+  const isRewardProduct = location.pathname.startsWith('/dashboard/reward-items');
   const pointsEnabled = form.watch('pointsEnabled');
   const customerTiers = form.watch('customerTiers') ?? DEFAULT_TIERS;
 

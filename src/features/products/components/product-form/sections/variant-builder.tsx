@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Product, VariantOption, ProductVariant } from '@/types/product';
 import { VariantTable } from './variant-table';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantBuilderProps {
   form: UseFormReturn<Product>;
@@ -13,11 +14,15 @@ interface VariantBuilderProps {
 }
 
 export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
+  const t = useTranslation();
   const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
   const [newValue, setNewValue] = useState('');
   const variantOptions = form.watch('variantOptions') || [];
   const productName = form.watch('name');
   const [inputKey, setInputKey] = useState(0);
+
+  const checkTypeofItem = 
+    isEventProduct ? "event" : "product"
 
   const addOption = () => {
     form.setValue('variantOptions', [
@@ -170,7 +175,8 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
             <div className="flex-1 space-y-4">
               {/* Option Name */}
               <Input
-                placeholder={`Option ${index + 1} (e.g., ${isEventProduct ? 'Time slots' : 'Size, Color'})`}
+                // placeholder={`Option ${index + 1} (e.g., ${isEventProduct ? 'Time slots' : 'Size, Color'})`}
+                placeholder={t.products.products.form.sections.variations.optionNamePlaceholder[checkTypeofItem].replace("{index}", Number(index + 1))}
                 value={option.name}
                 onChange={(e) =>
                   updateOption(option.id, { name: e.target.value })
@@ -206,7 +212,7 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
                   <div className="flex gap-2">
                     <Input
                       key={inputKey}
-                      placeholder={`Enter ${isEventProduct ? 'time slot' : 'value'}`}
+                      placeholder={t.products.products.form.sections.variations.optionValuesPlaceholder[checkTypeofItem]}
                       value={newValue}
                       onChange={(e) => setNewValue(e.target.value)}
                       autoFocus
@@ -245,7 +251,7 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
                     onClick={() => setEditingOptionId(option.id)}
                   >
                     <Plus className="mr-2 h-4 w-4" />
-                    Add {isEventProduct ? 'time slot' : 'value'}
+                    {t.products.products.form.sections.variations.addValue[checkTypeofItem]}
                   </Button>
                 )}
               </div>
@@ -270,14 +276,14 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
             onClick={addOption}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Add another option
+            {t.products.products.form.sections.variations.addAnotherOption}
           </Button>
         )}
       </div>
 
       {/* Variant Table */}
       {variantOptions.length > 0 && (
-        <VariantTable form={form} />
+        <VariantTable form={form} isEventProduct={isEventProduct}/>
       )}
     </div>
   );

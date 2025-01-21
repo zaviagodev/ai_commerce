@@ -16,7 +16,7 @@ export function EditCampaignPage() {
   const handleSubmit = async (data: Campaign) => {
     try {
       await updateCampaign.mutateAsync({ id, data });
-      navigate('/dashboard/points/campaigns');
+      navigate('/dashboard/campaigns');
     } catch (error) {
       console.error('Failed to update campaign:', error);
     }

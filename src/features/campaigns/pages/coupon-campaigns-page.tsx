@@ -90,15 +90,15 @@ export function CouponCampaignsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{ t.customers.customer.coupon.title}</h1>
+          <h1 className="text-2xl font-semibold">{t.customers.customer.coupon.title}</h1>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.coupon.description}
+            {t.customers.customer.coupon.description}
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/coupons/campaigns/new">
+          <Link to="/dashboard/coupon-campaigns/new">
             <Plus className="mr-2 h-4 w-4" />
-            { t.customers.customer.coupon.actions.create}
+            {t.customers.customer.coupon.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -112,7 +112,7 @@ export function CouponCampaignsPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search coupon campaigns..."
+          placeholder={t.customers.customer.coupon.list.search}
         />
       </motion.div>
 
@@ -144,7 +144,7 @@ export function CouponCampaignsPage() {
                       { t.customers.customer.coupon.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/coupons/campaigns/new">
+                      <Link to="/dashboard/coupon-campaigns/new">
                         <Plus className="mr-2 h-4 w-4" />
                         { t.customers.customer.coupon.actions.create}
                       </Link>
@@ -154,7 +154,7 @@ export function CouponCampaignsPage() {
               </TableRow>
             ) : (
               paginatedCoupons.map((coupon) => (
-                <TableRow key={coupon.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/coupons/campaigns/${coupon.id}`)}>
+                <TableRow key={coupon.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/coupon-campaigns/${coupon.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">

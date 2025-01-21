@@ -99,7 +99,7 @@ export function NavMain() {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/products/categories" className="font-medium">
+                    <Link to="/dashboard/categories" className="font-medium">
                       <Folder className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.categories.title}</span>
                     </Link>
@@ -168,7 +168,7 @@ export function NavMain() {
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link
-                      to="/dashboard/customers/groups"
+                      to="/dashboard/customer-groups"
                       className="font-medium"
                     >
                       <Users className="h-3 w-3 text-muted-foreground" />
@@ -196,7 +196,7 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/coupons/campaigns" className="font-medium">
+                    <Link to="/dashboard/coupon-campaigns" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.couponCampaign.title}</span>
                     </Link>
@@ -234,7 +234,7 @@ export function NavMain() {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/events/orders" className="font-medium">
+                    <Link to="/dashboard/event-orders" className="font-medium">
                       <ShoppingCart className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.ticketOrders.title}</span>
                     </Link>
@@ -260,7 +260,7 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/points/campaigns" className="font-medium">
+                    <Link to="/dashboard/campaigns" className="font-medium">
                       <Trophy className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.campaigns.title}</span>
                     </Link>
@@ -268,7 +268,7 @@ export function NavMain() {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/points/rewards" className="font-medium">
+                    <Link to="/dashboard/reward-items" className="font-medium">
                       <Gift className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.rewardsItems.title}</span>
                     </Link>
@@ -276,7 +276,7 @@ export function NavMain() {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/points/redeem" className="font-medium">
+                    <Link to="/dashboard/redeem-list" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
                       <span>{t.navigation.navigation.redeemList.title}</span>
                     </Link>
@@ -285,11 +285,11 @@ export function NavMain() {
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link
-                      to="/dashboard/points/tiers"
+                      to="/dashboard/customer-tiers"
                       className="font-medium"
                     >
                       <Crown className="h-3 w-3 text-muted-foreground" />
-                      <span>Customer Tiers</span>
+                      <span>{t.navigation.navigation.customerTiers.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>

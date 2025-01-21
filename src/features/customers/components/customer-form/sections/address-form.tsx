@@ -107,32 +107,6 @@ export function AddressForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address type</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="shipping">Shipping</SelectItem>
-                      <SelectItem value="billing">Billing</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <FormField
-              control={form.control}
               name="firstName"
               render={({ field }) => (
                 <FormItem>
@@ -141,6 +115,7 @@ export function AddressForm({
                       t.customers.customer.form.sections.addresses.fields
                         .firstName.label
                     }
+                    <span className="text-destructive"> *</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -165,6 +140,7 @@ export function AddressForm({
                       t.customers.customer.form.sections.addresses.fields
                         .lastName.label
                     }
+                    <span className="text-destructive"> *</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -216,6 +192,7 @@ export function AddressForm({
                     t.customers.customer.form.sections.addresses.fields.address1
                       .label
                   }
+                  <span className="text-destructive"> *</span>
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -267,6 +244,7 @@ export function AddressForm({
                       t.customers.customer.form.sections.addresses.fields.city
                         .label
                     }
+                    <span className="text-destructive"> *</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -292,6 +270,7 @@ export function AddressForm({
                       t.customers.customer.form.sections.addresses.fields.state
                         .label
                     }
+                    <span className="text-destructive"> *</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -317,6 +296,7 @@ export function AddressForm({
                       t.customers.customer.form.sections.addresses.fields
                         .postalCode.label
                     }
+                    <span className="text-destructive"> *</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -343,6 +323,7 @@ export function AddressForm({
                     t.customers.customer.form.sections.addresses.fields.country
                       .label
                   }
+                  <span className="text-destructive"> *</span>
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}

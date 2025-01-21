@@ -61,7 +61,8 @@ export const event = {
           archived: 'archived',
           draft: 'draft'
         }
-      }
+      },
+      search: "Search events..."
     }
   },
   th: {
@@ -126,7 +127,8 @@ export const event = {
           archived: 'เก็บถาวร',
           draft: 'ฉบับร่าง'
         }
-      }
+      },
+      search: "ค้นหาอีเวนต์..."
     }
   }
 }; 

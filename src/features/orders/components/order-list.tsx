@@ -33,8 +33,6 @@ interface OrderListProps {
 export function OrderList({
   orders,
   isLoading,
-  title = "Orders",
-  description = "Manage your store's orders",
   path = "/dashboard/orders",
 }: OrderListProps) {
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
@@ -98,8 +96,8 @@ export function OrderList({
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{title}</h1>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <h1 className="text-2xl font-semibold">{t.orders.orders.title}</h1>
+          <p className="text-sm text-muted-foreground">{t.orders.orders.description}</p>
         </div>
         <Button asChild>
           <Link to={`${path}/new`}>
@@ -123,7 +121,7 @@ export function OrderList({
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search orders..."
+          placeholder={t.orders.orders.list.search}
         />
       </motion.div>
 

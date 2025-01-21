@@ -21,6 +21,7 @@ export const customersTranslations = {
         orders: 'Orders',
       },
       orders: 'orders',
+      search: 'Search customers...'
     },
     form: {
       title: {
@@ -63,8 +64,8 @@ export const customersTranslations = {
               placeholder: 'Doe',
             },
             company: {
-              label: 'Company',
-              placeholder: 'Company name (optional)',
+              label: 'Company (optional)',
+              placeholder: 'Company',
             },
             address1: {
               label: 'Address Line 1',
@@ -160,6 +161,10 @@ export const customersTranslations = {
         lastName: {
           label: 'Last Name',
           placeholder: 'Doe',
+        },
+        company: {
+          label: 'Company (optional)',
+          placeholder: 'Company',
         },
         email: {
           label: 'Email',
@@ -295,6 +300,7 @@ export const customersTranslations = {
           active: 'Active',
           inactive: 'Inactive',
         },
+        search: "Search customer groups..."
       },
       errors: {
         notFound: 'Group not found',
@@ -417,6 +423,7 @@ export const customersTranslations = {
           active: 'Active',
           inactive: 'Inactive',
         },
+        search: "Search customer tiers..."
       },
       errors: {
         notFound: 'Tier not found',
@@ -457,6 +464,7 @@ export const customersTranslations = {
         duration: {
           to: 'to',
         },
+        search: "Search campaigns..."
       },
     },
     coupon: {
@@ -500,6 +508,7 @@ export const customersTranslations = {
           expired: 'Expired',
           draft: 'Draft',
         },
+        search: "Search coupon campaigns..."
       },
     },
     campaignForm: {
@@ -677,6 +686,7 @@ export const customersTranslations = {
         orders: 'คำสั่งซื้อ',
       },
       orders: 'คำสั่งซื้อ',
+      search: 'ค้นหาลูกค้า...'
     },
     form: {
       title: {
@@ -719,8 +729,8 @@ export const customersTranslations = {
               placeholder: 'โด',
             },
             company: {
-              label: 'บริษัท',
-              placeholder: 'ชื่อบริษัท (ไม่บังคับ)',
+              label: 'บริษัท (ไม่บังคับ)',
+              placeholder: 'บริษัท',
             },
             address1: {
               label: 'ที่อยู่บรรทัดที่ 1',
@@ -747,8 +757,8 @@ export const customersTranslations = {
               placeholder: 'เลือกประเทศ',
             },
             phone: {
-              label: 'เบอร์โทรศัพท์',
-              placeholder: 'เบอร์โทรศัพท์ (ไม่บังคับ)',
+              label: 'เบอร์โทรศัพท์ (ไม่บังคับ)',
+              placeholder: 'เบอร์โทรศัพท์',
             },
             isDefault: {
               label: 'ตั้งเป็นที่อยู่เริ่มต้น',
@@ -816,6 +826,10 @@ export const customersTranslations = {
         lastName: {
           label: 'นามสกุล',
           placeholder: 'โด',
+        },
+        company: {
+          label: 'บริษัท (ไม่บังคับ)',
+          placeholder: 'บริษัท',
         },
         email: {
           label: 'อีเมล',
@@ -951,6 +965,7 @@ export const customersTranslations = {
           active: 'เปิดใช้งาน',
           inactive: 'ปิดใช้งาน',
         },
+        search: "ค้นหากลุ่มลูกค้า..."
       },
       errors: {
         notFound: 'ไม่พบกลุ่ม',
@@ -1073,6 +1088,7 @@ export const customersTranslations = {
           active: 'เปิดใช้งาน',
           inactive: 'ปิดใช้งาน',
         },
+        search: "ค้นหาระดับลูกค้า..."
       },
       errors: {
         notFound: 'ไม่พบระดับ',
@@ -1113,6 +1129,7 @@ export const customersTranslations = {
         duration: {
           to: 'ถึง',
         },
+        search: "ค้นหาแคมเปญ..."
       },
     },
     coupon: {
@@ -1156,6 +1173,7 @@ export const customersTranslations = {
           expired: 'หมดอายุ',
           draft: 'แบบร่าง',
         },
+        search: "ค้นหาแคมเปญคูปอง..."
       },
     },
     campaignForm: {
