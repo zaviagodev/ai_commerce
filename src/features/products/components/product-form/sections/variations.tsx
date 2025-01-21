@@ -30,9 +30,9 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
           <Layers className="h-5 w-5 text-indigo-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{isEventProduct ? 'Time Slots' : 'Product Variations'}</h2>
+          <h2 className="text-lg font-medium">{isEventProduct ? t.products.products.form.sections.eventDetails.title : t.products.products.form.sections.variations.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure {isEventProduct ? 'time slots' : 'product variants'} and options
+            {isEventProduct ? t.products.products.form.sections.eventDetails.description : t.products.products.form.sections.variations.description}
           </p>
         </div>
       </CardHeader>
@@ -43,9 +43,9 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable {isEventProduct ? 'Time Slots' : 'Product Variations'}</FormLabel>
+                <FormLabel>{isEventProduct ? t.products.products.form.sections.eventDetails.title : t.products.products.form.sections.variations.enable}</FormLabel>
                 <FormDescription>
-                  Create multiple {isEventProduct ? 'slots' : 'variants'} of this {isEventProduct ? 'event' : 'product'} with different options
+                  {isEventProduct ? t.products.products.form.sections.eventDetails.description : t.products.products.form.sections.variations.enableDescription}
                 </FormDescription>
               </div>
               <FormControl>

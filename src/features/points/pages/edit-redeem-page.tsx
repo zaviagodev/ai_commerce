@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/button';
 import { RedeemForm } from '../components/redeem-form';
 import { useRedeems } from '../hooks/use-redeems';
 import { Printer } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function EditRedeemPage() {
+  const t = useTranslation();
   const { id } = useParams();
   const { redeems } = useRedeems();
   const [isEditing, setIsEditing] = useState(false);
@@ -14,12 +16,12 @@ export function EditRedeemPage() {
   const redeem = redeems.find((r) => r.id === id);
 
   if (!redeem) {
-    return <div>Redeem not found</div>;
+    return <div>{t.points.redeems.list.empty.title}</div>;
   }
 
   const handleCancel = () => {
     if (hasChanges) {
-      if (window.confirm('Are you sure? Any unsaved changes will be lost.')) {
+      if (window.confirm(t.points.redeems.form.messages.confirmCancel)) {
         setIsEditing(false);
         setHasChanges(false);
       }
@@ -32,7 +34,7 @@ export function EditRedeemPage() {
     <div className="flex items-center gap-2">
       <Button variant="outline">
         <Printer className="mr-2 h-4 w-4" />
-        Print Receipt
+        {t.points.redeems.actions.print}
       </Button>
       {!isEditing ? (
         <Button 
@@ -40,7 +42,7 @@ export function EditRedeemPage() {
           variant="default"
           className="bg-blue-600 hover:bg-blue-700"
         >
-          Edit Redeem
+          {t.points.redeems.actions.edit}
         </Button>
       ) : (
         <div className="flex items-center gap-2">
@@ -49,14 +51,14 @@ export function EditRedeemPage() {
             variant="outline" 
             onClick={handleCancel}
           >
-            Cancel
+            {t.points.redeems.actions.cancel}
           </Button>
           <Button 
             type="submit"
             disabled={!hasChanges}
             className="bg-green-600 hover:bg-green-700"
           >
-            Save Changes
+            {t.points.redeems.actions.save}
           </Button>
         </div>
       )}

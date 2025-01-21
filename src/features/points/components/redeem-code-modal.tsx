@@ -13,6 +13,7 @@ import { QrCode, Barcode, Keyboard, User, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RedeemCodeModalProps {
   open: boolean;
@@ -28,6 +29,7 @@ interface ScanResult {
 }
 
 export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
+  const t = useTranslation();
   const [inputMethod, setInputMethod] = useState<InputMethod>('manual');
   const [code, setCode] = useState('');
   const [isScanning, setIsScanning] = useState(false);
@@ -59,7 +61,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Redeem successfully processed!');
+    toast.success(t.points.redeems.form.messages.createSuccess);
     onOpenChange(false);
     setScanResult(null);
   };
@@ -68,7 +70,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Enter Redeem Code</DialogTitle>
+          <DialogTitle>{t.points.redeems.form.title.create}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -107,10 +109,10 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
           <div className="space-y-4">
             {inputMethod === 'manual' && (
               <div className="space-y-2">
-                <Label htmlFor="code">Redeem Code</Label>
+                <Label htmlFor="code">{t.points.redeems.list.columns.id}</Label>
                 <Input
                   id="code"
-                  placeholder="Enter redeem code"
+                  placeholder={t.points.redeems.list.search}
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                 />
@@ -211,7 +213,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                           <div className="p-3 rounded-lg bg-main border border-gray-200">
                             <div className="flex justify-between items-center">
                               <span className="text-sm font-medium">
-                                Coupon Code
+                                {t.points.redeems.list.columns.id}
                               </span>
                               <div className="flex items-center gap-2">
                                 <code className="text-sm bg-gray-100 text-gray-800 px-2 py-1 rounded">
@@ -236,7 +238,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                             transition={{ delay: 0.3 }}
                             className="text-sm text-center text-gray-700 font-medium animate-fade-up"
                           >
-                            Ready to process redeem
+                            {t.points.redeems.form.description.create}
                           </motion.p>
                         </div>
                       </div>

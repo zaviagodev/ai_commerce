@@ -10,6 +10,7 @@ import { BasicDetails } from './sections/basic-details';
 import { ItemsTable } from './sections/items-table';
 import { RedeemDetails } from './sections/redeem-details';
 import { StatusSelect } from './sections/status-select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RedeemFormProps {
   initialData: Redeem;
@@ -24,6 +25,7 @@ export function RedeemForm({
   headerActions,
   onFieldChange 
 }: RedeemFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(RedeemSchema),
     defaultValues: initialData,
@@ -84,14 +86,14 @@ export function RedeemForm({
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
                       <TabsTrigger value="overview" disabled={!initialData || isEditing}>
-                        Overview
+                        {t.points.redeems.form.tabs.overview}
                       </TabsTrigger>
                       <TabsTrigger 
                         value="basic" 
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
-                        Basic Details
+                        {t.points.redeems.form.tabs.basicDetails}
                       </TabsTrigger>
                     </TabsList>
                     {(!initialData || isEditing) && (
