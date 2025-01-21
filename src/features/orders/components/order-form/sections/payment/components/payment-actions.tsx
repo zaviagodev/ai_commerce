@@ -26,9 +26,6 @@ export function PaymentActions({
   
   if (isSaving) return null;
 
-
-  console.log(t.orders.orders.form.sections.payment.types);
-
   return (
     <motion.div
       className="relative px-6 py-4 z-10"

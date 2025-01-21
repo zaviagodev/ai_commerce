@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Tags } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,6 +21,7 @@ import { useMemo, useState } from 'react';
 import { ProductSearch } from '@/features/products/components/product-search';
 
 export function CouponCampaignsPage() {
+  const navigate = useNavigate();
   const { coupons, isLoading } = useCoupons();
   const t = useTranslation();
   const {
@@ -153,19 +154,14 @@ export function CouponCampaignsPage() {
               </TableRow>
             ) : (
               paginatedCoupons.map((coupon) => (
-                <TableRow key={coupon.id}>
+                <TableRow key={coupon.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/coupons/campaigns/${coupon.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                         <Tags className="h-5 w-5 text-purple-600" />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/coupons/campaigns/${coupon.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {coupon.code}
-                        </Link>
+                        <span className="font-medium hover:underline">{coupon.code}</span>
                         <p className="text-sm text-muted-foreground">
                           {coupon.description}
                         </p>

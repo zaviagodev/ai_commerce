@@ -1,5 +1,5 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Package, ArrowUpDown, MoreHorizontal } from 'lucide-react';
@@ -31,6 +31,7 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
   const [sortValue, setSortValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const t = useTranslation();
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -125,7 +126,7 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
               paginatedEvents.map((event) => {
                 const quantity = event.variants.reduce((acc, variant) => acc + variant.quantity, 0)
                 return (
-                <TableRow key={event.id}>
+                <TableRow key={event.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/events/${event.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {event.images[0] ? (
@@ -138,12 +139,9 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <Link
-                          to={`/dashboard/events/${event.id}`}
-                          className="font-medium hover:underline"
-                        >
+                        <span className="font-medium hover:underline">
                           {event.name}
-                        </Link>
+                        </span>
                         {event.sku && (
                           <p className="text-sm text-muted-foreground">
                             {t.events.event.ticketList.table.cells.sku.replace('{value}', event.sku)}

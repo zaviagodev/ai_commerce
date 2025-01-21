@@ -14,9 +14,10 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function BasicDetails({ form }: BasicDetailsProps) {
+export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
   const t  = useTranslation();
 
   return (
@@ -50,13 +51,13 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             <FormLabel>{t.products.products.form.description}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder={t.products.products.form.sections.basicDetails.descriptionPlaceholder}
+                placeholder={`${t.products.products.form.sections.basicDetails.descriptionPlaceholder} ${isEventProduct ? 'event' : 'product'}`}
                 className="min-h-[120px] w-full"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.basicDetails.descriptionHelp}
+              {t.products.products.form.sections.basicDetails.descriptionHelp} {isEventProduct ? 'event' : 'product'}
             </FormDescription>
             <FormMessage />
           </FormItem>

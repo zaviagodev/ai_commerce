@@ -32,9 +32,6 @@ export function VariantTable({ form }: VariantTableProps) {
   const [groupBy, setGroupBy] = useState<string>('ungrouped');
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
-
-  console.log(t.products.products.form.sections.variations);
-
   const {
     pageIndex,
     pageSize,

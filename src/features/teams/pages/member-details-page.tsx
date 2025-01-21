@@ -40,7 +40,7 @@ export default function MemberDetailsPage() {
           transition={{ duration: 0.3, delay: 0.2 }}
         >
           <div className="h-full">
-            <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+            <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
               <BasicInfo member={member} />
               <RolePermissions 
                 member={member}

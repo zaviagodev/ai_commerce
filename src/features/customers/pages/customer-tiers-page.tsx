@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,6 +19,7 @@ import { ProductSearch } from '@/features/products/components/product-search';
 import { useMemo, useState } from 'react';
 
 export function CustomerTiersPage() {
+  const navigate = useNavigate();
   const { tiers, isLoading } = useCustomerTiers();
   const t = useTranslation();
 
@@ -116,7 +117,7 @@ export function CustomerTiersPage() {
               </TableRow>
             ) : (
               filteredTiers.map((tier) => (
-                <TableRow key={tier.id}>
+                <TableRow key={tier.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/tiers/${tier.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -125,12 +126,7 @@ export function CustomerTiersPage() {
                         <Crown className={`h-5 w-5 text-${tier.color}-600`} />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/points/tiers/${tier.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {tier.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{tier.name}</span>
                         {tier.description && (
                           <p className="text-sm text-muted-foreground">
                             {tier.description}

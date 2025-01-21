@@ -47,7 +47,6 @@ export class EventService {
 
       if (error) throw error;
       if (!data) return [];
-      console.log("data", data.map(transformEventProduct));
       return data.map(transformEventProduct);
     } catch (error: any) {
       console.error("Failed to fetch events:", error);

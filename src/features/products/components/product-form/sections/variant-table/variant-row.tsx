@@ -16,15 +16,16 @@ export function VariantTableRow({ variant, trackQuantity, onUpdate }: VariantRow
         <Input
           value={variant.sku}
           onChange={(e) => onUpdate(variant.id, { sku: e.target.value })}
+          onKeyDown={(e) => {if (e.key === "Enter") e.preventDefault()}}
         />
       </TableCell>
       <TableCell>
         <Input
           type="number"
           min="0"
-          step="0.01"
           value={variant.price}
           onChange={(e) => onUpdate(variant.id, { price: Number(e.target.value) })}
+          onKeyDown={(e) => {if (e.key === "Enter") e.preventDefault()}}
         />
       </TableCell>
       {trackQuantity && (
@@ -36,6 +37,7 @@ export function VariantTableRow({ variant, trackQuantity, onUpdate }: VariantRow
             onChange={(e) =>
               onUpdate(variant.id, { quantity: Number(e.target.value) })
             }
+            onKeyDown={(e) => {if (e.key === "Enter") e.preventDefault()}}
           />
         </TableCell>
       )}

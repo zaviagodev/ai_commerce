@@ -25,9 +25,10 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrganizationProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function Organization({ form }: OrganizationProps) {
+export function Organization({ form, isEventProduct }: OrganizationProps) {
   const t = useTranslation();
   const { categories, isLoading } = useCategories();
   const tags = form.watch('tags') || [];
@@ -74,7 +75,7 @@ export function Organization({ form }: OrganizationProps) {
             </Select>
             <div className="flex items-center justify-between">
               <FormDescription>
-                {t.products.products.form.sections.organization.categoryDescription}
+                Choose a category for your {isEventProduct ? 'event' : 'product'}s
               </FormDescription>
               <Button variant="link" className="px-0" asChild>
                 <Link to="/dashboard/products/categories/new">
@@ -161,7 +162,7 @@ export function Organization({ form }: OrganizationProps) {
               </div>
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.organization.tagsDescription}
+              Tags can help customers find your {isEventProduct ? 'event' : 'product'}s easily
             </FormDescription>
             <FormMessage />
           </FormItem>

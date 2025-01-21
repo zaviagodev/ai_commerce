@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { BadgeCheck, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -26,6 +26,7 @@ interface CustomerListProps {
 }
 
 export function CustomerList({ customers, isLoading }: CustomerListProps) {
+  const navigate = useNavigate();
   const t = useTranslation();
   const {
     pageIndex,
@@ -55,8 +56,6 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
 
   const paginatedCustomers = paginateItems(filteredCustomers);
 
-
-  console.log(t.customers.customer);
 
   if (isLoading) {
     return (
@@ -137,14 +136,12 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               </TableRow>
             ) : (
               paginatedCustomers.map((customer) => (
-                <TableRow key={customer.id}>
+                <TableRow key={customer.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customers/${customer.id}`)}>
                   <TableCell>
-                    <Link
-                      to={`/dashboard/customers/${customer.id}`}
-                      className="font-medium hover:underline"
-                    >
-                      {customer.firstName} {customer.lastName}
-                    </Link>
+                    <div className='flex items-center gap-1'>
+                      <span className="font-medium hover:underline">{customer.firstName} {customer.lastName} </span>
+                      {customer.isVerified && <BadgeCheck className="h-4 w-4 text-blue-500 shrink-0" />}
+                    </div>
                   </TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone || '-'}</TableCell>

@@ -9,9 +9,10 @@ import { VariantTable } from './variant-table';
 
 interface VariantBuilderProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function VariantBuilder({ form }: VariantBuilderProps) {
+export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
   const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
   const [newValue, setNewValue] = useState('');
   const variantOptions = form.watch('variantOptions') || [];
@@ -169,21 +170,25 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
             <div className="flex-1 space-y-4">
               {/* Option Name */}
               <Input
-                placeholder={`Option ${index + 1} (e.g., Size, Color)`}
+                placeholder={`Option ${index + 1} (e.g., ${isEventProduct ? 'Time slots' : 'Size, Color'})`}
                 value={option.name}
                 onChange={(e) =>
                   updateOption(option.id, { name: e.target.value })
                 }
+                onKeyDown={(e) => {
+                  /* When pressing 'Enter' it will open the item actions modal, so I prevent it by setting this function */
+                  if (e.key === "Enter") e.preventDefault()
+                }}
               />
 
               {/* Option Values */}
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => (
                     <Badge
                       key={value}
                       variant="secondary"
-                      className="gap-1"
+                      className="gap-1 text-sm font-medium"
                     >
                       {value}
                       <button
@@ -201,7 +206,7 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
                   <div className="flex gap-2">
                     <Input
                       key={inputKey}
-                      placeholder="Enter value"
+                      placeholder={`Enter ${isEventProduct ? 'time slot' : 'value'}`}
                       value={newValue}
                       onChange={(e) => setNewValue(e.target.value)}
                       autoFocus
@@ -240,7 +245,7 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
                     onClick={() => setEditingOptionId(option.id)}
                   >
                     <Plus className="mr-2 h-4 w-4" />
-                    Add value
+                    Add {isEventProduct ? 'time slot' : 'value'}
                   </Button>
                 )}
               </div>

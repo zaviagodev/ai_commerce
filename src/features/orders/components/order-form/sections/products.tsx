@@ -37,7 +37,6 @@ export function Products({ form }: ProductsProps) {
       });
       form.setValue('items', updatedItems);
     } else {
-      console.log("variant =>", variant);
       // Add new item
       const newItem = {
         id: crypto.randomUUID(),

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +40,7 @@ export function OrderList({
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const t = useTranslation();
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -153,7 +154,7 @@ export function OrderList({
                       {t.orders.orders.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/orders/new">
+                      <Link to={`${path}/new`}>
                         <Plus className="mr-2 h-4 w-4" />
                         {t.orders.orders.actions.create}
                       </Link>
@@ -163,7 +164,7 @@ export function OrderList({
               </TableRow>
             ) : (
               paginatedOrders.map((order) => (
-                <TableRow key={order.id}>
+                <TableRow key={order.id} className='cursor-pointer' onClick={() => navigate(`${path}/${order.id}`)}>
                   <TableCell>
                     <Link
                       to={`${path}/${order.id}`}
