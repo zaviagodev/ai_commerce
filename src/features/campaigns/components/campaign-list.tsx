@@ -110,7 +110,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               <TableHead>{ t.customers.customer.campaign.list.columns.campaign}</TableHead>
               <TableHead>{ t.customers.customer.campaign.list.columns.type}</TableHead>
               <TableHead>{ t.customers.customer.campaign.list.columns.duration}</TableHead>
-              <TableHead>{ t.customers.customer.campaign.list.columns.target}</TableHead>
+              {/* <TableHead>{ t.customers.customer.campaign.list.columns.target}</TableHead> */}
               <TableHead>{ t.customers.customer.campaign.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
@@ -164,14 +164,14 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-muted-foreground" />
                       <span>
                         { t.customers.customer.campaign.list.target[campaign.targetType]}
                       </span>
                     </div>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Badge
                       variant={

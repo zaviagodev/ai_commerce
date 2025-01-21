@@ -146,10 +146,10 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             )}
 
             {/* Display Settings Section */}
-            <DisplaySettings form={form} />
+            {/* <DisplaySettings form={form} /> */}
 
             {/* Limitations Section */}
-            <Limitations form={form} />
+            {/* <Limitations form={form} /> */}
           </motion.div>
         </motion.form>
       </Form>
