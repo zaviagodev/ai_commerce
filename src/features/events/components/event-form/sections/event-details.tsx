@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,16 +6,16 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Calendar } from 'lucide-react';
-import { Product } from '@/types/product';
-import { motion } from 'framer-motion';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Calendar } from "lucide-react";
+import { Event } from "@/types/product";
+import { motion } from "framer-motion";
 
 interface EventDetailsProps {
-  form: UseFormReturn<Product>;
+  form: UseFormReturn<Event>;
 }
 
 export function EventDetails({ form }: EventDetailsProps) {
@@ -41,7 +41,7 @@ export function EventDetails({ form }: EventDetailsProps) {
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               control={form.control}
-              name="eventStartDate"
+              name="startDateTime"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Start Date & Time</FormLabel>
@@ -49,7 +49,11 @@ export function EventDetails({ form }: EventDetailsProps) {
                     <Input
                       type="datetime-local"
                       {...field}
-                      value={field.value ? new Date(field.value).toISOString().slice(0, 16) : ''}
+                      value={
+                        field.value
+                          ? new Date(field.value).toISOString().slice(0, 16)
+                          : ""
+                      }
                       onChange={(e) => field.onChange(new Date(e.target.value))}
                     />
                   </FormControl>
@@ -60,7 +64,7 @@ export function EventDetails({ form }: EventDetailsProps) {
 
             <FormField
               control={form.control}
-              name="eventEndDate"
+              name="endDateTime"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>End Date & Time</FormLabel>
@@ -68,7 +72,11 @@ export function EventDetails({ form }: EventDetailsProps) {
                     <Input
                       type="datetime-local"
                       {...field}
-                      value={field.value ? new Date(field.value).toISOString().slice(0, 16) : ''}
+                      value={
+                        field.value
+                          ? new Date(field.value).toISOString().slice(0, 16)
+                          : ""
+                      }
                       onChange={(e) => field.onChange(new Date(e.target.value))}
                     />
                   </FormControl>
@@ -80,7 +88,7 @@ export function EventDetails({ form }: EventDetailsProps) {
 
           <FormField
             control={form.control}
-            name="eventVenue"
+            name="venueName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Venue Name</FormLabel>
@@ -94,12 +102,12 @@ export function EventDetails({ form }: EventDetailsProps) {
 
           <FormField
             control={form.control}
-            name="eventAddress"
+            name="venueAddress"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Venue Address</FormLabel>
                 <FormControl>
-                  <Textarea 
+                  <Textarea
                     placeholder="Enter the complete venue address"
                     className="min-h-[100px]"
                     {...field}
@@ -115,15 +123,12 @@ export function EventDetails({ form }: EventDetailsProps) {
 
           <FormField
             control={form.control}
-            name="eventGoogleMapsLink"
+            name="googleMapsLink"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Google Maps Link</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Paste Google Maps link here" 
-                    {...field} 
-                  />
+                  <Input placeholder="Paste Google Maps link here" {...field} />
                 </FormControl>
                 <FormDescription>
                   Add a Google Maps link to help attendees find the venue
@@ -136,7 +141,7 @@ export function EventDetails({ form }: EventDetailsProps) {
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               control={form.control}
-              name="eventOrganizerName"
+              name="organizerName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Organizer Name</FormLabel>
@@ -150,7 +155,7 @@ export function EventDetails({ form }: EventDetailsProps) {
 
             <FormField
               control={form.control}
-              name="eventOrganizerContact"
+              name="organizerContact"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Organizer Contact</FormLabel>

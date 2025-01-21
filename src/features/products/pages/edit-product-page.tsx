@@ -18,8 +18,6 @@ export function EditProductPage() {
   
   const product = products.find((p) => p.id === id);
 
-  console.log("product =>", product)
-
   if (!product) {
     return <div className='pt-14'>{isEventProduct ? 'Event' : 'Product'} not found</div>;
   }

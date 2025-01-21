@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { ShareableLink } from './shareable-link';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface InviteModalProps {
   open: boolean;
@@ -14,6 +15,8 @@ interface InviteModalProps {
 }
 
 export function InviteModal({ open, onOpenChange }: InviteModalProps) {
+  const t = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] p-0 gap-0 overflow-hidden">
@@ -25,7 +28,7 @@ export function InviteModal({ open, onOpenChange }: InviteModalProps) {
           className="relative"
         >
           <DialogHeader className="px-6 py-4 border-b">
-            <DialogTitle>Share Invite Link</DialogTitle>
+            <DialogTitle>{t.teams.invite.title}</DialogTitle>
           </DialogHeader>
 
           <div className="p-6">

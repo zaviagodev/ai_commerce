@@ -12,6 +12,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Layers, Plus } from 'lucide-react';
 import { Product } from '@/types/product';
 import { VariantBuilder } from './variant-builder';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
@@ -19,6 +20,7 @@ interface VariationsProps {
 }
 
 export function Variations({ form, isEventProduct }: VariationsProps) {
+  const t = useTranslation();
   const variantOptions = form.watch('variantOptions') || [];
 
   return (

@@ -15,6 +15,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { QrCode, Plus, X, Wallet } from 'lucide-react';
 import { PaymentSettings, BankAccount } from '../../schemas/payment-settings-schema';
 import { BankAccountDialog } from './bank-account-dialog';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ThaiPaymentMethodsProps {
   form: UseFormReturn<PaymentSettings>;
@@ -31,6 +32,7 @@ const THAI_BANKS = [
 
 export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
   const [isAddingBank, setIsAddingBank] = useState(false);
+  const t = useTranslation();
   const promptpayEnabled = form.watch('promptpayEnabled');
   const bankTransferEnabled = form.watch('bankTransferEnabled');
   const bankAccounts = form.watch('bankAccounts') || [];
@@ -67,9 +69,9 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             <QrCode className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-medium">PromptPay</h3>
+            <h3 className="text-lg font-medium">{t.settings.payments.promptpay.title}</h3>
             <p className="text-sm text-muted-foreground">
-              Configure PromptPay payment settings
+              {t.settings.payments.promptpay.subtitle}
             </p>
           </div>
         </CardHeader>
@@ -80,9 +82,9 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             render={({ field }) => (
               <FormItem className="flex items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
-                  <FormLabel>Enable PromptPay</FormLabel>
+                  <FormLabel>{t.settings.payments.promptpay.enable.label}</FormLabel>
                   <FormDescription>
-                    Accept payments via PromptPay QR code
+                    {t.settings.payments.promptpay.enable.description}
                   </FormDescription>
                 </div>
                 <FormControl>
@@ -102,12 +104,12 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                 name="promptpayId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>PromptPay ID</FormLabel>
+                    <FormLabel>{t.settings.payments.promptpay.id.label}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Phone number or Tax ID" {...field} />
+                      <Input placeholder={t.settings.payments.promptpay.id.placeholder} {...field} />
                     </FormControl>
                     <FormDescription>
-                      Your PromptPay registered phone number or Tax ID
+                      {t.settings.payments.promptpay.id.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -119,9 +121,9 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                 name="promptpayName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Account Name</FormLabel>
+                    <FormLabel>{t.settings.payments.promptpay.accountName.label}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Account holder name" {...field} />
+                      <Input placeholder={t.settings.payments.promptpay.accountName.placeholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -133,7 +135,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                 name="promptpayQrCode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>QR Code Image</FormLabel>
+                    <FormLabel>{t.settings.payments.promptpay.qrCode.label}</FormLabel>
                     <FormControl>
                       <div className="space-y-4">
                         {field.value ? (
@@ -166,7 +168,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                       </div>
                     </FormControl>
                     <FormDescription>
-                      Upload your PromptPay QR code image
+                      {t.settings.payments.promptpay.qrCode.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -184,9 +186,9 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             <Wallet className="h-5 w-5 text-green-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-medium">Bank Transfer</h3>
+            <h3 className="text-lg font-medium">{t.settings.payments.bankTransfer.title}</h3>
             <p className="text-sm text-muted-foreground">
-              Configure bank transfer payment settings
+              {t.settings.payments.bankTransfer.subtitle}
             </p>
           </div>
         </CardHeader>
@@ -197,9 +199,9 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             render={({ field }) => (
               <FormItem className="flex items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
-                  <FormLabel>Enable Bank Transfer</FormLabel>
+                  <FormLabel>{t.settings.payments.bankTransfer.enable.label}</FormLabel>
                   <FormDescription>
-                    Accept payments via bank transfer
+                    {t.settings.payments.bankTransfer.enable.description}
                   </FormDescription>
                 </div>
                 <FormControl>
@@ -226,12 +228,12 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                     </p>
                     {account.branch && (
                       <p className="text-sm text-muted-foreground">
-                        Branch: {account.branch}
+                        {t.settings.payments.bankTransfer.accountDetails.branch}: {account.branch}
                       </p>
                     )}
                     {account.isDefault && (
                       <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                        Default account
+                        {t.settings.payments.bankTransfer.accountDetails.defaultAccount}
                       </div>
                     )}
                   </div>
@@ -253,7 +255,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                 onClick={() => setIsAddingBank(true)}
               >
                 <Plus className="mr-2 h-4 w-4" />
-                Add bank account
+                {t.settings.payments.bankTransfer.addAccount}
               </Button>
             </div>
           )}

@@ -11,12 +11,14 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Filter } from 'lucide-react';
 import { Coupon } from '@/types/coupon';
 import { RuleBuilder } from './rule-builder';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AdvancedConditionsProps {
   form: UseFormReturn<Coupon>;
 }
 
 export function AdvancedConditions({ form }: AdvancedConditionsProps) {
+  const t = useTranslation();
   const advancedMode = form.watch('advancedMode');
   const conditions = form.watch('conditions') || [];
 
@@ -46,9 +48,9 @@ export function AdvancedConditions({ form }: AdvancedConditionsProps) {
           <Filter className="h-5 w-5 text-purple-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Advanced Conditions</h2>
+          <h2 className="text-lg font-medium">{t.campaigns.campaign.coupon.sections.advancedConditions.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Set up advanced conditions for coupon usage
+            {t.campaigns.campaign.coupon.sections.advancedConditions.description}
           </p>
         </div>
       </CardHeader>
@@ -59,9 +61,9 @@ export function AdvancedConditions({ form }: AdvancedConditionsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable Advanced Mode</FormLabel>
+                <FormLabel>{t.campaigns.campaign.coupon.sections.advancedConditions.fields.advancedMode.label}</FormLabel>
                 <FormDescription>
-                  Create complex conditions for when this coupon can be used
+                  {t.campaigns.campaign.coupon.sections.advancedConditions.fields.advancedMode.description}
                 </FormDescription>
               </div>
               <FormControl>

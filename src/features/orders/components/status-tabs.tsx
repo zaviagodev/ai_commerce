@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface StatusTabsProps {
   selectedStatus: string;
@@ -20,6 +21,8 @@ export function StatusTabs({
   onStatusChange,
   counts,
 }: StatusTabsProps) {
+  const t = useTranslation();
+
   return (
     <div className="flex space-x-1 rounded-lg bg-muted p-1 w-full lg:w-fit">
       {STATUSES.map((status) => (
@@ -34,7 +37,7 @@ export function StatusTabs({
               : 'text-muted-foreground'
           )}
         >
-          {status.label}
+          {t.orders.orders.status[status.value]}
           {status.value === 'all' ? (
             <span
               className={cn(

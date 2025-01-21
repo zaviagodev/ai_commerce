@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface DeleteConfirmModalProps {
   open: boolean;
@@ -25,6 +26,7 @@ export function DeleteConfirmModal({
   onConfirm,
   itemName,
 }: DeleteConfirmModalProps) {
+  const t = useTranslation();
   const [confirmText, setConfirmText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -47,9 +49,9 @@ export function DeleteConfirmModal({
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div>
-              <DialogTitle>Delete Product</DialogTitle>
+              <DialogTitle>{t.products.products.form.modals.delete.title}</DialogTitle>
               <DialogDescription>
-                This action cannot be undone
+                {t.products.products.form.modals.delete.description}
               </DialogDescription>
             </div>
           </div>
@@ -58,13 +60,13 @@ export function DeleteConfirmModal({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              This will permanently delete <span className="font-medium">{itemName}</span> and all of its data. This action cannot be undone.
+              {t.products.products.form.modals.delete.warning.replace('{name}', itemName)}
             </p>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirm">
-              Type <span className="font-medium">delete</span> to confirm
+              {t.products.products.form.modals.delete.confirmText.replace('{text}', 'delete')}
             </Label>
             <Input
               id="confirm"
@@ -81,14 +83,14 @@ export function DeleteConfirmModal({
             onClick={() => onOpenChange(false)}
             disabled={isDeleting}
           >
-            Cancel
+            {t.products.products.form.modals.delete.cancel}
           </Button>
           <Button
             variant="destructive"
             onClick={handleConfirm}
             disabled={confirmText !== 'delete' || isDeleting}
           >
-            {isDeleting ? 'Deleting...' : 'Delete Product'}
+            {isDeleting ? t.products.products.form.modals.delete.deleting : t.products.products.form.modals.delete.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

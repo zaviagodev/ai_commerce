@@ -13,14 +13,29 @@ export interface Coupon {
   usageCount?: number;
   startDate: Date;
   endDate: Date;
-  status: 'draft' | 'scheduled' | 'active' | 'expired';
+  status: 'active' | 'inactive';
   advancedMode: boolean;
-  conditions?: {
-    id: string;
-    type: 'cart_total' | 'product_quantity' | 'customer_group' | 'first_purchase';
-    operator: 'greater_than' | 'less_than' | 'equal_to';
-    value: string;
-    enabled: boolean;
-    logicGate?: 'and' | 'or';
-  }[];
+  conditions?: (RuleCondition | RuleGroup | RuleOperator)[];
+}
+
+interface RuleCondition {
+  id: string;
+  type: 'cart_total' | 'product_quantity' | 'customer_group' | 'first_purchase' | 'item_count' | 'shipping_country' | 'total_spent' | 'category' | 'tag';
+  operator: 'greater_than' | 'less_than' | 'equal_to';
+  value: string;
+  enabled: boolean;
+  logicGate?: 'and' | 'or';
+}
+
+interface RuleGroup {
+  id: string;
+  type: 'group';
+  match: 'all' | 'any';
+  conditions: RuleCondition[];
+}
+
+interface RuleOperator {
+  id: string;
+  type: 'group_operator';
+  operator: 'AND' | 'OR';
 }

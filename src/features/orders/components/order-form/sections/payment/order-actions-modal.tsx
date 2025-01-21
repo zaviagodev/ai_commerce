@@ -21,6 +21,7 @@ import {
   Flag,
   AlertCircle,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrderActionsModalProps {
   open: boolean;
@@ -46,11 +47,14 @@ export function OrderActionsModal({
   onStatusChange,
   onSavingChange,
 }: OrderActionsModalProps) {
+  const t = useTranslation();
   const [step, setStep] = useState<ActionStep>('list');
   const [refundAmount, setRefundAmount] = useState('');
   const [reason, setReason] = useState('');
   const { updateOrder } = useOrders();
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   const handleBack = () => {
     setStep('list');
@@ -69,13 +73,13 @@ export function OrderActionsModal({
           notes: reason,
         },
       });
-      toast.success('Order cancelled successfully');
+      toast.success(t.orders.orders.form.sections.payment.messages.cancelSuccess);
       onOpenChange(false);
       await onStatusChange('cancelled');
       setIsLoading(false);
     } catch (error) {
       console.error('Failed to cancel order:', error);
-      toast.error('Failed to cancel order');
+      toast.error(t.orders.orders.form.sections.payment.messages.cancelError);
       setIsLoading(false);
       onSavingChange(false);
     }
@@ -92,7 +96,7 @@ export function OrderActionsModal({
             className="space-y-4"
           >
             <div className="space-y-2">
-              <Label>Refund Amount</Label>
+              <Label>{t.orders.orders.payment.actions.refund.amount}</Label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   $
@@ -108,16 +112,16 @@ export function OrderActionsModal({
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Reason for Refund</Label>
+              <Label>{t.orders.orders.payment.actions.refund.reason}</Label>
               <Textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder="Enter reason for refund..."
+                placeholder={t.orders.orders.payment.actions.refund.reasonPlaceholder}
               />
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={handleBack}>
-                Back
+                {t.orders.orders.actions.back}
               </Button>
               <Button
                 onClick={() => {
@@ -126,7 +130,7 @@ export function OrderActionsModal({
                 }}
                 disabled={!refundAmount || !reason}
               >
-                Process Refund
+                {t.orders.orders.payment.actions.refund.process}
               </Button>
             </div>
           </motion.div>
@@ -144,32 +148,31 @@ export function OrderActionsModal({
               <div className="flex items-center gap-3">
                 <AlertCircle className="h-5 w-5 text-red-600" />
                 <div>
-                  <h4 className="font-medium text-red-800">Cancel Order</h4>
+                  <h4 className="font-medium text-red-800">{t.orders.orders.payment.actions.cancel.title}</h4>
                   <p className="text-sm text-red-600">
-                    This action cannot be undone. The order will be marked as
-                    cancelled.
+                    {t.orders.orders.payment.actions.cancel.warning}
                   </p>
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Cancellation Reason</Label>
+              <Label>{t.orders.orders.payment.actions.cancel.reason}</Label>
               <Textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder="Enter reason for cancellation..."
+                placeholder={t.orders.orders.payment.actions.cancel.reasonPlaceholder}
               />
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={handleBack}>
-                Back
+                {t.orders.orders.actions.back}
               </Button>
               <Button
                 variant="destructive"
                 onClick={handleCancel}
                 disabled={!reason || isLoading}
               >
-                {isLoading ? 'Cancelling...' : 'Cancel Order'}
+                {isLoading ? t.orders.orders.payment.actions.cancel.processing : t.orders.orders.payment.actions.cancel.confirm}
               </Button>
             </div>
           </motion.div>
@@ -193,9 +196,9 @@ export function OrderActionsModal({
                   <RefreshCw className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Issue Refund</div>
+                  <div className="font-medium">{t.orders.orders.payment.actions.refund.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Process full or partial refund
+                    {t.orders.orders.payment.actions.refund.description}
                   </p>
                 </div>
               </div>
@@ -211,9 +214,9 @@ export function OrderActionsModal({
                   <Ban className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Cancel Order</div>
+                  <div className="font-medium">{t.orders.orders.payment.actions.cancel.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Cancel this order and notify customer
+                    {t.orders.orders.payment.actions.cancel.description}
                   </p>
                 </div>
               </div>
@@ -229,9 +232,9 @@ export function OrderActionsModal({
                   <AlertTriangle className="h-5 w-5 text-orange-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">Mark as Disputed</div>
+                  <div className="font-medium">{t.orders.orders.payment.actions.dispute.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    Flag order for payment dispute
+                    {t.orders.orders.payment.actions.dispute.description}
                   </p>
                 </div>
               </div>
@@ -285,7 +288,7 @@ export function OrderActionsModal({
                 <div className="text-left">
                   <div className="font-medium">Flag for Review</div>
                   <p className="text-sm text-muted-foreground">
-                    Mark order for internal review
+                    {t.orders.orders.payment.actions.fulfill.description}
                   </p>
                 </div>
               </div>
@@ -299,7 +302,7 @@ export function OrderActionsModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Order Actions</DialogTitle>
+          <DialogTitle>{t.orders.orders.payment.actions.title}</DialogTitle>
         </DialogHeader>
         <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
       </DialogContent>

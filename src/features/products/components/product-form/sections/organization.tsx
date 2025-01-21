@@ -21,6 +21,7 @@ import { Product } from '@/types/product';
 import { useCategories } from '@/features/products/hooks/use-categories';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrganizationProps {
   form: UseFormReturn<Product>;
@@ -28,6 +29,7 @@ interface OrganizationProps {
 }
 
 export function Organization({ form, isEventProduct }: OrganizationProps) {
+  const t = useTranslation();
   const { categories, isLoading } = useCategories();
   const tags = form.watch('tags') || [];
 
@@ -38,7 +40,7 @@ export function Organization({ form, isEventProduct }: OrganizationProps) {
         name="category"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Category</FormLabel>
+            <FormLabel>{t.products.products.form.sections.organization.category}</FormLabel>
             <Select
               value={field.value?.id}
               onValueChange={(value) => {
@@ -48,19 +50,19 @@ export function Organization({ form, isEventProduct }: OrganizationProps) {
             >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select category">
-                    {field.value?.name || "Select category"}
+                  <SelectValue placeholder={t.products.products.form.sections.organization.selectCategory}>
+                    {field.value?.name || t.products.products.form.sections.organization.selectCategory}
                   </SelectValue>
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 {isLoading ? (
                   <SelectItem value="loading" disabled>
-                    Loading categories...
+                    {t.products.products.form.sections.organization.loadingCategories}
                   </SelectItem>
                 ) : categories.length === 0 ? (
                   <SelectItem value="empty" disabled>
-                    No categories found
+                    {t.products.products.form.sections.organization.noCategories}
                   </SelectItem>
                 ) : (
                   categories.map((category) => (
@@ -78,7 +80,7 @@ export function Organization({ form, isEventProduct }: OrganizationProps) {
               <Button variant="link" className="px-0" asChild>
                 <Link to="/dashboard/products/categories/new">
                   <Plus className="mr-2 h-4 w-4" />
-                  Add category
+                  {t.products.products.form.sections.organization.addCategory}
                 </Link>
               </Button>
             </div>
@@ -92,17 +94,17 @@ export function Organization({ form, isEventProduct }: OrganizationProps) {
         name="status"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Status</FormLabel>
+            <FormLabel>{t.products.products.form.sections.organization.status}</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder={t.products.products.form.sections.organization.selectStatus} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="draft">Draft</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="archived">Archived</SelectItem>
+                <SelectItem value="draft">{t.products.products.status.draft}</SelectItem>
+                <SelectItem value="active">{t.products.products.status.active}</SelectItem>
+                <SelectItem value="archived">{t.products.products.status.archived}</SelectItem>
               </SelectContent>
             </Select>
             <FormMessage />
@@ -115,11 +117,11 @@ export function Organization({ form, isEventProduct }: OrganizationProps) {
         name="tags"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Tags</FormLabel>
+            <FormLabel>{t.products.products.form.sections.organization.tags}</FormLabel>
             <FormControl>
               <div className="space-y-2">
                 <Input
-                  placeholder="Press enter to add tags"
+                  placeholder={t.products.products.form.sections.organization.tagsPlaceholder}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();

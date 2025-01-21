@@ -3,73 +3,78 @@ import {
   Routes,
   Route,
   Navigate,
-} from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { Toaster } from '@/components/ui/sonner';
-import { useEffect } from 'react';
-import { checkSupabaseConnection } from './lib/supabase';
-import { toast } from 'sonner';
+} from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { useEffect } from "react";
+import { checkSupabaseConnection } from "./lib/supabase";
+import { toast } from "sonner";
 
 // Auth Components
-import { SignUpForm } from '@/components/auth/signup-form';
-import { LoginForm } from '@/components/auth/login-form';
-import { AuthRoute, ProtectedRoute } from '@/components/auth/auth-routes';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
+import { SignUpForm } from "@/components/auth/signup-form";
+import { LoginForm } from "@/components/auth/login-form";
+import { AuthRoute, ProtectedRoute } from "@/components/auth/auth-routes";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 
 // Store Components
-import { StorePage } from '@/features/store/pages/store-page';
-import { ProductPage } from '@/features/store/pages/product-page';
-import { CheckoutPage } from '@/features/store/pages/checkout-page';
-import { CartProvider } from '@/features/store/context/cart-context';
+import { StorePage } from "@/features/store/pages/store-page";
+import { ProductPage } from "@/features/store/pages/product-page";
+import { CheckoutPage } from "@/features/store/pages/checkout-page";
+import { CartProvider } from "@/features/store/context/cart-context";
 
 // Product Features
-import { ProductsPage } from '@/features/products/pages/products-page';
-import { NewProductPage } from '@/features/products/pages/new-product-page';
-import { EditProductPage } from '@/features/products/pages/edit-product-page';
-import { CategoriesPage } from '@/features/products/pages/categories-page';
-import { NewCategoryPage } from '@/features/products/pages/new-category-page';
-import { EditCategoryPage } from '@/features/products/pages/edit-category-page';
-import { AttributesPage } from '@/features/products/pages/attributes-page';
-import { Products2Page } from '@/features/products2/pages/products2-page';
+import { ProductsPage } from "@/features/products/pages/products-page";
+import { NewProductPage } from "@/features/products/pages/new-product-page";
+import { EditProductPage } from "@/features/products/pages/edit-product-page";
+import { CategoriesPage } from "@/features/products/pages/categories-page";
+import { NewCategoryPage } from "@/features/products/pages/new-category-page";
+import { EditCategoryPage } from "@/features/products/pages/edit-category-page";
+import { AttributesPage } from "@/features/products/pages/attributes-page";
+import { EventsPage } from "@/features/events/pages/events-page";
+import { NewEventPage } from "@/features/events/pages/new-event-page";
+import { EditEventPage } from "@/features/events/pages/edit-event-page";
+import EventOrdersPage from "@/features/tickets/pages/event-orders-page";
 
 // Customer Features
-import { CustomersPage } from '@/features/customers/pages/customers-page';
-import { NewCustomerPage } from '@/features/customers/pages/new-customer-page';
-import { EditCustomerPage } from '@/features/customers/pages/edit-customer-page';
-import { CustomerTiersPage } from '@/features/customers/pages/customer-tiers-page';
-import { NewCustomerTierPage } from '@/features/customers/pages/new-customer-tier-page';
-import { EditCustomerTierPage } from '@/features/customers/pages/edit-customer-tier-page';
-import { CustomerGroupsPage } from '@/features/customers/pages/customer-groups-page';
-import { NewCustomerGroupPage } from '@/features/customers/pages/new-customer-group-page';
-import { AppDetailsPage } from '@/features/apps/pages/app-details-page';
-import { AppsStorePage } from '@/features/apps/pages/apps-store-page';
-import { EditCustomerGroupPage } from '@/features/customers/pages/edit-customer-group-page';
+import { CustomersPage } from "@/features/customers/pages/customers-page";
+import { NewCustomerPage } from "@/features/customers/pages/new-customer-page";
+import { EditCustomerPage } from "@/features/customers/pages/edit-customer-page";
+import { CustomerTiersPage } from "@/features/customers/pages/customer-tiers-page";
+import { NewCustomerTierPage } from "@/features/customers/pages/new-customer-tier-page";
+import { EditCustomerTierPage } from "@/features/customers/pages/edit-customer-tier-page";
+import { CustomerGroupsPage } from "@/features/customers/pages/customer-groups-page";
+import { NewCustomerGroupPage } from "@/features/customers/pages/new-customer-group-page";
+import { AppDetailsPage } from "@/features/apps/pages/app-details-page";
+import { AppsStorePage } from "@/features/apps/pages/apps-store-page";
+import { EditCustomerGroupPage } from "@/features/customers/pages/edit-customer-group-page";
 
 // Order Features
 // Campaign Features
-import { CampaignsPage } from '@/features/campaigns/pages/campaigns-page';
-import { EditRedeemPage } from '@/features/points/pages/edit-redeem-page';
-import { NewCampaignPage } from '@/features/campaigns/pages/new-campaign-page';
-import { EditCampaignPage } from '@/features/campaigns/pages/edit-campaign-page';
-import { CouponCampaignsPage } from '@/features/campaigns/pages/coupon-campaigns-page';
-import { NewCouponCampaignPage } from '@/features/campaigns/pages/new-coupon-campaign-page';
-import { EditCouponCampaignPage } from '@/features/campaigns/pages/edit-coupon-campaign-page';
-import { RedeemListPage } from '@/features/points/pages/redeem-list-page';
-import { RewardsItemsPage } from '@/features/points/pages/rewards-items-page';
+import { CampaignsPage } from "@/features/campaigns/pages/campaigns-page";
+import { EditRedeemPage } from "@/features/points/pages/edit-redeem-page";
+import { NewCampaignPage } from "@/features/campaigns/pages/new-campaign-page";
+import { EditCampaignPage } from "@/features/campaigns/pages/edit-campaign-page";
+import { CouponCampaignsPage } from "@/features/campaigns/pages/coupon-campaigns-page";
+import { NewCouponCampaignPage } from "@/features/campaigns/pages/new-coupon-campaign-page";
+import { EditCouponCampaignPage } from "@/features/campaigns/pages/edit-coupon-campaign-page";
+import { RedeemListPage } from "@/features/points/pages/redeem-list-page";
+import { RewardsItemsPage } from "@/features/points/pages/rewards-items-page";
 
-import { OrdersPage } from '@/features/orders/pages/orders-page';
-import { NewOrderPage } from '@/features/orders/pages/new-order-page';
-import { EditOrderPage } from '@/features/orders/pages/edit-order-page';
+import { OrdersPage } from "@/features/orders/pages/orders-page";
+import { NewOrderPage } from "@/features/orders/pages/new-order-page";
+import { EditOrderPage } from "@/features/orders/pages/edit-order-page";
 
 // Settings Features
-import { SettingsPage } from '@/features/settings/pages/settings-page';
-import { EcommerceSettingsPage } from '@/features/settings/pages/ecommerce-settings-page';
-import { PaymentSettingsPage } from '@/features/settings/pages/payments-settings-page';
+import { SettingsPage } from "@/features/settings/pages/settings-page";
+import { EcommerceSettingsPage } from "@/features/settings/pages/ecommerce-settings-page";
+import { PaymentSettingsPage } from "@/features/settings/pages/payments-settings-page";
 
 // Dashboard Features
-import { DashboardPage } from '@/features/dashboard/pages/dashboard-page';
-import { TeamsPage } from './features/teams/pages/teams-page';
+import { DashboardPage } from "@/features/dashboard/pages/dashboard-page";
+import { EditEventOrderPage } from "./features/tickets/pages/edit-event-order-page";
+import { NewEventOrderPage } from "./features/tickets/pages/new-event-order-page";
+import { TeamsPage } from "./features/teams/pages/teams-page";
 import MemberDetailsPage from './features/teams/pages/member-details-page';
 
 export default function App() {
@@ -77,7 +82,7 @@ export default function App() {
     // Check Supabase connection on app start
     checkSupabaseConnection().then((isConnected) => {
       if (!isConnected) {
-        toast.error('Failed to connect to database. Please try again later.');
+        toast.error("Failed to connect to database. Please try again later.");
       }
     });
   }, []);
@@ -143,9 +148,13 @@ export default function App() {
               {/* <Route path="products/attributes" element={<AttributesPage />} /> */}
 
               {/* Event & Ticket Routes */}
-              <Route path="events" element={<Products2Page />} />
-              <Route path="events/new" element={<NewProductPage />} />
-              <Route path="events/:id" element={<EditProductPage />} />
+              <Route path="events" element={<EventsPage />} />
+              <Route path="events/new" element={<NewEventPage />} />
+              <Route path="events/:id" element={<EditEventPage />} />
+              <Route path="events/orders" element={<EventOrdersPage />} />
+              <Route path="events/orders/new" element={<NewEventOrderPage/>} />
+              <Route path="events/orders/:id" element={<EditEventOrderPage />} />
+
 
               {/* Customer Routes */}
               <Route path="customers" element={<CustomersPage />} />

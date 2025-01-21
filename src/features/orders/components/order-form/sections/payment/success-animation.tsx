@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface SuccessAnimationProps {
   onComplete: () => void;
@@ -11,6 +12,7 @@ export function SuccessAnimation({
   isCancelled,
   isShipped,
 }: SuccessAnimationProps) {
+  const t = useTranslation();
   const pathVariants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
@@ -145,17 +147,17 @@ export function SuccessAnimation({
           }`}
         >
           {isCancelled
-            ? 'Order Cancelled'
+            ? t.orders.orders.payment.success.cancelled.title
             : isShipped
-            ? 'Shipping Added'
-            : 'Payment Confirmed'}
+            ? t.orders.orders.payment.success.shipped.title
+            : t.orders.orders.payment.success.payment.title}
         </h3>
         <p className="text-sm text-gray-400">
           {isCancelled
-            ? 'This order has been cancelled'
+            ? t.orders.orders.payment.success.cancelled.description
             : isShipped
-            ? 'Shipping tracking has been added successfully'
-            : 'Your payment has been successfully processed'}
+            ? t.orders.orders.payment.success.shipped.description
+            : t.orders.orders.payment.success.payment.description}
         </p>
       </motion.div>
     </motion.div>

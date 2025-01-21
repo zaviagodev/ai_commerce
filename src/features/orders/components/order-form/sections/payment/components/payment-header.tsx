@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PaymentHeaderProps {
   isCancelled: boolean;
@@ -14,6 +15,8 @@ export function PaymentHeader({
   isShipped,
   isProcessing,
 }: PaymentHeaderProps) {
+  const t = useTranslation();
+
   return (
     <div className="relative px-6 py-4 border-b border-gray-700/50 z-10">
       {/* Shimmer effect */}
@@ -31,7 +34,7 @@ export function PaymentHeader({
 
       {/* Content */}
       <div className="relative z-10 flex items-center justify-between">
-        <span className="text-sm text-main font-bold">Payment Status</span>
+        <span className="text-sm text-main font-bold">{t.orders.orders.form.sections.payment.status.title}</span>
         <div className="flex items-center gap-2">
           <Badge
             variant={
@@ -70,10 +73,10 @@ export function PaymentHeader({
               />
             </span>
             {isCancelled
-              ? 'Cancelled'
+              ? t.orders.orders.form.sections.payment.status.cancelled
               : isPaid || isShipped
-              ? 'Paid'
-              : 'Unpaid'}
+              ? t.orders.orders.form.sections.payment.status.completed
+              : t.orders.orders.form.sections.payment.status.outstanding}
           </Badge>
           {(isProcessing || isShipped) && (
             <Badge
@@ -96,7 +99,7 @@ export function PaymentHeader({
                   }`}
                 />
               </span>
-              {isShipped ? 'Shipped' : 'Awaiting Shipment'}
+              {isShipped ? t.orders.orders.form.sections.payment.status.shipped : t.orders.orders.form.sections.payment.status.processing}
             </Badge>
           )}
         </div>

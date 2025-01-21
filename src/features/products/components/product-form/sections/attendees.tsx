@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Product } from '@/types/product';
-import { Users, Check, Clock, X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Product } from "@/types/product";
+import { Users, Check, Clock, X } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -13,34 +13,60 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { cn, formatCurrency } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { QrCode } from 'lucide-react';
 import { TicketScanModal } from './ticket-scanning/ticket-scan-modal';
+import { useTranslation } from '@/lib/i18n/hooks';
+import { OrderService } from "@/features/orders/services/order-service";
+import { Order } from "@/types/order";
+import { format } from "date-fns";
 
 interface AttendeesProps {
   form: UseFormReturn<Product>;
 }
 
-// Mock data - replace with real data in production
-const MOCK_ATTENDEES = Array.from({ length: 50 }, (_, i) => ({
-  id: `ATT${String(i + 1).padStart(3, '0')}`,
-  name: `Attendee ${i + 1}`,
-  email: `attendee${i + 1}@example.com`,
-  ticketType: i % 3 === 0 ? 'VIP' : 'Regular',
-  price: i % 3 === 0 ? 199.99 : 99.99,
-  purchaseDate: new Date(Date.now() - Math.random() * 10 * 24 * 60 * 60 * 1000),
-  status: i % 5 === 0 ? 'pending' : 'paid',
-}));
-
 export function Attendees({ form }: AttendeesProps) {
+  const t = useTranslation();
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [showScanModal, setShowScanModal] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const productId = form.getValues("id");
+        if (!productId) {
+          console.error("Product ID not found");
+          return;
+        }
+        const eventOrders = await OrderService.getEventOrdersByProduct(
+          productId
+        );
+        setOrders(eventOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [form]);
 
   const startIndex = pageIndex * pageSize;
   const endIndex = startIndex + pageSize;
-  const currentAttendees = MOCK_ATTENDEES.slice(startIndex, endIndex);
+  const currentOrders = orders.slice(startIndex, endIndex);
+
+  // Helper function to determine if order is paid
+  const isPaid = (order: Order) => {
+    return (
+      order.status === "processing" ||
+      Boolean(order.payment_details?.confirmed_at)
+    );
+  };
 
   return (
     <Card>
@@ -49,9 +75,9 @@ export function Attendees({ form }: AttendeesProps) {
           <Users className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Attendees</h2>
+          <h2 className="text-lg font-medium">{t.products.products.form.sections.attendees.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Manage event attendees and ticket status
+            {t.products.products.form.sections.attendees.description}
           </p>
         </div>
       </CardHeader>
@@ -66,9 +92,9 @@ export function Attendees({ form }: AttendeesProps) {
                 </div>
                 <div className="flex-1 md:space-y-2 space-y-4 text-center md:text-left">
                   <div className="space-y-2">
-                    <h3 className="font-medium">Ticket Scanning</h3>
+                    <h3 className="font-medium">{t.products.products.form.sections.attendees.ticketScanning.title}</h3>
                     <p className="text-sm text-muted-foreground">
-                      Scan QR codes or barcodes to validate tickets and track attendance
+                    {t.products.products.form.sections.attendees.ticketScanning.description}
                     </p>
                   </div>
                   <Button
@@ -78,7 +104,7 @@ export function Attendees({ form }: AttendeesProps) {
                     onClick={() => setShowScanModal(true)}
                   >
                     <QrCode className="mr-2 h-4 w-4" />
-                    Scan Ticket
+                    {t.products.products.form.sections.attendees.ticketScanning.scanButton}
                   </Button>
                 </div>
               </div>
@@ -90,62 +116,73 @@ export function Attendees({ form }: AttendeesProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Attendee</TableHead>
-                <TableHead>Ticket Type</TableHead>
-                <TableHead>Purchase Date</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.attendee}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.ticketType}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.purchaseDate}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.price}</TableHead>
+                <TableHead>{t.products.products.form.sections.attendees.table.status}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentAttendees.map((attendee) => (
-                <TableRow key={attendee.id}>
-                  <TableCell>
-                    <div>
-                      <div className="font-medium">{attendee.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {attendee.email}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge 
-                      // variant={attendee.ticketType === 'VIP' ? 'default' : 'secondary'}
-                      className={cn("shadow-none !bg-gray-100 !text-gray-600", {
-                        "!bg-yellow-500 !text-main": attendee.ticketType === 'VIP'
-                      })}
-                    >
-                      {attendee.ticketType}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {attendee.purchaseDate.toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    {formatCurrency(attendee.price)}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      {attendee.status === 'paid' ? (
-                        <Badge className="!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100 capitalize shadow-none">
-                          <Check className="mr-1 h-3 w-3" />
-                          Paid
-                        </Badge>
-                      ) : attendee.status === 'pending' ? (
-                        <Badge className="!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100 capitalize shadow-none">
-                          <Clock className="mr-1 h-3 w-3" />
-                          Pending
-                        </Badge>
-                      ) : (
-                        <Badge variant="destructive" className='!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100 capitalize shadow-none'>
-                          <X className="mr-1 h-3 w-3" />
-                          Failed
-                        </Badge>
-                      )}
-                    </div>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center py-4">
+                    Loading attendees...
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : currentOrders.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center py-4">
+                    No attendees found
+                  </TableCell>
+                </TableRow>
+              ) : (
+                currentOrders.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell>
+                      <div>
+                        <div className="font-medium">{order.customerName}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {order.customerEmail}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {order.items.map((item) => (
+                        <Badge
+                          key={item.id}
+                          variant="secondary"
+                          className="mr-1"
+                        >
+                          {item.variant?.name || item.name}
+                        </Badge>
+                      ))}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(order.createdAt), "MMM d, yyyy")}
+                    </TableCell>
+                    <TableCell>{formatCurrency(order.total)}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {isPaid(order) ? (
+                          <Badge className="bg-green-100 text-green-700">
+                            <Check className="mr-1 h-3 w-3" />
+                            Paid
+                          </Badge>
+                        ) : (
+                          <Badge
+                            variant="secondary"
+                            className="bg-yellow-100 text-yellow-700"
+                          >
+                            <Clock className="mr-1 h-3 w-3" />
+                            Unpaid
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
 
@@ -153,19 +190,16 @@ export function Attendees({ form }: AttendeesProps) {
             <DataTablePagination
               pageIndex={pageIndex}
               pageSize={pageSize}
-              pageCount={Math.ceil(MOCK_ATTENDEES.length / pageSize)}
-              totalItems={MOCK_ATTENDEES.length}
+              pageCount={Math.ceil(orders.length / pageSize)}
+              totalItems={orders.length}
               onPageChange={setPageIndex}
               onPageSizeChange={setPageSize}
             />
           </div>
         </div>
       </CardContent>
-      
-      <TicketScanModal
-        open={showScanModal}
-        onOpenChange={setShowScanModal}
-      />
+
+      <TicketScanModal open={showScanModal} onOpenChange={setShowScanModal} />
     </Card>
   );
 }

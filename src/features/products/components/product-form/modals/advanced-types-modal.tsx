@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Product } from '@/types/product';
 import { ProductTypeConfig } from './product-type-config';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface AdvancedTypesModalProps {
   open: boolean;
@@ -29,43 +30,31 @@ interface AdvancedTypesModalProps {
 const PRODUCT_TYPES = [
   {
     id: 'tickets',
-    name: 'Event Tickets',
-    description: 'Sell tickets for events, workshops, or seminars',
     icon: Ticket,
     color: 'blue',
   },
   {
     id: 'booking',
-    name: 'Booking & Appointments',
-    description: 'Allow customers to book time slots for services',
     icon: Calendar,
     color: 'purple',
   },
   {
     id: 'subscription',
-    name: 'Subscription',
-    description: 'Offer recurring billing and subscriptions',
     icon: Repeat,
     color: 'green',
   },
   {
     id: 'digital',
-    name: 'Digital Downloads',
-    description: 'Sell downloadable digital products',
     icon: Download,
     color: 'orange',
   },
   {
     id: 'bundle',
-    name: 'Product Bundle',
-    description: 'Create bundles of multiple products',
     icon: Package,
     color: 'pink',
   },
   {
     id: 'customizable',
-    name: 'Customizable Product',
-    description: 'Allow product customization options',
     icon: Paintbrush,
     color: 'yellow',
   },
@@ -76,6 +65,7 @@ export function AdvancedTypesModal({
   onOpenChange,
   product,
 }: AdvancedTypesModalProps) {
+  const t = useTranslation();
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const handleTypeToggle = (typeId: string) => {
@@ -99,7 +89,7 @@ export function AdvancedTypesModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Advanced Product Types</DialogTitle>
+          <DialogTitle>{t.products.products.form.modals.advancedTypes.title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="h-[500px] pr-4">
           {PRODUCT_TYPES.map((type) => {
@@ -118,9 +108,9 @@ export function AdvancedTypesModal({
                     <type.icon className={`h-5 w-5 ${colors.text}`} />
                   </div>
                   <div className="text-left">
-                    <div className="font-medium">{type.name}</div>
+                    <div className="font-medium">{t.products.products.form.modals.advancedTypes.types[type.id].name}</div>
                     <div className="text-sm text-muted-foreground">
-                      {type.description}
+                      {t.products.products.form.modals.advancedTypes.types[type.id].description}
                     </div>
                   </div>
                 </div>

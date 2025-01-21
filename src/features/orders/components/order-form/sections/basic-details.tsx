@@ -21,16 +21,19 @@ import { AddressSelect } from '../../address-select';
 import { useCustomers } from '@/features/customers/hooks/use-customers';
 import { Order } from '@/types/order';
 import { User, Package } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Order>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
   const { customers } = useCustomers();
   const selectedCustomerId = form.watch('customerId');
   const selectedCustomer = customers.find(c => c.id === selectedCustomerId);
   const selectedAddress = form.watch('shippingAddress');
+
 
   // Set default shipping address when customer is selected
   useEffect(() => {
@@ -53,9 +56,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             <User className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-medium">Customer Details</h2>
+            <h2 className="text-lg font-medium">{t.orders.orders.form.sections.basicDetails.title}</h2>
             <p className="text-sm text-muted-foreground">
-              Select customer and contact information
+              {t.orders.orders.form.sections.basicDetails.description}
             </p>
           </div>
         </CardHeader>
@@ -68,7 +71,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="shippingAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Shipping Address</FormLabel>
+                  <FormLabel>{t.orders.orders.form.sections.basicDetails.shippingAddress}</FormLabel>
                   <FormControl>
                     <AddressSelect
                       addresses={selectedCustomer.addresses}
@@ -88,11 +91,11 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="customerEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t.orders.orders.form.sections.basicDetails.email.label}</FormLabel>
                   <FormControl>
                     <Input 
                       type="email" 
-                      placeholder="john@example.com" 
+                      placeholder={t.orders.orders.form.sections.basicDetails.email.placeholder}
                       value={field.value || ''}
                       {...field} 
                     />
@@ -107,11 +110,11 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="customerPhone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>{t.orders.orders.form.sections.basicDetails.phone.label}</FormLabel>
                   <FormControl>
                     <Input 
                       type="tel" 
-                      placeholder="+1234567890"
+                      placeholder={t.orders.orders.form.sections.basicDetails.phone.placeholder}
                       value={field.value || ''}
                       {...field} 
                     />

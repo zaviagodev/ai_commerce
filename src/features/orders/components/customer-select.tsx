@@ -21,12 +21,14 @@ import { useCustomers } from '@/features/customers/hooks/use-customers';
 import { Order } from '@/types/order';
 import { NewCustomerDialog } from './new-customer-dialog';
 import { Customer } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CustomerSelectProps {
   form: UseFormReturn<Order>;
 }
 
 export function CustomerSelect({ form }: CustomerSelectProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [showNewCustomer, setShowNewCustomer] = useState(false);
@@ -68,7 +70,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
       name="customerId"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Customer <span className='text-destructive'>*</span></FormLabel>
+          <FormLabel>{t.orders.orders.customer.title} <span className='text-destructive'>*</span></FormLabel>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <FormControl>
@@ -79,17 +81,17 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                   <Search className="mr-2 h-4 w-4" />
                   {selectedCustomer
                     ? `${selectedCustomer.firstName} ${selectedCustomer.lastName}`
-                    : 'Search customers...'}
+                    : t.orders.orders.customer.select.placeholder}
                 </Button>
               </FormControl>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Select customer</DialogTitle>
+                <DialogTitle>{t.orders.orders.customer.select.title}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <Input
-                  placeholder="Search customers..."
+                  placeholder={t.orders.orders.customer.select.placeholder}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -121,7 +123,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                   </div>
                 ) : (
                   <div className="py-8 text-center text-muted-foreground">
-                    No customers found
+                    {t.orders.orders.customer.select.empty}
                   </div>
                 )}
                 <div className="pt-4 border-t">
@@ -131,7 +133,7 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                     onClick={() => setShowNewCustomer(true)}
                   >
                     <Plus className="mr-2 h-4 w-4" />
-                    Create New Customer
+                    {t.orders.orders.customer.select.create}
                   </Button>
                 </div>
               </div>

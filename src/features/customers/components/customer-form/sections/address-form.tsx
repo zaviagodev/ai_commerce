@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
@@ -7,23 +7,24 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { CustomerAddress } from '@/types/customer';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CustomerAddressSchema } from '@/features/customers/schemas/customer-schema';
-import { COUNTRY_CHOICE } from '@/data/countries';
-import { DeleteAddressModal } from '../../modal/delete-address-modal';
-import { SetAsDefaultModal } from '../../modal/set-as-default-modal';
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { CustomerAddress } from "@/types/customer";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CustomerAddressSchema } from "@/features/customers/schemas/customer-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { COUNTRY_CHOICE } from "@/data/countries";
+import { DeleteAddressModal } from "../../modal/delete-address-modal";
+import { SetAsDefaultModal } from "../../modal/set-as-default-modal";
 
 interface AddressFormProps {
   address: CustomerAddress;
@@ -38,6 +39,7 @@ export function AddressForm({
   onDelete,
   onCancel,
 }: AddressFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerAddressSchema),
     defaultValues: address,
@@ -47,8 +49,8 @@ export function AddressForm({
   const [showSetAsDefault, setShowAsDefault] = useState(false);
 
   const handleSetDefault = () => {
-    form.setValue('isDefault', true)
-  }
+    form.setValue("isDefault", true);
+  };
 
   return (
     <>
@@ -62,16 +64,39 @@ export function AddressForm({
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.type
+                      .label
+                  }
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select type" />
+                      <SelectValue
+                        placeholder={
+                          t.customers.customer.form.sections.addresses.fields
+                            .type.placeholder
+                        }
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="shipping">Shipping</SelectItem>
-                    <SelectItem value="billing">Billing</SelectItem>
+                    <SelectItem value="shipping">
+                      {
+                        t.customers.customer.form.sections.addresses.fields.type
+                          .shipping
+                      }
+                    </SelectItem>
+                    <SelectItem value="billing">
+                      {
+                        t.customers.customer.form.sections.addresses.fields.type
+                          .billing
+                      }
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -82,26 +107,73 @@ export function AddressForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address type</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="shipping">Shipping</SelectItem>
+                      <SelectItem value="billing">Billing</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormField
+              control={form.control}
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First name</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields
+                        .firstName.label
+                    }
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      placeholder={
+                        t.customers.customer.form.sections.addresses.fields
+                          .firstName.placeholder
+                      }
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last name</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields
+                        .lastName.label
+                    }
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder={
+                        t.customers.customer.form.sections.addresses.fields
+                          .lastName.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,9 +186,20 @@ export function AddressForm({
             name="company"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Company (optional)</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.company
+                      .label
+                  }
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    placeholder={
+                      t.customers.customer.form.sections.addresses.fields
+                        .company.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -128,9 +211,20 @@ export function AddressForm({
             name="address1"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.address1
+                      .label
+                  }
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    placeholder={
+                      t.customers.customer.form.sections.addresses.fields
+                        .address1.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,9 +236,20 @@ export function AddressForm({
             name="address2"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Apartment, suite, etc. (optional)</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.address2
+                      .label
+                  }
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    placeholder={
+                      t.customers.customer.form.sections.addresses.fields
+                        .address2.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -157,9 +262,20 @@ export function AddressForm({
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>City</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields.city
+                        .label
+                    }
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder={
+                        t.customers.customer.form.sections.addresses.fields.city
+                          .placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -171,9 +287,20 @@ export function AddressForm({
               name="state"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>State</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields.state
+                        .label
+                    }
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder={
+                        t.customers.customer.form.sections.addresses.fields
+                          .state.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -185,9 +312,20 @@ export function AddressForm({
               name="postalCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Postal code</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields
+                        .postalCode.label
+                    }
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder={
+                        t.customers.customer.form.sections.addresses.fields
+                          .postalCode.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -200,15 +338,30 @@ export function AddressForm({
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Country</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.country
+                      .label
+                  }
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select country" />
+                      <SelectValue
+                        placeholder={
+                          t.customers.customer.form.sections.addresses.fields
+                            .country.placeholder
+                        }
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {COUNTRY_CHOICE.map(choice => <SelectItem value={choice}>{choice}</SelectItem>)}
+                    {COUNTRY_CHOICE.map((choice) => (
+                      <SelectItem value={choice}>{choice}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -221,9 +374,21 @@ export function AddressForm({
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone (optional)</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.phone
+                      .label
+                  }
+                </FormLabel>
                 <FormControl>
-                  <Input type="tel" {...field} />
+                  <Input
+                    type="tel"
+                    placeholder={
+                      t.customers.customer.form.sections.addresses.fields.phone
+                        .placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -236,14 +401,15 @@ export function AddressForm({
             render={({ field }) => (
               <FormItem className="flex items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
-                  <FormLabel>Set as default</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields
+                        .isDefault.label
+                    }
+                  </FormLabel>
                 </div>
                 <FormControl>
                   <Switch
-                    onClick={(e) => {if (field.value !== true){
-                      e.preventDefault();
-                      setShowAsDefault(true);
-                    }}}
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
@@ -254,32 +420,38 @@ export function AddressForm({
 
           <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-main pt-6">
             {onDelete && (
-              <Button type="button" variant="destructive" onClick={() => setShowDeleteConfirm(true)}>
-                Delete address
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={() => setShowDeleteConfirm(true)}
+              >
+                {t.customers.customer.form.sections.addresses.actions.delete}
               </Button>
             )}
             <div className="flex gap-4">
               <Button type="button" variant="outline" onClick={onCancel}>
-                Cancel
+                {t.customers.customer.form.sections.addresses.actions.cancel}
               </Button>
-              <Button type="submit">Save address</Button>
+              <Button type="submit">
+                {t.customers.customer.form.sections.addresses.actions.save}
+              </Button>
             </div>
           </div>
         </form>
       </Form>
 
-      <DeleteAddressModal 
+      <DeleteAddressModal
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
         onConfirm={onDelete}
         address={`${address.firstName} ${address.lastName}`}
       />
 
-      <SetAsDefaultModal 
+      <SetAsDefaultModal
         open={showSetAsDefault}
         onOpenChange={setShowAsDefault}
         onConfirm={handleSetDefault}
-        description='Set this address as default'
+        description="Set this address as default"
       />
     </>
   );
