@@ -55,7 +55,7 @@ export function Members({ form }: MembersProps) {
         </div>
 
         {search && (
-          <ScrollArea className="h-[200px] rounded-md border">
+          <ScrollArea className="h-full max-h-[240px] rounded-md border overflow-auto">
             <div className="p-4 space-y-2">
               {filteredCustomers.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-4">
@@ -66,10 +66,10 @@ export function Members({ form }: MembersProps) {
                   <Button
                     key={customer.id}
                     variant="ghost"
-                    className="w-full justify-start"
+                    className="w-full justify-start h-fit"
                     onClick={() => addMember(customer.id)}
                   >
-                    <Plus className="mr-2 h-4 w-4" />
+                    <Plus className="mr-4 h-4 w-4" />
                     <div className="flex-1 text-left">
                       <div className="font-medium">{customer.name}</div>
                       <div className="text-sm text-muted-foreground">
@@ -93,7 +93,7 @@ export function Members({ form }: MembersProps) {
           </span>
         </div>
 
-        <ScrollArea className="h-[300px] rounded-md border">
+        <ScrollArea className="h-full max-h-[300px] rounded-md border">
           <div className="p-4 space-y-2">
             {members.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-4">

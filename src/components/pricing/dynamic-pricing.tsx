@@ -10,9 +10,10 @@ import { PriceSummary } from "./price-summary";
 interface DynamicPricingProps {
   value: number;
   onChange: (value: { price: number; compareAtPrice?: number }) => void;
+  isEventProduct?: boolean
 }
 
-export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
+export function DynamicPricing({ value, onChange, isEventProduct }: DynamicPricingProps) {
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
   const [discountType, setDiscountType] = useState<"percentage" | "fixed">("percentage");
@@ -99,7 +100,7 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
                 Enable discount
               </Label>
               <p className="text-sm text-muted-foreground">
-                Apply a discount to this product
+                Apply a discount to this {isEventProduct ? 'event' : 'product'}
               </p>
             </div>
             <Switch

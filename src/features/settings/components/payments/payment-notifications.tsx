@@ -46,6 +46,7 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
                 <FormDescription>
                 {t.settings.payments.notifications.email.description}
                 </FormDescription>
+                <FormMessage />
               </div>
               <FormControl>
                 {/* This field was firstly set as string input */}
@@ -59,7 +60,6 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />

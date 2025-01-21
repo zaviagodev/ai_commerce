@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
   Package,
@@ -49,7 +49,8 @@ export function ProductList({
   isLoading,
   onDelete,
 }: ProductListProps) {
-  const t = useTranslation();
+const navigate = useNavigate();
+const t = useTranslation();
   const [sortValue, setSortValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -265,9 +266,9 @@ export function ProductList({
                   0
                 );
                 return (
-                  <TableRow key={product.id}>
+                  <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/${product.id}`)}>
                     {isBulkMode && (
-                      <TableCell>
+                      <TableCell onClick={(e) => e.stopPropagation()}>
                         <Checkbox
                           checked={isSelected(product.id)}
                           onCheckedChange={() => toggleSelection(product.id)}

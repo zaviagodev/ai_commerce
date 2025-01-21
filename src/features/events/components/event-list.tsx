@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { Plus, Package } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
@@ -24,7 +24,8 @@ interface EventListProps {
 }
 
 export function EventList({ products, isLoading }: EventListProps) {
-  const { t } = useTranslation();
+  const t = useTranslation();
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -102,7 +103,7 @@ export function EventList({ products, isLoading }: EventListProps) {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/events/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (

@@ -93,7 +93,6 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
     setIsScanning(true);
     try {
       const result = await TicketService.scanTicketByCode(ticketCode);
-      console.log("result = >", result);
 
       // Transform the data to match our UI format
       const transformedResult: ScanResultData = {
@@ -125,7 +124,7 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-hidden">
         <DialogHeader>
           <DialogTitle>Scan Ticket</DialogTitle>
         </DialogHeader>

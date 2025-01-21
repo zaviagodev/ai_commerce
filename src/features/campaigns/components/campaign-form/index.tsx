@@ -23,7 +23,6 @@ interface CampaignFormProps {
 }
 
 export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
-  console.log("initialData", initialData);
   const form = useForm({
     resolver: zodResolver(CampaignSchema),
     defaultValues: {
@@ -55,7 +54,6 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
 
   const handleSubmit = async (data: Campaign) => {
     try {
-      console.log("form submitted =>", form.getValues());
       await onSubmit(form.getValues());
     } catch (error) {
       console.error('Failed to save campaign:', error);

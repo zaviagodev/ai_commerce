@@ -43,9 +43,6 @@ export function CouponCampaignForm({
     },
   });
 
-  console.log("form errors =>", form.formState.errors);
-  console.log("form =>", form.getValues());
-
   const handleSubmit = async (data: Coupon) => {
     try {
       await onSubmit(data);
@@ -139,7 +136,7 @@ export function CouponCampaignForm({
               </div>
 
               {/* Right Section */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2">
                 <ShareModal
                   title={couponCode || 'New Coupon'}
                   url={window.location.href}
@@ -147,7 +144,7 @@ export function CouponCampaignForm({
                   <Button
                     type="button"
                     variant="outline"
-                    className="hidden sm:flex"
+                    className="flex"
                   >
                     <Share2 className="mr-2 h-4 w-4" />
                     Share

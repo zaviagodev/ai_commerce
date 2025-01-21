@@ -281,20 +281,20 @@ export function ProductForm({
 
               {/* Right Section: Actions */}
               <div
-                className="flex items-center gap-2"
+                className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || t.products.products.form.untitled}
+                  title={productName || `${t.products.products.form.untitled} ${isEventProduct ? 'Event' : 'Product'}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
                   <Button
                     type="button"
                     variant="outline"
-                    className="hidden sm:flex"
+                    className="flex"
                   >
                     <Share2 className="mr-2 h-4 w-4" />
                     {t.products.products.actions.share}
@@ -322,7 +322,7 @@ export function ProductForm({
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <div className="h-full">
-              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
                   <TabsList className="mb-6">
                     {isEventProduct && (
@@ -354,7 +354,7 @@ export function ProductForm({
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.media.description}
+                            {t.products.products.form.sections.media.description} {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
@@ -374,12 +374,12 @@ export function ProductForm({
                             {t.products.products.form.sections.basicDetails.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.basicDetails.description}
+                            {t.products.products.form.sections.basicDetails.description} {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <BasicDetails form={form} />
+                        <BasicDetails form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -402,7 +402,7 @@ export function ProductForm({
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} />
+                        <Pricing form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -417,7 +417,7 @@ export function ProductForm({
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.inventory.description}
+                            {t.products.products.form.sections.inventory.description} {isEventProduct ? 'event' : 'product'}'s inventory
                           </p>
                         </div>
                       </CardHeader>
@@ -427,7 +427,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Variations Section */}
-                    <Variations form={form} />
+                    <Variations form={form} isEventProduct={isEventProduct}/>
 
                     {/* Shipping Section */}
                     <Card>
@@ -460,12 +460,12 @@ export function ProductForm({
                             {t.products.products.form.sections.organization.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.organization.description}
+                            {t.products.products.form.sections.organization.description} {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization form={form} />
+                        <Organization form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 

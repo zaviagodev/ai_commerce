@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { Order, CustomerAddress } from '@/types/order';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { formatCurrency } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import {
   ShoppingBag,
   MapPin,
@@ -39,30 +39,40 @@ export function TicketOverview({
   const nextStatus =
     order.status !== 'cancelled' ? ORDER_STATUSES[currentIndex + 1] : null;
 
-  const getStatusBadge = () => {
-    switch (order.status) {
-      case 'pending':
-        return (
-          <Badge className="bg-yellow-50 text-yellow-700 border-yellow-500/50 flex items-center gap-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-yellow-500" />
-            </span>
-            {t.orders.orders.status.pending}
-          </Badge>
-        );
-      case 'processing':
-        return <Badge variant="primary">{t.orders.orders.status.processing}</Badge>;
-      case 'shipped':
-        return <Badge variant="secondary">{t.orders.orders.status.shipped}</Badge>;
-      case 'delivered':
-        return <Badge variant="success">{t.orders.orders.status.delivered}</Badge>;
-      case 'cancelled':
-        return <Badge variant="destructive">{t.orders.orders.status.cancelled}</Badge>;
-      default:
-        return null;
-    }
-  };
+  const StatusBadge = ({ status } : { status: string | null }) => {
+    const badgeClassName = 
+      status === 'pending' ? '!bg-yellow-100 !text-yellow-800 border-yellow-500/50' :
+      status === 'processing' ? '!bg-blue-100 !text-blue-800 border-blue-500/50' :
+      status === 'shipped' ? '!bg-purple-100 !text-purple-800 border-purple-500/50' :
+      status === 'delivered' ? '!bg-green-600 !text-green-100' :
+      status === 'cancelled' ? '!bg-red-600 !text-red-100' :
+      '!bg-gray-100 !text-gray-800 border-gray-500/50'
+
+    const innerBadgeClassName = 
+      status === 'pending' ? 'bg-yellow-400' :
+      status === 'processing' ? 'bg-blue-400' :
+      status === 'shipped' ? 'bg-purple-400' :
+      status === 'delivered' ? 'bg-green-300' :
+      status === 'cancelled' ? 'bg-red-300' :
+      'bg-gray-400'
+
+    const animateInnerBadgeClassName = 
+      status === 'pending' ? 'bg-yellow-500' :
+      status === 'processing' ? 'bg-blue-500' :
+      status === 'shipped' ? 'bg-purple-500' :
+      status === 'delivered' ? 'bg-green-400' :
+      status === 'cancelled' ? 'bg-red-400' :
+      'bg-gray-500'
+    return (
+      <Badge className={cn("flex items-center gap-1.5 shadow-none", badgeClassName)}>
+        <span className="relative flex h-2 w-2">
+          <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",  animateInnerBadgeClassName)} />
+          <span className={cn("relative inline-flex h-2 w-2 rounded-full", innerBadgeClassName)} />
+        </span>
+        <span className='capitalize'>{status}</span>
+      </Badge>
+    )
+  }
 
   return (
     <div className="bg-main rounded-sm shadow-md overflow-hidden print:shadow-none">
@@ -76,9 +86,11 @@ export function TicketOverview({
             </div>
           </div>
           <div>
-            <div className="relative flex items-center justify-between w-[240px] h-8">
+            <div className={`relative flex items-center ${order.status === 'cancelled' || order.status === 'delivered' ? 'justify-end' : 'justify-between'} w-[240px] h-8`}>
               {/* Current Status */}
-              <div className="relative z-10">{getStatusBadge()}</div>
+              <div className="relative z-10">
+                <StatusBadge status={order.status} />
+              </div>
 
               {nextStatus && (
                 <>

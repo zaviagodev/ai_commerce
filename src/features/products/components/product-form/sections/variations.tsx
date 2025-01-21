@@ -16,9 +16,10 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function Variations({ form }: VariationsProps) {
+export function Variations({ form, isEventProduct }: VariationsProps) {
   const t = useTranslation();
   const variantOptions = form.watch('variantOptions') || [];
 
@@ -29,9 +30,9 @@ export function Variations({ form }: VariationsProps) {
           <Layers className="h-5 w-5 text-indigo-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.products.products.form.sections.variations.title}</h2>
+          <h2 className="text-lg font-medium">{isEventProduct ? 'Time Slots' : 'Product Variations'}</h2>
           <p className="text-sm text-muted-foreground">
-            {t.products.products.form.sections.variations.description}
+            Configure {isEventProduct ? 'time slots' : 'product variants'} and options
           </p>
         </div>
       </CardHeader>
@@ -42,9 +43,9 @@ export function Variations({ form }: VariationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.products.products.form.sections.variations.enable}</FormLabel>
+                <FormLabel>Enable {isEventProduct ? 'Time Slots' : 'Product Variations'}</FormLabel>
                 <FormDescription>
-                  {t.products.products.form.sections.variations.enableDescription}
+                  Create multiple {isEventProduct ? 'slots' : 'variants'} of this {isEventProduct ? 'event' : 'product'} with different options
                 </FormDescription>
               </div>
               <FormControl>
@@ -72,7 +73,7 @@ export function Variations({ form }: VariationsProps) {
 
         {variantOptions.length > 0 && (
           <div className="space-y-4">
-            <VariantBuilder form={form} />
+            <VariantBuilder form={form} isEventProduct={isEventProduct}/>
           </div>
         )}
       </CardContent>
