@@ -21,8 +21,10 @@ import { useMemo, useState } from 'react';
 import { SORT_OPTIONS } from '@/features/products/types/sorting';
 import { sortProducts } from '@/features/products/utils/sorting';
 import { ProductSort } from '@/features/products/components/product-sort';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function RewardsItemsPage() {
+  const t = useTranslation();
   const navigate = useNavigate();
   const { products, isLoading } = useProducts();
   const {
@@ -82,15 +84,15 @@ export function RewardsItemsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Rewards Items</h1>
+          <h1 className="text-2xl font-semibold">{t.points.rewards.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's redeemable reward items
+            {t.points.rewards.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/points/rewards/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add reward item
+            {t.points.rewards.actions.create}
           </Link>
         </Button>
       </motion.div>
@@ -104,7 +106,7 @@ export function RewardsItemsPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search rewards items..."
+          placeholder={t.points.rewards.list.search}
         />
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
@@ -121,11 +123,11 @@ export function RewardsItemsPage() {
         <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Points Required</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>{t.points.rewards.list.columns.product}</TableHead>
+              <TableHead>{t.points.rewards.list.columns.status}</TableHead>
+              <TableHead>{t.points.rewards.list.columns.category}</TableHead>
+              <TableHead className="text-right">{t.points.rewards.list.columns.pointsRequired}</TableHead>
+              <TableHead className="text-right">{t.points.rewards.list.columns.quantity}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -133,14 +135,14 @@ export function RewardsItemsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No reward items found</p>
+                    <p className="text-lg font-medium">{t.points.rewards.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first reward item
+                      {t.points.rewards.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/points/rewards/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add reward item
+                        {t.points.rewards.actions.create}
                       </Link>
                     </Button>
                   </div>

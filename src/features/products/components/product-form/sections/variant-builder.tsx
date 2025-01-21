@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Product, VariantOption, ProductVariant } from '@/types/product';
 import { VariantTable } from './variant-table';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantBuilderProps {
   form: UseFormReturn<Product>;
@@ -13,6 +14,7 @@ interface VariantBuilderProps {
 }
 
 export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
+  const t = useTranslation();
   const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
   const [newValue, setNewValue] = useState('');
   const variantOptions = form.watch('variantOptions') || [];
@@ -206,7 +208,7 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
                   <div className="flex gap-2">
                     <Input
                       key={inputKey}
-                      placeholder={`Enter ${isEventProduct ? 'time slot' : 'value'}`}
+                      placeholder={t.products.products.actions.add + " " + (isEventProduct ? t.products.products.form.sections.eventDetails.startDate : t.products.products.form.sections.variations.addOption)}
                       value={newValue}
                       onChange={(e) => setNewValue(e.target.value)}
                       autoFocus
@@ -235,7 +237,7 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
                         }
                       }}
                     >
-                      Add
+                      {t.products.products.form.sections.variations.addOption}
                     </Button>
                   </div>
                 ) : (
@@ -245,7 +247,10 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
                     onClick={() => setEditingOptionId(option.id)}
                   >
                     <Plus className="mr-2 h-4 w-4" />
-                    Add {isEventProduct ? 'time slot' : 'value'}
+                    {t.products.products.actions.add} 
+                    {isEventProduct 
+                      ? t.products.products.form.sections.eventDetails.startDate 
+                      : t.products.products.form.sections.variations.addOption}
                   </Button>
                 )}
               </div>
@@ -270,7 +275,7 @@ export function VariantBuilder({ form, isEventProduct }: VariantBuilderProps) {
             onClick={addOption}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Add another option
+            {t.products.products.form.sections.variations.addOption}
           </Button>
         )}
       </div>

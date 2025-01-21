@@ -10,7 +10,7 @@ import { orders } from './features/orders';
 import { customer } from './features/customers';
 import { events } from './features/events';
 import { campaign } from './features/campaigns';
-
+import { pointsTranslations } from './features/points/points';
 
 export const translations = {
   'en-US': {
@@ -28,6 +28,7 @@ export const translations = {
     customers: customer.en,
     events: events.en,
     campaigns: campaign.en,
+    points: pointsTranslations.en,
   },
   'th-TH': {
     dashboard: dashboard.th,
@@ -44,6 +45,7 @@ export const translations = {
     events: events.th,
     customers: customer.th,
     campaigns: campaign.th,
+    points: pointsTranslations.th,
   },
 } as const;
 

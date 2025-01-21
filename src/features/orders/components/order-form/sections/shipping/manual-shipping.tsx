@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Order } from '@/types/order';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ManualShippingProps {
   form: UseFormReturn<Order>;
@@ -16,6 +17,7 @@ interface ManualShippingProps {
 }
 
 export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
+  const t = useTranslation();
   const appliedCoupons = form.watch('appliedCoupons') || [];
   const hasFreeShippingCoupon = appliedCoupons.find(coupon => coupon.type === 'shipping');
   return (
@@ -24,7 +26,7 @@ export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
       name="shipping"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Shipping Cost</FormLabel>
+          <FormLabel>{t.orders.orders.form.sections.summary.shipping}</FormLabel>
           <FormControl>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
@@ -43,7 +45,7 @@ export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
             </div>
           </FormControl>
           <FormDescription>
-            Enter the shipping cost for this order
+            {t.orders.orders.form.sections.shipping.description}
           </FormDescription>
           <FormMessage />
         </FormItem>

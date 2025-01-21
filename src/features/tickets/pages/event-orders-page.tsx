@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { OrderService } from "../../orders/services/order-service";
 import { OrderList } from "../../orders/components/order-list";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export default function EventOrdersPage() {
+  const t = useTranslation();
   const { data: orders, isLoading } = useQuery({
     queryKey: ["event-orders"],
     queryFn: () => OrderService.getEventOrders(),
@@ -16,8 +18,8 @@ export default function EventOrdersPage() {
   return (
     <div className="space-y-6">
       <OrderList
-        title="Event Orders"
-        description="View and manage orders containing event products"
+        title={t.orders.orders.title}
+        description={t.orders.orders.description}
         path="/dashboard/events/orders"
         orders={orders || []}
         isLoading={isLoading}
