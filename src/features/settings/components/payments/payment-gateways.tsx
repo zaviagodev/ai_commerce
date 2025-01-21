@@ -12,12 +12,14 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { CreditCard } from 'lucide-react';
 import { PaymentSettings } from '../../schemas/payment-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PaymentGatewaysProps {
   form: UseFormReturn<PaymentSettings>;
 }
 
 export function PaymentGateways({ form }: PaymentGatewaysProps) {
+  const t = useTranslation();
   const omiseEnabled = form.watch('omiseEnabled');
 
   return (
@@ -27,9 +29,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
           <CreditCard className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">Payment Gateways</h3>
+          <h3 className="text-lg font-medium">{t.settings.payments.gateways.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure payment gateway integrations
+            {t.settings.payments.gateways.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -40,9 +42,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable Omise</FormLabel>
+                <FormLabel>{t.settings.payments.gateways.omise.enable.label}</FormLabel>
                 <FormDescription>
-                  Accept credit card payments via Omise
+                  {t.settings.payments.gateways.omise.enable.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -62,12 +64,12 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
               name="omisePublicKey"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Public Key</FormLabel>
+                  <FormLabel>{t.settings.payments.gateways.omise.publicKey.label}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Your Omise public key (starts with pkey_)
+                    {t.settings.payments.gateways.omise.publicKey.description}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -79,12 +81,12 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
               name="omiseSecretKey"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Secret Key</FormLabel>
+                  <FormLabel>{t.settings.payments.gateways.omise.secretKey.label}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Your Omise secret key (starts with skey_)
+                    {t.settings.payments.gateways.omise.secretKey.description}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

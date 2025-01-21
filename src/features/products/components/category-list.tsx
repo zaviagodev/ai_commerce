@@ -1,6 +1,4 @@
-"use client"
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Folder, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,8 +21,10 @@ import { ProductCategory } from '@/types/product';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 import { ProductSearch } from './product-search';
 import { useMemo, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -37,6 +37,8 @@ export function CategoryList({
   isLoading,
   onDelete,
 }: CategoryListProps) {
+  const navigate = useNavigate();
+  const t = useTranslation();
   const {
     pageIndex,
     pageSize,
@@ -81,15 +83,15 @@ export function CategoryList({
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Categories</h1>
+          <h1 className="text-2xl font-semibold">{t.products.products.categories.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your product categories
+            {t.products.products.categories.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/products/categories/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add category
+            {t.products.products.categories.actions.add}
           </Link>
         </Button>
       </motion.div>
@@ -116,9 +118,9 @@ export function CategoryList({
         <Table className={paginatedCategories.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Category</TableHead>
-              <TableHead>Slug</TableHead>
-              <TableHead>Description</TableHead>
+              <TableHead>{t.products.products.categories.list.columns.category}</TableHead>
+              <TableHead>{t.products.products.categories.list.columns.slug}</TableHead>
+              <TableHead>{t.products.products.categories.list.columns.description}</TableHead>
               <TableHead className="w-[70px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -127,14 +129,14 @@ export function CategoryList({
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No categories found</p>
+                    <p className="text-lg font-medium">{t.products.products.categories.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first category
+                      {t.products.products.categories.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/products/categories/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add category
+                        {t.products.products.categories.actions.add}
                       </Link>
                     </Button>
                   </div>
@@ -142,19 +144,14 @@ export function CategoryList({
               </TableRow>
             ) : (
               paginatedCategories.map((category) => (
-                <TableRow key={category.id}>
+                <TableRow key={category.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/categories/${category.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                         <Folder className="h-5 w-5 text-blue-600" />
                       </div>
-                      <div>
-                        <Link
-                          to={`/dashboard/products/categories/${category.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {category.name}
-                        </Link>
+                      <div className="font-medium hover:underline">
+                        {category.name}
                       </div>
                     </div>
                   </TableCell>
@@ -162,7 +159,7 @@ export function CategoryList({
                   <TableCell className="max-w-[300px] truncate">
                     {category.description}
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
@@ -174,14 +171,14 @@ export function CategoryList({
                           <Link
                             to={`/dashboard/products/categories/${category.id}`}
                           >
-                            Edit
+                            {t.products.products.categories.actions.edit}
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="text-destructive"
                           onClick={() => onDelete(category.id)}
                         >
-                          Delete
+                          {t.products.products.categories.actions.delete}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -192,23 +189,21 @@ export function CategoryList({
           </TableBody>
         </Table>
 
-        {paginatedCategories.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(categories.length)}
-              totalItems={categories.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCategories.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(categories.length)}
+            totalItems={categories.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

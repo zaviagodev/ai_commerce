@@ -7,6 +7,7 @@ import { ProductCategory } from '@/types/product';
 import { BasicDetails } from './sections/basic-details';
 import { SEO } from './sections/seo';
 import { Folder, Search } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface CategoryFormProps {
@@ -15,7 +16,8 @@ interface CategoryFormProps {
 }
 
 export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
-  const form = useForm({
+  const t = useTranslation();
+  const form = useForm<ProductCategory>({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
       name: '',
@@ -50,19 +52,17 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? 'Edit category' : 'Create category'}
+                {initialData ? t.products.categories.actions.edit : t.products.categories.actions.add}
               </h1>
               <p className="text-sm text-muted-foreground">
-                {initialData
-                  ? 'Update category details'
-                  : 'Create a new product category'}
+                {t.products.categories.description}
               </p>
             </div>
             <div className="flex items-center gap-4">
               <Button type="button" variant="outline">
-                Discard
+                {t.products.products.actions.cancel}
               </Button>
-              <Button type="submit">Save category</Button>
+              <Button type="submit">{t.products.products.actions.save}</Button>
             </div>
           </motion.div>
 
@@ -79,9 +79,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
                   <Folder className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-medium">Basic Details</h2>
+                  <h2 className="text-lg font-medium">{t.products.categories.form.name}</h2>
                   <p className="text-sm text-muted-foreground">
-                    Configure the category's basic information
+                    {t.products.categories.form.nameHelp}
                   </p>
                 </div>
               </div>
@@ -97,9 +97,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
                   <Search className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-medium">SEO</h2>
+                  <h2 className="text-lg font-medium">{t.products.categories.form.slug}</h2>
                   <p className="text-sm text-muted-foreground">
-                    Optimize category for search engines
+                    {t.products.categories.form.slugHelp}
                   </p>
                 </div>
               </div>

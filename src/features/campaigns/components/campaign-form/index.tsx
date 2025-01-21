@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Form } from '@/components/ui/form';
 import { Campaign } from '@/types/campaign';
 import { CampaignSchema } from '../../schemas/campaign-schema';
@@ -22,7 +23,6 @@ interface CampaignFormProps {
 }
 
 export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
-  console.log("initialData", initialData);
   const form = useForm({
     resolver: zodResolver(CampaignSchema),
     defaultValues: {
@@ -54,7 +54,6 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
 
   const handleSubmit = async (data: Campaign) => {
     try {
-      console.log("form submitted =>", form.getValues());
       await onSubmit(form.getValues());
     } catch (error) {
       console.error('Failed to save campaign:', error);
@@ -64,8 +63,19 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
   return (
     <div className="space-y-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
+        <motion.form 
+          onSubmit={form.handleSubmit(handleSubmit)} 
+          className="space-y-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <div>
               <h1 className="text-2xl font-semibold">
                 {initialData ? 'Edit campaign' : 'Create campaign'}
@@ -82,9 +92,14 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
               </Button>
               <Button type="submit">Save campaign</Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6 mx-auto max-w-4xl pr-6">
+          <motion.div 
+            className="grid gap-6 mx-auto max-w-4xl pr-6"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             {/* Basic Details */}
             <div className="rounded-lg border bg-main">
               <div className="flex items-center gap-4 p-6 border-b">
@@ -135,8 +150,8 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
 
             {/* Limitations Section */}
             <Limitations form={form} />
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

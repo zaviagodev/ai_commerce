@@ -1,6 +1,8 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Users2 } from 'lucide-react';
 import { Member } from '@/types/member';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface BasicInfoProps {
   member: Member;
@@ -20,15 +22,77 @@ export function BasicInfo({ member }: BasicInfoProps) {
           </p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid gap-4">
-          <div>
-            <p className="text-sm font-medium mb-1">Email</p>
-            <p className="text-muted-foreground">{member.email}</p>
+      <CardContent>
+        <div className="grid gap-6">
+          {/* Name Fields */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="firstName">First Name</Label>
+              <Input
+                id="firstName"
+                placeholder="Enter first name"
+                defaultValue={member.firstName}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lastName">Last Name</Label>
+              <Input
+                id="lastName"
+                placeholder="Enter last name"
+                defaultValue={member.lastName}
+              />
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-medium mb-1">Member Since</p>
-            <p className="text-muted-foreground">{member.createdAt.toLocaleDateString()}</p>
+
+          {/* Contact Information */}
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter email address"
+              defaultValue={member.email}
+            />
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="phone">Phone Number</Label>
+              <Input
+                id="phone"
+                type="tel"
+                value={member.phone || '-'}
+                className="bg-muted"
+                disabled
+              />
+              <p className="text-xs text-muted-foreground">
+                Contact support to update phone number
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lineId">Line ID</Label>
+              <Input
+                id="lineId"
+                value={member.lineId || '-'}
+                className="bg-muted"
+                disabled
+              />
+              <p className="text-xs text-muted-foreground">
+                Contact support to update Line ID
+              </p>
+            </div>
+          </div>
+
+          {/* Member Since */}
+          <div className="space-y-2">
+            <Label>Member Since</Label>
+            <p className="text-sm text-muted-foreground">
+              {member.createdAt.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
           </div>
         </div>
       </CardContent>

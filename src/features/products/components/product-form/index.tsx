@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '@/lib/auth';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ScrollFade } from '@/components/ui/scroll-fade';
+import { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/lib/auth";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollFade } from "@/components/ui/scroll-fade";
 import {
   ImagePlus,
   ClipboardEdit,
@@ -20,27 +20,28 @@ import {
   Share2,
   Link,
   MoreHorizontal,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { ShareModal } from '@/components/share/share-modal';
-import { ProductSchema } from '../../schemas/product-schema';
-import { DEFAULT_TIERS } from '../../data/tiers';
-import { BasicDetails } from './sections/basic-details';
-import { Media } from './sections/media';
-import { Pricing } from './sections/pricing';
-import { Variations } from './sections/variations';
-import { Inventory } from './sections/inventory';
-import { Shipping } from './sections/shipping';
-import { Organization } from './sections/organization';
-import { SalesChannelsSection } from '@/components/sales-channels/sales-channels-section';
-import { PointsRewards } from './sections/points-rewards';
-import { EventSummary } from './sections/event-summary';
-import { Attendees } from './sections/attendees';
-import { EventDetails } from './sections/event-details';
-import { useLocation } from 'react-router-dom';
-import { Product } from '@/types/product';
-import { Badge } from '@/components/ui/badge';
-import { Gift } from 'lucide-react';
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ShareModal } from "@/components/share/share-modal";
+import { ProductSchema } from "../../schemas/product-schema";
+import { DEFAULT_TIERS } from "../../data/tiers";
+import { BasicDetails } from "./sections/basic-details";
+import { Media } from "./sections/media";
+import { Pricing } from "./sections/pricing";
+import { Variations } from "./sections/variations";
+import { Inventory } from "./sections/inventory";
+import { Shipping } from "./sections/shipping";
+import { Organization } from "./sections/organization";
+import { SalesChannelsSection } from "@/components/sales-channels/sales-channels-section";
+import { PointsRewards } from "./sections/points-rewards";
+import { EventSummary } from "../../../events/components/event-form/sections/event-summary";
+import { Attendees } from "./sections/attendees";
+import { EventDetails } from "../../../events/components/event-form/sections/event-details";
+import { useLocation } from "react-router-dom";
+import { Product } from "@/types/product";
+import { Badge } from "@/components/ui/badge";
+import { Gift } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductFormProps {
   initialData?: Partial<Product>;
@@ -55,9 +56,10 @@ export function ProductForm({
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith('/dashboard/products2');
+  const t  = useTranslation();
+  const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const isRewardProduct = location.pathname.startsWith(
-    '/dashboard/points/rewards'
+    "/dashboard/points/rewards"
   );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
@@ -66,15 +68,15 @@ export function ProductForm({
       setIsMobile(window.innerWidth < 900);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const form = useForm({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      name: initialData?.name || '',
-      description: '',
+      name: initialData?.name || "",
+      description: "",
       images: [],
       category: undefined,
       hasVariants: false,
@@ -83,12 +85,12 @@ export function ProductForm({
       price: 0,
       compareAtPrice: undefined,
       cost: undefined,
-      sku: '',
-      barcode: '',
+      sku: "",
+      barcode: "",
       trackQuantity: false,
       quantity: undefined,
       weight: 0,
-      weightUnit: 'kg',
+      weightUnit: "kg",
       pointsEnabled: false,
       pointsEarned: 0,
       pointsRequired: 0,
@@ -96,22 +98,20 @@ export function ProductForm({
       customerTiers: DEFAULT_TIERS,
       salesChannels: [],
       tags: [],
-      status: 'draft',
+      status: "draft",
       ...initialData,
     },
   });
 
-
   const handleSubmit = async (data: Product) => {
-    console.log("data", data)
     try {
-      await onSubmit(data);
+      await onSubmit(form.getValues());
     } catch (error) {
-      console.error('Failed to save product:', error);
+      console.error("Failed to save product:", error);
     }
   };
 
-  const productName = form.watch('name');
+  const productName = form.watch("name");
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(productName);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,15 +134,15 @@ export function ProductForm({
 
   const handleNameSubmit = () => {
     if (editedName.trim()) {
-      form.setValue('name', editedName.trim());
+      form.setValue("name", editedName.trim());
     }
     setIsEditing(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleNameSubmit();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setIsEditing(false);
       setEditedName(productName);
     }
@@ -151,11 +151,11 @@ export function ProductForm({
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-      <motion.form
+        <motion.form
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit(handleSubmit);
-          }} 
+          }}
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -207,7 +207,7 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || 'Untitled Product'}
+                          {productName || t.products.products.form.untitled}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
@@ -224,7 +224,7 @@ export function ProductForm({
                             <span className="relative flex h-1.5 w-1.5">
                               <span
                                 className={cn(
-                                  'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
+                                  "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
                                   {
                                     '!bg-green-400 dark:!bg-green-500':
                                       initialData.status === 'active',
@@ -237,7 +237,7 @@ export function ProductForm({
                               />
                               <span
                                 className={cn(
-                                  'relative inline-flex h-1.5 w-1.5 rounded-full',
+                                  "relative inline-flex h-1.5 w-1.5 rounded-full",
                                   {
                                     '!bg-green-500 dark:!bg-green-400':
                                       initialData.status === 'active',
@@ -250,7 +250,7 @@ export function ProductForm({
                               />
                             </span>
                             <span className="font-medium capitalize">
-                              {initialData.status}
+                              {t.products.products.status[initialData.status]}
                             </span>
                           </Badge>
                         )}
@@ -260,7 +260,7 @@ export function ProductForm({
                             className="bg-purple-100 text-purple-700 flex items-center gap-1.5"
                           >
                             <Gift className="h-3.5 w-3.5" />
-                            Rewards Item
+                            {t.products.products.form.rewardItem}
                           </Badge>
                         )}
                       </div>
@@ -268,12 +268,12 @@ export function ProductForm({
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground overflow-hidden">
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="hidden sm:inline">Created by</span>
+                      <span className="hidden sm:inline">{t.products.products.form.created}</span>
                       <span className="truncate">{user?.fullName}</span>
                     </div>
                     <span className="hidden sm:inline">•</span>
                     <span className="truncate">
-                      Last updated {new Date().toLocaleDateString()}
+                      {t.products.products.form.lastUpdated} {new Date().toLocaleDateString()}
                     </span>
                   </div>
                 </div>
@@ -281,23 +281,23 @@ export function ProductForm({
 
               {/* Right Section: Actions */}
               <div
-                className="flex items-center gap-2"
+                className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || 'Untitled Product'}
+                  title={productName || `${t.products.products.form.untitled} ${isEventProduct ? 'Event' : 'Product'}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
                   <Button
                     type="button"
                     variant="outline"
-                    className="hidden sm:flex"
+                    className="flex"
                   >
                     <Share2 className="mr-2 h-4 w-4" />
-                    Share
+                    {t.products.products.actions.share}
                   </Button>
                 </ShareModal>
                 <div className="mx-2 h-4 w-px bg-border" />
@@ -308,7 +308,7 @@ export function ProductForm({
                     form.handleSubmit(handleSubmit)(e);
                   }}
                 >
-                  Save
+                  {t.products.products.actions.save}
                 </Button>
               </div>
             </div>
@@ -322,17 +322,19 @@ export function ProductForm({
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <div className="h-full">
-              <div className="max-w-4xl mx-auto space-y-8 pl-0 pr-6 py-8 relative">
+              <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
                   <TabsList className="mb-6">
                     {isEventProduct && (
                       <TabsTrigger value="event-summary">
-                        Event Summary
+                        {t.products.products.form.tabs.eventSummary}
                       </TabsTrigger>
                     )}
-                    <TabsTrigger value="item-info">Item Info</TabsTrigger>
+                    <TabsTrigger value="item-info">{t.products.products.form.tabs.itemInfo}</TabsTrigger>
                     {isEventProduct && (
-                      <TabsTrigger value="attendees">Attendees</TabsTrigger>
+                      <TabsTrigger value="attendees">
+                        {t.products.products.form.tabs.attendees}
+                      </TabsTrigger>
                     )}
                   </TabsList>
                   {isEventProduct && (
@@ -341,23 +343,25 @@ export function ProductForm({
                     </TabsContent>
                   )}
                   <TabsContent value="item-info" className="space-y-8">
-                {/* Media Section */}
-                <Card>
-                  <CardHeader className="flex flex-row items-center gap-4 py-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
-                      <ImagePlus className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="text-lg font-medium">Media</h2>
-                      <p className="text-sm text-muted-foreground">
-                        Add photos of your product
-                      </p>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <Media form={form} productId={initialData?.id} />
-                  </CardContent>
-                </Card>
+                    {/* Media Section */}
+                    <Card>
+                      <CardHeader className="flex flex-row items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <ImagePlus className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.media.title}
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {t.products.products.form.sections.media.description} {isEventProduct ? 'event' : 'product'}
+                          </p>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <Media form={form} productId={initialData?.id} />
+                      </CardContent>
+                    </Card>
 
                     {/* Basic Details Section */}
                     <Card>
@@ -366,14 +370,16 @@ export function ProductForm({
                           <ClipboardEdit className="h-5 w-5 text-green-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Basic Details</h2>
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.basicDetails.title}
+                          </h2>
                           <p className="text-sm text-muted-foreground">
-                            Add the essential information about your product
+                            {t.products.products.form.sections.basicDetails.description} {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <BasicDetails form={form} />
+                        <BasicDetails form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -387,14 +393,16 @@ export function ProductForm({
                           <DollarSign className="h-5 w-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Pricing</h2>
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.pricing.title}
+                          </h2>
                           <p className="text-sm text-muted-foreground">
-                            Set your product's pricing information
+                            {t.products.products.form.sections.pricing.description}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} />
+                        <Pricing form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -405,9 +413,11 @@ export function ProductForm({
                           <BarChart3 className="h-5 w-5 text-pink-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Inventory</h2>
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.inventory.title}
+                          </h2>
                           <p className="text-sm text-muted-foreground">
-                            Manage your product's inventory
+                            {t.products.products.form.sections.inventory.description} {isEventProduct ? 'event' : 'product'}'s inventory
                           </p>
                         </div>
                       </CardHeader>
@@ -417,7 +427,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Variations Section */}
-                    <Variations form={form} />
+                    <Variations form={form} isEventProduct={isEventProduct}/>
 
                     {/* Shipping Section: will be available soon */}
                     {/* <Card>
@@ -426,9 +436,11 @@ export function ProductForm({
                           <Truck className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Size & Weight Shipping</h2>
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.shipping.title}
+                          </h2>
                           <p className="text-sm text-muted-foreground">
-                            Set up shipping details
+                            {t.products.products.form.sections.shipping.description}
                           </p>
                         </div>
                       </CardHeader>
@@ -444,14 +456,16 @@ export function ProductForm({
                           <Tags className="h-5 w-5 text-teal-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Organization</h2>
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.organization.title}
+                          </h2>
                           <p className="text-sm text-muted-foreground">
-                            Organize and categorize your product
+                            {t.products.products.form.sections.organization.description} {isEventProduct ? 'event' : 'product'}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization form={form} />
+                        <Organization form={form} isEventProduct={isEventProduct}/>
                       </CardContent>
                     </Card>
 
@@ -463,10 +477,10 @@ export function ProductForm({
                         </div>
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">
-                            Sales Channels
+                            {t.products.products.form.sections.salesChannels.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Manage where your product is sold
+                            {t.products.products.form.sections.salesChannels.description}
                           </p>
                         </div>
                       </CardHeader>

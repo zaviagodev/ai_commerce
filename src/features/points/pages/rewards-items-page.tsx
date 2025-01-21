@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowUpDown, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -16,8 +16,14 @@ import { cn, formatCurrency } from '@/lib/utils';
 import { DataTablePagination } from '@/components/ui/data-table/pagination';
 import { usePagination } from '@/hooks/use-pagination';
 import Loading from '@/components/loading';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
+import { SORT_OPTIONS } from '@/features/products/types/sorting';
+import { sortProducts } from '@/features/products/utils/sorting';
+import { ProductSort } from '@/features/products/components/product-sort';
 
 export function RewardsItemsPage() {
+  const navigate = useNavigate();
   const { products, isLoading } = useProducts();
   const {
     pageIndex,
@@ -28,7 +34,36 @@ export function RewardsItemsPage() {
     pageCount,
   } = usePagination();
 
-  const paginatedProducts = paginateItems(products);
+  const [sortValue, setSortValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const sortedProducts = useMemo(() => {
+    let filtered = products;
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(query) ||
+          product.sku?.toLowerCase().includes(query) ||
+          product.category?.name.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply sorting
+    if (!sortValue) return filtered;
+
+    const [field, direction] = sortValue.split('-');
+    const option = SORT_OPTIONS.find(
+      (opt) => opt.field === field && opt.direction === direction
+    );
+
+    if (!option) return filtered;
+    return sortProducts(filtered, option.field, option.direction);
+  }, [products, sortValue, searchQuery]);
+
+  const paginatedProducts = paginateItems(sortedProducts);
 
   if (isLoading) {
     return (
@@ -60,13 +95,30 @@ export function RewardsItemsPage() {
         </Button>
       </motion.div>
 
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search rewards items..."
+        />
+        <div className="flex items-center gap-4">
+          <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+          <ProductSort value={sortValue} options={SORT_OPTIONS} onValueChange={setSortValue} />
+        </div>
+      </motion.div>
+
       <motion.div
         className="rounded-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
               <TableHead>Product</TableHead>
@@ -77,7 +129,7 @@ export function RewardsItemsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.length === 0 ? (
+            {paginatedProducts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
@@ -96,7 +148,7 @@ export function RewardsItemsPage() {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/rewards/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -109,12 +161,7 @@ export function RewardsItemsPage() {
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <Link
-                          to={`/dashboard/points/rewards/${product.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {product.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{product.name}</span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
                             SKU: {product.sku}
@@ -170,23 +217,21 @@ export function RewardsItemsPage() {
           </TableBody>
         </Table>
 
-        {products.length > 0 && (
-          <motion.div
-            className="border-t p-4 bg-main rounded-b-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <DataTablePagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              pageCount={pageCount(products.length)}
-              totalItems={products.length}
-              onPageChange={setPageIndex}
-              onPageSizeChange={setPageSize}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedProducts.length === 0})}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <DataTablePagination
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            pageCount={pageCount(products.length)}
+            totalItems={products.length}
+            onPageChange={setPageIndex}
+            onPageSizeChange={setPageSize}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

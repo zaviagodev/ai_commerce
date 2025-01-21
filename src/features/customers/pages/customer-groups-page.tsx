@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MoreHorizontal, Plus, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,17 +20,30 @@ import { Badge } from '@/components/ui/badge';
 import { useCustomerGroups } from '../hooks/use-customer-groups';
 import Loading from '@/components/loading';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
+import { ProductSearch } from '@/features/products/components/product-search';
+import { useMemo, useState } from 'react';
 
 export function CustomerGroupsPage() {
+  const navigate = useNavigate();
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
+  const t = useTranslation();
 
-  if (isLoading) {
-    return (
-      <div className="pt-14">
-        <Loading />
-      </div>
-    );
-  }
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredGroups = useMemo(() => {
+    let filtered = groups;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = groups.filter(
+        (group) =>
+          group.name.toLowerCase().includes(query) ||
+          group.description?.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [groups, searchQuery]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -39,6 +52,14 @@ export function CustomerGroupsPage() {
       console.error('Failed to delete group:', error);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -49,17 +70,30 @@ export function CustomerGroupsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Customer Groups</h1>
+          <h1 className="text-2xl font-semibold">{t.customers.customer.group.list.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Organize customers into manageable groups
+            {t.customers.customer.group.list.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/customers/groups/new">
             <Plus className="mr-2 h-4 w-4" />
-            Create group
+            {t.customers.customer.group.list.actions.create}
           </Link>
         </Button>
+      </motion.div>
+
+      <motion.div 
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search customer groups..."
+        />
       </motion.div>
 
       <motion.div
@@ -71,34 +105,34 @@ export function CustomerGroupsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Group Name</TableHead>
-              <TableHead>Members</TableHead>
-              <TableHead>Auto-assign</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[70px]"></TableHead>
+              <TableHead>{t.customers.customer.group.list.columns.name}</TableHead>
+              <TableHead>{t.customers.customer.group.list.columns.members}</TableHead>
+              <TableHead>{t.customers.customer.group.list.columns.autoAssign}</TableHead>
+              <TableHead>{t.customers.customer.group.list.columns.status}</TableHead>
+              <TableHead className="w-[70px]">{t.customers.customer.group.list.columns.actions}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {groups.length === 0 ? (
+            {filteredGroups.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No groups found</p>
+                    <p className="text-lg font-medium">{t.customers.customer.group.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by creating your first customer group
+                      {t.customers.customer.group.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/customers/groups/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Create group
+                        {t.customers.customer.group.list.actions.create}
                       </Link>
                     </Button>
                   </div>
                 </TableCell>
               </TableRow>
             ) : (
-              groups.map((group) => (
-                <TableRow key={group.id}>
+              filteredGroups.map((group) => (
+                <TableRow key={group.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customers/groups/${group.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -107,12 +141,7 @@ export function CustomerGroupsPage() {
                         <Users className={`h-5 w-5 text-${group.color}-600`} />
                       </div>
                       <div>
-                        <Link
-                          to={`/dashboard/customers/groups/${group.id}`}
-                          className="font-medium hover:underline"
-                        >
-                          {group.name}
-                        </Link>
+                        <span className="font-medium hover:underline">{group.name}</span>
                         {group.description && (
                           <p className="text-sm text-muted-foreground">
                             {group.description}
@@ -121,10 +150,16 @@ export function CustomerGroupsPage() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{group.members?.length || 0} member{group.members?.length === 1 ? "" : "s"}</TableCell>
+                  <TableCell>
+                    {t.customers.customer.group.list.memberCount
+                      .replace('{count}', String(group.members?.length || 0))
+                      .replace('{s}', group.members?.length === 1 ? '' : 's')}
+                  </TableCell>
                   <TableCell>
                     <Badge variant={group.autoAssign ? 'default' : 'secondary'}>
-                      {group.autoAssign ? 'Enabled' : 'Disabled'}
+                      {group.autoAssign 
+                        ?  t.customers.customer.group.list.autoAssign.enabled 
+                        :  t.customers.customer.group.list.autoAssign.disabled}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -134,10 +169,10 @@ export function CustomerGroupsPage() {
                         "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": group.status === "inactive"
                       })}
                     >
-                      {group.status}
+                      {t.customers.customer.group.list.status[group.status]}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
@@ -149,14 +184,14 @@ export function CustomerGroupsPage() {
                           <Link
                             to={`/dashboard/customers/groups/${group.id}`}
                           >
-                            Edit
+                            {t.customers.customer.group.list.actions.edit}
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="text-destructive"
                           onClick={() => handleDelete(group.id)}
                         >
-                          Delete
+                          {t.customers.customer.group.list.actions.delete}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

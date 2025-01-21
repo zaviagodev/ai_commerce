@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -42,9 +43,6 @@ export function CouponCampaignForm({
     },
   });
 
-  console.log("form errors =>", form.formState.errors);
-  console.log("form =>", form.getValues());
-
   const handleSubmit = async (data: Coupon) => {
     try {
       await onSubmit(data);
@@ -80,12 +78,20 @@ export function CouponCampaignForm({
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-        <form
+        <motion.form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <div className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14">
+          <motion.div 
+            className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
               {/* Left Section */}
               <div className="flex items-center flex-1 min-w-0">
@@ -130,7 +136,7 @@ export function CouponCampaignForm({
               </div>
 
               {/* Right Section */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2">
                 <ShareModal
                   title={couponCode || 'New Coupon'}
                   url={window.location.href}
@@ -138,7 +144,7 @@ export function CouponCampaignForm({
                   <Button
                     type="button"
                     variant="outline"
-                    className="hidden sm:flex"
+                    className="flex"
                   >
                     <Share2 className="mr-2 h-4 w-4" />
                     Share
@@ -148,10 +154,15 @@ export function CouponCampaignForm({
                 <Button type="submit">Save campaign</Button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto move-top">
+          <motion.div 
+            className="flex-1 overflow-y-auto move-top"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             <div className="h-full">
               <div className="max-w-4xl mx-auto pl-0 pr-6 py-8 relative">
                 <Tabs
@@ -178,8 +189,8 @@ export function CouponCampaignForm({
                 </Tabs>
               </div>
             </div>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
       </Form>
     </div>
   );

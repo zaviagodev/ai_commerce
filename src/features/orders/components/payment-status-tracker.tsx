@@ -2,11 +2,12 @@ import { Badge } from '@/components/ui/badge';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 const PAYMENT_STATUSES = [
-  { id: 'unpaid', label: 'Unpaid' },
-  { id: 'pending', label: 'Pending' },
-  { id: 'paid', label: 'Paid' },
+  { id: 'unpaid', label: 'pending' },
+  { id: 'pending', label: 'pending' },
+  { id: 'paid', label: 'paid' },
 ] as const;
 
 interface PaymentStatusTrackerProps {
@@ -16,6 +17,7 @@ interface PaymentStatusTrackerProps {
 export function PaymentStatusTracker({
   currentStatus,
 }: PaymentStatusTrackerProps) {
+  const t = useTranslation();
   const currentIndex = PAYMENT_STATUSES.findIndex(
     (status) => status.id === currentStatus
   );
@@ -70,7 +72,7 @@ export function PaymentStatusTracker({
               <span className="relative inline-flex h-2 w-2 rounded-full bg-yellow-500"></span>
             </span>
           )}
-          {currentStatusData.label}
+          {t.orders.orders.payment.status[currentStatusData.label]}
         </Badge>
       </div>
 
@@ -84,7 +86,7 @@ export function PaymentStatusTracker({
             <span className="relative flex h-2 w-2">
               <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300/50"></span>
             </span>
-            {nextStatus.label}
+            {t.orders.orders.payment.status[nextStatus.label]}
           </Badge>
         </div>
       )}

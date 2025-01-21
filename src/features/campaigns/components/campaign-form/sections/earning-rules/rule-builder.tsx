@@ -106,7 +106,7 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
                 updateOperator(element.id, value as "AND" | "OR")
               }
             >
-              <SelectTrigger className="w-[180px] mx-auto border-dashed shadow-sm">
+              <SelectTrigger className="w-[150px] mx-auto border-dashed shadow-sm relative">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

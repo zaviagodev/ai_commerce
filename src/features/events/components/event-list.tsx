@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Plus, Package } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Package } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,20 +9,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Product } from '@/types/product';
-import { cn, formatCurrency } from '@/lib/utils';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import Loading from '@/components/loading';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Product } from "@/types/product";
+import { cn, formatCurrency } from "@/lib/utils";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import Loading from "@/components/loading";
+import { useTranslation } from "@/lib/i18n/hooks";
 
-interface ProductListProps {
+interface EventListProps {
   products: Product[];
   isLoading: boolean;
 }
 
-export function ProductList({ products, isLoading }: ProductListProps) {
+export function EventList({ products, isLoading }: EventListProps) {
+  const t = useTranslation();
+  const navigate = useNavigate();
   const {
     pageIndex,
     pageSize,
@@ -51,15 +54,15 @@ export function ProductList({ products, isLoading }: ProductListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Event & Ticket</h1>
+          <h1 className="text-2xl font-semibold">{t.events.list.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage your events and tickets
+            {t.events.list.description}
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/products2/new">
+          <Link to="/dashboard/events/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add Event
+            {t.events.list.actions.addEvent}
           </Link>
         </Button>
       </motion.div>
@@ -70,14 +73,14 @@ export function ProductList({ products, isLoading }: ProductListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={products.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={products.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>{t.events.list.table.headers.product}</TableHead>
+              <TableHead>{t.events.list.table.headers.status}</TableHead>
+              <TableHead>{t.events.list.table.headers.category}</TableHead>
+              <TableHead className="text-right">{t.events.list.table.headers.price}</TableHead>
+              <TableHead className="text-right">{t.events.list.table.headers.quantity}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,14 +88,14 @@ export function ProductList({ products, isLoading }: ProductListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No products found</p>
+                    <p className="text-lg font-medium">{t.events.list.table.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first product
+                      {t.events.list.table.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/products2/new">
+                      <Link to="/dashboard/events/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add product
+                        {t.events.list.actions.addProduct}
                       </Link>
                     </Button>
                   </div>
@@ -100,7 +103,7 @@ export function ProductList({ products, isLoading }: ProductListProps) {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/events/${product.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -114,14 +117,14 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       )}
                       <div>
                         <Link
-                          to={`/dashboard/products2/${product.id}`}
+                          to={`/dashboard/events/${product.id}`}
                           className="font-medium hover:underline"
                         >
                           {product.name}
                         </Link>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
+                            {t.events.list.table.cells.sku.replace('{value}', product.sku)}
                           </p>
                         )}
                       </div>
@@ -135,11 +138,11 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                         "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
                       })}
                     >
-                      {product.status}
+                      {t.events.list.table.status[product.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || 'Uncategorized'}
+                    {product.category?.name || t.events.list.table.cells.uncategorized}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
@@ -158,14 +161,14 @@ export function ProductList({ products, isLoading }: ProductListProps) {
                       <span
                         className={
                           (product.quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
+                            ? "text-green-600"
+                            : "text-red-600"
                         }
                       >
-                        {product.quantity || 0} in stock
+                        {t.events.list.table.cells.inStock.replace('{count}', String(product.quantity || 0))}
                       </span>
                     ) : (
-                      <span className="text-muted-foreground">Not tracked</span>
+                      <span className="text-muted-foreground">{t.events.list.table.cells.notTracked}</span>
                     )}
                   </TableCell>
                 </TableRow>

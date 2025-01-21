@@ -10,12 +10,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Product } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean
 }
 
-export function BasicDetails({ form }: BasicDetailsProps) {
+export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
+  const t  = useTranslation();
+
   return (
     <div className="grid gap-6 w-full">
       <FormField
@@ -23,16 +27,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>Product name <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>{t.products.products.form.name} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
-                placeholder="Enter product name" 
+                placeholder={t.products.products.form.name}
                 className="w-full"
                 {...field} 
               />
             </FormControl>
             <FormDescription>
-              Customers will see this name in your store
+              {t.products.products.form.sections.basicDetails.nameDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -44,16 +48,16 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="description"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{t.products.products.form.description}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Describe your product..."
+                placeholder={`${t.products.products.form.sections.basicDetails.descriptionPlaceholder} ${isEventProduct ? 'event' : 'product'}`}
                 className="min-h-[120px] w-full"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              Write a detailed description of your product
+              {t.products.products.form.sections.basicDetails.descriptionHelp} {isEventProduct ? 'event' : 'product'}
             </FormDescription>
             <FormMessage />
           </FormItem>

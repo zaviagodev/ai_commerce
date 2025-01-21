@@ -9,7 +9,6 @@ export function NewOrderPage() {
 
   const handleSubmit = async (data: Order) => {
     try {
-      console.log("data =>", data);
       await createOrder.mutateAsync(data);
       navigate('/dashboard/orders');
     } catch (error) {

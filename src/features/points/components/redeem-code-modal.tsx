@@ -66,7 +66,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md !max-h-[90%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Enter Redeem Code</DialogTitle>
         </DialogHeader>
@@ -262,7 +262,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end gap-2 fixed w-[calc(100%_-_24px)] bg-main p-6 !m-0">
             <Button
               type="button"
               variant="outline"

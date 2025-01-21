@@ -13,12 +13,14 @@ import { X } from 'lucide-react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Mail } from 'lucide-react';
 import { Customer } from '@/types/customer';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface MarketingProps {
   form: UseFormReturn<Customer>;
 }
 
 export function Marketing({ form }: MarketingProps) {
+  const t = useTranslation();
   const tags = form.watch('tags') || [];
 
   return (
@@ -28,9 +30,9 @@ export function Marketing({ form }: MarketingProps) {
           <Mail className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">Marketing</h2>
+          <h2 className="text-lg font-medium">{t.customers.customer.form.sections.marketing.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure marketing preferences and tags
+            {t.customers.customer.form.sections.marketing.description}
           </p>
         </div>
       </CardHeader>
@@ -41,9 +43,9 @@ export function Marketing({ form }: MarketingProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>Email marketing</FormLabel>
+              <FormLabel>{t.customers.customer.form.sections.marketing.fields.acceptsMarketing.label}</FormLabel>
               <FormDescription>
-                Customer will receive marketing emails
+                {t.customers.customer.form.sections.marketing.fields.acceptsMarketing.description}
               </FormDescription>
             </div>
             <FormControl>
@@ -61,11 +63,11 @@ export function Marketing({ form }: MarketingProps) {
         name="tags"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Tags</FormLabel>
+            <FormLabel>{t.customers.customer.form.sections.marketing.fields.tags.label}</FormLabel>
             <FormControl>
               <div className="space-y-2">
                 <Input
-                  placeholder="Press enter to add tags"
+                  placeholder={t.customers.customer.form.sections.marketing.fields.tags.placeholder}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();

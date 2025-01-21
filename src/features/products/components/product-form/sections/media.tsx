@@ -8,13 +8,15 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { ProductImageService } from '@/features/products/services/product-image-service';
 import { ImageGrid } from './media/image-grid';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface MediaProps {
   form: UseFormReturn<Product>;
-  productId?: string; // Add productId prop
+  productId?: string;
 }
 
 export function Media({ form, productId }: MediaProps) {
+  const t = useTranslation();
   const [isUploading, setIsUploading] = useState(false);
   const images = form.watch('images') || [];
 
@@ -143,13 +145,13 @@ export function Media({ form, productId }: MediaProps) {
           <div className="rounded-full bg-primary/10 p-4">
             <Upload className="h-6 w-6 text-primary" />
           </div>
-          <p className="text-sm font-medium">Drop your images here</p>
+          <p className="text-sm font-medium">{t.products.products.form.sections.media.dropzone}</p>
           <p className="text-xs text-muted-foreground">
-            or click to browse files
+            {t.products.products.form.sections.media.maxFiles}
           </p>
           <Button size="sm" variant="secondary" disabled={isUploading}>
             <ImagePlus className="mr-2 h-4 w-4" />
-            {isUploading ? 'Uploading...' : 'Choose files'}
+            {isUploading ? t.products.products.form.sections.media.uploading : t.products.products.form.sections.media.chooseFiles}
           </Button>
         </div>
         <input

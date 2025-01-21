@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { useCoupons } from '@/features/campaigns/hooks/use-coupons';
 import { formatCurrency } from '@/lib/utils';
 import { Coupon } from '@/types/coupon';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface CouponSelectProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ interface CouponSelectProps {
 }
 
 export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal }: CouponSelectProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const { coupons, isLoading } = useCoupons();
@@ -86,14 +88,14 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
         aria-labelledby="coupon-select-title"
       >
         <DialogHeader>
-          <DialogTitle id="coupon-select-title">Select Coupon</DialogTitle>
+          <DialogTitle id="coupon-select-title">{t.orders.orders.form.sections.coupon.title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
           <div className="space-y-4 p-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Search coupons..."
+                placeholder={t.orders.orders.form.sections.coupon.placeholder}
                 className="pl-9"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -102,11 +104,11 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
             
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
-                Loading coupons...
+                {t.orders.orders.form.sections.coupon.empty}
               </div>
             ) : availableCoupons.length === 0 ? (
               <div className="py-8 text-center text-muted-foreground">
-                No applicable coupons found
+                {t.orders.orders.form.sections.coupon.empty}
               </div>
             ) : (
               <div className="space-y-2">
@@ -160,7 +162,7 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
         </ScrollArea>
         <div className="flex justify-end"> {/*additional classes: px-6 py-4 border-t bg-gray-50/50 */}
           <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
+            {t.orders.orders.actions.cancel}
           </Button>
         </div>
       </DialogContent>

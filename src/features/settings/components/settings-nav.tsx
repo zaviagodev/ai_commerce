@@ -11,22 +11,18 @@ import {
   Shield,
   Globe,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 const navItems = [
   {
-    title: 'E-commerce',
+    key: 'ecommerce',
     href: '/dashboard/settings/ecommerce',
     icon: Store,
   },
   {
-    title: 'Payments',
+    key: 'payments',
     href: '/dashboard/settings/payments',
     icon: CreditCard,
-  },
-  {
-    title: 'Theme',
-    href: '/dashboard/settings/theme',
-    icon: Palette,
   },
   // {
   //   title: 'Notifications',
@@ -66,6 +62,8 @@ const navItems = [
 ];
 
 export function SettingsNav() {
+  const t = useTranslation();  // Assuming this returns an object
+
   return (
     <nav className="space-y-1 sticky top-[145px]">
       {navItems.map((item) => (
@@ -80,7 +78,7 @@ export function SettingsNav() {
           }
         >
           <item.icon className="h-4 w-4" />
-          {item.title}
+          {t?.settings?.nav?.settingsNav?.[item.key] || item.key} {/* Safe access */}
         </NavLink>
       ))}
     </nav>

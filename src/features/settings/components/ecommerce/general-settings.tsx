@@ -17,12 +17,15 @@ import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Store } from 'lucide-react';
 import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface GeneralSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
 }
 
 export function GeneralSettings({ form }: GeneralSettingsProps) {
+  const t = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -30,9 +33,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           <Store className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">General Settings</h3>
+          <h3 className="text-lg font-medium">{t.settings.ecommerce.general.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure basic store settings
+            {t.settings.ecommerce.general.subtitle}
           </p>
         </div>
       </CardHeader>
@@ -42,7 +45,7 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           name="currency"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Currency</FormLabel>
+              <FormLabel>{t.settings.ecommerce.general.currency.label}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -57,6 +60,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                   <SelectItem value="CNY">CNY - Chinese Yuan</SelectItem>
                 </SelectContent>
               </Select>
+              <FormDescription>
+                {t.settings.ecommerce.general.currency.description}
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -67,7 +73,7 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
             name="weightUnit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Weight Unit</FormLabel>
+                <FormLabel>{t.settings.ecommerce.general.weightUnit.label}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -79,6 +85,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                     <SelectItem value="lb">Pounds (lb)</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormDescription>
+                  {t.settings.ecommerce.general.weightUnit.description}
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -88,7 +97,7 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
             name="dimensionUnit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Dimension Unit</FormLabel>
+                <FormLabel>{t.settings.ecommerce.general.dimensionUnit.label}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -100,6 +109,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
                     <SelectItem value="in">Inches (in)</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormDescription>
+                  {t.settings.ecommerce.general.dimensionUnit.description}
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -110,12 +122,12 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           name="orderPrefix"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Order Number Prefix</FormLabel>
+              <FormLabel>{t.settings.ecommerce.general.orderPrefix.label}</FormLabel>
               <FormControl>
                 <Input placeholder="#" {...field} />
               </FormControl>
               <FormDescription>
-                This prefix will be added to all order numbers
+                {t.settings.ecommerce.general.orderPrefix.description}
               </FormDescription>
             </FormItem>
           )}

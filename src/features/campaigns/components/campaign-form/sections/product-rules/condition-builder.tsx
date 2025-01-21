@@ -67,13 +67,14 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
   };
 
   return (
-    <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
+    <div className="p-4 rounded-lg border bg-muted/50 relative">
       <div className="flex items-center justify-between">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={onRemove}
+          className='absolute right-0 top-0'
         >
           <X className="h-4 w-4" />
         </Button>
@@ -86,7 +87,7 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
             value={condition.type} 
             onValueChange={(value) => setCondition({ ...condition, type: value })}
           >
-            <SelectTrigger>
+            <SelectTrigger className='bg-white'>
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>

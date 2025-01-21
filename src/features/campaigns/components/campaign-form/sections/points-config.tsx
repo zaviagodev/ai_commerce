@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Campaign } from '@/types/campaign';
 import { Coins } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface PointsConfigProps {
   form: UseFormReturn<Campaign>;
@@ -18,6 +19,7 @@ interface PointsConfigProps {
 
 export function PointsConfig({ form }: PointsConfigProps) {
   const type = form.watch('type');
+  const t = useTranslation();
 
   return (
     <Card>
@@ -26,9 +28,9 @@ export function PointsConfig({ form }: PointsConfigProps) {
           <Coins className="h-5 w-5 text-yellow-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Points Configuration</h2>
+          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.pointsConfig.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure how points are awarded
+            { t.customers.customer.campaignForm.sections.pointsConfig.description}
           </p>
         </div>
       </CardHeader>
@@ -39,7 +41,7 @@ export function PointsConfig({ form }: PointsConfigProps) {
             name="multiplier"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Points multiplier</FormLabel>
+                <FormLabel>{ t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.label}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -47,7 +49,7 @@ export function PointsConfig({ form }: PointsConfigProps) {
                       min="1"
                       value={field.value || ''}
                       step="0.1"
-                      placeholder="1.5"
+                      placeholder={ t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.placeholder}
                       className="pr-8"
                       onChange={(e) => field.onChange(Number(e.target.value))}
                     />
@@ -57,7 +59,7 @@ export function PointsConfig({ form }: PointsConfigProps) {
                   </div>
                 </FormControl>
                 <FormDescription>
-                  Multiply points earned from purchases (e.g., 1.5x, 2x)
+                  { t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -69,18 +71,18 @@ export function PointsConfig({ form }: PointsConfigProps) {
             name="bonusPoints"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Bonus points</FormLabel>
+                <FormLabel>{ t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.label}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="1"
-                    placeholder="100"
+                    placeholder={ t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.placeholder}
                     {...field}
                     onChange={(e) => field.onChange(Number(e.target.value))}
                   />
                 </FormControl>
                 <FormDescription>
-                  Fixed number of bonus points to award
+                  { t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

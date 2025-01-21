@@ -11,6 +11,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Campaign } from '@/types/campaign';
 import { Filter } from 'lucide-react';
 import { EarningRules } from './earning-rules';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface ConditionsProps {
   form: UseFormReturn<Campaign>;
@@ -18,6 +19,7 @@ interface ConditionsProps {
 
 export function Conditions({ form }: ConditionsProps) {
   const hasConditions = form.watch('hasConditions');
+  const t = useTranslation();
 
   return (
     <Card>
@@ -26,9 +28,9 @@ export function Conditions({ form }: ConditionsProps) {
           <Filter className="h-5 w-5 text-teal-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Campaign Conditions</h2>
+          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.conditions.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Add conditions to customize when points are awarded
+            { t.customers.customer.campaignForm.sections.conditions.description}
           </p>
         </div>
       </CardHeader>
@@ -39,9 +41,9 @@ export function Conditions({ form }: ConditionsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable Conditions</FormLabel>
+                <FormLabel>{ t.customers.customer.campaignForm.sections.conditions.fields.minimumPurchase.label}</FormLabel>
                 <FormDescription>
-                  Add custom rules for when points are awarded
+                  { t.customers.customer.campaignForm.sections.conditions.fields.minimumPurchase.description}
                 </FormDescription>
               </div>
               <FormControl>

@@ -1,5 +1,6 @@
 import { Clock, ShoppingCart, Package, Wallet, TrendingUp, History } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface MetricsCardProps {
   title: string;
@@ -46,28 +47,30 @@ function RecentPurchase({ image, name, date }: RecentPurchaseProps) {
 }
 
 export function MetricsDashboard() {
+  const t = useTranslation();
+
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       <MetricsCard
-        title="Last Login"
-        value="2 hours ago"
+        title={t.customers.customer.form.sections.metrics.lastLogin.title}
+        value={t.customers.customer.form.sections.metrics.lastLogin.value}
         icon={<Clock className="h-6 w-6" />}
         gradient=""
         textColor="text-blue-500"
       />
 
       <MetricsCard
-        title="Total Orders"
+        title={t.customers.customer.form.sections.metrics.totalOrders.title}
         value="24"
-        subtitle="+12.5% from last month"
+        subtitle={t.customers.customer.form.sections.metrics.totalOrders.subtitle}
         icon={<ShoppingCart className="h-6 w-6" />}
         gradient=""
         textColor="text-purple-500"
       />
 
       <MetricsCard
-        title="Items Purchased"
-        value="142 items"
+        title={t.customers.customer.form.sections.metrics.itemsPurchased.title}
+        value={t.customers.customer.form.sections.metrics.itemsPurchased.value}
         icon={<Package className="h-6 w-6" />}
         gradient=""
         textColor="text-green-500"
@@ -75,46 +78,48 @@ export function MetricsDashboard() {
 
       <div className="bg-main border p-6 card-shadow">
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-sm font-medium text-orange-500">Recent Purchases</h3>
+          <h3 className="text-sm font-medium text-orange-500">
+            {t.customers.customer.form.sections.metrics.recentPurchases.title}
+          </h3>
           <History className="h-5 w-5 text-orange-500" />
         </div>
         <div className="space-y-4">
           <RecentPurchase
             image="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
-            name="Smart Watch Pro"
-            date="Today at 2:34 PM"
+            name={t.customers.customer.form.sections.metrics.recentPurchases.items.smartWatch}
+            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.today}
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-            name="Wireless Headphones"
-            date="Yesterday at 11:20 AM"
+            name={t.customers.customer.form.sections.metrics.recentPurchases.items.headphones}
+            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.yesterday}
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
-            name="Camera Lens"
-            date="Dec 18, 2023"
+            name={t.customers.customer.form.sections.metrics.recentPurchases.items.cameraLens}
+            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.dec18}
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1583394838336-acd977736f90"
-            name="Gaming Console"
-            date="Dec 15, 2023"
+            name={t.customers.customer.form.sections.metrics.recentPurchases.items.gamingConsole}
+            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.dec15}
           />
         </div>
       </div>
 
       <MetricsCard
-        title="Total Spending"
+        title={t.customers.customer.form.sections.metrics.totalSpending.title}
         value={formatCurrency(4521.59)}
-        subtitle="+8.2% from last month"
+        subtitle={t.customers.customer.form.sections.metrics.totalSpending.subtitle}
         icon={<Wallet className="h-6 w-6" />}
         gradient=""
         textColor="text-pink-500"
       />
 
       <MetricsCard
-        title="Average Order Value"
+        title={t.customers.customer.form.sections.metrics.averageOrder.title}
         value={formatCurrency(188.40)}
-        subtitle="↑ Trending up"
+        subtitle={t.customers.customer.form.sections.metrics.averageOrder.subtitle}
         icon={<TrendingUp className="h-6 w-6" />}
         gradient=""
         textColor="text-teal-500"

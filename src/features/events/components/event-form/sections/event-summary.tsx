@@ -1,19 +1,19 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Product } from '@/types/product';
-import { Calendar, MapPin, Users, Clock, DollarSign } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Product } from "@/types/product";
+import { Calendar, MapPin, Users, Clock, DollarSign } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 interface EventSummaryProps {
   form: UseFormReturn<Product>;
 }
 
 export function EventSummary({ form }: EventSummaryProps) {
-  const eventStartDate = form.watch('eventStartDate');
-  const eventEndDate = form.watch('eventEndDate');
-  const eventVenue = form.watch('eventVenue');
-  const eventAddress = form.watch('eventAddress');
-  const price = form.watch('price');
+  const eventStartDate = form.watch("eventStartDate");
+  const eventEndDate = form.watch("eventEndDate");
+  const venueName = form.watch("venueName");
+  const venueAddress = form.watch("venueAddress");
+  const price = form.watch("price");
 
   // Mock data - replace with real data in production
   const totalTicketsSold = 156;
@@ -43,7 +43,10 @@ export function EventSummary({ form }: EventSummaryProps) {
                 Tickets Sold
               </div>
               <div className="text-2xl font-bold">
-                {totalTicketsSold} <span className="text-sm text-muted-foreground font-normal">/ {capacity}</span>
+                {totalTicketsSold}{" "}
+                <span className="text-sm text-muted-foreground font-normal">
+                  / {capacity}
+                </span>
               </div>
               <div className="mt-2 text-sm text-muted-foreground">
                 {Math.round((totalTicketsSold / capacity) * 100)}% of capacity
@@ -69,10 +72,22 @@ export function EventSummary({ form }: EventSummaryProps) {
                 Time Until Event
               </div>
               <div className="text-2xl font-bold">
-                {eventStartDate ? Math.max(0, Math.ceil((new Date(eventStartDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))) : 0} days
+                {eventStartDate
+                  ? Math.max(
+                      0,
+                      Math.ceil(
+                        (new Date(eventStartDate).getTime() -
+                          new Date().getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      )
+                    )
+                  : 0}{" "}
+                days
               </div>
               <div className="mt-2 text-sm text-muted-foreground">
-                {eventStartDate ? new Date(eventStartDate).toLocaleDateString() : 'Not set'}
+                {eventStartDate
+                  ? new Date(eventStartDate).toLocaleDateString()
+                  : "Not set"}
               </div>
             </div>
           </div>
@@ -87,18 +102,20 @@ export function EventSummary({ form }: EventSummaryProps) {
                   <div className="text-sm text-muted-foreground">
                     {eventStartDate ? (
                       <>
-                        {new Date(eventStartDate).toLocaleDateString()} at{' '}
+                        {new Date(eventStartDate).toLocaleDateString()} at{" "}
                         {new Date(eventStartDate).toLocaleTimeString()}
                         {eventEndDate && (
                           <>
-                            {' '}
-                            - {new Date(eventEndDate).toLocaleDateString()} at{' '}
+                            {" "}
+                            - {new Date(
+                              eventEndDate
+                            ).toLocaleDateString()} at{" "}
                             {new Date(eventEndDate).toLocaleTimeString()}
                           </>
                         )}
                       </>
                     ) : (
-                      'Not set'
+                      "Not set"
                     )}
                   </div>
                 </div>
@@ -109,10 +126,8 @@ export function EventSummary({ form }: EventSummaryProps) {
                 <div>
                   <div className="font-medium">Location</div>
                   <div className="text-sm text-muted-foreground">
-                    {eventVenue || 'Venue not set'}
-                    {eventAddress && (
-                      <div className="mt-1">{eventAddress}</div>
-                    )}
+                    {venueName || "Venue not set"}
+                    {venueAddress && <div className="mt-1">{venueAddress}</div>}
                   </div>
                 </div>
               </div>

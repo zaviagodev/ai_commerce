@@ -22,7 +22,9 @@ export interface Campaign {
   qrTotalScans?: number;
   clickLinkEnabled?: boolean;
   clickLinkUrl?: string;
-  clickLinkLimit?: number;
+  clickPoints?: number;
+  clickLimit?: number;
+  totalClicks?: number;
   conditions?: CampaignCondition[];
   productRules?: CampaignProductRule[];
   createdAt: Date;

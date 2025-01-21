@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface QrCodeConfigProps {
   form: UseFormReturn<Campaign>;
@@ -33,6 +34,7 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
   const clickLinkEnabled = form.watch('clickLinkEnabled');
   const campaignId = form.watch('id');
   const baseUrl = window.location.origin;
+  const t = useTranslation();
   
   // Auto-generate campaign link
   const campaignLink = campaignId 
@@ -56,9 +58,9 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
           <QrCode className="h-5 w-5 text-indigo-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">QR Code Configuration</h2>
+          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.qrCodeConfig.title}</h2>
           <p className="text-sm text-muted-foreground">
-            Configure QR code scanning and rewards
+            { t.customers.customer.campaignForm.sections.qrCodeConfig.description}
           </p>
         </div>
       </CardHeader>
@@ -69,9 +71,9 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Enable QR Code Scanning</FormLabel>
+                <FormLabel>{ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.enabled.label}</FormLabel>
                 <FormDescription>
-                  Allow customers to earn points by scanning QR codes
+                  { t.customers.customer.campaignForm.sections.qrCodeConfig.fields.enabled.description}
                 </FormDescription>
               </div>
               <FormControl>
@@ -91,20 +93,20 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
               name="qrPointType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Point Type</FormLabel>
+                  <FormLabel>{ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.label}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select point type" />
+                        <SelectValue placeholder={ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.placeholder} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="fixed">Fixed Points</SelectItem>
-                      <SelectItem value="multiplier">Point Multiplier</SelectItem>
+                      <SelectItem value="fixed">{ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.label}</SelectItem>
+                      <SelectItem value="multiplier">{ t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.label}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormDescription>
-                    Choose how points are awarded for QR code scans
+                    { t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.description}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +119,9 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {qrPointType === 'fixed' ? 'Points per Scan' : 'Point Multiplier'}
+                    {qrPointType === 'fixed' 
+                      ?  t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.label 
+                      :  t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.label}
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -126,6 +130,9 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
                         min="1"
                         step="0.1"
                         className="pr-8"
+                        placeholder={qrPointType === 'fixed' 
+                          ?  t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.placeholder
+                          :  t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.placeholder}
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
@@ -136,8 +143,8 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
                   </FormControl>
                   <FormDescription>
                     {qrPointType === 'fixed'
-                      ? 'Number of points awarded per scan'
-                      : 'Multiply base points by this value'}
+                      ?  t.customers.customer.campaignForm.sections.qrCodeConfig.fields.points.description
+                      :  t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.description}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -150,17 +157,18 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
                 name="qrScanLimit"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Scans per Customer</FormLabel>
+                    <FormLabel>{ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.label}</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min="1"
+                        placeholder={ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.placeholder}
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
-                      Maximum scans allowed per customer
+                      { t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -172,17 +180,18 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
                 name="qrTotalScans"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Total Scan Limit</FormLabel>
+                    <FormLabel>{ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.label}</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min="1"
+                        placeholder={ t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.placeholder}
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
-                      Maximum total scans across all customers
+                      { t.customers.customer.campaignForm.sections.qrCodeConfig.fields.scanLimit.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -192,12 +201,12 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
 
             {/* QR Code Preview */}
             <div className="rounded-lg border p-4">
-              <h3 className="text-sm font-medium mb-2">QR Code Preview</h3>
+              <h3 className="text-sm font-medium mb-2">{ t.customers.customer.campaignForm.sections.qrCodeConfig.title}</h3>
               <div className="aspect-square w-48 mx-auto bg-muted rounded-lg flex items-center justify-center">
                 <QrCode className="h-12 w-12 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground text-center mt-2">
-                QR code will be generated when campaign is active
+                { t.customers.customer.campaignForm.sections.qrCodeConfig.fields.enabled.description}
               </p>
             </div>
           </>

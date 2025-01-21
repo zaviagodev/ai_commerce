@@ -15,6 +15,7 @@ import { Coupon } from '@/types/coupon';
 import { cn } from '@/lib/utils';
 import { TemplateModal } from './template-modal';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface DiscountRulesProps {
   form: UseFormReturn<Coupon>;
@@ -61,6 +62,7 @@ const DISCOUNT_TYPES = [
 
 export function DiscountRules({ form }: DiscountRulesProps) {
   const discountType = form.watch('type');
+  const t = useTranslation();
 
   const container = {
     hidden: { opacity: 0 },
@@ -85,7 +87,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-medium">Discount Rules</h2>
+            <h2 className="text-lg font-medium">{t.campaigns.campaign.coupon.sections.discountRules.title}</h2>
             <TemplateModal
               onSelect={(template) => {
                 form.setValue('type', template.defaults.type);
@@ -103,7 +105,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
             </TemplateModal>
           </div>
           <p className="text-sm text-muted-foreground">
-            Configure how the discount will be applied
+            {t.campaigns.campaign.coupon.sections.discountRules.description}
           </p>
         </div>
       </CardHeader>
@@ -114,7 +116,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Discount Type</FormLabel>
+              <FormLabel>{t.campaigns.campaign.coupon.sections.discountRules.fields.type.label}</FormLabel>
               <FormControl>
                 <motion.div 
                   variants={container}
@@ -158,7 +160,9 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                               <Icon className={cn("h-5 w-5", type.iconColor)} />
                             </div>
                             <div>
-                              <h3 className="font-medium">{type.name}</h3>
+                              <h3 className="font-medium">
+                                {t.campaigns.campaign.coupon.sections.discountRules.fields.type.options[type.id]}
+                              </h3>
                               <p className="text-sm text-muted-foreground">
                                 {type.description}
                               </p>
@@ -170,6 +174,9 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                   })}
                 </motion.div>
               </FormControl>
+              <FormDescription>
+                {t.campaigns.campaign.coupon.sections.discountRules.fields.type.description}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -182,7 +189,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
             name="value"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Discount Value</FormLabel>
+                <FormLabel>{t.campaigns.campaign.coupon.sections.discountRules.fields.value.label}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -191,6 +198,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                       step={discountType === 'percentage' ? '1' : '0.01'}
                       max={discountType === 'percentage' ? '100' : undefined}
                       className="pr-8"
+                      placeholder={t.campaigns.campaign.coupon.sections.discountRules.fields.value.placeholder}
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value))}
                     />
@@ -200,10 +208,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                   </div>
                 </FormControl>
                 <FormDescription>
-                  {discountType === 'percentage' 
-                    ? 'Percentage off the order total'
-                    : 'Fixed amount off the order total'
-                  }
+                  {t.campaigns.campaign.coupon.sections.discountRules.fields.value.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -299,25 +304,25 @@ export function DiscountRules({ form }: DiscountRulesProps) {
           name="minPurchaseAmount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Minimum Purchase Amount</FormLabel>
+              <FormLabel>{t.campaigns.campaign.coupon.sections.discountRules.fields.minPurchase.label}</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    $
-                  </span>
                   <Input
                     type="number"
                     min="0"
                     step="0.01"
-                    className="pl-8"
+                    className="pr-8"
+                    placeholder={t.campaigns.campaign.coupon.sections.discountRules.fields.minPurchase.placeholder}
                     {...field}
-                    onChange={(e) => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
-                    value={field.value ?? ''}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
                   />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    $
+                  </span>
                 </div>
               </FormControl>
               <FormDescription>
-                Minimum order amount required to use this coupon
+                {t.campaigns.campaign.coupon.sections.discountRules.fields.minPurchase.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -331,25 +336,25 @@ export function DiscountRules({ form }: DiscountRulesProps) {
             name="maxDiscountAmount"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Maximum Discount Amount</FormLabel>
+                <FormLabel>{t.campaigns.campaign.coupon.sections.discountRules.fields.maxDiscount.label}</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                      $
-                    </span>
                     <Input
                       type="number"
                       min="0"
                       step="0.01"
-                      className="pl-8"
+                      className="pr-8"
+                      placeholder={t.campaigns.campaign.coupon.sections.discountRules.fields.maxDiscount.placeholder}
                       {...field}
-                      onChange={(e) => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
-                      value={field.value ?? ''}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
                     />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      $
+                    </span>
                   </div>
                 </FormControl>
                 <FormDescription>
-                  Maximum discount amount when using percentage discount
+                  {t.campaigns.campaign.coupon.sections.discountRules.fields.maxDiscount.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

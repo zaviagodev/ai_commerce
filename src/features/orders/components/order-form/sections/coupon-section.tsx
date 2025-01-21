@@ -9,14 +9,17 @@ import { formatCurrency } from "@/lib/utils";
 import { toast } from "sonner";
 import { Coupon } from "@/types/coupon";
 import { useEffect } from "react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CouponSectionProps {
   form: UseFormReturn<Order>;
 }
 
 export function CouponSection({ form }: CouponSectionProps) {
+  const t = useTranslation();
   const appliedCoupons = form.watch("appliedCoupons") || [];
   const subtotal = form.watch("subtotal");
+
 
   const calculateDiscount = (subtotal: number, coupon: Coupon) => {
     let discount = 0;
@@ -66,9 +69,9 @@ export function CouponSection({ form }: CouponSectionProps) {
       if (newCoupon.type === "shipping") {
         form.setValue("shipping", 0);
       }
-      toast.success("Coupon applied successfully");
+      toast.success(t.orders.orders.form.sections.coupon.applySuccess);
     } catch (error: any) {
-      toast.error(error.message || "Failed to apply coupon");
+      toast.error(error.message || t.orders.orders.form.sections.coupon.applyError);
     }
   };
 
@@ -82,7 +85,7 @@ export function CouponSection({ form }: CouponSectionProps) {
       "discount",
       newCoupons.reduce((sum, c) => sum + c.discount, 0)
     );
-    toast.success("Coupon removed successfully");
+    toast.success(t.orders.orders.form.sections.coupon.removeSuccess);
   };
 
   return (
@@ -92,9 +95,9 @@ export function CouponSection({ form }: CouponSectionProps) {
           <Tag className="h-5 w-5 text-primary" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">Coupons</h3>
+          <h3 className="text-lg font-medium">{t.orders.orders.form.sections.coupon.title}</h3>
           <p className="text-sm text-muted-foreground">
-            Apply discount coupons to this order
+            {t.orders.orders.form.sections.coupon.description}
           </p>
         </div>
       </CardHeader>
@@ -106,7 +109,7 @@ export function CouponSection({ form }: CouponSectionProps) {
         >
           <Button variant="outline" className="w-full">
             <Plus className="mr-2 h-4 w-4" />
-            Add Coupon
+            {t.orders.orders.form.sections.coupon.add}
           </Button>
         </CouponSelect>
 
@@ -122,16 +125,16 @@ export function CouponSection({ form }: CouponSectionProps) {
                     <span className="font-medium">{coupon.code}</span>
                     <Badge variant="secondary">
                       {coupon.type === "percentage"
-                        ? `${coupon.value}% off`
+                        ? t.orders.orders.form.sections.coupon.discount.percentage.replace("{value}", coupon.value.toString())
                         : coupon.type === "fixed"
                         ? formatCurrency(coupon.value)
                         : coupon.type === "shipping"
-                        ? "Free Shipping"
-                        : `${coupon.value}x Points`}
+                        ? t.orders.orders.form.sections.coupon.discount.shipping
+                        : t.orders.orders.form.sections.coupon.discount.points.replace("{value}", coupon.value.toString())}
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Discount: {formatCurrency(coupon.discount)}
+                    {t.orders.orders.form.sections.coupon.discount.amount}: {formatCurrency(coupon.discount)}
                   </p>
                 </div>
                 <Button

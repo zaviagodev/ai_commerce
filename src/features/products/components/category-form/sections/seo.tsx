@@ -9,12 +9,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { ProductCategory } from '@/types/product';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface SEOProps {
   form: UseFormReturn<ProductCategory>;
 }
 
 export function SEO({ form }: SEOProps) {
+  const t = useTranslation();
+  
   return (
     <div className="grid gap-6">
       <FormField
@@ -22,12 +25,12 @@ export function SEO({ form }: SEOProps) {
         name="slug"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>URL Slug <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>{t.products.categories.form.slug} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
-              <Input placeholder="e.g., electronics, clothing" {...field} />
+              <Input placeholder={t.products.categories.form.slugPlaceholder} {...field} />
             </FormControl>
             <FormDescription>
-              The URL-friendly version of the category name
+              {t.products.categories.form.slugHelp}
             </FormDescription>
             <FormMessage />
           </FormItem>
