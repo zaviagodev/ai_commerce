@@ -12,6 +12,7 @@ import { ProductForm } from "@/features/products/components/product-form";
 export function EditEventPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const { eventProduct, isLoading } = useEvent(id);
   const { updateEvent, deleteEvent } = useEvents();
   const [showActions, setShowActions] = useState(false);
@@ -114,6 +115,7 @@ export function EditEventPage() {
         onOpenChange={setShowActions}
         product={eventProduct}
         onDelete={handleDelete}
+        isEventProduct={isEventProduct}
       />
     </>
   );

@@ -76,7 +76,7 @@ export function CustomerGroupsPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/customers/groups/new">
+          <Link to="/dashboard/customer-groups/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.customers.customer.group.list.actions.create}
           </Link>
@@ -92,7 +92,7 @@ export function CustomerGroupsPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search customer groups..."
+          placeholder={t.customers.customer.group.list.search}
         />
       </motion.div>
 
@@ -122,7 +122,7 @@ export function CustomerGroupsPage() {
                       {t.customers.customer.group.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/customers/groups/new">
+                      <Link to="/dashboard/customer-groups/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.customers.customer.group.list.actions.create}
                       </Link>
@@ -132,7 +132,7 @@ export function CustomerGroupsPage() {
               </TableRow>
             ) : (
               filteredGroups.map((group) => (
-                <TableRow key={group.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customers/groups/${group.id}`)}>
+                <TableRow key={group.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customer-groups/${group.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -182,7 +182,7 @@ export function CustomerGroupsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
                           <Link
-                            to={`/dashboard/customers/groups/${group.id}`}
+                            to={`/dashboard/customer-groups/${group.id}`}
                           >
                             {t.customers.customer.group.list.actions.edit}
                           </Link>

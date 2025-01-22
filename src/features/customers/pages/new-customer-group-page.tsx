@@ -10,7 +10,7 @@ export function NewCustomerGroupPage() {
   const handleSubmit = async (data: CustomerGroup) => {
     try {
       await createGroup.mutateAsync(data);
-      navigate('/dashboard/customers/groups');
+      navigate('/dashboard/customer-groups');
     } catch (error) {
       console.error('Failed to create group:', error);
     }

@@ -28,32 +28,33 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { LanguageSwitcher } from '@/components/language-switcher';
 
 
-function getBreadcrumbItems(pathname: string, productName?: string) {
+function getBreadcrumbItems(pathname: string, itemName?: string) {
   const segments = pathname.split('/').filter(Boolean);
   const items = [];
 
   if (segments[0] === 'dashboard') {
     if (segments[1]) {
-      const section =
-        segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
+      const section = (segments[1].charAt(0).toUpperCase() + segments[1].slice(1)).replace(/-/g, " ");
+
       items.push({
         title: section,
-        href: segments[1] === "coupons" ? 
-          `/dashboard/coupons/${segments[2]}` 
-          : segments[1] === "points" ?
-          `/dashboard/points/${segments[2]}`
-          : `/dashboard/${segments[1]}`,
+        href: `/dashboard/${segments[1]}`,
         current: segments.length === 2,
       });
 
-      if (segments[2]) {
+      if (segments[2] && segments.includes("settings") === false) {
         let title;
+        const sectionCond = 
+          section === "Categories" ? "Category" : 
+          section === "Redeem list" ? "Redeem List" :
+          section.slice(0, -1)
+
         if (segments[2] === 'new') {
-          title = `New ${section.slice(0, -1)}`;
-        } else if (productName) {
-          title = `${productName} - Edit Product`;
+          title = `New ${sectionCond}`;
+        } else if (itemName) {
+          title = `${itemName} - Edit ${section === "Reward items" ? "Reward Item" : "Product"}`;
         } else {
-          title = `Edit ${section.slice(0, -1)}`;
+          title = `Edit ${sectionCond}`;
         }
 
         items.push({
@@ -142,11 +143,11 @@ export function DashboardLayout() {
                   <div className="flex items-center gap-2">
                     <SidebarTrigger className="-ml-1" />
                     <Breadcrumb>
-                      <BreadcrumbList>
+                      <BreadcrumbList className='capitalize'>
                         {breadcrumbItems.map((item, index, array) => (
                           <React.Fragment key={item.title}>
                             <BreadcrumbItem>
-                              {item.current ? (
+                              {item.current || item.title === "Settings" ? (
                                 <BreadcrumbPage>{item.title}</BreadcrumbPage>
                               ) : (
                                 <Link to={item.href as string}>

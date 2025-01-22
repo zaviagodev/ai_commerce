@@ -25,7 +25,8 @@ interface ItemActionsModalProps {
   onOpenChange: (open: boolean) => void;
   product: Product;
   onDelete: () => Promise<void>;
-  isEventProduct?: boolean
+  isEventProduct?: boolean;
+  isRewardProduct?: boolean;
 }
 
 export function ItemActionsModal({ 
@@ -33,7 +34,8 @@ export function ItemActionsModal({
   onOpenChange,
   product,
   onDelete,
-  isEventProduct
+  isEventProduct,
+  isRewardProduct
 }: ItemActionsModalProps) {
   const t = useTranslation();
   const navigate = useNavigate();
@@ -49,6 +51,11 @@ export function ItemActionsModal({
       toast.error(t.products.products.messages.duplicateError);
     }
   };
+
+  const checkTypeofItem = 
+    isEventProduct ? "event" :
+    isRewardProduct ? "rewardItem" :
+    "product"
 
   return (
     <>
@@ -71,9 +78,9 @@ export function ItemActionsModal({
                   <PencilRuler className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title} {isEventProduct ? 'Event' : 'Product'}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title[checkTypeofItem]}</div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.edit.description} {isEventProduct ? 'event' : 'product'}
+                    {t.products.products.form.modals.itemActions.edit.description[checkTypeofItem]}
                   </p>
                 </div>
               </div>
@@ -89,7 +96,7 @@ export function ItemActionsModal({
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title} {isEventProduct ? 'Event' : 'Product'}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title[checkTypeofItem]}</div>
                   <p className="text-sm text-muted-foreground">
                     {t.products.products.form.modals.itemActions.duplicate.description}
                   </p>
@@ -110,9 +117,9 @@ export function ItemActionsModal({
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title[checkTypeofItem]}</div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.delete.description} {isEventProduct ? 'event' : 'product'}
+                    {t.products.products.form.modals.itemActions.delete.description[checkTypeofItem]}
                   </p>
                 </div>
               </div>

@@ -10,7 +10,7 @@ export function NewCampaignPage() {
   const handleSubmit = async (data: Campaign) => {
     try {
       await createCampaign.mutateAsync(data);
-      navigate('/dashboard/points/campaigns');
+      navigate('/dashboard/campaigns');
     } catch (error) {
       console.error('Failed to create campaign:', error);
     }

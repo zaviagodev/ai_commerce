@@ -6,14 +6,17 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { PriceInput } from "./price-input";
 import { DiscountTabs } from "./discount-tabs";
 import { PriceSummary } from "./price-summary";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface DynamicPricingProps {
   value: number;
   onChange: (value: { price: number; compareAtPrice?: number }) => void;
-  isEventProduct?: boolean
+  isEventProduct?: boolean;
+  isRewardProduct?: boolean;
 }
 
-export function DynamicPricing({ value, onChange, isEventProduct }: DynamicPricingProps) {
+export function DynamicPricing({ value, onChange, isEventProduct, isRewardProduct }: DynamicPricingProps) {
+  const t = useTranslation();
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
   const [discountType, setDiscountType] = useState<"percentage" | "fixed">("percentage");
@@ -84,6 +87,11 @@ export function DynamicPricing({ value, onChange, isEventProduct }: DynamicPrici
     });
   }, [price, isDiscountEnabled, finalPrice, onChange]);
 
+  const checkTypeofItem = 
+    isEventProduct ? "event" :
+    isRewardProduct ? "rewardItem" :
+    "product"
+
   return (
     <div className="space-y-6">
       <PriceInput
@@ -97,10 +105,10 @@ export function DynamicPricing({ value, onChange, isEventProduct }: DynamicPrici
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
               <Label htmlFor="discount-toggle" className="cursor-pointer">
-                Enable discount
+                {t.products.products.form.sections.pricing.title}
               </Label>
               <p className="text-sm text-muted-foreground">
-                Apply a discount to this {isEventProduct ? 'event' : 'product'}
+                {t.products.products.form.sections.pricing.description[checkTypeofItem]}
               </p>
             </div>
             <Switch

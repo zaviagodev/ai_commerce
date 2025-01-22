@@ -14,13 +14,20 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface InventoryProps {
   form: UseFormReturn<Product>;
+  isEventProduct?: boolean;
+  isRewardProduct?: boolean
 }
 
-export function Inventory({ form }: InventoryProps) {
+export function Inventory({ form, isEventProduct, isRewardProduct }: InventoryProps) {
   const t = useTranslation();
   const trackQuantity = form.watch('trackQuantity');
   const variantOptions = form.watch('variantOptions') || [];
   const hasVariants = variantOptions.length > 0;
+
+  const checkTypeofItem: string = 
+    isEventProduct ? 'event' : 
+    isRewardProduct ? 'rewardItem' : 
+    'product'
 
   return (
     <div className="space-y-4">
@@ -29,15 +36,15 @@ export function Inventory({ form }: InventoryProps) {
         name="sku"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sku}</FormLabel>
+            <FormLabel>{t.products.products.form.sku[checkTypeofItem]}</FormLabel>
             <FormControl>
               <Input 
-                placeholder={t.products.products.form.sections.inventory.skuPlaceholder} 
+                placeholder={t.products.products.form.sections.inventory.skuPlaceholder[checkTypeofItem]} 
                 {...field} 
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.inventory.skuDescription}
+              {t.products.products.form.sections.inventory.skuDescription[checkTypeofItem]}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -57,7 +64,7 @@ export function Inventory({ form }: InventoryProps) {
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.inventory.barcodeDescription}
+              {t.products.products.form.sections.inventory.barcodeDescription[checkTypeofItem]}
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -18,7 +18,7 @@ export default function EventOrdersPage() {
       <OrderList
         title="Event Orders"
         description="View and manage orders containing event products"
-        path="/dashboard/events/orders"
+        path="/dashboard/event-orders"
         orders={orders || []}
         isLoading={isLoading}
       />

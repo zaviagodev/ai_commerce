@@ -30,6 +30,7 @@ export const payments = {
         },
         addAccount: 'Add bank account',
         accountDetails: {
+          accountName: 'Account Name',
           bank: 'Bank',
           accountNumber: 'Account Number',
           branch: 'Branch',
@@ -103,6 +104,7 @@ export const payments = {
         },
         addAccount: 'เพิ่มบัญชีธนาคาร',
         accountDetails: {
+          accountName: 'ชื่อบัญชี',
           bank: 'ธนาคาร',
           accountNumber: 'เลขที่บัญชี',
           branch: 'สาขา',

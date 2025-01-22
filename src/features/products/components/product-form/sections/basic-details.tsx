@@ -15,10 +15,16 @@ import { useTranslation } from '@/lib/i18n/hooks';
 interface BasicDetailsProps {
   form: UseFormReturn<Product>;
   isEventProduct?: boolean
+  isRewardProduct?: boolean
 }
 
-export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
+export function BasicDetails({ form, isEventProduct, isRewardProduct }: BasicDetailsProps) {
   const t  = useTranslation();
+
+  const checkTypeofItem: string = 
+    isEventProduct ? 'event' : 
+    isRewardProduct ? 'rewardItem' : 
+    'product'
 
   return (
     <div className="grid gap-6 w-full">
@@ -27,10 +33,10 @@ export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>{t.products.products.form.name} <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>{t.products.products.form.name[checkTypeofItem]} <span className='text-destructive'>*</span></FormLabel>
             <FormControl>
               <Input 
-                placeholder={t.products.products.form.name}
+                placeholder={t.products.products.form.name[checkTypeofItem]}
                 className="w-full"
                 {...field} 
               />
@@ -51,13 +57,13 @@ export function BasicDetails({ form, isEventProduct }: BasicDetailsProps) {
             <FormLabel>{t.products.products.form.description}</FormLabel>
             <FormControl>
               <Textarea
-                placeholder={`${t.products.products.form.sections.basicDetails.descriptionPlaceholder} ${isEventProduct ? 'event' : 'product'}`}
+                placeholder={`${t.products.products.form.sections.basicDetails.descriptionPlaceholder[checkTypeofItem]}`}
                 className="min-h-[120px] w-full"
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.basicDetails.descriptionHelp} {isEventProduct ? 'event' : 'product'}
+              {t.products.products.form.sections.basicDetails.descriptionHelp[checkTypeofItem]}
             </FormDescription>
             <FormMessage />
           </FormItem>

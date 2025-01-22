@@ -10,7 +10,7 @@ export function NewCategoryPage() {
   const handleSubmit = async (data: ProductCategory) => {
     try {
       await createCategory.mutateAsync(data);
-      navigate('/dashboard/products/categories');
+      navigate('/dashboard/categories');
     } catch (error) {
       console.error('Failed to create category:', error);
     }

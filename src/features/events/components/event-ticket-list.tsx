@@ -80,7 +80,11 @@ export function EventTicketList({ events, isLoading }: EventTicketListProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <ProductSearch value={searchQuery} onChange={setSearchQuery} placeholder='Search events...'/>
+        <ProductSearch 
+          value={searchQuery} 
+          onChange={setSearchQuery} 
+          placeholder={t.events.event.ticketList.search}
+        />
 
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />

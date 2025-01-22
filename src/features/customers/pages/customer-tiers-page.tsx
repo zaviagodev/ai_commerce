@@ -61,7 +61,7 @@ export function CustomerTiersPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/points/tiers/new">
+          <Link to="/dashboard/customer-tiers/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.customers.customer.tier.list.actions.create}
           </Link>
@@ -77,7 +77,7 @@ export function CustomerTiersPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search customer tiers..."
+          placeholder={t.customers.customer.tier.list.search}
         />
       </motion.div>
 
@@ -107,7 +107,7 @@ export function CustomerTiersPage() {
                       {t.customers.customer.tier.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/points/tiers/new">
+                      <Link to="/dashboard/customer-tiers/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.customers.customer.tier.list.actions.create}
                       </Link>
@@ -117,7 +117,7 @@ export function CustomerTiersPage() {
               </TableRow>
             ) : (
               filteredTiers.map((tier) => (
-                <TableRow key={tier.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/points/tiers/${tier.id}`)}>
+                <TableRow key={tier.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customer-tiers/${tier.id}`)}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div

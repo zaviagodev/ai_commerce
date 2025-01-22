@@ -237,10 +237,11 @@ const t = useTranslation();
               <TableHead className="text-right">
                 {t.products.products.list.columns.quantity}
               </TableHead>
+              {!isBulkMode && <TableHead className="w-20"></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.length === 0 || paginatedProducts.length === 0 ? (
+            {paginatedProducts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={isBulkMode ? 6 : 5} className="text-center">
                   <div className="py-12">
@@ -318,7 +319,7 @@ const t = useTranslation();
                             product.status === "draft",
                         })}
                       >
-                        {product.status}
+                        {t.products.products.status[product.status as keyof typeof t.products.products.status]}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -354,7 +355,7 @@ const t = useTranslation();
                       )}
                     </TableCell>
                     {!isBulkMode && (
-                      <TableCell>
+                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                         <ProductActionsMenu
                           product={product}
                           onDelete={() => onDelete(product.id)}
