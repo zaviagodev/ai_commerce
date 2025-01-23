@@ -1,24 +1,27 @@
-import { supabase } from '@/lib/supabase';
-import { Campaign } from '@/types/campaign';
-import { toast } from 'sonner';
-import { useAuthStore } from '@/lib/auth/auth-store';
-import { transformRulesToDb, transformRulesFromDb } from '../utils/rules-transformer';
+import { supabase } from "@/lib/supabase";
+import { Campaign } from "@/types/campaign";
+import { toast } from "sonner";
+import { useAuthStore } from "@/lib/auth/auth-store";
+import {
+  transformRulesToDb,
+  transformRulesFromDb,
+} from "../utils/rules-transformer";
 
 export class CampaignService {
   static async getCampaigns(): Promise<Campaign[]> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: campaigns, error } = await supabase
-        .from('campaigns')
-        .select('*')
-        .eq('store_name', user.storeName)
-        .order('created_at', { ascending: false });
+        .from("campaigns")
+        .select("*")
+        .eq("store_name", user.storeName)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
 
-      return (campaigns || []).map(campaign => ({
+      return (campaigns || []).map((campaign) => ({
         id: campaign.id,
         name: campaign.name,
         description: campaign.description,
@@ -46,19 +49,21 @@ export class CampaignService {
         updatedAt: new Date(campaign.updated_at),
       }));
     } catch (error) {
-      console.error('Failed to fetch campaigns:', error);
-      toast.error('Failed to load campaigns');
+      console.error("Failed to fetch campaigns:", error);
+      toast.error("Failed to load campaigns");
       return [];
     }
   }
 
-  static async createCampaign(campaign: Omit<Campaign, 'id' | 'createdAt' | 'updatedAt'>): Promise<Campaign> {
+  static async createCampaign(
+    campaign: Omit<Campaign, "id" | "createdAt" | "updatedAt">,
+  ): Promise<Campaign> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: newCampaign, error } = await supabase
-        .from('campaigns')
+        .from("campaigns")
         .insert({
           store_name: user.storeName,
           name: campaign.name,
@@ -89,7 +94,7 @@ export class CampaignService {
 
       if (error) throw error;
 
-      toast.success('Campaign created successfully');
+      toast.success("Campaign created successfully");
       return {
         ...campaign,
         id: newCampaign.id,
@@ -97,19 +102,22 @@ export class CampaignService {
         updatedAt: new Date(newCampaign.updated_at),
       };
     } catch (error: any) {
-      console.error('Failed to create campaign:', error);
-      toast.error(error.message || 'Failed to create campaign');
+      console.error("Failed to create campaign:", error);
+      toast.error(error.message || "Failed to create campaign");
       throw error;
     }
   }
 
-  static async updateCampaign(id: string, campaign: Partial<Campaign>): Promise<Campaign> {
+  static async updateCampaign(
+    id: string,
+    campaign: Partial<Campaign>,
+  ): Promise<Campaign> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: updatedCampaign, error } = await supabase
-        .from('campaigns')
+        .from("campaigns")
         .update({
           name: campaign.name,
           description: campaign.description,
@@ -131,18 +139,22 @@ export class CampaignService {
           click_link_limit: campaign.clickLinkLimit,
           has_product_rules: campaign.hasProductRules,
           has_conditions: campaign.hasConditions,
-          product_rules: campaign.productRules ? transformRulesToDb(campaign.productRules) : undefined,
-          conditions: campaign.conditions ? transformRulesToDb(campaign.conditions) : undefined,
+          product_rules: campaign.productRules
+            ? transformRulesToDb(campaign.productRules)
+            : undefined,
+          conditions: campaign.conditions
+            ? transformRulesToDb(campaign.conditions)
+            : undefined,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', id)
-        .eq('store_name', user.storeName)
+        .eq("id", id)
+        .eq("store_name", user.storeName)
         .select()
         .single();
 
       if (error) throw error;
 
-      toast.success('Campaign updated successfully');
+      toast.success("Campaign updated successfully");
       return {
         ...campaign,
         id: updatedCampaign.id,
@@ -150,8 +162,8 @@ export class CampaignService {
         updatedAt: new Date(updatedCampaign.updated_at),
       } as Campaign;
     } catch (error: any) {
-      console.error('Failed to update campaign:', error);
-      toast.error(error.message || 'Failed to update campaign');
+      console.error("Failed to update campaign:", error);
+      toast.error(error.message || "Failed to update campaign");
       throw error;
     }
   }

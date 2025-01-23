@@ -1,17 +1,17 @@
-import { ReactNode } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Minus, Plus, X } from 'lucide-react';
+import { ReactNode } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Minus, Plus, X } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { formatCurrency } from '@/lib/utils';
-import { useCart } from '../context/cart-context';
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { formatCurrency } from "@/lib/utils";
+import { useCart } from "../context/cart-context";
 
 interface CartSheetProps {
   children: ReactNode;
@@ -24,7 +24,10 @@ export function CartSheet({ children }: CartSheetProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className="w-full sm:max-w-lg" aria-labelledby="cart-sheet-title">
+      <SheetContent
+        className="w-full sm:max-w-lg"
+        aria-labelledby="cart-sheet-title"
+      >
         <SheetHeader>
           <SheetTitle id="cart-sheet-title">Shopping Cart</SheetTitle>
         </SheetHeader>
@@ -76,7 +79,7 @@ export function CartSheet({ children }: CartSheetProps) {
                           onClick={() =>
                             updateQuantity(
                               item.product.id,
-                              Math.max(1, item.quantity - 1)
+                              Math.max(1, item.quantity - 1),
                             )
                           }
                         >
@@ -111,9 +114,7 @@ export function CartSheet({ children }: CartSheetProps) {
               </p>
               <Separator />
               <Button className="w-full" size="lg" asChild>
-                <Link to={`/store/${storeName}/checkout`}>
-                  Checkout
-                </Link>
+                <Link to={`/store/${storeName}/checkout`}>Checkout</Link>
               </Button>
             </div>
           </div>

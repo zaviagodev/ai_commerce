@@ -1,36 +1,39 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Form } from '@/components/ui/form';
-import { CustomerTierSchema } from '../../schemas/customer-tier-schema';
-import { CustomerTier } from '@/types/customer';
-import { BasicDetails } from './sections/basic-details';
-import { Requirements } from './sections/requirements';
-import { Benefits } from './sections/benefits';
-import { Crown } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { Form } from "@/components/ui/form";
+import { CustomerTierSchema } from "../../schemas/customer-tier-schema";
+import { CustomerTier } from "@/types/customer";
+import { BasicDetails } from "./sections/basic-details";
+import { Requirements } from "./sections/requirements";
+import { Benefits } from "./sections/benefits";
+import { Crown } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CustomerTierFormProps {
   initialData?: Partial<CustomerTier>;
   onSubmit: (data: CustomerTier) => Promise<void>;
 }
 
-export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProps) {
+export function CustomerTierForm({
+  initialData,
+  onSubmit,
+}: CustomerTierFormProps) {
   const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerTierSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      color: '#4B96FF',
+      name: "",
+      description: "",
+      color: "#4B96FF",
       requirements: [],
       rewardsMultiplier: 1,
       discountPercentage: 0,
       freeShipping: false,
       prioritySupport: false,
       earlyAccess: false,
-      status: 'active',
+      status: "active",
       ...initialData,
     },
   });
@@ -39,23 +42,23 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save tier:', error);
+      console.error("Failed to save tier:", error);
     }
   };
 
-  const tierName = form.watch('name');
+  const tierName = form.watch("name");
 
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-        <motion.form 
-          onSubmit={form.handleSubmit(handleSubmit)} 
+        <motion.form
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -63,7 +66,9 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? t.customers.customer.tier.title.edit : t.customers.customer.tier.title.create}
+                {initialData
+                  ? t.customers.customer.tier.title.edit
+                  : t.customers.customer.tier.title.create}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {initialData
@@ -75,11 +80,13 @@ export function CustomerTierForm({ initialData, onSubmit }: CustomerTierFormProp
               <Button type="button" variant="outline">
                 {t.customers.customer.tier.actions.discard}
               </Button>
-              <Button type="submit">{t.customers.customer.tier.actions.save}</Button>
+              <Button type="submit">
+                {t.customers.customer.tier.actions.save}
+              </Button>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex-1 overflow-y-auto move-top-edit"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

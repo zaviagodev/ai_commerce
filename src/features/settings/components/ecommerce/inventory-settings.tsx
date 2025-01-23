@@ -1,24 +1,24 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Package } from 'lucide-react';
-import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Package } from "lucide-react";
+import { EcommerceSettings } from "../../schemas/ecommerce-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface InventorySettingsProps {
   form: UseFormReturn<EcommerceSettings>;
@@ -34,7 +34,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           <Package className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">{t.settings.ecommerce.inventory.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.ecommerce.inventory.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.ecommerce.inventory.subtitle}
           </p>
@@ -47,7 +49,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.inventory.trackInventory.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.inventory.trackInventory.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.inventory.trackInventory.description}
                 </FormDescription>
@@ -67,7 +71,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           name="lowStockThreshold"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.inventory.lowStockThreshold.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.inventory.lowStockThreshold.label}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -88,7 +94,9 @@ export function InventorySettings({ form }: InventorySettingsProps) {
           name="outOfStockBehavior"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.inventory.outOfStockBehavior.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.inventory.outOfStockBehavior.label}
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -97,13 +105,22 @@ export function InventorySettings({ form }: InventorySettingsProps) {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="hide">
-                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.hide}
+                    {
+                      t.settings.ecommerce.inventory.outOfStockBehavior.options
+                        .hide
+                    }
                   </SelectItem>
                   <SelectItem value="show">
-                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.show}
+                    {
+                      t.settings.ecommerce.inventory.outOfStockBehavior.options
+                        .show
+                    }
                   </SelectItem>
                   <SelectItem value="backorder">
-                    {t.settings.ecommerce.inventory.outOfStockBehavior.options.backorder}
+                    {
+                      t.settings.ecommerce.inventory.outOfStockBehavior.options
+                        .backorder
+                    }
                   </SelectItem>
                 </SelectContent>
               </Select>

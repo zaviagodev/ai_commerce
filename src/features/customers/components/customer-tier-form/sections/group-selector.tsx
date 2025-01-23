@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { useState } from "react";
+import { Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DEMO_GROUPS = [
-  { id: '1', name: 'VIP Customers' },
-  { id: '2', name: 'New Customers' },
-  { id: '3', name: 'Wholesale' },
+  { id: "1", name: "VIP Customers" },
+  { id: "2", name: "New Customers" },
+  { id: "3", name: "Wholesale" },
 ];
 
 interface GroupSelectorProps {
@@ -23,17 +23,21 @@ interface GroupSelectorProps {
   onSelect: (groups: string[]) => void;
 }
 
-export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelectorProps) {
+export function GroupSelector({
+  children,
+  selectedGroups,
+  onSelect,
+}: GroupSelectorProps) {
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const filteredGroups = DEMO_GROUPS.filter((group) =>
-    group.name.toLowerCase().includes(search.toLowerCase())
+    group.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   const toggleGroup = (groupId: string) => {
     const newGroups = selectedGroups.includes(groupId)
-      ? selectedGroups.filter(id => id !== groupId)
+      ? selectedGroups.filter((id) => id !== groupId)
       : [...selectedGroups, groupId];
     onSelect(newGroups);
   };
@@ -61,7 +65,9 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
                 {filteredGroups.map((group) => (
                   <Button
                     key={group.id}
-                    variant={selectedGroups.includes(group.id) ? 'default' : 'outline'}
+                    variant={
+                      selectedGroups.includes(group.id) ? "default" : "outline"
+                    }
                     className="w-full justify-start h-fit"
                     onClick={() => toggleGroup(group.id)}
                   >
@@ -78,7 +84,7 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
                 ))}
               </div>
             ) : (
-              <p className='text-center'>No groups found</p>
+              <p className="text-center">No groups found</p>
             )}
           </ScrollArea>
         </div>
@@ -86,9 +92,7 @@ export function GroupSelector({ children, selectedGroups, onSelect }: GroupSelec
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={() => setOpen(false)}>
-            Done
-          </Button>
+          <Button onClick={() => setOpen(false)}>Done</Button>
         </div>
       </DialogContent>
     </Dialog>

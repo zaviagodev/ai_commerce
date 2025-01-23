@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Minus, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Product } from '@/types/product';
-import { cn, formatCurrency } from '@/lib/utils';
-import { useCart } from '../context/cart-context';
+import { useState } from "react";
+import { Minus, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Product } from "@/types/product";
+import { cn, formatCurrency } from "@/lib/utils";
+import { useCart } from "../context/cart-context";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
+} from "@/components/ui/carousel";
 
 interface ProductDetailsProps {
   product: Product;
@@ -38,7 +38,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <img
                 src={product.images[imgIndex].url}
                 alt={product.images[imgIndex].alt}
-                className={cn('h-full w-full object-cover transition-all')}
+                className={cn("h-full w-full object-cover transition-all")}
               />
               {/* <Carousel>
                 <CarouselContent className="w-full ml-0 h-full">
@@ -65,8 +65,8 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                   key={image.id}
                   className={`aspect-square rounded-lg border bg-muted overflow-hidden cursor-pointer hover:opacity-100 transition duration-200 ${
                     imgIndex === index
-                      ? 'opacity-100 border-gray-400'
-                      : 'opacity-50'
+                      ? "opacity-100 border-gray-400"
+                      : "opacity-50"
                   }`}
                   onClick={handleChangeImg}
                 >
@@ -130,10 +130,10 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               }
             >
               {product.trackQuantity && (product.quantity || 0) < 1
-                ? 'Out of stock'
+                ? "Out of stock"
                 : isItemAdded
-                ? 'Item added to cart'
-                : 'Add to cart'}
+                  ? "Item added to cart"
+                  : "Add to cart"}
             </Button>
           </div>
 
@@ -141,7 +141,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           <div className="space-y-4 border-t pt-6">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Category</span>
-              <span>{product.category?.name || 'Uncategorized'}</span>
+              <span>{product.category?.name || "Uncategorized"}</span>
             </div>
             {product.sku && (
               <div className="flex justify-between text-sm">
@@ -152,7 +152,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             {product.tags.length > 0 && (
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Tags</span>
-                <span>{product.tags.map((tag) => tag.name).join(', ')}</span>
+                <span>{product.tags.map((tag) => tag.name).join(", ")}</span>
               </div>
             )}
           </div>

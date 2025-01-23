@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,9 +6,9 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Order } from '@/types/order';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Order } from "@/types/order";
 
 interface ManualShippingProps {
   form: UseFormReturn<Order>;
@@ -16,8 +16,10 @@ interface ManualShippingProps {
 }
 
 export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
-  const appliedCoupons = form.watch('appliedCoupons') || [];
-  const hasFreeShippingCoupon = appliedCoupons.find(coupon => coupon.type === 'shipping');
+  const appliedCoupons = form.watch("appliedCoupons") || [];
+  const hasFreeShippingCoupon = appliedCoupons.find(
+    (coupon) => coupon.type === "shipping",
+  );
   return (
     <FormField
       control={form.control}
@@ -38,7 +40,7 @@ export function ManualShipping({ form, currentShipping }: ManualShippingProps) {
                 placeholder="0.00"
                 className="pl-6"
                 onChange={(e) => field.onChange(Number(e.target.value))}
-                value={currentShipping || ''}
+                value={currentShipping || ""}
               />
             </div>
           </FormControl>

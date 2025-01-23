@@ -1,29 +1,32 @@
-import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Percent, Calendar, Package, Edit } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Percent, Calendar, Package, Edit } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PercentageDiscountCardProps {
   onEdit: (id: string) => void;
 }
 
-export function PercentageDiscountCard({ onEdit }: PercentageDiscountCardProps) {
+export function PercentageDiscountCard({
+  onEdit,
+}: PercentageDiscountCardProps) {
   const item = {
     hidden: { y: 20, opacity: 0 },
-    show: { y: 0, opacity: 1 }
+    show: { y: 0, opacity: 1 },
   };
 
   return (
     <motion.div variants={item}>
       <Card className="relative overflow-hidden">
         {/* Background gradient */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10" 
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"
           style={{
-            maskImage: 'radial-gradient(circle at 70% 30%, black, transparent)',
-            WebkitMaskImage: 'radial-gradient(circle at 70% 30%, black, transparent)',
+            maskImage: "radial-gradient(circle at 70% 30%, black, transparent)",
+            WebkitMaskImage:
+              "radial-gradient(circle at 70% 30%, black, transparent)",
           }}
         />
 
@@ -37,7 +40,9 @@ export function PercentageDiscountCard({ onEdit }: PercentageDiscountCardProps) 
               </div>
               <div>
                 <h3 className="font-semibold">20% Off Everything</h3>
-                <p className="text-sm text-muted-foreground">Storewide discount</p>
+                <p className="text-sm text-muted-foreground">
+                  Storewide discount
+                </p>
               </div>
             </div>
             <Badge variant="secondary" className="bg-green-100 text-green-700">
@@ -72,10 +77,10 @@ export function PercentageDiscountCard({ onEdit }: PercentageDiscountCardProps) 
           </div>
 
           {/* Action Button */}
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="w-full mt-4"
-            onClick={() => onEdit('percentage-discount')}
+            onClick={() => onEdit("percentage-discount")}
           >
             <Edit className="mr-2 h-4 w-4" />
             Edit Promotion
@@ -84,9 +89,9 @@ export function PercentageDiscountCard({ onEdit }: PercentageDiscountCardProps) 
 
         {/* Progress bar */}
         <div className="h-1.5 w-full bg-muted">
-          <div 
+          <div
             className="h-full bg-blue-500 transition-all duration-500"
-            style={{ width: '49%' }}
+            style={{ width: "49%" }}
           />
         </div>
       </Card>

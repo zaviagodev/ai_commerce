@@ -1,42 +1,42 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Plus, Search, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { CustomerGroup } from '@/types/customer';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useState } from 'react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { UseFormReturn } from "react-hook-form";
+import { Plus, Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { CustomerGroup } from "@/types/customer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface MembersProps {
   form: UseFormReturn<CustomerGroup>;
 }
 
 const DEMO_CUSTOMERS = [
-  { id: '1', name: 'John Doe', email: 'john@example.com' },
-  { id: '2', name: 'Jane Smith', email: 'jane@example.com' },
-  { id: '3', name: 'Bob Johnson', email: 'bob@example.com' },
+  { id: "1", name: "John Doe", email: "john@example.com" },
+  { id: "2", name: "Jane Smith", email: "jane@example.com" },
+  { id: "3", name: "Bob Johnson", email: "bob@example.com" },
 ];
 
 export function Members({ form }: MembersProps) {
   const t = useTranslation();
-  const [search, setSearch] = useState('');
-  const members = form.watch('members') || [];
+  const [search, setSearch] = useState("");
+  const members = form.watch("members") || [];
 
   const filteredCustomers = DEMO_CUSTOMERS.filter(
     (customer) =>
       !members.includes(customer.id) &&
       (customer.name.toLowerCase().includes(search.toLowerCase()) ||
-        customer.email.toLowerCase().includes(search.toLowerCase()))
+        customer.email.toLowerCase().includes(search.toLowerCase())),
   );
 
   const addMember = (customerId: string) => {
-    form.setValue('members', [...members, customerId]);
+    form.setValue("members", [...members, customerId]);
   };
 
   const removeMember = (customerId: string) => {
     form.setValue(
-      'members',
-      members.filter((id) => id !== customerId)
+      "members",
+      members.filter((id) => id !== customerId),
     );
   };
 
@@ -47,7 +47,9 @@ export function Members({ form }: MembersProps) {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder={ t.customers.customer.group.sections.members.search.placeholder}
+            placeholder={
+              t.customers.customer.group.sections.members.search.placeholder
+            }
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9"
@@ -59,7 +61,7 @@ export function Members({ form }: MembersProps) {
             <div className="p-4 space-y-2">
               {filteredCustomers.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-4">
-                  { t.customers.customer.group.sections.members.empty.title}
+                  {t.customers.customer.group.sections.members.empty.title}
                 </p>
               ) : (
                 filteredCustomers.map((customer) => (
@@ -87,9 +89,12 @@ export function Members({ form }: MembersProps) {
       {/* Current Members */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">{ t.customers.customer.group.sections.members.title}</h3>
+          <h3 className="text-sm font-medium">
+            {t.customers.customer.group.sections.members.title}
+          </h3>
           <span className="text-sm text-muted-foreground">
-            {members.length} { t.customers.customer.group.sections.members.title.toLowerCase()}
+            {members.length}{" "}
+            {t.customers.customer.group.sections.members.title.toLowerCase()}
           </span>
         </div>
 
@@ -97,7 +102,7 @@ export function Members({ form }: MembersProps) {
           <div className="p-4 space-y-2">
             {members.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-4">
-                { t.customers.customer.group.sections.members.empty.description}
+                {t.customers.customer.group.sections.members.empty.description}
               </p>
             ) : (
               members.map((memberId) => {
@@ -119,7 +124,10 @@ export function Members({ form }: MembersProps) {
                       variant="ghost"
                       size="sm"
                       onClick={() => removeMember(customer.id)}
-                      title={ t.customers.customer.group.sections.members.actions.remove}
+                      title={
+                        t.customers.customer.group.sections.members.actions
+                          .remove
+                      }
                     >
                       <X className="h-4 w-4" />
                     </Button>

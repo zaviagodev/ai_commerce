@@ -1,24 +1,27 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { MoreVertical, Pencil, Copy, Trash2 } from 'lucide-react';
-import { Product } from '@/types/product';
-import { DeleteConfirmModal } from './product-form/modals/delete-confirm-modal';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { MoreVertical, Pencil, Copy, Trash2 } from "lucide-react";
+import { Product } from "@/types/product";
+import { DeleteConfirmModal } from "./product-form/modals/delete-confirm-modal";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductActionsMenuProps {
   product: Product;
   onDelete: () => Promise<void>;
 }
 
-export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProps) {
+export function ProductActionsMenu({
+  product,
+  onDelete,
+}: ProductActionsMenuProps) {
   const t = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -30,9 +33,11 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
       ...product,
       name: `${product.name} (${t.products.products.form.modals.itemActions.duplicate.title})`,
       sku: `${product.sku}-copy`,
-      status: 'draft' as const,
+      status: "draft" as const,
     };
-    navigate('/dashboard/products/new', { state: { initialData: duplicatedProduct } });
+    navigate("/dashboard/products/new", {
+      state: { initialData: duplicatedProduct },
+    });
   };
 
   return (
@@ -52,7 +57,9 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
       <Dialog open={showActions} onOpenChange={setShowActions}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{t.products.products.form.modals.itemActions.title}</DialogTitle>
+            <DialogTitle>
+              {t.products.products.form.modals.itemActions.title}
+            </DialogTitle>
           </DialogHeader>
           <div className="grid gap-2">
             <Button
@@ -68,9 +75,14 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Pencil className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title}</div>
+                  <div className="font-medium">
+                    {t.products.products.form.modals.itemActions.edit.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.edit.description}
+                    {
+                      t.products.products.form.modals.itemActions.edit
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -89,9 +101,17 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title}</div>
+                  <div className="font-medium">
+                    {
+                      t.products.products.form.modals.itemActions.duplicate
+                        .title
+                    }
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.duplicate.description}
+                    {
+                      t.products.products.form.modals.itemActions.duplicate
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -110,9 +130,14 @@ export function ProductActionsMenu({ product, onDelete }: ProductActionsMenuProp
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
+                  <div className="font-medium">
+                    {t.products.products.form.modals.itemActions.delete.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.delete.description}
+                    {
+                      t.products.products.form.modals.itemActions.delete
+                        .description
+                    }
                   </p>
                 </div>
               </div>

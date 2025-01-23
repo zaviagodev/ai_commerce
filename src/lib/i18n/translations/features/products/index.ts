@@ -1,4 +1,4 @@
-import { productsTranslations } from './products';
+import { productsTranslations } from "./products";
 
 export const products = {
   en: {

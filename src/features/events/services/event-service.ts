@@ -40,7 +40,7 @@ export class EventService {
             ),
             product_tags (*)
           )
-        `
+        `,
         )
         .eq("store_name", user.storeName)
         .order("start_datetime", { ascending: true });
@@ -78,7 +78,7 @@ export class EventService {
   }
 
   static async getEventProduct(
-    productId: string
+    productId: string,
   ): Promise<EventProduct | null> {
     try {
       const { data, error } = await supabase
@@ -107,7 +107,7 @@ export class EventService {
             ),
             product_tags (*)
           )
-        `
+        `,
         )
         .eq("product_id", productId)
         .single();
@@ -131,7 +131,7 @@ export class EventService {
     eventData: Omit<
       Event,
       "id" | "productId" | "storeName" | "createdAt" | "updatedAt"
-    >
+    >,
   ): Promise<EventProduct> {
     try {
       const user = useAuthStore.getState().user;
@@ -181,11 +181,11 @@ export class EventService {
     productId: string,
     eventData: Partial<
       Omit<EventProduct, "productId" | "storeName" | "createdAt" | "updatedAt">
-    >
+    >,
   ): Promise<EventProduct> {
     try {
       console.log("eventData =>", eventData);
-      
+
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error("Store not found");
 

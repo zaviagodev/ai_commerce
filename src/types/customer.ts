@@ -1,6 +1,6 @@
 export interface CustomerAddress {
   id: string;
-  type: 'billing' | 'shipping';
+  type: "billing" | "shipping";
   firstName: string;
   lastName: string;
   company?: string;
@@ -33,8 +33,12 @@ export interface Customer {
   updatedAt: Date;
 }
 
-export type ConditionOperator = 'greater_than' | 'less_than' | 'equal_to';
-export type ConditionType = 'total_spent' | 'order_count' | 'last_order' | 'location';
+export type ConditionOperator = "greater_than" | "less_than" | "equal_to";
+export type ConditionType =
+  | "total_spent"
+  | "order_count"
+  | "last_order"
+  | "location";
 
 export interface CustomerGroupCondition {
   id: string;
@@ -52,7 +56,7 @@ export interface CustomerGroup {
   autoAssign: boolean;
   conditions: CustomerGroupCondition[];
   members: string[];
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
 }
 
 export interface CustomerTier {
@@ -66,5 +70,5 @@ export interface CustomerTier {
   freeShipping: boolean;
   prioritySupport: boolean;
   earlyAccess: boolean;
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
 }

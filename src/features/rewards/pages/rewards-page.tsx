@@ -84,15 +84,17 @@ export function RewardsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Reward Items</h1>
+          <h1 className="text-2xl font-semibold">
+            {t.rewardItems.rewardItems.list.title}
+          </h1>
           <p className="text-sm text-muted-foreground">
-            Manage your store's redeemable reward items
+            {t.rewardItems.rewardItems.list.description}
           </p>
         </div>
         <Button asChild>
           <Link to="/dashboard/reward-items/new">
             <Plus className="mr-2 h-4 w-4" />
-            Add reward item
+            {t.rewardItems.rewardItems.list.actions.addRewardItem}
           </Link>
         </Button>
       </motion.div>
@@ -106,7 +108,7 @@ export function RewardsPage() {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search reward items..."
+          placeholder={t.rewardItems.rewardItems.list.search}
         />
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
@@ -127,11 +129,21 @@ export function RewardsPage() {
         <Table className={paginatedProducts.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Points Required</TableHead>
-              <TableHead className="text-right">Quantity</TableHead>
+              <TableHead>
+                {t.rewardItems.rewardItems.list.table.headers.item}
+              </TableHead>
+              <TableHead>
+                {t.rewardItems.rewardItems.list.table.headers.status}
+              </TableHead>
+              <TableHead>
+                {t.rewardItems.rewardItems.list.table.headers.category}
+              </TableHead>
+              <TableHead className="text-right">
+                {t.rewardItems.rewardItems.list.table.headers.pointsRequired}
+              </TableHead>
+              <TableHead className="text-right">
+                {t.rewardItems.rewardItems.list.table.headers.quantity}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -139,14 +151,16 @@ export function RewardsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No reward items found</p>
+                    <p className="text-lg font-medium">
+                      {t.rewardItems.rewardItems.list.table.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
-                      Get started by adding your first reward item
+                      {t.rewardItems.rewardItems.list.table.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/reward-items/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        Add reward item
+                        {t.rewardItems.rewardItems.list.actions.addRewardItem}
                       </Link>
                     </Button>
                   </div>
@@ -178,7 +192,10 @@ export function RewardsPage() {
                         </span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
+                            {t.rewardItems.rewardItems.list.table.cells.sku.replace(
+                              "{value}",
+                              product.sku,
+                            )}
                           </p>
                         )}
                       </div>
@@ -195,20 +212,34 @@ export function RewardsPage() {
                           product.status === "draft",
                       })}
                     >
-                      {product.status}
+                      {
+                        t.products.products.status[
+                          product.status as keyof typeof t.products.products.status
+                        ]
+                      }
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || "Uncategorized"}
+                    {product.category?.name ||
+                      t.rewardItems.rewardItems.list.table.cells.uncategorized}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
                       <div className="font-medium">
-                        {product.pointsRequired || 0} points
+                        {product.pointsRequired || 0}{" "}
+                        {
+                          t.rewardItems.rewardItems.list.table.cells[
+                            product.pointsRequired === 1 ? "point" : "points"
+                          ]
+                        }
                       </div>
                       {product.pointsValue && (
                         <div className="text-sm text-muted-foreground">
-                          Value: {formatCurrency(product.pointsValue)}
+                          {
+                            t.rewardItems.rewardItems.list.table.cells
+                              .pointsValue
+                          }{" "}
+                          {formatCurrency(product.pointsValue)}
                         </div>
                       )}
                     </div>
@@ -222,10 +253,13 @@ export function RewardsPage() {
                             : "text-red-600"
                         }
                       >
-                        {product.quantity || 0} in stock
+                        {product.quantity || 0}{" "}
+                        {t.rewardItems.rewardItems.list.table.cells.inStock}
                       </span>
                     ) : (
-                      <span className="text-muted-foreground">Not tracked</span>
+                      <span className="text-muted-foreground">
+                        {t.rewardItems.rewardItems.list.table.cells.notTracked}
+                      </span>
                     )}
                   </TableCell>
                 </TableRow>

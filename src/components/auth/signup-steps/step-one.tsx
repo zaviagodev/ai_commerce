@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,12 +9,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Step1Schema } from '@/lib/validation/auth';
-import { Link } from 'react-router-dom';
-import { useSignupStore } from '@/lib/auth/signup-store';
-import { useEffect } from 'react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Step1Schema } from "@/lib/validation/auth";
+import { Link } from "react-router-dom";
+import { useSignupStore } from "@/lib/auth/signup-store";
+import { useEffect } from "react";
 
 type Step1FormValues = z.infer<typeof Step1Schema>;
 
@@ -28,9 +28,9 @@ export function StepOne({ onSubmit }: StepOneProps) {
   const form = useForm<Step1FormValues>({
     resolver: zodResolver(Step1Schema),
     defaultValues: {
-      fullName: '',
-      email: '',
-      password: '',
+      fullName: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -70,7 +70,11 @@ export function StepOne({ onSubmit }: StepOneProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="john@example.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="john@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,7 +99,7 @@ export function StepOne({ onSubmit }: StepOneProps) {
         </form>
       </Form>
       <div className="text-sm text-muted-foreground text-center mt-4">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <Link
           to="/auth/login"
           className="text-primary hover:text-primary/90 font-medium"

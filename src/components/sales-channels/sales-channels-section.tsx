@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Share2 } from 'lucide-react';
-import { SalesChannelsDialog } from './sales-channels-dialog';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Share2 } from "lucide-react";
+import { SalesChannelsDialog } from "./sales-channels-dialog";
+import { cn } from "@/lib/utils";
 
 const CHANNEL_COLORS: Record<string, { bg: string; text: string }> = {
-  shopee: { bg: 'bg-orange-100', text: 'text-orange-700' },
-  lazada: { bg: 'bg-blue-100', text: 'text-blue-700' },
-  lineoa: { bg: 'bg-green-100', text: 'text-green-700' },
-  linemyshop: { bg: 'bg-emerald-100', text: 'text-emerald-700' },
-  tiktok: { bg: 'bg-purple-100', text: 'text-purple-700' },
-  website: { bg: 'bg-pink-100', text: 'text-pink-700' },
+  shopee: { bg: "bg-orange-100", text: "text-orange-700" },
+  lazada: { bg: "bg-blue-100", text: "text-blue-700" },
+  lineoa: { bg: "bg-green-100", text: "text-green-700" },
+  linemyshop: { bg: "bg-emerald-100", text: "text-emerald-700" },
+  tiktok: { bg: "bg-purple-100", text: "text-purple-700" },
+  website: { bg: "bg-pink-100", text: "text-pink-700" },
 };
 
 interface SalesChannelsSectionProps {
@@ -27,7 +27,7 @@ export function SalesChannelsSection({
 
   const handleChannelToggle = (channelId: string) => {
     const newChannels = activeChannels.includes(channelId)
-      ? activeChannels.filter(id => id !== channelId)
+      ? activeChannels.filter((id) => id !== channelId)
       : [...activeChannels, channelId];
     onChannelsChange(newChannels);
   };
@@ -41,13 +41,13 @@ export function SalesChannelsSection({
           </p>
         ) : (
           activeChannels.map((channel) => (
-            <Badge 
-              key={channel} 
+            <Badge
+              key={channel}
               variant="secondary"
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1",
                 CHANNEL_COLORS[channel]?.bg,
-                CHANNEL_COLORS[channel]?.text
+                CHANNEL_COLORS[channel]?.text,
               )}
             >
               <span className="relative flex h-2 w-2">
@@ -62,7 +62,7 @@ export function SalesChannelsSection({
 
       <Button
         type="button"
-        variant="outline" 
+        variant="outline"
         className="w-full mt-4"
         onClick={() => setIsDialogOpen(true)}
       >

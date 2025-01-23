@@ -13,12 +13,14 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import { Event } from "@/types/product";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface EventDetailsProps {
   form: UseFormReturn<Event>;
 }
 
 export function EventDetails({ form }: EventDetailsProps) {
+  const t = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -31,9 +33,11 @@ export function EventDetails({ form }: EventDetailsProps) {
             <Calendar className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-medium">Event Details</h2>
+            <h2 className="text-lg font-medium">
+              {t.events.event.eventDetails.title}
+            </h2>
             <p className="text-sm text-muted-foreground">
-              Configure event-specific information
+              {t.events.event.eventDetails.subtitle}
             </p>
           </div>
         </CardHeader>
@@ -44,7 +48,9 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="startDateTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Start Date & Time</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.startDateTime}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="datetime-local"
@@ -67,7 +73,9 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="endDateTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date & Time</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.endDateTime}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="datetime-local"
@@ -91,9 +99,16 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="venueName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Venue Name</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.venueName.label}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., Convention Center" {...field} />
+                  <Input
+                    placeholder={
+                      t.events.event.eventDetails.venueName.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,16 +120,20 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="venueAddress"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Venue Address</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.venueAddress.label}
+                </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Enter the complete venue address"
+                    placeholder={
+                      t.events.event.eventDetails.venueAddress.placeholder
+                    }
                     className="min-h-[100px]"
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Provide detailed location information for attendees
+                  {t.events.event.eventDetails.venueAddress.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -126,12 +145,19 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="googleMapsLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Google Maps Link</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.googleMapsLink.label}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Paste Google Maps link here" {...field} />
+                  <Input
+                    placeholder={
+                      t.events.event.eventDetails.googleMapsLink.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
-                  Add a Google Maps link to help attendees find the venue
+                  {t.events.event.eventDetails.googleMapsLink.description}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -144,9 +170,16 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="organizerName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Organizer Name</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.organizerName.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Event organizer" {...field} />
+                    <Input
+                      placeholder={
+                        t.events.event.eventDetails.organizerName.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -158,9 +191,16 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="organizerContact"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Organizer Contact</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.organizerContact.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Contact information" {...field} />
+                    <Input
+                      placeholder={
+                        t.events.event.eventDetails.organizerContact.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

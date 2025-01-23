@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,13 +11,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useAuth } from '@/lib/auth/auth-hooks';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { AuthLayout } from './auth-layout';
-import { LoginSchema } from '@/lib/validation/auth';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/lib/auth/auth-hooks";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { AuthLayout } from "./auth-layout";
+import { LoginSchema } from "@/lib/validation/auth";
+import { Loader2 } from "lucide-react";
 
 type LoginFormValues = z.infer<typeof LoginSchema>;
 
@@ -29,8 +35,8 @@ export function LoginForm() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -41,10 +47,10 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       // Error handling is done in auth-hooks.ts
-      form.reset({ password: '' });
+      form.reset({ password: "" });
     } finally {
       setIsLoading(false);
     }
@@ -71,11 +77,11 @@ export function LoginForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="email" 
-                        placeholder="john@example.com" 
+                      <Input
+                        type="email"
+                        placeholder="john@example.com"
                         disabled={isLoading}
-                        {...field} 
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -89,28 +95,20 @@ export function LoginForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="password" 
-                        disabled={isLoading}
-                        {...field} 
-                      />
+                      <Input type="password" disabled={isLoading} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
                   </>
                 ) : (
-                  'Sign In'
+                  "Sign In"
                 )}
               </Button>
             </form>
@@ -118,7 +116,7 @@ export function LoginForm() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-muted-foreground text-center">
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <Link
               to="/auth/signup"
               className="text-primary hover:text-primary/90 font-medium"

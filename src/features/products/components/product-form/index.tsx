@@ -157,18 +157,6 @@ export function ProductForm({
     }
   };
 
-  const checkTypeofItem = isEventProduct
-    ? "event"
-    : isRewardProduct
-      ? "rewardItem"
-      : "product";
-
-  const getUntitledText = () => {
-    if (isEventProduct) return "Untitled Event";
-    if (isRewardProduct) return "Untitled Reward Item";
-    return "Untitled Product";
-  };
-
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -225,17 +213,17 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || getUntitledText()}
+                          {productName || t.products.products.form.untitled}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
                             variant="secondary"
                             className={cn("whitespace-nowrap gap-2", {
-                              "!bg-green-200 text-green-700 dark:!bg-green-700 dark:text-green-200":
+                              "!bg-green-100 text-green-700 dark:!bg-green-700 dark:text-green-200":
                                 initialData.status === "active",
-                              "!bg-red-200 text-red-700 dark:!bg-red-700 dark:text-red-200":
+                              "!bg-red-100 text-red-700 dark:!bg-red-700 dark:text-red-200":
                                 initialData.status === "archived",
-                              "!bg-gray-200 text-gray-700 dark:!bg-gray-700 dark:text-gray-200":
+                              "!bg-gray-100 text-gray-700 dark:!bg-gray-700 dark:text-gray-200":
                                 initialData.status === "draft",
                             })}
                           >
@@ -286,12 +274,15 @@ export function ProductForm({
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground overflow-hidden">
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="hidden sm:inline">Created by</span>
+                      <span className="hidden sm:inline">
+                        {t.products.products.form.created}
+                      </span>
                       <span className="truncate">{user?.fullName}</span>
                     </div>
                     <span className="hidden sm:inline">•</span>
                     <span className="truncate">
-                      Last updated {new Date().toLocaleDateString()}
+                      {t.products.products.form.lastUpdated}{" "}
+                      {new Date().toLocaleDateString()}
                     </span>
                   </div>
                 </div>
@@ -305,7 +296,7 @@ export function ProductForm({
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || getUntitledText()}
+                  title={productName || `${t.products.products.form.untitled}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
@@ -337,16 +328,15 @@ export function ProductForm({
           >
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
-                <Tabs defaultValue="basic" className="w-full">
+                <Tabs defaultValue="item-info" className="w-full">
                   <TabsList className="mb-6">
                     {isEventProduct && (
                       <TabsTrigger value="event-summary">
                         Event Summary
                       </TabsTrigger>
                     )}
-                    <TabsTrigger value="basic">
-                      <ClipboardEdit className="mr-2 h-4 w-4" />
-                      Item Info
+                    <TabsTrigger value="item-info">
+                      {t.products.products.form.tabs.itemInfo}
                     </TabsTrigger>
                     {isEventProduct && (
                       <TabsTrigger value="attendees">Attendees</TabsTrigger>
@@ -357,17 +347,65 @@ export function ProductForm({
                       <EventSummary form={form as any} />
                     </TabsContent>
                   )}
-                  <TabsContent value="basic" className="space-y-4 py-4">
-                    <Media form={form} productId={initialData?.id} />
-                    <BasicDetails
-                      form={form}
-                      isEventProduct={isEventProduct}
-                      isRewardProduct={isRewardProduct}
-                    />
+                  <TabsContent value="item-info" className="space-y-8">
+                    {/* Media Section */}
+                    <Card>
+                      <CardHeader className="flex flex-row items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <ImagePlus className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.media.title}
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {
+                              t.products.products.form.sections.media
+                                .description
+                            }
+                          </p>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <Media form={form} productId={initialData?.id} />
+                      </CardContent>
+                    </Card>
+
+                    {/* Basic Details Section */}
+                    <Card>
+                      <CardHeader className="flex flex-row items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
+                          <ClipboardEdit className="h-5 w-5 text-green-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-lg font-medium">
+                            {
+                              t.products.products.form.sections.basicDetails
+                                .title
+                            }
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {
+                              t.products.products.form.sections.basicDetails
+                                .description
+                            }
+                          </p>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <BasicDetails form={form} />
+                      </CardContent>
+                    </Card>
+
+                    {/* Event Details Section - Only show for event products */}
+                    {isEventProduct && <EventDetails form={form} />}
+
                     {form.watch("isReward") &&
                       !(form.watch("variantOptions")?.length > 0) && (
                         <RewardDetails form={form} />
                       )}
+
+                    {/* Pricing Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
@@ -376,12 +414,15 @@ export function ProductForm({
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">Pricing</h2>
                           <p className="text-sm text-muted-foreground">
-                            Set your product's pricing information
+                            {
+                              t.products.products.form.sections.pricing
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} isEventProduct={isEventProduct} />
+                        <Pricing form={form} />
                       </CardContent>
                     </Card>
                     <Variations form={form} isEventProduct={isEventProduct} />
@@ -397,20 +438,21 @@ export function ProductForm({
                           <p className="text-sm text-muted-foreground">
                             {
                               t.products.products.form.sections.inventory
-                                .description[checkTypeofItem]
+                                .description
                             }
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Inventory
-                          form={form}
-                          isEventProduct={isEventProduct}
-                          isRewardProduct={isRewardProduct}
-                        />
+                        <Inventory form={form} />
                       </CardContent>
                     </Card>
-                    <Card>
+
+                    {/* Variations Section */}
+                    <Variations form={form} />
+
+                    {/* Shipping Section */}
+                    {/* <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
                           <Truck className="h-5 w-5 text-orange-600" />
@@ -426,6 +468,8 @@ export function ProductForm({
                         <Shipping form={form} />
                       </CardContent>
                     </Card>
+                    
+                    {/* Organization Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-100">
@@ -441,19 +485,40 @@ export function ProductForm({
                           <p className="text-sm text-muted-foreground">
                             {
                               t.products.products.form.sections.organization
-                                .description[checkTypeofItem]
+                                .description
                             }
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization
-                          form={form}
-                          isEventProduct={isEventProduct}
-                          isRewardProduct={isRewardProduct}
-                        />
+                        <Organization form={form} />
                       </CardContent>
                     </Card>
+
+                    {/* Sales Channels Section */}
+                    {/* <Card className="rounded-[18px]">
+                      <CardHeader className="flex flex-row items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100">
+                          <Share2 className="h-5 w-5 text-indigo-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h2 className="text-lg font-medium">
+                            {t.products.products.form.sections.salesChannels.title}
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {t.products.products.form.sections.salesChannels.description}
+                          </p>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <SalesChannelsSection
+                          activeChannels={form.watch('salesChannels') || []}
+                          onChannelsChange={(channels) =>
+                            form.setValue('salesChannels', channels)
+                          }
+                        />
+                      </CardContent>
+                    </Card> */}
                   </TabsContent>
                   {isEventProduct && (
                     <TabsContent value="attendees" className="space-y-8">

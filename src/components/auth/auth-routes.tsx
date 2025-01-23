@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/lib/auth/auth-hooks';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/lib/auth/auth-hooks";
 
 interface RouteProps {
   children: React.ReactNode;

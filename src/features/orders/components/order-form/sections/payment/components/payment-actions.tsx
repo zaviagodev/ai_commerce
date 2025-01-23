@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { CreditCard, MoreHorizontal, RefreshCw } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { CreditCard, MoreHorizontal, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentActionsProps {
   isSaving: boolean;
@@ -23,7 +23,7 @@ export function PaymentActions({
   onReopenClick,
 }: PaymentActionsProps) {
   const t = useTranslation();
-  
+
   if (isSaving) return null;
 
   return (
@@ -74,7 +74,7 @@ export function PaymentActions({
                     type="button"
                   >
                     <MoreHorizontal className="mr-2 h-4 w-4" />
-                    {t.orders.orders.form.sections.payment.actions.title}
+                    {t.orders.orders.payment.actions.title}
                   </Button>
                 </motion.div>
                 <motion.div
@@ -136,7 +136,7 @@ export function PaymentActions({
             onClick={onReopenClick}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
-            {t.orders.payment.actions.reopen}
+            {t.orders.orders.actions.reopen}
           </Button>
           <Button
             variant="outline"
@@ -144,7 +144,7 @@ export function PaymentActions({
             onClick={onActionsClick}
           >
             <MoreHorizontal className="mr-2 h-4 w-4" />
-            {t.orders.payment.actions.title}
+            {t.orders.orders.payment.actions.title}
           </Button>
         </motion.div>
       )}

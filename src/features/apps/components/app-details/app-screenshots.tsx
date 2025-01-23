@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface AppScreenshotsProps {
   screenshots: string[];
@@ -11,14 +11,14 @@ export function AppScreenshots({ screenshots }: AppScreenshotsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const showNext = () => {
-    setCurrentIndex((current) => 
-      current === screenshots.length - 1 ? 0 : current + 1
+    setCurrentIndex((current) =>
+      current === screenshots.length - 1 ? 0 : current + 1,
     );
   };
 
   const showPrevious = () => {
-    setCurrentIndex((current) => 
-      current === 0 ? screenshots.length - 1 : current - 1
+    setCurrentIndex((current) =>
+      current === 0 ? screenshots.length - 1 : current - 1,
     );
   };
 
@@ -62,9 +62,9 @@ export function AppScreenshots({ screenshots }: AppScreenshotsProps) {
             <button
               key={index}
               className={`h-2 w-2 rounded-full transition-all ${
-                index === currentIndex 
-                  ? 'bg-main w-4' 
-                  : 'bg-main/50 hover:bg-main/75'
+                index === currentIndex
+                  ? "bg-main w-4"
+                  : "bg-main/50 hover:bg-main/75"
               }`}
               onClick={() => setCurrentIndex(index)}
             />

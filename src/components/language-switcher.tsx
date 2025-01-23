@@ -1,14 +1,14 @@
-import { useLanguage } from '@/lib/i18n/language-context';
-import { languageNames, type Locale } from '@/lib/i18n/config';
-import { Button } from '@/components/ui/button';
+import { useLanguage } from "@/lib/i18n/language-context";
+import { languageNames, type Locale } from "@/lib/i18n/config";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
+} from "@/components/ui/dropdown-menu";
+import { Globe } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();

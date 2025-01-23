@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,11 +6,11 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { CustomerTier } from '@/types/customer';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { CustomerTier } from "@/types/customer";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BenefitsProps {
   form: UseFormReturn<CustomerTier>;
@@ -26,7 +26,12 @@ export function Benefits({ form }: BenefitsProps) {
         name="rewardsMultiplier"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.rewardsMultiplier.label}</FormLabel>
+            <FormLabel>
+              {
+                t.customers.customer.tier.sections.benefits.fields
+                  .rewardsMultiplier.label
+              }
+            </FormLabel>
             <FormControl>
               <div className="relative">
                 <Input
@@ -44,7 +49,10 @@ export function Benefits({ form }: BenefitsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              { t.customers.customer.tier.sections.benefits.fields.rewardsMultiplier.description}
+              {
+                t.customers.customer.tier.sections.benefits.fields
+                  .rewardsMultiplier.description
+              }
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -56,12 +64,20 @@ export function Benefits({ form }: BenefitsProps) {
         name="discountPercentage"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.discountPercentage.label}</FormLabel>
+            <FormLabel>
+              {
+                t.customers.customer.tier.sections.benefits.fields
+                  .discountPercentage.label
+              }
+            </FormLabel>
             <FormControl>
               <div className="relative">
                 <Input
                   type="number"
-                  placeholder={ t.customers.customer.tier.sections.benefits.fields.discountPercentage.placeholder}
+                  placeholder={
+                    t.customers.customer.tier.sections.benefits.fields
+                      .discountPercentage.placeholder
+                  }
                   className="pr-8"
                   {...field}
                 />
@@ -71,7 +87,10 @@ export function Benefits({ form }: BenefitsProps) {
               </div>
             </FormControl>
             <FormDescription>
-              { t.customers.customer.tier.sections.benefits.fields.discountPercentage.description}
+              {
+                t.customers.customer.tier.sections.benefits.fields
+                  .discountPercentage.description
+              }
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -84,16 +103,21 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.freeShipping.label}</FormLabel>
+              <FormLabel>
+                {
+                  t.customers.customer.tier.sections.benefits.fields
+                    .freeShipping.label
+                }
+              </FormLabel>
               <FormDescription>
-                { t.customers.customer.tier.sections.benefits.fields.freeShipping.description}
+                {
+                  t.customers.customer.tier.sections.benefits.fields
+                    .freeShipping.description
+                }
               </FormDescription>
             </div>
             <FormControl>
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
             </FormControl>
           </FormItem>
         )}
@@ -105,16 +129,21 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.prioritySupport.label}</FormLabel>
+              <FormLabel>
+                {
+                  t.customers.customer.tier.sections.benefits.fields
+                    .prioritySupport.label
+                }
+              </FormLabel>
               <FormDescription>
-                { t.customers.customer.tier.sections.benefits.fields.prioritySupport.description}
+                {
+                  t.customers.customer.tier.sections.benefits.fields
+                    .prioritySupport.description
+                }
               </FormDescription>
             </div>
             <FormControl>
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
             </FormControl>
           </FormItem>
         )}
@@ -126,16 +155,21 @@ export function Benefits({ form }: BenefitsProps) {
         render={({ field }) => (
           <FormItem className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
-              <FormLabel>{ t.customers.customer.tier.sections.benefits.fields.earlyAccess.label}</FormLabel>
+              <FormLabel>
+                {
+                  t.customers.customer.tier.sections.benefits.fields.earlyAccess
+                    .label
+                }
+              </FormLabel>
               <FormDescription>
-                { t.customers.customer.tier.sections.benefits.fields.earlyAccess.description}
+                {
+                  t.customers.customer.tier.sections.benefits.fields.earlyAccess
+                    .description
+                }
               </FormDescription>
             </div>
             <FormControl>
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
             </FormControl>
           </FormItem>
         )}

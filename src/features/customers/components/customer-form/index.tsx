@@ -1,18 +1,18 @@
-import { useForm, UseFormReturn } from 'react-hook-form';
-import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { UserCircle, BadgeCheck } from 'lucide-react';
-import { CustomerSchema } from '../../schemas/customer-schema';
-import { BasicDetails } from './sections/basic-details';
-import { Addresses } from './sections/addresses';
-import { Marketing } from './sections/marketing';
-import { Customer } from '@/types/customer';
-import { ShareModal } from '@/components/share/share-modal';
-import { Share2, MessageSquare, Heart, MoreHorizontal } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useForm, UseFormReturn } from "react-hook-form";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { UserCircle, BadgeCheck } from "lucide-react";
+import { CustomerSchema } from "../../schemas/customer-schema";
+import { BasicDetails } from "./sections/basic-details";
+import { Addresses } from "./sections/addresses";
+import { Marketing } from "./sections/marketing";
+import { Customer } from "@/types/customer";
+import { ShareModal } from "@/components/share/share-modal";
+import { Share2, MessageSquare, Heart, MoreHorizontal } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CustomerFormProps {
   initialData?: Customer;
@@ -23,11 +23,11 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
   const form = useForm({
     resolver: zodResolver(CustomerSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      company: '',
-      email: '',
-      phone: '',
+      firstName: "",
+      lastName: "",
+      company: "",
+      email: "",
+      phone: "",
       isVerified: false,
       acceptsMarketing: false,
       tags: [],
@@ -40,13 +40,13 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save customer:', error);
+      console.error("Failed to save customer:", error);
     }
   };
 
-  const customerName = form.watch('firstName') + ' ' + form.watch('lastName');
-  const addresses = form.watch('addresses') || [];
-  const isVerified = form.watch('isVerified');
+  const customerName = form.watch("firstName") + " " + form.watch("lastName");
+  const addresses = form.watch("addresses") || [];
+  const isVerified = form.watch("isVerified");
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(customerName);
@@ -58,8 +58,8 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
 
   const handleNameSubmit = () => {
     if (editedName.trim()) {
-      form.setValue('firstName', editedName.split(' ')[0] || '');
-      form.setValue('lastName', editedName.split(' ').slice(1).join(' ') || '');
+      form.setValue("firstName", editedName.split(" ")[0] || "");
+      form.setValue("lastName", editedName.split(" ").slice(1).join(" ") || "");
     }
     setIsEditing(false);
   };
@@ -75,7 +75,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
           transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -98,9 +98,9 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                     onChange={(e) => setEditedName(e.target.value)}
                     onBlur={handleNameSubmit}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === "Enter") {
                         handleNameSubmit();
-                      } else if (e.key === 'Escape') {
+                      } else if (e.key === "Escape") {
                         setIsEditing(false);
                         setEditedName(customerName);
                       }
@@ -114,8 +114,8 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                       className="text-2xl font-semibold tracking-tight cursor-text h-[36px] flex items-center"
                       onClick={handleStartEditing}
                     >
-                      {customerName === ' ' || customerName === ''
-                        ? 'Untitled Customer'
+                      {customerName === " " || customerName === ""
+                        ? "Untitled Customer"
                         : customerName}
                     </h1>
                     {isVerified && (
@@ -126,16 +126,16 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
               </div>
               <div className="text-sm text-muted-foreground flex items-center gap-2">
                 {addresses.length > 0 &&
-                addresses.find((a) => a.isDefault && a.type === 'shipping') ? (
+                addresses.find((a) => a.isDefault && a.type === "shipping") ? (
                   <>
                     <span>
                       {(() => {
                         const defaultAddress = addresses.find(
-                          (a) => a.isDefault && a.type === 'shipping'
+                          (a) => a.isDefault && a.type === "shipping",
                         );
                         return defaultAddress
                           ? `${defaultAddress.address1}, ${defaultAddress.city}, ${defaultAddress.state} ${defaultAddress.postalCode}`
-                          : '';
+                          : "";
                       })()}
                     </span>
                     <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full whitespace-pre">
@@ -151,7 +151,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
             {/* Action Buttons */}
             <div className="flex items-center">
               <ShareModal
-                title={customerName || 'New Customer'}
+                title={customerName || "New Customer"}
                 url={window.location.href}
               >
                 <Button type="button" variant="outline">
@@ -176,7 +176,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex-1 overflow-y-auto move-top"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

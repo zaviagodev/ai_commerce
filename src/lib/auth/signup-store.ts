@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { Step1Schema } from '../validation/auth';
-import { z } from 'zod';
+import { create } from "zustand";
+import { Step1Schema } from "../validation/auth";
+import { z } from "zod";
 
 type Step1Data = z.infer<typeof Step1Schema>;
 

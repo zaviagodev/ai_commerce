@@ -1,8 +1,8 @@
-import { Reorder } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
-import { ProductImage } from '@/types/product';
-import { DraggableImage } from './draggable-image';
-import { AnimatedContainer } from './animated-container';
+import { Reorder } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { ProductImage } from "@/types/product";
+import { DraggableImage } from "./draggable-image";
+import { AnimatedContainer } from "./animated-container";
 
 interface ImageGridProps {
   images: ProductImage[];

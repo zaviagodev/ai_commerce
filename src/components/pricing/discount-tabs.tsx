@@ -18,7 +18,10 @@ export function DiscountTabs({
   maxValue,
 }: DiscountTabsProps) {
   return (
-    <Tabs value={type} onValueChange={(v) => onTypeChange(v as "percentage" | "fixed")}>
+    <Tabs
+      value={type}
+      onValueChange={(v) => onTypeChange(v as "percentage" | "fixed")}
+    >
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="percentage">Percentage (%)</TabsTrigger>
         <TabsTrigger value="fixed">Fixed Amount ($)</TabsTrigger>
@@ -28,9 +31,9 @@ export function DiscountTabs({
         <div className="relative">
           <Input
             type="number"
-            value={value || ''}
+            value={value || ""}
             onChange={(e) => {
-              let val = e.target.value === '' ? 0 : parseFloat(e.target.value);
+              let val = e.target.value === "" ? 0 : parseFloat(e.target.value);
               // Round to 2 decimal places
               val = Math.round(val * 100) / 100;
               onValueChange(Number.isFinite(val) ? val : 0);
@@ -59,9 +62,9 @@ export function DiscountTabs({
           </span>
           <Input
             type="number"
-            value={value || ''}
+            value={value || ""}
             onChange={(e) => {
-              let val = e.target.value === '' ? 0 : parseFloat(e.target.value);
+              let val = e.target.value === "" ? 0 : parseFloat(e.target.value);
               // Round to 2 decimal places
               val = Math.round(val * 100) / 100;
               onValueChange(Number.isFinite(val) ? val : 0);

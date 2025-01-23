@@ -1,5 +1,5 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Gift, Star, Award, Coins, Crown } from 'lucide-react';
+import { UseFormReturn } from "react-hook-form";
+import { Gift, Star, Award, Coins, Crown } from "lucide-react";
 import {
   FormField,
   FormItem,
@@ -7,16 +7,16 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import { Product } from '@/types/product';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { TierSelectorModal } from './tier-selector-modal';
-import { DEFAULT_TIERS } from '../../../data/tiers';
-import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { Product } from "@/types/product";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { TierSelectorModal } from "./tier-selector-modal";
+import { DEFAULT_TIERS } from "../../../data/tiers";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 // Default values for points and rewards
 const DEFAULT_VALUES = {
@@ -32,21 +32,23 @@ interface PointsRewardsProps {
 
 export function PointsRewards({ form }: PointsRewardsProps) {
   const location = useLocation();
-  const isRewardProduct = location.pathname.startsWith('/dashboard/reward-items');
-  const pointsEnabled = form.watch('pointsEnabled');
-  const customerTiers = form.watch('customerTiers') ?? DEFAULT_TIERS;
+  const isRewardProduct = location.pathname.startsWith(
+    "/dashboard/reward-items",
+  );
+  const pointsEnabled = form.watch("pointsEnabled");
+  const customerTiers = form.watch("customerTiers") ?? DEFAULT_TIERS;
 
   // Force enable points for reward items
   useEffect(() => {
     if (isRewardProduct && !pointsEnabled) {
-      form.setValue('pointsEnabled', true);
+      form.setValue("pointsEnabled", true);
     }
   }, [isRewardProduct, pointsEnabled, form]);
 
   const removeTier = (tierId: string) => {
     form.setValue(
-      'customerTiers',
-      customerTiers.filter((tier) => tier.id !== tierId)
+      "customerTiers",
+      customerTiers.filter((tier) => tier.id !== tierId),
     );
   };
 
@@ -74,10 +76,9 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                 <div className="space-y-0.5">
                   <FormLabel>Enable Points & Rewards</FormLabel>
                   <FormDescription>
-                    {isRewardProduct 
-                      ? 'Configure points requirements for this reward item'
-                      : 'Allow customers to earn and redeem points for this product'
-                    }
+                    {isRewardProduct
+                      ? "Configure points requirements for this reward item"
+                      : "Allow customers to earn and redeem points for this product"}
                   </FormDescription>
                 </div>
                 <FormControl>
@@ -122,11 +123,17 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                           min="0"
                           placeholder="0"
                           value={field.value ?? DEFAULT_VALUES.pointsEarned}
-                          onChange={(e) => field.onChange(Number(e.target.value) || DEFAULT_VALUES.pointsEarned)}
+                          onChange={(e) =>
+                            field.onChange(
+                              Number(e.target.value) ||
+                                DEFAULT_VALUES.pointsEarned,
+                            )
+                          }
                         />
                       </FormControl>
                       <FormDescription>
-                        Base number of points customers earn when purchasing this product
+                        Base number of points customers earn when purchasing
+                        this product
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -143,9 +150,17 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                     </div>
                     <TierSelectorModal
                       onSelect={(newTierId) => {
-                        const newTier = DEFAULT_TIERS.find((t) => t.id === newTierId);
-                        if (newTier && !customerTiers.find(t => t.id === newTier.id)) {
-                          form.setValue('customerTiers', [...customerTiers, { ...newTier }]);
+                        const newTier = DEFAULT_TIERS.find(
+                          (t) => t.id === newTierId,
+                        );
+                        if (
+                          newTier &&
+                          !customerTiers.find((t) => t.id === newTier.id)
+                        ) {
+                          form.setValue("customerTiers", [
+                            ...customerTiers,
+                            { ...newTier },
+                          ]);
                         }
                       }}
                     >
@@ -165,11 +180,13 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                         <TierSelectorModal
                           selectedTierId={tier.id}
                           onSelect={(newTierId) => {
-                            const newTier = DEFAULT_TIERS.find((t) => t.id === newTierId);
+                            const newTier = DEFAULT_TIERS.find(
+                              (t) => t.id === newTierId,
+                            );
                             if (newTier) {
                               const updatedTiers = [...customerTiers];
                               updatedTiers[index] = { ...newTier };
-                              form.setValue('customerTiers', updatedTiers);
+                              form.setValue("customerTiers", updatedTiers);
                             }
                           }}
                         >
@@ -178,8 +195,12 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                             variant="outline"
                             className="flex-1 justify-start gap-3 bg-background hover:bg-accent h-auto py-2"
                           >
-                            <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${getTierColor(tier.name).bg}`}>
-                              <Crown className={`h-4 w-4 ${getTierColor(tier.name).text}`} />
+                            <div
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${getTierColor(tier.name).bg}`}
+                            >
+                              <Crown
+                                className={`h-4 w-4 ${getTierColor(tier.name).text}`}
+                              />
                             </div>
                             <span>{tier.name}</span>
                           </Button>
@@ -232,12 +253,15 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                 <Award className="h-5 w-5 text-purple-600" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-medium">{isRewardProduct ? 'Reward Configuration' : 'Points Redemption'}</h2>
+                <h2 className="text-lg font-medium">
+                  {isRewardProduct
+                    ? "Reward Configuration"
+                    : "Points Redemption"}
+                </h2>
                 <p className="text-sm text-muted-foreground">
-                  {isRewardProduct 
-                    ? 'Configure points required to redeem this reward'
-                    : 'Configure how customers can redeem points for this product'
-                  }
+                  {isRewardProduct
+                    ? "Configure points required to redeem this reward"
+                    : "Configure how customers can redeem points for this product"}
                 </p>
               </div>
             </CardHeader>
@@ -254,7 +278,12 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                         min="0"
                         placeholder="0"
                         value={field.value ?? DEFAULT_VALUES.pointsRequired}
-                        onChange={(e) => field.onChange(Number(e.target.value) || DEFAULT_VALUES.pointsRequired)}
+                        onChange={(e) =>
+                          field.onChange(
+                            Number(e.target.value) ||
+                              DEFAULT_VALUES.pointsRequired,
+                          )
+                        }
                       />
                     </FormControl>
                     <FormDescription>
@@ -278,7 +307,12 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                         step="0.01"
                         placeholder="0.00"
                         value={field.value ?? DEFAULT_VALUES.pointsValue}
-                        onChange={(e) => field.onChange(Number(e.target.value) || DEFAULT_VALUES.pointsValue)}
+                        onChange={(e) =>
+                          field.onChange(
+                            Number(e.target.value) ||
+                              DEFAULT_VALUES.pointsValue,
+                          )
+                        }
                       />
                     </FormControl>
                     <FormDescription>
@@ -298,10 +332,10 @@ export function PointsRewards({ form }: PointsRewardsProps) {
 
 function getTierColor(tierName: string) {
   const colors: Record<string, { bg: string; text: string }> = {
-    Bronze: { bg: 'bg-orange-100', text: 'text-orange-600' },
-    Silver: { bg: 'bg-gray-100', text: 'text-gray-600' },
-    Gold: { bg: 'bg-yellow-100', text: 'text-yellow-600' },
-    Platinum: { bg: 'bg-blue-100', text: 'text-blue-600' },
+    Bronze: { bg: "bg-orange-100", text: "text-orange-600" },
+    Silver: { bg: "bg-gray-100", text: "text-gray-600" },
+    Gold: { bg: "bg-yellow-100", text: "text-yellow-600" },
+    Platinum: { bg: "bg-blue-100", text: "text-blue-600" },
   };
-  return colors[tierName] || { bg: 'bg-gray-100', text: 'text-gray-600' };
+  return colors[tierName] || { bg: "bg-gray-100", text: "text-gray-600" };
 }

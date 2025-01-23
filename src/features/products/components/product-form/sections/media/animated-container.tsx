@@ -1,12 +1,15 @@
-import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 interface AnimatedContainerProps {
   children: ReactNode;
   delay?: number;
 }
 
-export function AnimatedContainer({ children, delay = 0 }: AnimatedContainerProps) {
+export function AnimatedContainer({
+  children,
+  delay = 0,
+}: AnimatedContainerProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}

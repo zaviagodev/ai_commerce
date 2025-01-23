@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Search, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useState } from "react";
+import { Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductSearchProps {
   value: string;
@@ -33,7 +33,7 @@ export function ProductSearch({
   const handleCloseSearch = () => {
     setIsClosing(true);
     setTimeout(() => {
-      onChange('');
+      onChange("");
       setIsExpanded(false);
       setIsClosing(false);
     }, 200);
@@ -48,7 +48,7 @@ export function ProductSearch({
             initial={{ width: 36, opacity: 0 }}
             animate={{ width: isClosing ? 36 : "100%", opacity: 1 }}
             exit={{ width: 36, opacity: 0 }}
-            transition={{ duration:0.2 }}
+            transition={{ duration: 0.2 }}
             className={cn("flex items-center justify-end")}
           >
             <Input
@@ -56,16 +56,21 @@ export function ProductSearch({
               placeholder={placeholder || t.products.products.list.search}
               value={value}
               onChange={(e) => onChange(e.target.value)}
-              className={cn('pr-7 show-placeholder', {"not-show-placeholder": isClosing || isOpening})}
+              className={cn("pr-7 show-placeholder", {
+                "not-show-placeholder": isClosing || isOpening,
+              })}
               onKeyDown={(e) => {
-                if (e.key === 'Escape') handleCloseSearch();
+                if (e.key === "Escape") handleCloseSearch();
               }}
               autoFocus
             />
             <Button
               variant="ghost"
               size="icon"
-              className={cn("absolute right-0 opacity-100 transition duration-200 !bg-transparent", {'opacity-0': isClosing || isOpening})}
+              className={cn(
+                "absolute right-0 opacity-100 transition duration-200 !bg-transparent",
+                { "opacity-0": isClosing || isOpening },
+              )}
               onClick={handleCloseSearch}
             >
               <X className="h-4 w-4" />
@@ -80,9 +85,9 @@ export function ProductSearch({
             transition={{ duration: 0.3 }}
             className="fade-in"
           >
-            <Button 
-              variant="outline" 
-              size="icon" 
+            <Button
+              variant="outline"
+              size="icon"
               onClick={handleOpenSearch}
               aria-label={t.products.products.list.search}
             >

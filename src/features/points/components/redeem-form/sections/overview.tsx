@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
-import { Redeem } from '@/types/redeem';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { motion } from 'framer-motion';
-import { User, Phone, MapPin, Ticket, Store } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { format } from "date-fns";
+import { Redeem } from "@/types/redeem";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
+import { User, Phone, MapPin, Ticket, Store } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface OverviewProps {
   redeem: Redeem;
@@ -14,14 +14,14 @@ interface OverviewProps {
 export function Overview({ redeem }: OverviewProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed':
-        return '!bg-green-100 text-green-800 border-green-200 capitalize';
-      case 'pending':
-        return '!bg-yellow-100 text-yellow-800 border-yellow-200 capitalize';
-      case 'cancelled':
-        return '!bg-red-100 text-red-800 border-red-200 capitalize';
+      case "completed":
+        return "!bg-green-100 text-green-800 border-green-200 capitalize";
+      case "pending":
+        return "!bg-yellow-100 text-yellow-800 border-yellow-200 capitalize";
+      case "cancelled":
+        return "!bg-red-100 text-red-800 border-red-200 capitalize";
       default:
-        return '!bg-gray-100 text-gray-800 border-gray-200 capitalize';
+        return "!bg-gray-100 text-gray-800 border-gray-200 capitalize";
     }
   };
 
@@ -34,26 +34,39 @@ export function Overview({ redeem }: OverviewProps) {
     >
       <Card className="overflow-hidden">
         {/* Header Section */}
-        <div className={cn("bg-green-50 border-b border-green-100 p-6", "bg-gray-50 border-gray-100", {
-          "bg-green-50 border-green-100": redeem.status === "completed",
-          "bg-yellow-50 border-yellow-100": redeem.status === "pending",
-          "bg-red-50 border-red-100": redeem.status === "cancelled"
-        })}>
+        <div
+          className={cn(
+            "bg-green-50 border-b border-green-100 p-6",
+            "bg-gray-50 border-gray-100",
+            {
+              "bg-green-50 border-green-100": redeem.status === "completed",
+              "bg-yellow-50 border-yellow-100": redeem.status === "pending",
+              "bg-red-50 border-red-100": redeem.status === "cancelled",
+            },
+          )}
+        >
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <Ticket className={cn("h-5 w-5", "text-gray-600", {
-                  "text-green-600": redeem.status === "completed",
-                  "text-yellow-600": redeem.status === "pending",
-                  "text-red-600": redeem.status === "cancelled"
-                })} />
+                <Ticket
+                  className={cn("h-5 w-5", "text-gray-600", {
+                    "text-green-600": redeem.status === "completed",
+                    "text-yellow-600": redeem.status === "pending",
+                    "text-red-600": redeem.status === "cancelled",
+                  })}
+                />
                 <h3 className="text-xl font-mono">REDEEM #{redeem.code}</h3>
               </div>
               <div className="text-sm text-muted-foreground">
-                {format(redeem.redeemedAt, 'MMM dd, yyyy HH:mm')}
+                {format(redeem.redeemedAt, "MMM dd, yyyy HH:mm")}
               </div>
             </div>
-            <Badge className={cn("shadow-none flex items-center", getStatusColor(redeem.status))}>
+            <Badge
+              className={cn(
+                "shadow-none flex items-center",
+                getStatusColor(redeem.status),
+              )}
+            >
               {redeem.status}
             </Badge>
           </div>

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
-import { ConditionBuilder } from './condition-builder';
-import { CampaignCondition } from '@/features/campaigns/types/campaign-rules';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Plus, X } from "lucide-react";
+import { ConditionBuilder } from "./condition-builder";
+import { CampaignCondition } from "@/features/campaigns/types/campaign-rules";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface ConditionGroupProps {
   group: { id: string; operator: string };
@@ -32,15 +32,15 @@ export function ConditionGroup({
   onRemoveCondition,
 }: ConditionGroupProps) {
   const [operator, setOperator] = useState(group.operator);
-  const groupConditions = conditions.filter(c => c.groupId === group.id);
+  const groupConditions = conditions.filter((c) => c.groupId === group.id);
 
   const addCondition = () => {
     onAddCondition({
       id: crypto.randomUUID(),
       groupId: group.id,
-      type: 'total_spent',
-      operator: 'greater_than',
-      value: '',
+      type: "total_spent",
+      operator: "greater_than",
+      value: "",
       enabled: true,
     });
   };
@@ -52,7 +52,7 @@ export function ConditionGroup({
         <>
           {/* Vertical line from current box to operator */}
           <div className="absolute left-1/2 -bottom-8 h-8 w-px bg-border" />
-          
+
           {/* Connection dot */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4">
             <div className="absolute inset-0 rounded-full border-2 border-border bg-background" />

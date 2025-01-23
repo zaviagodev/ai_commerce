@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
-import { ConditionBuilder } from './condition-builder';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Plus, X } from "lucide-react";
+import { ConditionBuilder } from "./condition-builder";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface RuleGroup {
   id: string;
@@ -31,7 +31,7 @@ export function RuleGroup({ group, isLast, onRemove }: RuleGroupProps) {
   };
 
   const removeCondition = (id: string) => {
-    setRules(rules.filter(rule => rule.id !== id));
+    setRules(rules.filter((rule) => rule.id !== id));
   };
 
   return (

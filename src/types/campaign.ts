@@ -1,4 +1,7 @@
-import { CampaignCondition, CampaignProductRule } from '@/features/campaigns/types/campaign-rules';
+import {
+  CampaignCondition,
+  CampaignProductRule,
+} from "@/features/campaigns/types/campaign-rules";
 
 export interface Campaign {
   id: string;
@@ -6,17 +9,17 @@ export interface Campaign {
   description?: string;
   hasProductRules?: boolean;
   hasConditions?: boolean;
-  type: 'points_multiplier' | 'bonus_points';
+  type: "points_multiplier" | "bonus_points";
   multiplier?: number;
   bonusPoints?: number;
   startDate: Date;
   endDate: Date;
-  targetType: 'all' | 'tier' | 'group';
+  targetType: "all" | "tier" | "group";
   targetTiers?: string[];
   targetGroups?: string[];
-  status: 'draft' | 'scheduled' | 'active' | 'ended';
+  status: "draft" | "scheduled" | "active" | "ended";
   qrEnabled?: boolean;
-  qrPointType?: 'fixed' | 'multiplier';
+  qrPointType?: "fixed" | "multiplier";
   qrPointValue?: number;
   qrScanLimit?: number;
   qrTotalScans?: number;

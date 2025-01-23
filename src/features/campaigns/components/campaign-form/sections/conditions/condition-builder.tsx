@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { X } from 'lucide-react';
-import { CampaignCondition } from '@/features/campaigns/types/campaign-rules';
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { CampaignCondition } from "@/features/campaigns/types/campaign-rules";
 
 interface ConditionBuilderProps {
   condition: CampaignCondition;
@@ -20,18 +20,22 @@ interface ConditionBuilderProps {
 
 const CONDITION_TYPES = [
   {
-    id: 'customer_attributes',
-    label: 'Customer Attributes',
+    id: "customer_attributes",
+    label: "Customer Attributes",
     options: [
-      { value: 'total_spent', label: 'Total Spent' },
-      { value: 'order_count', label: 'Order Count' },
-      { value: 'last_order', label: 'Last Order' },
-      { value: 'location', label: 'Location' },
+      { value: "total_spent", label: "Total Spent" },
+      { value: "order_count", label: "Order Count" },
+      { value: "last_order", label: "Last Order" },
+      { value: "location", label: "Location" },
     ],
   },
 ];
 
-export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBuilderProps) {
+export function ConditionBuilder({
+  condition,
+  onUpdate,
+  onRemove,
+}: ConditionBuilderProps) {
   return (
     <div className="p-4 rounded-lg border bg-muted/50 relative">
       <div className="flex items-center justify-between">
@@ -40,7 +44,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
           variant="ghost"
           size="icon"
           onClick={onRemove}
-          className='absolute right-0 top-0'
+          className="absolute right-0 top-0"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -49,11 +53,13 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
       <div className="grid gap-4">
         <div className="grid gap-2">
           <label className="text-sm font-medium">Condition Type</label>
-          <Select 
-            value={condition.type} 
-            onValueChange={(value) => onUpdate({ type: value as CampaignCondition['type'] })}
+          <Select
+            value={condition.type}
+            onValueChange={(value) =>
+              onUpdate({ type: value as CampaignCondition["type"] })
+            }
           >
-            <SelectTrigger className='bg-white'>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>
@@ -79,7 +85,9 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
               <label className="text-sm font-medium">Operator</label>
               <Select
                 value={condition.operator}
-                onValueChange={(value) => onUpdate({ operator: value as CampaignCondition['operator'] })}
+                onValueChange={(value) =>
+                  onUpdate({ operator: value as CampaignCondition["operator"] })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select operator" />
@@ -95,12 +103,14 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
             <div className="grid gap-2">
               <label className="text-sm font-medium">Value</label>
               <Input
-                type={condition.type === 'location' ? 'text' : 'number'}
+                type={condition.type === "location" ? "text" : "number"}
                 min="0"
-                step={condition.type === 'total_spent' ? '0.01' : '1'}
+                step={condition.type === "total_spent" ? "0.01" : "1"}
                 value={condition.value}
                 onChange={(e) => onUpdate({ value: e.target.value })}
-                placeholder={condition.type === 'location' ? 'Enter location' : '0'}
+                placeholder={
+                  condition.type === "location" ? "Enter location" : "0"
+                }
               />
             </div>
           </>

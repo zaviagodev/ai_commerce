@@ -1,4 +1,4 @@
-import { Order } from '@/types/order';
+import { Order } from "@/types/order";
 
 export function transformOrder(order: any): Order {
   return {
@@ -12,9 +12,10 @@ export function transformOrder(order: any): Order {
     items: (order.order_items || []).map((item: any) => ({
       id: item.id,
       productId: item.product_id,
-      name: item.products?.status === 'active' 
-        ? item.products.name 
-        : 'Product no longer available',
+      name:
+        item.products?.status === "active"
+          ? item.products.name
+          : "Product no longer available",
       price: Number(item.price),
       quantity: item.quantity,
       total: Number(item.total),

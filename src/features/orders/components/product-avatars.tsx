@@ -1,13 +1,13 @@
-import { Package } from 'lucide-react';
+import { Package } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { OrderItem } from '@/types/order';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { OrderItem } from "@/types/order";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductAvatarsProps {
   items: OrderItem[];
@@ -26,17 +26,17 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
         {visibleItems.map((item, index) => (
           <Tooltip key={item.id}>
             <TooltipTrigger asChild>
-              <div 
+              <div
                 className={cn(
                   "relative h-10 w-10 rounded-lg border-2 border-background bg-muted",
                   "transition-transform hover:translate-y-[-2px]",
-                  "hover:shadow-lg hover:z-10"
+                  "hover:shadow-lg hover:z-10",
                 )}
                 style={{ zIndex: visibleItems.length - index }}
               >
                 {/* Quantity Badge */}
                 {item.quantity > 1 && (
-                  <div 
+                  <div
                     className={cn(
                       "absolute -top-1.5 -right-1.5 z-20",
                       "flex items-center justify-center",
@@ -49,7 +49,7 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
                       "transform scale-100 transition-transform",
                       "group-hover:scale-110",
                       "dark:bg-gray-800/90 dark:text-gray-200",
-                      "dark:border-gray-700/50"
+                      "dark:border-gray-700/50",
                     )}
                   >
                     {item.quantity}x
@@ -57,24 +57,26 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
                 )}
                 {/* Product Image */}
                 <div className="relative h-full w-full rounded-lg overflow-hidden">
-                {item.product?.images?.[0] ? (
-                  <img
-                    src={item.product.images[0].url}
-                    alt={item.name}
-                    className="h-full w-full object-cover transition-all duration-200"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-secondary">
-                    <Package className="h-5 w-5 text-muted-foreground" />
-                  </div>
-                )}
+                  {item.product?.images?.[0] ? (
+                    <img
+                      src={item.product.images[0].url}
+                      alt={item.name}
+                      className="h-full w-full object-cover transition-all duration-200"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-secondary">
+                      <Package className="h-5 w-5 text-muted-foreground" />
+                    </div>
+                  )}
                 </div>
               </div>
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-[200px]">
               <p className="font-medium">{item.name}</p>
-              <p className="text-xs text-muted-foreground">{t.orders.orders.product.select.quantity}: {item.quantity}</p>
+              <p className="text-xs text-muted-foreground">
+                {t.orders.orders.product.select.quantity}: {item.quantity}
+              </p>
             </TooltipContent>
           </Tooltip>
         ))}
@@ -82,13 +84,13 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
         {hasMore && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <div 
+              <div
                 className={cn(
                   "relative flex h-10 w-10 items-center justify-center group",
                   "rounded-lg border-2 border-background bg-secondary",
                   "text-muted-foreground",
                   "transition-transform hover:translate-y-[-2px]",
-                  "hover:shadow-lg hover:z-10"
+                  "hover:shadow-lg hover:z-10",
                 )}
                 style={{ zIndex: 0 }}
               >
@@ -98,7 +100,9 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
               </div>
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-[200px]">
-              <p className="font-medium">{t.orders.orders.product.select.additional}:</p>
+              <p className="font-medium">
+                {t.orders.orders.product.select.additional}:
+              </p>
               <ul className="mt-1 space-y-1">
                 {items.slice(maxVisible - 1).map((item) => (
                   <li key={item.id} className="text-sm">

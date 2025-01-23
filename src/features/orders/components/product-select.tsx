@@ -1,19 +1,19 @@
-import { useState, ReactNode } from 'react';
-import { Search } from 'lucide-react';
+import { useState, ReactNode } from "react";
+import { Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { VariantSelectModal } from './variant-select-modal';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useProducts } from '@/features/products/hooks/use-products';
-import { Product } from '@/types/product';
-import { formatCurrency } from '@/lib/utils';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { VariantSelectModal } from "./variant-select-modal";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useProducts } from "@/features/products/hooks/use-products";
+import { Product } from "@/types/product";
+import { formatCurrency } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductSelectProps {
   children: ReactNode;
@@ -25,13 +25,14 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
   const [open, setOpen] = useState(false);
   const [variantSelectOpen, setVariantSelectOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const { products, isLoading } = useProducts();
 
-  const filteredProducts = products.filter((product) => 
-    product.status === 'active' && 
-    (product.name.toLowerCase().includes(search.toLowerCase()) ||
-     product.sku?.toLowerCase().includes(search.toLowerCase()))
+  const filteredProducts = products.filter(
+    (product) =>
+      product.status === "active" &&
+      (product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.sku?.toLowerCase().includes(search.toLowerCase())),
   );
 
   const handleProductSelect = (product: Product, variant: ProductVariant) => {
@@ -64,7 +65,7 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            
+
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
                 {t.orders.orders.product.select.loading}
@@ -99,7 +100,8 @@ export function ProductSelect({ children, onSelect }: ProductSelectProps) {
                           {formatCurrency(product.price)}
                           {product.variants.length > 1 && (
                             <span className="ml-2">
-                              ({product.variants.length} {t.orders.orders.product.variant.select})
+                              ({product.variants.length}{" "}
+                              {t.orders.orders.product.variant.select})
                             </span>
                           )}
                         </div>

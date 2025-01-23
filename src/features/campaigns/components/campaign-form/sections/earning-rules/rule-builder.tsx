@@ -22,7 +22,7 @@ interface RuleBuilderProps {
 
 export function RuleBuilder({ form }: RuleBuilderProps) {
   const [groups, setGroups] = useState<RuleElement[]>(
-    form.getValues("conditions") || []
+    form.getValues("conditions") || [],
   );
 
   useEffect(() => {
@@ -73,8 +73,8 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
   const updateGroup = (groupId: string, data: Partial<RuleElement>) => {
     setGroups(
       groups.map((group) =>
-        group.id === groupId ? { ...group, ...data } : group
-      )
+        group.id === groupId ? { ...group, ...data } : group,
+      ),
     );
   };
 
@@ -83,8 +83,8 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
       groups.map((element) =>
         element.id === operatorId && element.type === "group_operator"
           ? { ...element, operator: newOperator }
-          : element
-      )
+          : element,
+      ),
     );
   };
 

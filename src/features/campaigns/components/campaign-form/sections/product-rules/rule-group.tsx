@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
-import { RuleElement, RuleGroup as IRuleGroup } from '@/features/campaigns/types/campaign-rules';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Plus, X } from "lucide-react";
+import {
+  RuleElement,
+  RuleGroup as IRuleGroup,
+} from "@/features/campaigns/types/campaign-rules";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { ProductRuleCondition } from './rule-condition';
+} from "@/components/ui/select";
+import { ProductRuleCondition } from "./rule-condition";
 
 interface RuleGroupProps {
   group: IRuleGroup;
@@ -19,46 +22,51 @@ interface RuleGroupProps {
   onUpdate: (data: Partial<RuleElement>) => void;
 }
 
-export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps) {
+export function RuleGroup({
+  group,
+  isLast,
+  onRemove,
+  onUpdate,
+}: RuleGroupProps) {
   const addCondition = () => {
     const newCondition = {
       id: crypto.randomUUID(),
-      type: 'product_purchased',
-      operator: 'equal_to',
-      value: '',
+      type: "product_purchased",
+      operator: "equal_to",
+      value: "",
       enabled: true,
     };
 
     onUpdate({
       ...group,
-      conditions: [...group.conditions, newCondition]
+      conditions: [...group.conditions, newCondition],
     });
   };
 
   const removeCondition = (conditionId: string) => {
     onUpdate({
       ...group,
-      conditions: group.conditions.filter(c => c.id !== conditionId)
+      conditions: group.conditions.filter((c) => c.id !== conditionId),
     });
   };
 
   const updateCondition = (conditionId: string, data: any) => {
     onUpdate({
       ...group,
-      conditions: group.conditions.map(c => 
-        c.id === conditionId ? { ...c, ...data } : c
-      )
+      conditions: group.conditions.map((c) =>
+        c.id === conditionId ? { ...c, ...data } : c,
+      ),
     });
   };
 
   return (
-    <div className='relative'>
+    <div className="relative">
       {/* Visual connection line */}
       {!isLast && (
         <>
           {/* Vertical line from current box to operator */}
           <div className="absolute left-1/2 -bottom-8 h-8 w-px bg-border" />
-          
+
           {/* Connection dot */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4">
             <div className="absolute inset-0 rounded-full border-2 border-border bg-background" />
@@ -74,9 +82,11 @@ export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps)
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">Match</span>
-              <Select 
-                value={group.match} 
-                onValueChange={(value) => onUpdate({ ...group, match: value as 'all' | 'any' })}
+              <Select
+                value={group.match}
+                onValueChange={(value) =>
+                  onUpdate({ ...group, match: value as "all" | "any" })
+                }
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue />
@@ -87,12 +97,7 @@ export function RuleGroup({ group, isLast, onRemove, onUpdate }: RuleGroupProps)
                 </SelectContent>
               </Select>
             </div>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={onRemove}
-            >
+            <Button type="button" variant="ghost" size="sm" onClick={onRemove}>
               <X className="h-4 w-4" />
             </Button>
           </div>

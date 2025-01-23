@@ -51,7 +51,7 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
     setSelectedTickets((prev) =>
       prev.includes(ticketNumber)
         ? prev.filter((t) => t !== ticketNumber)
-        : [...prev, ticketNumber]
+        : [...prev, ticketNumber],
     );
   };
 
@@ -59,7 +59,9 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
     if (!scanResult?.groupTickets) return;
     const allTicketNumbers = scanResult.groupTickets.map((t) => t.ticketNumber);
     setSelectedTickets(
-      selectedTickets.length === allTicketNumbers.length ? [] : allTicketNumbers
+      selectedTickets.length === allTicketNumbers.length
+        ? []
+        : allTicketNumbers,
     );
   };
 
@@ -70,12 +72,12 @@ export function TicketScanModal({ open, onOpenChange }: TicketScanModalProps) {
       // Update status for each selected ticket
       await Promise.all(
         selectedTickets.map((ticketId) =>
-          TicketService.updateTicketStatus(ticketId, "used")
-        )
+          TicketService.updateTicketStatus(ticketId, "used"),
+        ),
       );
 
       toast.success(
-        `${selectedTickets.length} tickets validated successfully!`
+        `${selectedTickets.length} tickets validated successfully!`,
       );
       onOpenChange(false);
       setScanResult(null);

@@ -5,13 +5,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface DeleteConfirmModalProps {
   open: boolean;
@@ -27,7 +27,7 @@ export function DeleteConfirmModal({
   itemName,
 }: DeleteConfirmModalProps) {
   const t = useTranslation();
-  const [confirmText, setConfirmText] = useState('');
+  const [confirmText, setConfirmText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleConfirm = async () => {
@@ -49,7 +49,9 @@ export function DeleteConfirmModal({
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div>
-              <DialogTitle>{t.products.products.form.modals.delete.title}</DialogTitle>
+              <DialogTitle>
+                {t.products.products.form.modals.delete.title}
+              </DialogTitle>
               <DialogDescription>
                 {t.products.products.form.modals.delete.description}
               </DialogDescription>
@@ -60,13 +62,19 @@ export function DeleteConfirmModal({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              {t.products.products.form.modals.delete.warning.replace('{name}', itemName)}
+              {t.products.products.form.modals.delete.warning.replace(
+                "{name}",
+                itemName,
+              )}
             </p>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirm">
-              {t.products.products.form.modals.delete.confirmText.replace('{text}', 'delete')}
+              {t.products.products.form.modals.delete.confirmText.replace(
+                "{text}",
+                "delete",
+              )}
             </Label>
             <Input
               id="confirm"
@@ -88,9 +96,11 @@ export function DeleteConfirmModal({
           <Button
             variant="destructive"
             onClick={handleConfirm}
-            disabled={confirmText !== 'delete' || isDeleting}
+            disabled={confirmText !== "delete" || isDeleting}
           >
-            {isDeleting ? t.products.products.form.modals.delete.deleting : t.products.products.form.modals.delete.confirm}
+            {isDeleting
+              ? t.products.products.form.modals.delete.deleting
+              : t.products.products.form.modals.delete.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

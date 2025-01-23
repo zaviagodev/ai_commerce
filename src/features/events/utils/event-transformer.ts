@@ -114,7 +114,7 @@ export function transformEventProduct(rawEvent: RawEvent): EventProduct {
         options: variant.options || [],
         status: variant.status,
         position: variant.position,
-      })
+      }),
     ),
     images: (rawEvent.product.product_images || [])
       .sort((a, b) => a.position - b.position)
@@ -124,7 +124,7 @@ export function transformEventProduct(rawEvent: RawEvent): EventProduct {
           url: image.url,
           alt: image.alt || "",
           position: image.position,
-        })
+        }),
       ),
     category: rawEvent.product.product_categories
       ? {
@@ -147,7 +147,7 @@ export function transformEventProduct(rawEvent: RawEvent): EventProduct {
       (tag): ProductTag => ({
         id: tag.id,
         name: tag.name,
-      })
+      }),
     ),
     status: rawEvent.product.status,
     createdAt: new Date(rawEvent.product.created_at),

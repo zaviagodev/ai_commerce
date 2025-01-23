@@ -1,7 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { CategoryForm } from '../components/category-form';
-import { ProductCategory } from '@/types/product';
-import { useCategories } from '../hooks/use-categories';
+import { useParams, useNavigate } from "react-router-dom";
+import { CategoryForm } from "../components/category-form";
+import { ProductCategory } from "@/types/product";
+import { useCategories } from "../hooks/use-categories";
 
 export function EditCategoryPage() {
   const { id } = useParams();
@@ -16,9 +16,9 @@ export function EditCategoryPage() {
   const handleSubmit = async (data: ProductCategory) => {
     try {
       await updateCategory.mutateAsync({ id, data });
-      navigate('/dashboard/categories');
+      navigate("/dashboard/categories");
     } catch (error) {
-      console.error('Failed to update category:', error);
+      console.error("Failed to update category:", error);
     }
   };
 

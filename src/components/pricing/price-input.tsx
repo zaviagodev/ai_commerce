@@ -19,9 +19,9 @@ export function PriceInput({ value, onChange, label, error }: PriceInputProps) {
         </span>
         <Input
           type="number"
-          value={value || ''}
+          value={value || ""}
           onChange={(e) => {
-            const val = e.target.value === '' ? 0 : parseFloat(e.target.value);
+            const val = e.target.value === "" ? 0 : parseFloat(e.target.value);
             onChange(Number.isFinite(val) ? val : 0);
           }}
           className="pl-6"

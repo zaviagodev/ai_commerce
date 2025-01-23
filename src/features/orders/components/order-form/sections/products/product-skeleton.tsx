@@ -5,13 +5,13 @@ export function ProductSkeleton() {
     <div className="flex items-center gap-4 p-4 border rounded-lg animate-pulse">
       {/* Image skeleton */}
       <div className="h-[50px] w-[50px] rounded-lg bg-muted" />
-      
+
       {/* Content skeleton */}
       <div className="flex-1 space-y-2">
         <Skeleton className="h-4 w-[200px]" />
         <Skeleton className="h-3 w-[100px]" />
       </div>
-      
+
       {/* Price skeleton */}
       <div className="flex items-center gap-2">
         <Skeleton className="h-9 w-24" />

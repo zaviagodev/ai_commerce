@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { QrCode, Barcode, Keyboard, User, Check } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { QrCode, Barcode, Keyboard, User, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface RedeemCodeModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-type InputMethod = 'manual' | 'qr' | 'barcode';
+type InputMethod = "manual" | "qr" | "barcode";
 
 interface ScanResult {
   code: string;
@@ -28,8 +28,8 @@ interface ScanResult {
 }
 
 export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
-  const [inputMethod, setInputMethod] = useState<InputMethod>('manual');
-  const [code, setCode] = useState('');
+  const [inputMethod, setInputMethod] = useState<InputMethod>("manual");
+  const [code, setCode] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
 
@@ -40,18 +40,18 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
     // Simulate scanning delay with mock data
     setTimeout(() => {
       setScanResult({
-        code: 'QR12345',
-        customerName: 'John Doe',
-        customerPhone: '+66891234567',
+        code: "QR12345",
+        customerName: "John Doe",
+        customerPhone: "+66891234567",
         pointsToRedeem: 500,
-        redeemType: 'product',
+        redeemType: "product",
         redeemItem: {
-          name: 'Premium Coffee',
+          name: "Premium Coffee",
           quantity: 2,
           pointsRequired: 250,
         },
-        couponCode: 'COFFEE2024',
-        status: 'unused',
+        couponCode: "COFFEE2024",
+        status: "unused",
       });
       setIsScanning(false);
     }, 2000);
@@ -59,7 +59,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Redeem successfully processed!');
+    toast.success("Redeem successfully processed!");
     onOpenChange(false);
     setScanResult(null);
   };
@@ -71,32 +71,35 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
           <DialogTitle>Enter Redeem Code</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 pb-20 overflow-auto max-h-[75vh]">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 pb-20 overflow-auto max-h-[75vh]"
+        >
           {/* Input Method Selection */}
           <div className="grid grid-cols-3 gap-2">
             <Button
               type="button"
-              variant={inputMethod === 'manual' ? 'default' : 'outline'}
+              variant={inputMethod === "manual" ? "default" : "outline"}
               className="flex flex-col items-center gap-2 h-auto py-4"
-              onClick={() => setInputMethod('manual')}
+              onClick={() => setInputMethod("manual")}
             >
               <Keyboard className="h-5 w-5" />
               <span className="text-xs">Manual</span>
             </Button>
             <Button
               type="button"
-              variant={inputMethod === 'qr' ? 'default' : 'outline'}
+              variant={inputMethod === "qr" ? "default" : "outline"}
               className="flex flex-col items-center gap-2 h-auto py-4"
-              onClick={() => setInputMethod('qr')}
+              onClick={() => setInputMethod("qr")}
             >
               <QrCode className="h-5 w-5" />
               <span className="text-xs">QR Code</span>
             </Button>
             <Button
               type="button"
-              variant={inputMethod === 'barcode' ? 'default' : 'outline'}
+              variant={inputMethod === "barcode" ? "default" : "outline"}
               className="flex flex-col items-center gap-2 h-auto py-4"
-              onClick={() => setInputMethod('barcode')}
+              onClick={() => setInputMethod("barcode")}
             >
               <Barcode className="h-5 w-5" />
               <span className="text-xs">Barcode</span>
@@ -105,7 +108,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
 
           {/* Input Methods */}
           <div className="space-y-4">
-            {inputMethod === 'manual' && (
+            {inputMethod === "manual" && (
               <div className="space-y-2">
                 <Label htmlFor="code">Redeem Code</Label>
                 <Input
@@ -117,7 +120,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
               </div>
             )}
 
-            {inputMethod === 'qr' && (
+            {inputMethod === "qr" && (
               <div className="space-y-2">
                 <Label>QR Code Scanner</Label>
                 <AnimatePresence mode="wait">
@@ -155,7 +158,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
                         transition={{
                           duration: 2,
                           repeat: Infinity,
-                          ease: 'easeInOut',
+                          ease: "easeInOut",
                         }}
                       />
                       <p className="text-main font-medium">Scanning...</p>
@@ -246,7 +249,7 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
               </div>
             )}
 
-            {inputMethod === 'barcode' && (
+            {inputMethod === "barcode" && (
               <div className="space-y-2">
                 <Label>Barcode Scanner</Label>
                 <div className="aspect-video rounded-lg border-2 border-dashed flex items-center justify-center bg-muted">
@@ -274,8 +277,8 @@ export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
               type="submit"
               disabled={!scanResult && !code}
               className={cn(
-                'transition-all duration-200',
-                !scanResult && !code && 'opacity-50 cursor-not-allowed'
+                "transition-all duration-200",
+                !scanResult && !code && "opacity-50 cursor-not-allowed",
               )}
             >
               Process Redeem

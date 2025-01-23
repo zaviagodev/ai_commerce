@@ -86,38 +86,22 @@ export const productsTranslations = {
       delete: "Delete attribute",
     },
     form: {
-      name: {
-        event: "Event Name",
-        product: "Product Name",
-        rewardItem: "Reward Item Name",
-      },
+      name: "Product Name",
       description: "Description",
       price: "Price",
       category: "Category",
       stock: "Stock Quantity",
-      sku: {
-        event: "Event SKU",
-        product: "Product SKU",
-        rewardItem: "Reward Item SKU",
-      },
+      sku: "Product SKU",
       images: "Product Images",
       variants: "Product Variants",
-      untitled: {
-        event: "Untitled Event",
-        product: "Untitled Product",
-        rewardItem: "Untitled Reward Item",
-      },
+      untitled: "Untitled Product",
       created: "Created by",
       lastUpdated: "Last updated",
       rewardItem: "Reward Item",
       sections: {
         media: {
           title: "Media",
-          description: {
-            event: "Add photos of your event",
-            product: "Add photos of your product",
-            rewardItem: "Add photos of your reward item",
-          },
+          description: "Add photos of your product",
           dropzone: "Drop your images here",
           maxFiles: "or click to browse files",
           maxSize: "Maximum file size: 5MB",
@@ -130,76 +114,36 @@ export const productsTranslations = {
         },
         basicDetails: {
           title: "Basic Details",
-          description: {
-            event: "Add the essential information about your event",
-            product: "Add the essential information about your product",
-            rewardItem: "Add the essential information about your reward item",
-          },
+          description: "Add the essential information about your product",
           nameDescription: "Customers will see this name in your store",
-          descriptionPlaceholder: {
-            event: "Describe your event...",
-            product: "Describe your product...",
-            rewardItem: "Describe your reward item...",
-          },
-          descriptionHelp: {
-            event: "Write a detailed description of your event",
-            product: "Write a detailed description of your product",
-            rewardItem: "Write a detailed description of your reward item",
-          },
+          descriptionPlaceholder: "Describe your product...",
+          descriptionHelp: "Write a detailed description of your product",
         },
         pricing: {
           title: "Pricing",
-          description: {
-            event: "Set your event's pricing information",
-            product: "Set your product's pricing information",
-            rewardItem: "Set your reward item's pricing information",
-          },
+          description: "Set your product's pricing information",
           compareAtPrice: "Compare at price",
           cost: "Cost per item",
           margin: "Profit margin",
           profit: "Estimated profit",
           enable: {
             title: "Enable discount",
-            description: {
-              event: "Apply a discount to this event",
-              product: "Apply a discount to this product",
-              rewardItem: "Apply a discount to this reward item",
-            },
+            description: "Apply a discount to this product",
           },
         },
         inventory: {
           title: "Inventory",
-          description: {
-            event: "Manage your event's inventory",
-            product: "Manage your product's inventory",
-            rewardItem: "Manage your reward item's inventory",
-          },
+          description: "Manage your product's inventory",
           trackQuantity: "Track quantity",
           trackQuantityDescription: "Track and manage inventory quantities",
           quantity: "Available quantity",
           quantityDescription: "Current stock quantity",
-          sku: {
-            event: "SKU (Stock Keeping Unit)",
-            product: "SKU (Stock Keeping Unit)",
-            rewardItem: "SKU (Stock Keeping Unit)",
-          },
-          skuPlaceholder: {
-            event: "Enter SKU",
-            product: "Enter SKU",
-            rewardItem: "Enter SKU",
-          },
-          skuDescription: {
-            event: "A unique identifier for your event",
-            product: "A unique identifier for your product",
-            rewardItem: "A unique identifier for your reward item",
-          },
+          sku: "SKU (Stock Keeping Unit)",
+          skuPlaceholder: "Enter SKU",
+          skuDescription: "A unique identifier for your product",
           barcode: "Barcode (ISBN, UPC, GTIN, etc.)",
           barcodePlaceholder: "Enter barcode",
-          barcodeDescription: {
-            event: "A unique barcode for your event (optional)",
-            product: "A unique barcode for your product (optional)",
-            rewardItem: "A unique barcode for your reward item (optional)",
-          },
+          barcodeDescription: "A unique barcode for your product (optional)",
         },
         shipping: {
           title: "Size & Weight Shipping",
@@ -225,23 +169,19 @@ export const productsTranslations = {
         },
         organization: {
           title: "Organization",
-          description: {
-            event: "Organize and categorize your event",
-            product: "Organize and categorize your product",
-            rewardItem: "Organize and categorize your reward item",
-          },
-          choose: {
-            event: "Choose a category for your events",
-            product: "Choose a category for your products",
-            rewardItem: "Choose a category for your reward items",
-          },
+          description: "Organize and categorize your product",
+          choose: "Choose a category for your products",
           tags: "Tags",
+          tagsDescription: "Tags can help customers find your products easily",
           tagsPlaceholder: "Press enter to add tags",
           addTag: "Add tag",
           category: "Category",
           selectCategory: "Select a category",
           addCategory: "Add category",
           noCategory: "No category",
+          loadingCategories: "Loading categories",
+          status: "Status",
+          selectStatus: "Select status",
           tiers: {
             selectTier: "Select Customer Tier",
             membership: "Membership",
@@ -302,37 +242,18 @@ export const productsTranslations = {
           },
         },
         variations: {
-          title: {
-            event: "Time Slots",
-            product: "Product Variations",
-          },
-          description: {
-            event: "Configure time slots and options",
-            product: "Configure product variants and options",
-          },
-          enable: {
-            event: "Enable Time Slots",
-            product: "Enable Product Variations",
-          },
-          enableDescription: {
-            event: "Create multiple slots of this event with different options",
-            product:
-              "Create multiple variants of this product with different options",
-          },
-          optionNamePlaceholder: {
-            event: "Option {index} (e.g., Time slots)",
-            product: "Option {index} (e.g., Size, Color)",
-          },
-          optionValuesPlaceholder: {
-            event: "Enter time slot",
-            product: "Enter value",
-          },
+          title: "Product Variations",
+          description: "Configure product variants and options",
+          enable: "Enable Product Variations",
+          enableDescription:
+            "Create multiple variants of this product with different options",
+          optionNamePlaceholder: "Option {index} (e.g., Size, Color)",
+          optionValuesPlaceholder: "Enter value",
           addOption: "Add Option",
           variantName: "Variant",
           sku: "SKU",
           price: "Price",
           quantity: "Quantity",
-          pointsBasedPrice: "Points Based Price",
           status: "Status",
           noVariants:
             "No variants created yet. Add variant options above to generate variants.",
@@ -344,10 +265,7 @@ export const productsTranslations = {
           },
           inStock: "in stock",
           totalStock: "Total Stock",
-          addValue: {
-            event: "Add time slot",
-            product: "Add value",
-          },
+          addValue: "Add value",
           addAnotherOption: "Add another option",
         },
       },
@@ -361,55 +279,27 @@ export const productsTranslations = {
         itemActions: {
           title: "Item Actions",
           edit: {
-            title: {
-              event: "Edit Event",
-              product: "Edit Product",
-              rewardItem: "Edit Reward Item",
-            },
-            description: {
-              event: "Modify event details and settings",
-              product: "Modify product details and settings",
-              rewardItem: "Modify reward item details and settings",
-            },
+            title: "Edit Product",
+            description: "Modify product details and settings",
           },
           duplicate: {
-            title: {
-              event: "Duplicate Event",
-              product: "Duplicate Product",
-              rewardItem: "Duplicate Reward Item",
-            },
+            title: "Duplicate Product",
             description: "Create a copy with all settings",
           },
           delete: {
-            title: {
-              event: "Delete Event",
-              product: "Delete Product",
-              rewardItem: "Delete Reward Item",
-            },
-            description: {
-              event: "Permanently remove this event",
-              product: "Permanently remove this product",
-              rewardItem: "Permanently remove this reward item",
-            },
+            title: "Delete Product",
+            description: "Permanently remove this product",
           },
         },
         delete: {
-          title: {
-            event: "Delete Event",
-            product: "Delete Product",
-            rewardItem: "Delete Reward Item",
-          },
+          title: "Delete Product",
           description: "This action cannot be undone",
           warning:
             "This will permanently delete {name} and all of its data. This action cannot be undone.",
           confirmText: "Type {text} to confirm",
           cancel: "Cancel",
           deleting: "Deleting...",
-          confirm: {
-            event: "Delete Event",
-            product: "Delete Product",
-            rewardItem: "Delete Reward Item",
-          },
+          confirm: "Delete Product",
         },
         advancedTypes: {
           title: "Advanced Product Types",
@@ -621,38 +511,22 @@ export const productsTranslations = {
       delete: "ลบคุณลักษณะ",
     },
     form: {
-      name: {
-        event: "ชื่ออีเวนต์",
-        product: "ชื่อสินค้า",
-        rewardItem: "ชื่อรายการรางวัล",
-      },
+      name: "ชื่อสินค้า",
       description: "รายละเอียด",
       price: "ราคา",
       category: "หมวดหมู่",
       stock: "จำนวนในคลัง",
-      sku: {
-        event: "รหัสอีเวนต์",
-        product: "รหัสสินค้า",
-        rewardItem: "รหัสรายการรางวัล",
-      },
+      sku: "รหัสสินค้า",
       images: "รูปภาพสินค้า",
       variants: "ตัวเลือกสินค้า",
-      untitled: {
-        event: "อีเวนต์ไม่มีชื่อ",
-        product: "สินค้าไม่มีชื่อ",
-        rewardItem: "รายการรางวัลไม่มีชื่อ",
-      },
+      untitled: "สินค้าไม่มีชื่อ",
       created: "สร้างโดย",
       lastUpdated: "อัปเดตล่าสุด",
       rewardItem: "สินค้าแลกรางวัล",
       sections: {
         media: {
           title: "สื่อ",
-          description: {
-            event: "เพิ่มรูปภาพอีเวนต์ของคุณ",
-            product: "เพิ่มรูปภาพสินค้าของคุณ",
-            rewardItem: "เพิ่มรูปภาพรายการรางวัลของคุณ",
-          },
+          description: "เพิ่มรูปภาพสินค้าของคุณ",
           dropzone: "ลากและวางรูปภาพที่นี่",
           maxFiles: "หรือคลิกเพื่อเลือกไฟล์",
           maxSize: "ขนาดไฟล์สูงสุด: 5MB",
@@ -665,30 +539,14 @@ export const productsTranslations = {
         },
         basicDetails: {
           title: "รายละเอียดพื้นฐาน",
-          description: {
-            event: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับอีเวนต์ของคุณ",
-            product: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับสินค้าของคุณ",
-            rewardItem: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับรายการรางวัลของคุณ",
-          },
+          description: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับสินค้าของคุณ",
           nameDescription: "ลูกค้าจะเห็นชื่อนี้ในร้านค้าของคุณ",
-          descriptionPlaceholder: {
-            event: "อธิบายอีเวนต์ของคุณ...",
-            product: "อธิบายสินค้าของคุณ...",
-            rewardItem: "อธิบายรายการรางวัลของคุณ...",
-          },
-          descriptionHelp: {
-            event: "เขียนรายละเอียดอีเวนต์ของคุณ",
-            product: "เขียนรายละเอียดสินค้าของคุณ",
-            rewardItem: "เขียนรายละเอียดรายการรางวัลของคุณ",
-          },
+          descriptionPlaceholder: "อธิบายสินค้าของคุณ...",
+          descriptionHelp: "เขียนรายละเอียดสินค้าของคุณ",
         },
         pricing: {
           title: "ราคา",
-          description: {
-            event: "ตั้งค่าข้อมูลราคาอีเวนต์ของคุณ",
-            product: "ตั้งค่าข้อมูลราคาสินค้าของคุณ",
-            rewardItem: "ตั้งค่าข้อมูลราคารายการรางวัลของคุณ",
-          },
+          description: "ตั้งค่าข้อมูลราคาสินค้าของคุณ",
           compareAtPrice: "ราคาเปรียบเทียบ",
           cost: "ต้นทุนต่อชิ้น",
           margin: "กำไรขั้นต้น",
@@ -696,38 +554,18 @@ export const productsTranslations = {
         },
         inventory: {
           title: "สินค้าคงคลัง",
-          description: {
-            event: "จัดการอีเวนต์คงคลังของคุณ",
-            product: "จัดการสินค้าคงคลังของคุณ",
-            rewardItem: "จัดการรายการรางวัลคงคลังของคุณ",
-          },
+          description: "จัดการสินค้าคงคลังของคุณ",
           trackQuantity: "ติดตามจำนวน",
           trackQuantityDescription: "ติดตามและจัดการจำนวนสินค้าคงคลัง",
           quantity: "จำนวนที่มี",
           quantityDescription: "จำนวนสินค้าคงคลังปัจจุบัน",
-          sku: {
-            event: "รหัสอีเวนต์ (SKU)",
-            product: "รหัสสินค้า (SKU)",
-            rewardItem: "รหัสรายการรางวัล (SKU)",
-          },
-          skuPlaceholder: {
-            event: "ใส่รหัสอีเวนต์",
-            product: "ใส่รหัสสินค้า",
-            rewardItem: "ใส่รหัสรายการรางวัล",
-          },
-          skuDescription: {
-            event: "รหัสที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ",
-            product: "รหัสที่ไม่ซ้ำกันสำหรับสินค้าของคุณ",
-            rewardItem: "รหัสที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ",
-          },
+          sku: "รหัสสินค้า (SKU)",
+          skuPlaceholder: "ใส่รหัสสินค้า",
+          skuDescription: "รหัสที่ไม่ซ้ำกันสำหรับสินค้าของคุณ",
           barcode: "บาร์โค้ด (ISBN, UPC, GTIN, ฯลฯ)",
           barcodePlaceholder: "ใส่บาร์โค้ด",
-          barcodeDescription: {
-            event: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ (ไม่บังคับ)",
-            product: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับสินค้าของคุณ (ไม่บังคับ)",
-            rewardItem:
-              "บาร์โค้ดที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ (ไม่บังคับ)",
-          },
+          barcodeDescription:
+            "บาร์โค้ดที่ไม่ซ้ำกันสำหรับสินค้าของคุณ (ไม่บังคับ)",
         },
         shipping: {
           title: "การจัดส่งโดยขนาดและน้ำหนัก",
@@ -753,23 +591,19 @@ export const productsTranslations = {
         },
         organization: {
           title: "การจัดการ",
-          description: {
-            event: "จัดระเบียบและจัดหมวดหมู่อีเวนต์ของคุณ",
-            product: "จัดระเบียบและจัดหมวดหมู่สินค้าของคุณ",
-            rewardItem: "จัดระเบียบและจัดหมวดหมู่รายการรางวัลของคุณ",
-          },
-          choose: {
-            event: "เลือกหมวดหมู่สำหรับอีเวนต์ของคุณ",
-            product: "เลือกหมวดหมู่สำหรับสินค้าของคุณ",
-            rewardItem: "เลือกหมวดหมู่สำหรับรายการรางวัลของคุณ",
-          },
+          description: "จัดระเบียบและจัดหมวดหมู่สินค้าของคุณ",
+          choose: "เลือกหมวดหมู่สำหรับสินค้าของคุณ",
           tags: "แท็ก",
+          tagsDescription: "แท็กช่วยให้ลูกค้าหาสินค้าได้ง่ายขึ้น",
           tagsPlaceholder: "กด Enter เพื่อเพิ่มแท็ก",
           addTag: "เพิ่มแท็ก",
           category: "หมวดหมู่",
           selectCategory: "เลือกหมวดหมู่",
           addCategory: "เพิ่มหมวดหมู่",
           noCategory: "ไม่มีหมวดหมู่",
+          loadingCategories: "กำลังโหลดหมวดหมู่",
+          status: "สถานะ",
+          selectStatus: "เลือกสถานะ",
           tiers: {
             selectTier: "เลือกระดับลูกค้า",
             membership: "สมาชิก",
@@ -827,36 +661,17 @@ export const productsTranslations = {
           },
         },
         variations: {
-          title: {
-            event: "ช่วงเวลา",
-            product: "ตัวเลือกสินค้า",
-          },
-          description: {
-            event: "กำหนดค่าตัวเลือกและรูปแบบช่วงเวลา",
-            product: "กำหนดค่าตัวเลือกและรูปแบบสินค้า",
-          },
-          enable: {
-            event: "เปิดใช้งานตัวเลือกช่วงเวลา",
-            product: "เปิดใช้งานตัวเลือกสินค้า",
-          },
-          enableDescription: {
-            event: "สร้างตัวเลือกหลายรูปแบบสำหรับช่วงเวลานี้",
-            product: "สร้างตัวเลือกหลายรูปแบบสำหรับสินค้านี้",
-          },
-          optionNamePlaceholder: {
-            event: "ตัวเลือกที่ {index} (เช่น ช่วงเวลา)",
-            product: "ตัวเลือกที่ {index} (เช่น ขนาด, สี)",
-          },
-          optionValuesPlaceholder: {
-            event: "ใส่ช่วงเวลา",
-            product: "ใส่ค่า",
-          },
+          title: "ตัวเลือกสินค้า",
+          description: "กำหนดค่าตัวเลือกและรูปแบบสินค้า",
+          enable: "เปิดใช้งานตัวเลือกสินค้า",
+          enableDescription: "สร้างตัวเลือกหลายรูปแบบสำหรับสินค้านี้",
+          optionNamePlaceholder: "ตัวเลือกที่ {index} (เช่น ขนาด, สี)",
+          optionValuesPlaceholder: "ใส่ค่า",
           addOption: "เพิ่มตัวเลือก",
           variantName: "ตัวเลือก",
           sku: "รหัสสินค้า",
           price: "ราคา",
           quantity: "จำนวน",
-          pointsBasedPrice: "ราคาคะแนน",
           status: "สถานะ",
           noVariants:
             "ยังไม่มีตัวเลือกสินค้า กรุณาเพิ่มตัวเลือกด้านบนเพื่อสร้างตัวเลือกสินค้า",
@@ -868,10 +683,7 @@ export const productsTranslations = {
           },
           inStock: "ในสต็อก",
           totalStock: "จำนวนทั้งหมด",
-          addValue: {
-            event: "เพิ่มช่วงเวลา",
-            product: "เพิ่มค่า",
-          },
+          addValue: "เพิ่มค่า",
           addAnotherOption: "เพิ่มตัวเลือกอื่น",
         },
       },
@@ -885,55 +697,27 @@ export const productsTranslations = {
         itemActions: {
           title: "การดำเนินการ",
           edit: {
-            title: {
-              event: "แก้ไขอีเวนต์",
-              product: "แก้ไขสินค้า",
-              rewardItem: "แก้ไขรายการรางวัล",
-            },
-            description: {
-              event: "แก้ไขรายละเอียดและการตั้งค่าอีเวนต์",
-              product: "แก้ไขรายละเอียดและการตั้งค่าสินค้า",
-              rewardItem: "แก้ไขรายละเอียดและการตั้งค่ารายการรางวัล",
-            },
+            title: "แก้ไขสินค้า",
+            description: "แก้ไขรายละเอียดและการตั้งค่าสินค้า",
           },
           duplicate: {
-            title: {
-              event: "คัดลอกอีเวนต์",
-              product: "คัดลอกสินค้า",
-              rewardItem: "คัดลอกรายการรางวัล",
-            },
+            title: "คัดลอกสินค้า",
             description: "สร้างสำเนาพร้อมการตั้งค่าทั้งหมด",
           },
           delete: {
-            title: {
-              event: "ลบอีเวนต์",
-              product: "ลบสินค้า",
-              rewardItem: "ลบรายการรางวัล",
-            },
-            description: {
-              event: "ลบอีเวนต์อย่างถาวร",
-              product: "ลบสินค้าอย่างถาวร",
-              rewardItem: "ลบรายการรางวัลอย่างถาวร",
-            },
+            title: "ลบสินค้า",
+            description: "ลบสินค้าอย่างถาวร",
           },
         },
         delete: {
-          title: {
-            event: "ลบอีเวนต์",
-            product: "ลบสินค้า",
-            rewardItem: "ลบรายการรางวัล",
-          },
+          title: "ลบสินค้า",
           description: "การดำเนินการนี้ไม่สามารถยกเลิกได้",
           warning:
             "การดำเนินการนี้จะลบ {name} และข้อมูลทั้งหมดอย่างถาวร ไม่สามารถยกเลิกได้",
           confirmText: "พิมพ์ {text} เพื่อยืนยัน",
           cancel: "ยกเลิก",
           deleting: "กำลังลบ...",
-          confirm: {
-            event: "ลบอีเวนต์",
-            product: "ลบสินค้า",
-            rewardItem: "ลบรายการรางวัล",
-          },
+          confirm: "ลบสินค้า",
         },
         advancedTypes: {
           title: "ประเภทสินค้าขั้นสูง",

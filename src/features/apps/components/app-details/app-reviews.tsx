@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { Star, ThumbsUp } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { motion } from "framer-motion";
+import { Star, ThumbsUp } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 interface AppReviewsProps {
   rating: number;
@@ -10,30 +10,33 @@ interface AppReviewsProps {
 
 const REVIEWS = [
   {
-    id: '1',
-    author: 'Sarah Johnson',
-    avatar: 'https://i.pravatar.cc/150?u=sarah',
+    id: "1",
+    author: "Sarah Johnson",
+    avatar: "https://i.pravatar.cc/150?u=sarah",
     rating: 5,
-    date: '2024-01-15',
-    content: 'This app has completely transformed how we manage our inventory. The real-time tracking and automated reordering features have saved us countless hours.',
+    date: "2024-01-15",
+    content:
+      "This app has completely transformed how we manage our inventory. The real-time tracking and automated reordering features have saved us countless hours.",
     helpful: 24,
   },
   {
-    id: '2',
-    author: 'Michael Chen',
-    avatar: 'https://i.pravatar.cc/150?u=michael',
+    id: "2",
+    author: "Michael Chen",
+    avatar: "https://i.pravatar.cc/150?u=michael",
     rating: 4,
-    date: '2024-01-10',
-    content: 'Great app overall, but could use some improvements in the reporting features. Customer support has been very responsive to feedback.',
+    date: "2024-01-10",
+    content:
+      "Great app overall, but could use some improvements in the reporting features. Customer support has been very responsive to feedback.",
     helpful: 12,
   },
   {
-    id: '3',
-    author: 'Emily Davis',
-    avatar: 'https://i.pravatar.cc/150?u=emily',
+    id: "3",
+    author: "Emily Davis",
+    avatar: "https://i.pravatar.cc/150?u=emily",
     rating: 5,
-    date: '2024-01-05',
-    content: 'The multi-warehouse management feature is a game-changer for our business. Very intuitive interface and powerful features.',
+    date: "2024-01-05",
+    content:
+      "The multi-warehouse management feature is a game-changer for our business. Very intuitive interface and powerful features.",
     helpful: 18,
   },
 ];
@@ -56,8 +59,8 @@ export function AppReviews({ rating, reviews }: AppReviewsProps) {
                 key={i}
                 className={`h-4 w-4 ${
                   i < Math.floor(rating)
-                    ? 'fill-yellow-400 text-yellow-400'
-                    : 'text-gray-300'
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
                 }`}
               />
             ))}
@@ -70,7 +73,9 @@ export function AppReviews({ rating, reviews }: AppReviewsProps) {
         <div className="flex-1 space-y-2">
           {[5, 4, 3, 2, 1].map((stars) => {
             const percentage = Math.round(
-              (REVIEWS.filter((r) => r.rating === stars).length / REVIEWS.length) * 100
+              (REVIEWS.filter((r) => r.rating === stars).length /
+                REVIEWS.length) *
+                100,
             );
             return (
               <div key={stars} className="flex items-center gap-2">
@@ -120,8 +125,8 @@ export function AppReviews({ rating, reviews }: AppReviewsProps) {
                           key={i}
                           className={`h-3.5 w-3.5 ${
                             i < review.rating
-                              ? 'fill-yellow-400 text-yellow-400'
-                              : 'text-gray-300'
+                              ? "fill-yellow-400 text-yellow-400"
+                              : "text-gray-300"
                           }`}
                         />
                       ))}

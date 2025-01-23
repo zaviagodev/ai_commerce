@@ -1,5 +1,5 @@
-import { RedeemList } from '../components/redeem-list';
-import { useRedeems } from '../hooks/use-redeems';
+import { RedeemList } from "../components/redeem-list";
+import { useRedeems } from "../hooks/use-redeems";
 
 export function RedeemListPage() {
   const { redeems, isLoading } = useRedeems();

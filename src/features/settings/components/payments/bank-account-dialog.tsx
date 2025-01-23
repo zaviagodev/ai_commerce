@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
@@ -15,19 +15,22 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { BankAccountSchema, BankAccount } from '../../schemas/payment-settings-schema';
-import { SetAsDefaultModal } from '@/features/customers/components/modal/set-as-default-modal';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import {
+  BankAccountSchema,
+  BankAccount,
+} from "../../schemas/payment-settings-schema";
+import { SetAsDefaultModal } from "@/features/customers/components/modal/set-as-default-modal";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BankAccountDialogProps {
   open: boolean;
@@ -47,10 +50,10 @@ export function BankAccountDialog({
     resolver: zodResolver(BankAccountSchema),
     defaultValues: {
       id: crypto.randomUUID(),
-      bankName: '',
-      accountName: '',
-      accountNumber: '',
-      branch: '',
+      bankName: "",
+      accountName: "",
+      accountNumber: "",
+      branch: "",
       isDefault: false,
     },
   });
@@ -62,28 +65,44 @@ export function BankAccountDialog({
 
   const [showSetAsDefault, setShowAsDefault] = useState(false);
   const handleSetDefault = () => {
-    form.setValue('isDefault', true)
-  }
+    form.setValue("isDefault", true);
+  };
 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t.settings.payments.bankTransfer.addAccount}</DialogTitle>
+            <DialogTitle>
+              {t.settings.payments.bankTransfer.addAccount}
+            </DialogTitle>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-4"
+            >
               <FormField
                 control={form.control}
                 name="bankName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.bank} <span className='text-destructive'>*</span></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormLabel>
+                      {t.settings.payments.bankTransfer.accountDetails.bank}{" "}
+                      <span className="text-destructive">*</span>
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t.settings.payments.bankTransfer.accountDetails.bank} />
+                          <SelectValue
+                            placeholder={
+                              t.settings.payments.bankTransfer.accountDetails
+                                .bank
+                            }
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -104,7 +123,13 @@ export function BankAccountDialog({
                 name="accountName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountName} <span className='text-destructive'>*</span></FormLabel>
+                    <FormLabel>
+                      {
+                        t.settings.payments.bankTransfer.accountDetails
+                          .accountName
+                      }{" "}
+                      <span className="text-destructive">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -118,7 +143,13 @@ export function BankAccountDialog({
                 name="accountNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.accountNumber} <span className='text-destructive'>*</span></FormLabel>
+                    <FormLabel>
+                      {
+                        t.settings.payments.bankTransfer.accountDetails
+                          .accountNumber
+                      }{" "}
+                      <span className="text-destructive">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -132,7 +163,9 @@ export function BankAccountDialog({
                 name="branch"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.branch}</FormLabel>
+                    <FormLabel>
+                      {t.settings.payments.bankTransfer.accountDetails.branch}
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -146,13 +179,20 @@ export function BankAccountDialog({
                 name="isDefault"
                 render={({ field }) => (
                   <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                    <FormLabel>{t.settings.payments.bankTransfer.accountDetails.defaultAccount}</FormLabel>
+                    <FormLabel>
+                      {
+                        t.settings.payments.bankTransfer.accountDetails
+                          .defaultAccount
+                      }
+                    </FormLabel>
                     <FormControl>
                       <Switch
-                        onClick={(e) => {if (field.value !== true){
-                          e.preventDefault();
-                          setShowAsDefault(true);
-                        }}}
+                        onClick={(e) => {
+                          if (field.value !== true) {
+                            e.preventDefault();
+                            setShowAsDefault(true);
+                          }
+                        }}
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
@@ -176,11 +216,11 @@ export function BankAccountDialog({
         </DialogContent>
       </Dialog>
 
-      <SetAsDefaultModal 
+      <SetAsDefaultModal
         open={showSetAsDefault}
         onOpenChange={setShowAsDefault}
         onConfirm={handleSetDefault}
-        description='Set this bank account as default'
+        description="Set this bank account as default"
       />
     </>
   );

@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Coins, Clock, DollarSign, Edit } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Coins, Clock, DollarSign, Edit } from "lucide-react";
 
 interface CashbackPointsCardProps {
   onEdit: (id: string) => void;
@@ -11,18 +11,19 @@ interface CashbackPointsCardProps {
 export function CashbackPointsCard({ onEdit }: CashbackPointsCardProps) {
   const item = {
     hidden: { y: 20, opacity: 0 },
-    show: { y: 0, opacity: 1 }
+    show: { y: 0, opacity: 1 },
   };
 
   return (
     <motion.div variants={item}>
       <Card className="relative overflow-hidden">
         {/* Background gradient */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10" 
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10"
           style={{
-            maskImage: 'radial-gradient(circle at 70% 30%, black, transparent)',
-            WebkitMaskImage: 'radial-gradient(circle at 70% 30%, black, transparent)',
+            maskImage: "radial-gradient(circle at 70% 30%, black, transparent)",
+            WebkitMaskImage:
+              "radial-gradient(circle at 70% 30%, black, transparent)",
           }}
         />
 
@@ -36,10 +37,15 @@ export function CashbackPointsCard({ onEdit }: CashbackPointsCardProps) {
               </div>
               <div>
                 <h3 className="font-semibold">5% Points Back</h3>
-                <p className="text-sm text-muted-foreground">On all purchases</p>
+                <p className="text-sm text-muted-foreground">
+                  On all purchases
+                </p>
               </div>
             </div>
-            <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">
+            <Badge
+              variant="secondary"
+              className="bg-yellow-100 text-yellow-700"
+            >
               Active
             </Badge>
           </div>
@@ -71,10 +77,10 @@ export function CashbackPointsCard({ onEdit }: CashbackPointsCardProps) {
           </div>
 
           {/* Action Button */}
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="w-full mt-4"
-            onClick={() => onEdit('cashback-points')}
+            onClick={() => onEdit("cashback-points")}
           >
             <Edit className="mr-2 h-4 w-4" />
             Edit Promotion
@@ -83,9 +89,9 @@ export function CashbackPointsCard({ onEdit }: CashbackPointsCardProps) {
 
         {/* Progress bar */}
         <div className="h-1.5 w-full bg-muted">
-          <div 
+          <div
             className="h-full bg-yellow-500 transition-all duration-500"
-            style={{ width: '62.25%' }}
+            style={{ width: "62.25%" }}
           />
         </div>
       </Card>

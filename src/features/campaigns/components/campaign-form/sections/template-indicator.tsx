@@ -56,12 +56,12 @@ export function TemplateIndicator({
   const templateKey = qrEnabled
     ? "scan_points"
     : clickLinkEnabled
-    ? "share_link"
-    : type === "points_multiplier" && targetType === "tier"
-    ? "tier_multiplier"
-    : type === "points_multiplier"
-    ? "double_points"
-    : "bonus_points";
+      ? "share_link"
+      : type === "points_multiplier" && targetType === "tier"
+        ? "tier_multiplier"
+        : type === "points_multiplier"
+          ? "double_points"
+          : "bonus_points";
 
   const template = TEMPLATE_INFO[templateKey];
   const Icon = template.icon;
@@ -71,7 +71,7 @@ export function TemplateIndicator({
       className={cn(
         "relative rounded-xl p-6 text-main overflow-hidden",
         "bg-gradient-to-br shadow-md",
-        template.gradient
+        template.gradient,
       )}
     >
       {/* Label */}

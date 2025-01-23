@@ -1,21 +1,29 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { TextShimmer } from '@/components/ui/text-shimmer';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { TextShimmer } from "@/components/ui/text-shimmer";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Copy, RefreshCw, Loader2, Share2, Link2, Clock, Users } from 'lucide-react';
-import { toast } from 'sonner';
-import { Badge } from '@/components/ui/badge';
-import { addDays, format } from 'date-fns';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import {
+  Copy,
+  RefreshCw,
+  Loader2,
+  Share2,
+  Link2,
+  Clock,
+  Users,
+} from "lucide-react";
+import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { addDays, format } from "date-fns";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ShareableLinkProps {
   onOpenChange: (open: boolean) => void;
@@ -23,10 +31,10 @@ interface ShareableLinkProps {
 
 export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [inviteLink, setInviteLink] = useState('');
-  const [role, setRole] = useState('viewer');
-  const [expiration, setExpiration] = useState('7d');
-  const [uses, setUses] = useState('unlimited');
+  const [inviteLink, setInviteLink] = useState("");
+  const [role, setRole] = useState("viewer");
+  const [expiration, setExpiration] = useState("7d");
+  const [uses, setUses] = useState("unlimited");
   const [generatedAt, setGeneratedAt] = useState<Date | null>(null);
   const [isCopying, setIsCopying] = useState(false);
   const t = useTranslation();
@@ -34,11 +42,11 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
   const getExpirationDate = () => {
     if (!generatedAt) return null;
     switch (expiration) {
-      case '24h':
+      case "24h":
         return addDays(generatedAt, 1);
-      case '7d':
+      case "7d":
         return addDays(generatedAt, 7);
-      case '30d':
+      case "30d":
         return addDays(generatedAt, 30);
       default:
         return null;
@@ -77,46 +85,76 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
       {/* Settings */}
       <div className="grid grid-cols-3 gap-4">
         <div className="space-y-2">
-          <p className="text-sm font-medium">{t.teams.invite.settings.role.label}</p>
+          <p className="text-sm font-medium">
+            {t.teams.invite.settings.role.label}
+          </p>
           <Select value={role} onValueChange={setRole}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="admin">{t.teams.invite.settings.role.options.admin}</SelectItem>
-              <SelectItem value="editor">{t.teams.invite.settings.role.options.editor}</SelectItem>
-              <SelectItem value="viewer">{t.teams.invite.settings.role.options.viewer}</SelectItem>
+              <SelectItem value="admin">
+                {t.teams.invite.settings.role.options.admin}
+              </SelectItem>
+              <SelectItem value="editor">
+                {t.teams.invite.settings.role.options.editor}
+              </SelectItem>
+              <SelectItem value="viewer">
+                {t.teams.invite.settings.role.options.viewer}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium">{t.teams.invite.settings.expiration.label}</p>
+          <p className="text-sm font-medium">
+            {t.teams.invite.settings.expiration.label}
+          </p>
           <Select value={expiration} onValueChange={setExpiration}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="24h">{t.teams.invite.settings.expiration.options.hours24}</SelectItem>
-              <SelectItem value="7d">{t.teams.invite.settings.expiration.options.days7}</SelectItem>
-              <SelectItem value="30d">{t.teams.invite.settings.expiration.options.days30}</SelectItem>
-              <SelectItem value="never">{t.teams.invite.settings.expiration.options.never}</SelectItem>
+              <SelectItem value="24h">
+                {t.teams.invite.settings.expiration.options.hours24}
+              </SelectItem>
+              <SelectItem value="7d">
+                {t.teams.invite.settings.expiration.options.days7}
+              </SelectItem>
+              <SelectItem value="30d">
+                {t.teams.invite.settings.expiration.options.days30}
+              </SelectItem>
+              <SelectItem value="never">
+                {t.teams.invite.settings.expiration.options.never}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium">{t.teams.invite.settings.maxUses.label}</p>
+          <p className="text-sm font-medium">
+            {t.teams.invite.settings.maxUses.label}
+          </p>
           <Select value={uses} onValueChange={setUses}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">{t.teams.invite.settings.maxUses.options.one}</SelectItem>
-              <SelectItem value="5">{t.teams.invite.settings.maxUses.options.five}</SelectItem>
-              <SelectItem value="10">{t.teams.invite.settings.maxUses.options.ten}</SelectItem>
-              <SelectItem value="25">{t.teams.invite.settings.maxUses.options.twentyFive}</SelectItem>
-              <SelectItem value="unlimited">{t.teams.invite.settings.maxUses.options.unlimited}</SelectItem>
+              <SelectItem value="1">
+                {t.teams.invite.settings.maxUses.options.one}
+              </SelectItem>
+              <SelectItem value="5">
+                {t.teams.invite.settings.maxUses.options.five}
+              </SelectItem>
+              <SelectItem value="10">
+                {t.teams.invite.settings.maxUses.options.ten}
+              </SelectItem>
+              <SelectItem value="25">
+                {t.teams.invite.settings.maxUses.options.twentyFive}
+              </SelectItem>
+              <SelectItem value="unlimited">
+                {t.teams.invite.settings.maxUses.options.unlimited}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -128,15 +166,15 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
           <motion.div
             key="link-display"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
+            animate={{
+              opacity: 1,
+              scale: 1,
               y: 0,
               transition: {
                 type: "spring",
                 stiffness: 400,
-                damping: 25
-              }
+                damping: 25,
+              },
             }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="rounded-lg border bg-muted/50 p-4 space-y-4"
@@ -147,13 +185,21 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
                   <Link2 className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">{t.teams.invite.link.title}</p>
+                  <p className="text-sm font-medium">
+                    {t.teams.invite.link.title}
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    {t.teams.invite.link.subtitle[role as keyof typeof t.teams.invite.link.subtitle]}
+                    {
+                      t.teams.invite.link.subtitle[
+                        role as keyof typeof t.teams.invite.link.subtitle
+                      ]
+                    }
                   </p>
                 </div>
               </div>
-              <Badge variant="secondary" className="text-xs">{t.teams.invite.link.status.active}</Badge>
+              <Badge variant="secondary" className="text-xs">
+                {t.teams.invite.link.status.active}
+              </Badge>
             </div>
 
             <div className="flex gap-2">
@@ -163,13 +209,13 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
                   readOnly
                   className={cn(
                     "font-mono text-sm bg-main transition-colors",
-                    isCopying && "bg-primary/5 text-primary"
+                    isCopying && "bg-primary/5 text-primary",
                   )}
                 />
               </TextShimmer>
-              <Button 
-                variant="outline" 
-                size="icon" 
+              <Button
+                variant="outline"
+                size="icon"
                 onClick={copyLink}
                 disabled={isCopying}
               >
@@ -204,22 +250,22 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             </div>
 
             <div className="flex items-center gap-6 pt-2">
-              {expiration !== 'never' && (
+              {expiration !== "never" && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Clock className="h-4 w-4" />
                   <span>
                     {t.teams.invite.link.expiration.replace(
-                      '{{date}}',
-                      format(getExpirationDate()!, 'MMM d, h:mm a')
+                      "{{date}}",
+                      format(getExpirationDate()!, "MMM d, h:mm a"),
                     )}
                   </span>
                 </div>
               )}
-              {uses !== 'unlimited' && (
+              {uses !== "unlimited" && (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Users className="h-4 w-4" />
                   <span>
-                    {t.teams.invite.link.uses.replace('{{count}}', uses)}
+                    {t.teams.invite.link.uses.replace("{{count}}", uses)}
                   </span>
                 </div>
               )}
@@ -233,46 +279,56 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
             exit={{ opacity: 0, scale: 0.9 }}
             className="rounded-lg border-2 border-dashed p-8 text-center relative overflow-hidden"
           >
-            <motion.div
-              className="mx-auto mb-4 h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center"
-            >
+            <motion.div className="mx-auto mb-4 h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
               {isGenerating ? (
                 <Loader2 className="h-6 w-6 text-primary animate-spin" />
               ) : (
                 <Share2 className="h-6 w-6 text-primary" />
               )}
             </motion.div>
-            
-            <motion.h3 
+
+            <motion.h3
               className="mb-1 font-medium"
-              animate={isGenerating ? {
-                // scale: [1, 1.1, 1],
-                opacity:[0, 1, 0],
-                transition: {
-                  duration: 2,
-                  repeat: Infinity,
-                }
-              } : {}}
+              animate={
+                isGenerating
+                  ? {
+                      // scale: [1, 1.1, 1],
+                      opacity: [0, 1, 0],
+                      transition: {
+                        duration: 2,
+                        repeat: Infinity,
+                      },
+                    }
+                  : {}
+              }
             >
-              {isGenerating ? t.teams.invite.link.generating : t.teams.invite.link.empty}
+              {isGenerating
+                ? t.teams.invite.link.generating
+                : t.teams.invite.link.empty}
             </motion.h3>
-            <motion.p 
+            <motion.p
               className="text-sm text-muted-foreground mb-4"
               initial={{ opacity: 0, y: 10 }}
-              animate={isGenerating ? {
-                opacity:[0, 1, 0],
-                transition: {
-                  duration: 2,
-                  repeat: Infinity,
-                },
-                y: 0
-              } : { opacity: 1, y: 0 }}
+              animate={
+                isGenerating
+                  ? {
+                      opacity: [0, 1, 0],
+                      transition: {
+                        duration: 2,
+                        repeat: Infinity,
+                      },
+                      y: 0,
+                    }
+                  : { opacity: 1, y: 0 }
+              }
               transition={{ delay: 0.2 }}
             >
-              {isGenerating ? "This will only take a moment" : "Generate a link to invite team members"}
+              {isGenerating
+                ? t.teams.invite.noLink.takeMoment
+                : t.teams.invite.noLink.subtitle}
             </motion.p>
-            <Button 
-              onClick={generateLink} 
+            <Button
+              onClick={generateLink}
               disabled={isGenerating}
               className="relative mt-4"
             >
@@ -295,10 +351,7 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
       </AnimatePresence>
 
       <div className="flex justify-end">
-        <Button
-          variant="outline"
-          onClick={() => onOpenChange(false)}
-        >
+        <Button variant="outline" onClick={() => onOpenChange(false)}>
           {t.teams.invite.link.done}
         </Button>
       </div>

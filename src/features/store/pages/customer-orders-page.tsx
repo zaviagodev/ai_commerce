@@ -1,5 +1,5 @@
-import { StoreLayout } from '../components/store-layout';
-import { CustomerOrders } from '../components/customer-orders';
+import { StoreLayout } from "../components/store-layout";
+import { CustomerOrders } from "../components/customer-orders";
 
 export function CustomerOrdersPage() {
   return (

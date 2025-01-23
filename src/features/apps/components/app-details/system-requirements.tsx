@@ -1,20 +1,20 @@
-import { motion } from 'framer-motion';
-import { Check, Info } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Check, Info } from "lucide-react";
 
 const REQUIREMENTS = {
   minimum: {
-    platform: 'Web-based SaaS',
-    browser: 'Modern web browser (Chrome, Firefox, Safari, Edge)',
-    internet: 'Broadband internet connection',
-    storage: '500MB available space for caching',
+    platform: "Web-based SaaS",
+    browser: "Modern web browser (Chrome, Firefox, Safari, Edge)",
+    internet: "Broadband internet connection",
+    storage: "500MB available space for caching",
   },
   integrations: [
-    'Shopify',
-    'WooCommerce',
-    'Magento',
-    'BigCommerce',
-    'Square',
-    'QuickBooks',
+    "Shopify",
+    "WooCommerce",
+    "Magento",
+    "BigCommerce",
+    "Square",
+    "QuickBooks",
   ],
 };
 
@@ -24,14 +24,14 @@ export function SystemRequirements() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    show: { opacity: 1, y: 0 },
   };
 
   return (

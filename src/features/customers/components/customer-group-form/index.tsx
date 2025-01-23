@@ -1,33 +1,36 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Form } from '@/components/ui/form';
-import { CustomerGroupSchema } from '../../schemas/customer-group-schema';
-import { CustomerGroup } from '@/types/customer';
-import { BasicDetails } from './sections/basic-details';
-import { Members } from './sections/members';
-import { Automation } from './sections/automation';
-import { Users } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { Form } from "@/components/ui/form";
+import { CustomerGroupSchema } from "../../schemas/customer-group-schema";
+import { CustomerGroup } from "@/types/customer";
+import { BasicDetails } from "./sections/basic-details";
+import { Members } from "./sections/members";
+import { Automation } from "./sections/automation";
+import { Users } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CustomerGroupFormProps {
   initialData?: Partial<CustomerGroup>;
   onSubmit: (data: CustomerGroup) => Promise<void>;
 }
 
-export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormProps) {
+export function CustomerGroupForm({
+  initialData,
+  onSubmit,
+}: CustomerGroupFormProps) {
   const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CustomerGroupSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      color: '#4B96FF',
+      name: "",
+      description: "",
+      color: "#4B96FF",
       autoAssign: false,
       conditions: [],
       members: [],
-      status: 'active',
+      status: "active",
       ...initialData,
     },
   });
@@ -36,21 +39,21 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save group:', error);
+      console.error("Failed to save group:", error);
     }
   };
 
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-        <motion.form 
-          onSubmit={form.handleSubmit(handleSubmit)} 
+        <motion.form
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -58,23 +61,27 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ?  t.customers.customer.group.title.edit :  t.customers.customer.group.title.create}
+                {initialData
+                  ? t.customers.customer.group.title.edit
+                  : t.customers.customer.group.title.create}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {initialData
-                  ?  t.customers.customer.group.description.edit
-                  :  t.customers.customer.group.description.create}
+                  ? t.customers.customer.group.description.edit
+                  : t.customers.customer.group.description.create}
               </p>
             </div>
             <div className="flex items-center gap-4">
               <Button type="button" variant="outline">
-                { t.customers.customer.group.actions.discard}
+                {t.customers.customer.group.actions.discard}
               </Button>
-              <Button type="submit">{ t.customers.customer.group.actions.save}</Button>
+              <Button type="submit">
+                {t.customers.customer.group.actions.save}
+              </Button>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex-1 overflow-y-auto move-top-edit"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -89,9 +96,14 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
                       <Users className="h-5 w-5 text-blue-600" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-medium">{ t.customers.customer.group.sections.basicDetails.title}</h2>
+                      <h2 className="text-lg font-medium">
+                        {t.customers.customer.group.sections.basicDetails.title}
+                      </h2>
                       <p className="text-sm text-muted-foreground">
-                        { t.customers.customer.group.sections.basicDetails.description}
+                        {
+                          t.customers.customer.group.sections.basicDetails
+                            .description
+                        }
                       </p>
                     </div>
                   </div>
@@ -107,9 +119,14 @@ export function CustomerGroupForm({ initialData, onSubmit }: CustomerGroupFormPr
                       <Users className="h-5 w-5 text-purple-600" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-medium">{ t.customers.customer.group.sections.members.title}</h2>
+                      <h2 className="text-lg font-medium">
+                        {t.customers.customer.group.sections.members.title}
+                      </h2>
                       <p className="text-sm text-muted-foreground">
-                        { t.customers.customer.group.sections.members.description}
+                        {
+                          t.customers.customer.group.sections.members
+                            .description
+                        }
                       </p>
                     </div>
                   </div>

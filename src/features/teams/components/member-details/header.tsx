@@ -1,14 +1,15 @@
-import { motion } from 'framer-motion';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { MoreHorizontal, CheckCircle2, Clock, XCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Member } from '@/types/member';
-import { ROLES } from '../../data/roles';
-import { getTimeAgo } from '@/lib/utils'; 
-import { RemoveMemberModal } from './remove-member-modal';
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontal, CheckCircle2, Clock, XCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Member } from "@/types/member";
+import { ROLES } from "../../data/roles";
+import { getTimeAgo } from "@/lib/utils";
+import { RemoveMemberModal } from "./remove-member-modal";
+import { useState } from "react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface HeaderProps {
   member: Member;
@@ -16,32 +17,33 @@ interface HeaderProps {
 }
 
 export function Header({ member, onShowActions }: HeaderProps) {
+  const t = useTranslation();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
 
   const handleRemoveMember = async () => {
     try {
       // Handle member removal logic here
-      console.log('Member removed:', member.id);
+      console.log("Member removed:", member.id);
     } catch (error) {
-      console.error('Failed to remove member:', error);
+      console.error("Failed to remove member:", error);
     }
   };
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
     const colors = {
-      yellow: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-      blue: 'bg-blue-100 text-blue-700 border-blue-200',
-      gray: 'bg-gray-100 text-gray-700 border-gray-200',
+      yellow: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      blue: "bg-blue-100 text-blue-700 border-blue-200",
+      gray: "bg-gray-100 text-gray-700 border-gray-200",
     };
     return colors[ROLES[role].color];
   };
 
   const getStatusBadgeStyles = (status: string) => {
     const styles = {
-      active: 'bg-green-100 text-green-700 border-green-200',
-      pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-      inactive: 'bg-red-100 text-red-700 border-red-200',
+      active: "bg-green-100 text-green-700 border-green-200",
+      pending: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      inactive: "bg-red-100 text-red-700 border-red-200",
     };
     return styles[status as keyof typeof styles];
   };
@@ -59,7 +61,10 @@ export function Header({ member, onShowActions }: HeaderProps) {
           <Avatar className="h-16 w-16 shrink-0 rounded-lg border bg-muted overflow-hidden mr-3">
             <AvatarImage src={member.avatar} alt={member.name} />
             <AvatarFallback>
-              {member.name.split(' ').map(n => n[0]).join('')}
+              {member.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
@@ -67,20 +72,26 @@ export function Header({ member, onShowActions }: HeaderProps) {
               <h1 className="text-xl sm:text-2xl font-semibold tracking-tight truncate">
                 {member.name}
               </h1>
-              <Badge 
+              <Badge
                 variant="outline"
-                className={cn("gap-1 whitespace-nowrap", getRoleBadgeStyles(member.role as keyof typeof ROLES))}
+                className={cn(
+                  "gap-1 whitespace-nowrap",
+                  getRoleBadgeStyles(member.role as keyof typeof ROLES),
+                )}
               >
                 <RoleIcon className="h-3 w-3" />
                 {member.role}
               </Badge>
-              <Badge 
+              <Badge
                 variant="outline"
-                className={cn("gap-1 whitespace-nowrap", getStatusBadgeStyles(member.status))}
+                className={cn(
+                  "gap-1 whitespace-nowrap",
+                  getStatusBadgeStyles(member.status),
+                )}
               >
-                {member.status === 'active' ? (
+                {member.status === "active" ? (
                   <CheckCircle2 className="h-3 w-3" />
-                ) : member.status === 'pending' ? (
+                ) : member.status === "pending" ? (
                   <Clock className="h-3 w-3" />
                 ) : (
                   <XCircle className="h-3 w-3" />
@@ -97,12 +108,14 @@ export function Header({ member, onShowActions }: HeaderProps) {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <span className="hidden sm:inline">Created by</span>
+                <span className="hidden sm:inline">
+                  {t.teams.members.createdBy}
+                </span>
                 <span className="truncate">Admin</span>
               </div>
               <span className="hidden sm:inline">•</span>
               <span className="truncate">
-                Last updated {getTimeAgo(member.updatedAt)}
+                {t.teams.members.lastUpdated} {getTimeAgo(member.updatedAt)}
               </span>
             </div>
           </div>
@@ -125,11 +138,11 @@ export function Header({ member, onShowActions }: HeaderProps) {
             </Button>
           </motion.div>
           <div className="mx-2 sm:mx-4 h-4 w-px bg-border" />
-          <Button 
+          <Button
             variant="destructive"
             onClick={() => setShowRemoveModal(true)}
           >
-            Remove Member
+            {t.teams.members.actions.removeMember}
           </Button>
         </div>
       </div>

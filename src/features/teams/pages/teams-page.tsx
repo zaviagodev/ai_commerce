@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Plus,
   Users2,
@@ -11,9 +11,9 @@ import {
   XCircle,
   Crown,
   Sparkles,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import {
   Table,
   TableBody,
@@ -21,28 +21,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { motion } from 'framer-motion';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import { InviteModal } from '../components/invite-modal';
-import { cn, getTimeAgo } from '@/lib/utils';
-import { TEAM_MEMBERS } from '../data/members';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import { InviteModal } from "../components/invite-modal";
+import { cn, getTimeAgo } from "@/lib/utils";
+import { TEAM_MEMBERS } from "../data/members";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 const ROLES = {
-  Owner: { color: 'yellow', icon: Crown },
-  Admin: { color: 'blue', icon: Users2 },
-  Staff: { color: 'gray', icon: Users2 },
+  Owner: { color: "yellow", icon: Crown },
+  Admin: { color: "blue", icon: Users2 },
+  Staff: { color: "gray", icon: Users2 },
 } as const;
 
 export function TeamsPage() {
@@ -66,19 +66,19 @@ export function TeamsPage() {
 
   const getRoleBadgeStyles = (role: keyof typeof ROLES) => {
     const colors = {
-      yellow: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-      blue: 'bg-blue-100 text-blue-700 border-blue-200',
-      gray: 'bg-gray-100 text-gray-700 border-gray-200',
+      yellow: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      blue: "bg-blue-100 text-blue-700 border-blue-200",
+      gray: "bg-gray-100 text-gray-700 border-gray-200",
     };
-    
+
     return colors[ROLES[role].color];
   };
 
   const getStatusBadgeStyles = (status: string) => {
     const styles = {
-      active: 'bg-green-100 text-green-700 border-green-200',
-      pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-      inactive: 'bg-red-100 text-red-700 border-red-200',
+      active: "bg-green-100 text-green-700 border-green-200",
+      pending: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      inactive: "bg-red-100 text-red-700 border-red-200",
     };
     return styles[status as keyof typeof styles];
   };
@@ -134,12 +134,13 @@ export function TeamsPage() {
                         <h3 className="text-sm font-medium">Free Plan</h3>
                         <span className="text-xs text-muted-foreground">•</span>
                         <span className="text-xs text-muted-foreground">
-                          {String(5 - members.length)} seat{(5 - members.length === 1 ? "" : "s")} available
+                          {String(5 - members.length)} seat
+                          {5 - members.length === 1 ? "" : "s"} available
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 mt-1">
-                        <Progress 
-                          value={(members.length / 5) * 100} 
+                        <Progress
+                          value={(members.length / 5) * 100}
                           className="h-1.5 w-[120px]"
                         />
                         <span className="text-xs text-muted-foreground">
@@ -149,11 +150,7 @@ export function TeamsPage() {
                     </div>
                   </div>
                   {members.length >= 4 && (
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="h-8 text-xs"
-                    >
+                    <Button variant="outline" size="sm" className="h-8 text-xs">
                       <Sparkles className="mr-2 h-3 w-3" />
                       Upgrade Plan
                     </Button>
@@ -161,12 +158,14 @@ export function TeamsPage() {
                 </div>
                 {members.length >= 5 && (
                   <p className="text-xs text-red-600 mt-3">
-                    You've reached your member limit. Upgrade to add more members.
+                    You've reached your member limit. Upgrade to add more
+                    members.
                   </p>
                 )}
                 {members.length === 4 && (
                   <p className="text-xs text-yellow-600 mt-3">
-                    You're approaching your member limit. Consider upgrading your plan.
+                    You're approaching your member limit. Consider upgrading
+                    your plan.
                   </p>
                 )}
               </TableCell>
@@ -185,17 +184,25 @@ export function TeamsPage() {
             {paginatedMembers.map((member) => {
               const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
               const StatusIcon = getStatusIcon(member.status);
-              const navigateToMember = () => navigate(`/dashboard/members/${member.id}`)
+              const navigateToMember = () =>
+                navigate(`/dashboard/members/${member.id}`);
 
               return (
-                <TableRow key={member.id} className='cursor-pointer' onClick={navigateToMember}>
+                <TableRow
+                  key={member.id}
+                  className="cursor-pointer"
+                  onClick={navigateToMember}
+                >
                   <TableCell>
                     <div className="block">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={member.avatar} alt={member.name} />
                           <AvatarFallback>
-                            {member.name.split(' ').map(n => n[0]).join('')}
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
                           </AvatarFallback>
                         </Avatar>
                         <div>
@@ -208,21 +215,35 @@ export function TeamsPage() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant="outline"
-                      className={cn("gap-1", getRoleBadgeStyles(member.role as keyof typeof ROLES))}
+                      className={cn(
+                        "gap-1",
+                        getRoleBadgeStyles(member.role as keyof typeof ROLES),
+                      )}
                     >
                       <RoleIcon className="h-3 w-3" />
-                      {t.teams.members.roles[member.role.toLowerCase() as keyof typeof t.teams.members.roles]}
+                      {
+                        t.teams.members.roles[
+                          member.role.toLowerCase() as keyof typeof t.teams.members.roles
+                        ]
+                      }
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant="outline"
-                      className={cn("gap-1", getStatusBadgeStyles(member.status))}
+                      className={cn(
+                        "gap-1",
+                        getStatusBadgeStyles(member.status),
+                      )}
                     >
                       <StatusIcon className="h-3 w-3" />
-                      {t.teams.members.status[member.status as keyof typeof t.teams.members.status]}
+                      {
+                        t.teams.members.status[
+                          member.status as keyof typeof t.teams.members.status
+                        ]
+                      }
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -279,11 +300,8 @@ export function TeamsPage() {
           </motion.div>
         )}
       </motion.div>
-      
-      <InviteModal 
-        open={showInviteModal}
-        onOpenChange={setShowInviteModal}
-      />
+
+      <InviteModal open={showInviteModal} onOpenChange={setShowInviteModal} />
     </div>
   );
 }

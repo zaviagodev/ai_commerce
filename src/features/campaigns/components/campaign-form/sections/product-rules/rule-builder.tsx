@@ -1,43 +1,48 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-import { Campaign } from '@/types/campaign';
-import { RuleGroup } from './rule-group';
-import { useState, useEffect } from 'react';
-import { RuleElement, GroupOperator } from '@/features/campaigns/types/campaign-rules';
+import { UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { Campaign } from "@/types/campaign";
+import { RuleGroup } from "./rule-group";
+import { useState, useEffect } from "react";
+import {
+  RuleElement,
+  GroupOperator,
+} from "@/features/campaigns/types/campaign-rules";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface RuleBuilderProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function RuleBuilder({ form }: RuleBuilderProps) {
-  const [groups, setGroups] = useState<RuleElement[]>(form.getValues('productRules') || []);
+  const [groups, setGroups] = useState<RuleElement[]>(
+    form.getValues("productRules") || [],
+  );
 
   useEffect(() => {
-    form.setValue('productRules', groups);
+    form.setValue("productRules", groups);
   }, [groups, form]);
 
   const addGroup = () => {
     const newGroup: RuleElement = {
       id: crypto.randomUUID(),
-      type: 'group',
-      match: 'all',
-      conditions: []
+      type: "group",
+      match: "all",
+      conditions: [],
     };
 
     // If there are existing groups, add an operator
     if (groups.length > 0) {
       const operator: GroupOperator = {
         id: crypto.randomUUID(),
-        type: 'group_operator',
-        operator: 'AND'
+        type: "group_operator",
+        operator: "AND",
       };
       setGroups([...groups, operator, newGroup]);
     } else {
@@ -46,11 +51,11 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
   };
 
   const removeGroup = (groupId: string) => {
-    const index = groups.findIndex(g => g.id === groupId);
+    const index = groups.findIndex((g) => g.id === groupId);
     if (index === -1) return;
 
     const newGroups = [...groups];
-    
+
     // If this is not the first group, also remove the operator before it
     if (index > 0) {
       newGroups.splice(index - 1, 2);
@@ -66,24 +71,28 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
   };
 
   const updateGroup = (groupId: string, data: Partial<RuleElement>) => {
-    setGroups(groups.map(group => 
-      group.id === groupId ? { ...group, ...data } : group
-    ));
+    setGroups(
+      groups.map((group) =>
+        group.id === groupId ? { ...group, ...data } : group,
+      ),
+    );
   };
 
-  const updateOperator = (operatorId: string, newOperator: 'AND' | 'OR') => {
-    setGroups(groups.map(element => 
-      element.id === operatorId && element.type === 'group_operator'
-        ? { ...element, operator: newOperator }
-        : element
-    ));
+  const updateOperator = (operatorId: string, newOperator: "AND" | "OR") => {
+    setGroups(
+      groups.map((element) =>
+        element.id === operatorId && element.type === "group_operator"
+          ? { ...element, operator: newOperator }
+          : element,
+      ),
+    );
   };
 
   return (
     <div className="space-y-6">
       {groups.map((element, index) => (
         <div key={element.id}>
-          {element.type === 'group' ? (
+          {element.type === "group" ? (
             <RuleGroup
               group={element}
               isLast={index === groups.length - 1}
@@ -91,9 +100,11 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
               onUpdate={(data) => updateGroup(element.id, data)}
             />
           ) : (
-            <Select 
+            <Select
               value={element.operator}
-              onValueChange={(value) => updateOperator(element.id, value as 'AND' | 'OR')}
+              onValueChange={(value) =>
+                updateOperator(element.id, value as "AND" | "OR")
+              }
             >
               <SelectTrigger className="w-[150px] mx-auto border-dashed shadow-sm relative">
                 <SelectValue />

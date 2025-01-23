@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { CustomerGroupForm } from '../components/customer-group-form';
-import { CustomerGroup } from '@/types/customer';
-import { useCustomerGroups } from '../hooks/use-customer-groups';
+import { useNavigate } from "react-router-dom";
+import { CustomerGroupForm } from "../components/customer-group-form";
+import { CustomerGroup } from "@/types/customer";
+import { useCustomerGroups } from "../hooks/use-customer-groups";
 
 export function NewCustomerGroupPage() {
   const navigate = useNavigate();
@@ -10,9 +10,9 @@ export function NewCustomerGroupPage() {
   const handleSubmit = async (data: CustomerGroup) => {
     try {
       await createGroup.mutateAsync(data);
-      navigate('/dashboard/customer-groups');
+      navigate("/dashboard/customer-groups");
     } catch (error) {
-      console.error('Failed to create group:', error);
+      console.error("Failed to create group:", error);
     }
   };
 

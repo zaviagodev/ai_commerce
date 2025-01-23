@@ -12,8 +12,6 @@ import { Badge } from "@/components/ui/badge";
 export function NewProductPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const isEventProduct = location.pathname.startsWith("/dashboard/events");
-  const isRewardProduct = location.pathname.startsWith('/dashboard/reward-items');
   const { createProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
 
@@ -39,7 +37,7 @@ export function NewProductPage() {
   const handleSubmit = async (data: Product) => {
     try {
       await createProduct.mutateAsync(data);
-      navigate(isEventProduct ? "/dashboard/events" : isRewardProduct ? "/dashboard/reward-items" : "/dashboard/products");
+      navigate("/dashboard/products");
     } catch (error) {
       console.error("Failed to create product:", error);
     }
@@ -47,7 +45,7 @@ export function NewProductPage() {
 
   const headerActions = (
     <div className="flex items-center gap-2">
-      {isEventProduct && (
+      {/* {isEventProduct && (
         <Badge
           variant="secondary"
           className="bg-blue-100 text-blue-700 flex items-center gap-1.5"
@@ -55,7 +53,7 @@ export function NewProductPage() {
           <Ticket className="h-3.5 w-3.5" />
           Event Product
         </Badge>
-      )}
+      )} */}
       <Button
         variant="ghost"
         size="icon"
@@ -80,8 +78,6 @@ export function NewProductPage() {
         onDelete={async () => {
           toast.error("Cannot delete a product that hasn't been created yet");
         }}
-        isEventProduct={isEventProduct}
-        isRewardProduct={isRewardProduct}
       />
     </>
   );

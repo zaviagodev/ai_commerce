@@ -2,8 +2,8 @@ export interface Member {
   id: string;
   name: string;
   email: string;
-  role: 'Owner' | 'Admin' | 'Staff';
-  status: 'active' | 'pending' | 'inactive';
+  role: "Owner" | "Admin" | "Staff";
+  status: "active" | "pending" | "inactive";
   avatar: string;
   lastActive: Date;
   createdAt: Date;

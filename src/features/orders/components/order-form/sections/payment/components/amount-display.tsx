@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { formatAmount } from '../utils/format-amount';
-import { StatusText } from './status-text';
+import { motion } from "framer-motion";
+import { formatAmount } from "../utils/format-amount";
+import { StatusText } from "./status-text";
 
 interface AmountDisplayProps {
   amount: number;
@@ -26,7 +26,7 @@ export function AmountDisplay({
   return (
     <motion.div
       className={`absolute w-full px-6 py-12 flex flex-col items-center justify-center z-10`}
-      key={isCancelled ? 'cancelled' : isShipped ? 'shipped' : 'normal'}
+      key={isCancelled ? "cancelled" : isShipped ? "shipped" : "normal"}
       initial={false}
       animate={{
         opacity: showAmount ? 1 : 0,
@@ -34,7 +34,7 @@ export function AmountDisplay({
       }}
       transition={{
         duration: 0.4,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       }}
     >
       <div className="text-4xl font-semibold mb-2">
@@ -45,12 +45,12 @@ export function AmountDisplay({
               animate={{ scale: 1, opacity: 1, x: 0 }}
               transition={{
                 delay: isInitialLoad ? 1.5 : 6,
-                type: 'spring',
+                type: "spring",
                 stiffness: 100,
                 damping: 10,
               }}
               className={`absolute -left-8 ${
-                isShipped ? 'text-green-400' : 'text-green-400'
+                isShipped ? "text-green-400" : "text-green-400"
               }`}
             >
               <svg
@@ -76,7 +76,7 @@ export function AmountDisplay({
               animate={{ scale: 1, opacity: 1, x: 0 }}
               transition={{
                 delay: 0.5,
-                type: 'spring',
+                type: "spring",
                 stiffness: 100,
                 damping: 10,
               }}
@@ -106,7 +106,7 @@ export function AmountDisplay({
             isPaid || isShipped,
             isInitialLoad,
             isTransitioning,
-            isShipped
+            isShipped,
           )}
         </div>
       </div>

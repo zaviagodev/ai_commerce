@@ -6,10 +6,9 @@ import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PricingProps {
   form: UseFormReturn<Product>;
-  isEventProduct?: boolean;
 }
 
-export function Pricing({ form, isEventProduct }: PricingProps) {
+export function Pricing({ form }: PricingProps) {
   const t = useTranslation();
   const price = form.watch("variants.0.price") || 0;
   const compareAtPrice = form.watch("variants.0.compareAtPrice");
@@ -27,7 +26,6 @@ export function Pricing({ form, isEventProduct }: PricingProps) {
                 form.setValue("variants.0.price", price);
                 form.setValue("variants.0.compareAtPrice", compareAtPrice);
               }}
-              isEventProduct={isEventProduct}
               labels={{
                 price: t.products.products.form.price,
                 compareAtPrice:

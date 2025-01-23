@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { X } from 'lucide-react';
-import { ProductSelect } from '@/features/orders/components/product-select';
-import { Product } from '@/types/product';
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { ProductSelect } from "@/features/orders/components/product-select";
+import { Product } from "@/types/product";
 
 interface ProductCondition {
   id: string;
@@ -30,39 +30,42 @@ interface ProductConditionBuilderProps {
 
 const CONDITION_TYPES = [
   {
-    id: 'product_specific',
-    label: 'Specific Product',
+    id: "product_specific",
+    label: "Specific Product",
     options: [
-      { value: 'product_purchased', label: 'Product Purchased' },
-      { value: 'product_quantity', label: 'Product Quantity' },
-      { value: 'product_amount', label: 'Product Amount' },
+      { value: "product_purchased", label: "Product Purchased" },
+      { value: "product_quantity", label: "Product Quantity" },
+      { value: "product_amount", label: "Product Amount" },
     ],
   },
   {
-    id: 'category',
-    label: 'Product Category',
+    id: "category",
+    label: "Product Category",
     options: [
-      { value: 'category_purchased', label: 'Category Purchased' },
-      { value: 'category_quantity', label: 'Category Quantity' },
-      { value: 'category_amount', label: 'Category Amount' },
+      { value: "category_purchased", label: "Category Purchased" },
+      { value: "category_quantity", label: "Category Quantity" },
+      { value: "category_amount", label: "Category Amount" },
     ],
   },
 ];
 
-export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionBuilderProps) {
+export function ProductConditionBuilder({
+  groupId,
+  onRemove,
+}: ProductConditionBuilderProps) {
   const [condition, setCondition] = useState<ProductCondition>({
     id: crypto.randomUUID(),
-    type: 'product_purchased',
-    operator: 'equal_to',
-    value: '',
+    type: "product_purchased",
+    operator: "equal_to",
+    value: "",
     enabled: true,
   });
 
   const handleProductSelect = (product: Product) => {
-    setCondition(prev => ({
+    setCondition((prev) => ({
       ...prev,
       productId: product.id,
-      value: product.name
+      value: product.name,
     }));
   };
 
@@ -74,7 +77,7 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
           variant="ghost"
           size="icon"
           onClick={onRemove}
-          className='absolute right-0 top-0'
+          className="absolute right-0 top-0"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -83,11 +86,13 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
       <div className="grid gap-4">
         <div className="grid gap-2">
           <label className="text-sm font-medium">Condition Type</label>
-          <Select 
-            value={condition.type} 
-            onValueChange={(value) => setCondition({ ...condition, type: value })}
+          <Select
+            value={condition.type}
+            onValueChange={(value) =>
+              setCondition({ ...condition, type: value })
+            }
           >
-            <SelectTrigger className='bg-white'>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>
@@ -109,12 +114,12 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
 
         {condition.type && (
           <>
-            {condition.type.startsWith('product_') ? (
+            {condition.type.startsWith("product_") ? (
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Select Product</label>
                 <ProductSelect onSelect={handleProductSelect}>
                   <Button variant="outline" className="w-full justify-start">
-                    {condition.value || 'Choose a product...'}
+                    {condition.value || "Choose a product..."}
                   </Button>
                 </ProductSelect>
               </div>
@@ -134,7 +139,8 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
               </div>
             )}
 
-            {condition.type.includes('quantity') || condition.type.includes('amount') ? (
+            {condition.type.includes("quantity") ||
+            condition.type.includes("amount") ? (
               <>
                 <div className="grid gap-2">
                   <label className="text-sm font-medium">Operator</label>
@@ -160,12 +166,14 @@ export function ProductConditionBuilder({ groupId, onRemove }: ProductConditionB
                   <Input
                     type="number"
                     min="0"
-                    step={condition.type.includes('amount') ? '0.01' : '1'}
+                    step={condition.type.includes("amount") ? "0.01" : "1"}
                     value={condition.value}
                     onChange={(e) =>
                       setCondition({ ...condition, value: e.target.value })
                     }
-                    placeholder={condition.type.includes('amount') ? '0.00' : '0'}
+                    placeholder={
+                      condition.type.includes("amount") ? "0.00" : "0"
+                    }
                   />
                 </div>
               </>

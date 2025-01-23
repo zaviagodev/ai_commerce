@@ -1,15 +1,15 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Plus, Minus, Package } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { ProductSelect } from '../../product-select';
-import { Order, OrderItem } from '@/types/order';
-import { ProductSkeletons } from './products/product-skeleton';
-import { formatCurrency } from '@/lib/utils';
-import { ProductVariant } from '@/types/product';
-import { Product } from '@/types/product';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { UseFormReturn } from "react-hook-form";
+import { Plus, Minus, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { ProductSelect } from "../../product-select";
+import { Order, OrderItem } from "@/types/order";
+import { ProductSkeletons } from "./products/product-skeleton";
+import { formatCurrency } from "@/lib/utils";
+import { ProductVariant } from "@/types/product";
+import { Product } from "@/types/product";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductsProps {
   form: UseFormReturn<Order>;
@@ -17,25 +17,27 @@ interface ProductsProps {
 
 export function Products({ form }: ProductsProps) {
   const t = useTranslation();
-  const items = form.watch('items') || [];
+  const items = form.watch("items") || [];
 
   const handleProductSelect = (product: Product, variant: ProductVariant) => {
-    const existingItem = items.find((item: OrderItem) => item.variantId === variant.id);
+    const existingItem = items.find(
+      (item: OrderItem) => item.variantId === variant.id,
+    );
 
     if (existingItem) {
       // Update quantity of existing item
-      const updatedItems = items.map(item => {
+      const updatedItems = items.map((item) => {
         if (item.variantId === variant.id) {
           const newQuantity = item.quantity + 1;
           return {
             ...item,
             quantity: newQuantity,
-            total: variant.price * newQuantity
+            total: variant.price * newQuantity,
           };
         }
         return item;
       });
-      form.setValue('items', updatedItems);
+      form.setValue("items", updatedItems);
     } else {
       // Add new item
       const newItem = {
@@ -44,30 +46,30 @@ export function Products({ form }: ProductsProps) {
         name: product.name,
         variant: {
           name: variant.name,
-          options: variant.options
+          options: variant.options,
         },
         price: variant.price,
         quantity: 1,
         total: variant.price,
       };
-      form.setValue('items', [...items, newItem]);
+      form.setValue("items", [...items, newItem]);
     }
   };
 
   const updateQuantity = (index: number, newQuantity: number) => {
     if (newQuantity < 1) return;
-    
+
     const updatedItems = items.map((item, i) => {
       if (i === index) {
         return {
           ...item,
           quantity: newQuantity,
-          total: item.price * newQuantity
+          total: item.price * newQuantity,
         };
       }
       return item;
     });
-    form.setValue('items', updatedItems);
+    form.setValue("items", updatedItems);
   };
 
   return (
@@ -77,7 +79,10 @@ export function Products({ form }: ProductsProps) {
           <Package className="h-5 w-5 text-pink-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.orders.orders.list.columns.products} <span className='text-destructive'>*</span></h2>
+          <h2 className="text-lg font-medium">
+            {t.orders.orders.list.columns.products}{" "}
+            <span className="text-destructive">*</span>
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t.orders.orders.form.sections.products.description}
           </p>
@@ -91,9 +96,14 @@ export function Products({ form }: ProductsProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <span className='text-destructive text-[0.8rem]'>{form.formState.errors.items?.message}</span>
+          <span className="text-destructive text-[0.8rem]">
+            {form.formState.errors.items?.message}
+          </span>
           {items.map((item, index) => (
-            <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg">
+            <div
+              key={item.id}
+              className="flex items-center gap-4 p-4 border rounded-lg"
+            >
               <div className="relative group">
                 <div className="h-[50px] w-[50px] rounded-lg border bg-muted overflow-hidden">
                   {item.product?.images?.[0] ? (
@@ -129,10 +139,11 @@ export function Products({ form }: ProductsProps) {
               <div className="flex-1">
                 <div className="font-medium">{item.name}</div>
                 <div className="text-sm text-muted-foreground">
-                  {formatCurrency(item.price)} {t.orders.orders.form.sections.products.perUnit}
+                  {formatCurrency(item.price)}{" "}
+                  {t.orders.orders.form.sections.products.perUnit}
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Button
                   type="button"
@@ -142,15 +153,17 @@ export function Products({ form }: ProductsProps) {
                 >
                   <Minus className="h-4 w-4" />
                 </Button>
-                
+
                 <Input
                   type="number"
                   min="1"
                   className="w-10 text-center bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   value={item.quantity}
-                  onChange={(e) => updateQuantity(index, parseInt(e.target.value) || 1)}
+                  onChange={(e) =>
+                    updateQuantity(index, parseInt(e.target.value) || 1)
+                  }
                 />
-                
+
                 <Button
                   type="button"
                   variant="outline"
@@ -172,7 +185,7 @@ export function Products({ form }: ProductsProps) {
                 onClick={() => {
                   const newItems = [...items];
                   newItems.splice(index, 1);
-                  form.setValue('items', newItems);
+                  form.setValue("items", newItems);
                 }}
               >
                 {t.orders.orders.form.sections.products.remove}
@@ -180,9 +193,7 @@ export function Products({ form }: ProductsProps) {
             </div>
           ))}
 
-          {items.length === 0 && (
-            <ProductSkeletons />
-          )}
+          {items.length === 0 && <ProductSkeletons />}
         </div>
       </CardContent>
     </Card>

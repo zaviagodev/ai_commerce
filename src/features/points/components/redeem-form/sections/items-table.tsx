@@ -1,6 +1,6 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Package } from 'lucide-react';
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Package } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -8,16 +8,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Redeem } from '@/types/redeem';
+} from "@/components/ui/table";
+import { Redeem } from "@/types/redeem";
 
 interface ItemsTableProps {
   form: UseFormReturn<Redeem>;
 }
 
 export function ItemsTable({ form }: ItemsTableProps) {
-  const items = form.watch('items') || [];
-  const totalPoints = items.reduce((sum, item) => sum + (item.points * item.quantity), 0);
+  const items = form.watch("items") || [];
+  const totalPoints = items.reduce(
+    (sum, item) => sum + item.points * item.quantity,
+    0,
+  );
 
   return (
     <Card>
@@ -65,7 +68,9 @@ export function ItemsTable({ form }: ItemsTableProps) {
                 </TableCell>
                 <TableCell className="text-right">{item.quantity}</TableCell>
                 <TableCell className="text-right">{item.points}</TableCell>
-                <TableCell className="text-right">{item.points * item.quantity}</TableCell>
+                <TableCell className="text-right">
+                  {item.points * item.quantity}
+                </TableCell>
               </TableRow>
             ))}
             <TableRow>

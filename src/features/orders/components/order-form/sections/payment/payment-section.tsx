@@ -32,7 +32,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   const [showCheckoutLink, setShowCheckoutLink] = useState(false);
   const [showPaymentType, setShowPaymentType] = useState(false);
   const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(
-    null
+    null,
   );
   const [isComplete, setIsComplete] = useState(false);
   const [showOrderActions, setShowOrderActions] = useState(false);
@@ -50,14 +50,14 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   const [displayText, setDisplayText] = useState(
     isPaid
       ? t.orders.orders.form.sections.payment.status.completed
-      : t.orders.orders.form.sections.payment.status.outstanding
+      : t.orders.orders.form.sections.payment.status.outstanding,
   );
   const isLocked = isPaid || isShipped;
   const gradientColor = isCancelled
     ? "rgba(239, 68, 68, 0.3)"
     : isLocked
-    ? "rgba(74, 222, 128, 0.3)"
-    : "rgba(250, 204, 21, 0.3)";
+      ? "rgba(74, 222, 128, 0.3)"
+      : "rgba(250, 204, 21, 0.3)";
 
   // Effects
   useEffect(() => {
@@ -71,7 +71,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         setDisplayText(t.orders.orders.form.sections.payment.status.completed);
       } else if (!isCancelled) {
         setDisplayText(
-          t.orders.orders.form.sections.payment.status.outstanding
+          t.orders.orders.form.sections.payment.status.outstanding,
         );
       }
     }
@@ -81,7 +81,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       if (isCancelled) {
         timer = setTimeout(() => {
           setDisplayText(
-            t.orders.orders.form.sections.payment.status.cancelled
+            t.orders.orders.form.sections.payment.status.cancelled,
           );
         }, 4000);
       } else if (isShipped) {
@@ -91,13 +91,13 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       } else if (isPaid) {
         timer = setTimeout(() => {
           setDisplayText(
-            t.orders.orders.form.sections.payment.status.completed
+            t.orders.orders.form.sections.payment.status.completed,
           );
         }, 4000);
       } else {
         timer = setTimeout(() => {
           setDisplayText(
-            t.orders.orders.form.sections.payment.status.outstanding
+            t.orders.orders.form.sections.payment.status.outstanding,
           );
         }, 4000);
       }
@@ -132,7 +132,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         },
       });
       toast.success(
-        t.orders.orders.form.sections.payment.messages.paymentSuccess
+        t.orders.orders.form.sections.payment.messages.paymentSuccess,
       );
     } catch (error) {
       console.error("Failed to update order:", error);
@@ -163,7 +163,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       });
       setIsShipped(true);
       toast.success(
-        t.orders.orders.form.sections.payment.messages.shippingSuccess
+        t.orders.orders.form.sections.payment.messages.shippingSuccess,
       );
     } catch (error) {
       console.error("Failed to update order:", error);
@@ -207,17 +207,17 @@ export function PaymentSection({ order }: PaymentSectionProps) {
       toast.success(
         newStatus === "cancelled"
           ? t.orders.orders.form.sections.payment.messages.cancelSuccess
-          : t.orders.orders.form.sections.payment.messages.reopenSuccess
+          : t.orders.orders.form.sections.payment.messages.reopenSuccess,
       );
     } catch (error) {
       console.error(
         `Failed to ${newStatus === "cancelled" ? "cancel" : "reopen"} order:`,
-        error
+        error,
       );
       toast.error(
         newStatus === "cancelled"
           ? t.orders.orders.form.sections.payment.messages.cancelError
-          : t.orders.orders.form.sections.payment.messages.reopenError
+          : t.orders.orders.form.sections.payment.messages.reopenError,
       );
     } finally {
       setIsTransitioning(false);
@@ -235,11 +235,11 @@ export function PaymentSection({ order }: PaymentSectionProps) {
             background: isCancelled
               ? `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
                   "0.3",
-                  "0.1"
+                  "0.1",
                 )} 40%, transparent 70%)`
               : `radial-gradient(circle at center, ${gradientColor} 0%, ${gradientColor.replace(
                   "0.3",
-                  "0.1"
+                  "0.1",
                 )} 40%, transparent 70%)`,
           }}
           transition={{

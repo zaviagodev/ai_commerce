@@ -1,29 +1,26 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Layers, Plus } from 'lucide-react';
-import { Product } from '@/types/product';
-import { VariantBuilder } from './variant-builder';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Layers, Plus } from "lucide-react";
+import { Product } from "@/types/product";
+import { VariantBuilder } from "./variant-builder";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface VariationsProps {
   form: UseFormReturn<Product>;
-  isEventProduct?: boolean
 }
 
-export function Variations({ form, isEventProduct }: VariationsProps) {
+export function Variations({ form }: VariationsProps) {
   const t = useTranslation();
-  const variantOptions = form.watch('variantOptions') || [];
-  const checkTypeofItem: string =
-    isEventProduct ? "event" : "product"
+  const variantOptions = form.watch("variantOptions") || [];
 
   return (
     <Card>
@@ -32,9 +29,11 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
           <Layers className="h-5 w-5 text-indigo-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.products.products.form.sections.variations.title[checkTypeofItem]}</h2>
+          <h2 className="text-lg font-medium">
+            {t.products.products.form.sections.variations.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            {t.products.products.form.sections.variations.description[checkTypeofItem]}
+            {t.products.products.form.sections.variations.description}
           </p>
         </div>
       </CardHeader>
@@ -45,9 +44,14 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.products.products.form.sections.variations.enable[checkTypeofItem]}</FormLabel>
+                <FormLabel>
+                  {t.products.products.form.sections.variations.enable}
+                </FormLabel>
                 <FormDescription>
-                  {t.products.products.form.sections.variations.enableDescription[checkTypeofItem]}
+                  {
+                    t.products.products.form.sections.variations
+                      .enableDescription
+                  }
                 </FormDescription>
               </div>
               <FormControl>
@@ -56,12 +60,14 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
                   onCheckedChange={(checked) => {
                     if (checked) {
                       // Initialize with empty variant options array
-                      field.onChange([{
-                        id: crypto.randomUUID(),
-                        name: '',
-                        values: [],
-                        position: 0,
-                      }]);
+                      field.onChange([
+                        {
+                          id: crypto.randomUUID(),
+                          name: "",
+                          values: [],
+                          position: 0,
+                        },
+                      ]);
                     } else {
                       // Clear variant options
                       field.onChange([]);
@@ -75,7 +81,7 @@ export function Variations({ form, isEventProduct }: VariationsProps) {
 
         {variantOptions.length > 0 && (
           <div className="space-y-4">
-            <VariantBuilder form={form} isEventProduct={isEventProduct}/>
+            <VariantBuilder form={form} />
           </div>
         )}
       </CardContent>

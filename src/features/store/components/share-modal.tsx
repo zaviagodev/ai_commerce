@@ -1,7 +1,7 @@
 <Dialog>
   <DialogTrigger asChild>{children}</DialogTrigger>
-  <DialogContent 
-    className="sm:max-w-md top-[10%] translate-y-0" 
+  <DialogContent
+    className="sm:max-w-md top-[10%] translate-y-0"
     aria-labelledby="share-dialog-title"
   >
     <DialogHeader className="flex flex-row items-start gap-4">
@@ -16,8 +16,10 @@
       </div>
       <div className="flex-1">
         <DialogTitle id="share-dialog-title">Share {title}</DialogTitle>
-        <DialogDescription>Choose who can access this product</DialogDescription>
+        <DialogDescription>
+          Choose who can access this product
+        </DialogDescription>
       </div>
     </DialogHeader>
   </DialogContent>
-</Dialog>
+</Dialog>;

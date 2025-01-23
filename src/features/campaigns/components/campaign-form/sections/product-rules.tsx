@@ -1,24 +1,24 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Campaign } from '@/types/campaign';
-import { Package } from 'lucide-react';
-import { RuleBuilder } from './product-rules/rule-builder';
-import { Switch } from '@/components/ui/switch';
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Campaign } from "@/types/campaign";
+import { Package } from "lucide-react";
+import { RuleBuilder } from "./product-rules/rule-builder";
+import { Switch } from "@/components/ui/switch";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductRulesProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function ProductRules({ form }: ProductRulesProps) {
-  const hasProductRules = form.watch('hasProductRules');
+  const hasProductRules = form.watch("hasProductRules");
   const t = useTranslation();
 
   return (
@@ -28,9 +28,11 @@ export function ProductRules({ form }: ProductRulesProps) {
           <Package className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{ t.campaigns.campaign.sections.productRules.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.campaigns.campaign.sections.productRules.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            { t.campaigns.campaign.sections.productRules.description}
+            {t.campaigns.campaign.sections.productRules.description}
           </p>
         </div>
       </CardHeader>
@@ -41,9 +43,17 @@ export function ProductRules({ form }: ProductRulesProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{ t.campaigns.campaign.sections.productRules.fields.enabled.label}</FormLabel>
+                <FormLabel>
+                  {
+                    t.campaigns.campaign.sections.productRules.fields.enabled
+                      .label
+                  }
+                </FormLabel>
                 <FormDescription>
-                  { t.campaigns.campaign.sections.productRules.fields.enabled.description}
+                  {
+                    t.campaigns.campaign.sections.productRules.fields.enabled
+                      .description
+                  }
                 </FormDescription>
               </div>
               <FormControl>

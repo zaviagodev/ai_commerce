@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { CategoryForm } from '../components/category-form';
-import { ProductCategory } from '@/types/product';
-import { useCategories } from '../hooks/use-categories';
+import { useNavigate } from "react-router-dom";
+import { CategoryForm } from "../components/category-form";
+import { ProductCategory } from "@/types/product";
+import { useCategories } from "../hooks/use-categories";
 
 export function NewCategoryPage() {
   const navigate = useNavigate();
@@ -10,9 +10,9 @@ export function NewCategoryPage() {
   const handleSubmit = async (data: ProductCategory) => {
     try {
       await createCategory.mutateAsync(data);
-      navigate('/dashboard/categories');
+      navigate("/dashboard/categories");
     } catch (error) {
-      console.error('Failed to create category:', error);
+      console.error("Failed to create category:", error);
     }
   };
 

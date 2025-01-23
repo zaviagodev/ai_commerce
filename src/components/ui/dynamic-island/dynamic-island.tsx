@@ -153,16 +153,18 @@ type BlobContextType = {
   dispatch: React.Dispatch<BlobAction>;
   setSize: (size: SizePresets) => void;
   scheduleAnimation: (
-    animationSteps: Array<{ size: SizePresets; delay: number }>
+    animationSteps: Array<{ size: SizePresets; delay: number }>,
   ) => void;
   presets: Record<SizePresets, Preset>;
 };
 
-export const BlobContext = createContext<BlobContextType | undefined>(undefined);
+export const BlobContext = createContext<BlobContextType | undefined>(
+  undefined,
+);
 
 const blobReducer = (
   state: BlobStateType,
-  action: BlobAction
+  action: BlobAction,
 ): BlobStateType => {
   switch (action.type) {
     case "SET_SIZE":
@@ -235,14 +237,14 @@ export const DynamicIslandProvider: React.FC<DynamicIslandProviderProps> = ({
         dispatch({ type: "SET_SIZE", newSize });
       }
     },
-    [state.previousSize, state.size, dispatch]
+    [state.previousSize, state.size, dispatch],
   );
 
   const scheduleAnimation = useCallback(
     (animationSteps: Array<{ size: SizePresets; delay: number }>) => {
       dispatch({ type: "SCHEDULE_ANIMATION", animationSteps });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const contextValue = {
@@ -262,14 +264,14 @@ export const useDynamicIslandSize = () => {
   const context = useContext(BlobContext);
   if (!context) {
     throw new Error(
-      "useDynamicIslandSize must be used within a DynamicIslandProvider"
+      "useDynamicIslandSize must be used within a DynamicIslandProvider",
     );
   }
   return context;
 };
 
 export const useScheduledAnimations = (
-  animations: Array<{ size: SizePresets; delay: number }>
+  animations: Array<{ size: SizePresets; delay: number }>,
 ) => {
   const { scheduleAnimation } = useDynamicIslandSize();
   const animationsRef = useRef(animations);
@@ -315,11 +317,7 @@ export const DynamicIsland = ({
 
   return (
     <DynamicIslandContainer>
-      <DynamicIslandContent
-        id={id}
-        screenSize={screenSize}
-        {...props}
-      >
+      <DynamicIslandContent id={id} screenSize={screenSize} {...props}>
         {children}
       </DynamicIslandContent>
     </DynamicIslandContainer>
@@ -329,7 +327,7 @@ export const DynamicIsland = ({
 const calculateDimensions = (
   size: SizePresets,
   screenSize: string,
-  currentSize: Preset
+  currentSize: Preset,
 ): { width: string; height: number } => {
   const isMassiveOnMobile = size === "massive" && screenSize === "mobile";
   const isUltraOnMobile = size === "ultra" && screenSize === "mobile";
@@ -387,7 +385,13 @@ const DynamicIslandContent = ({
   );
 };
 
-export const DynamicContainer = ({ className, children }: { className?: string; children?: React.ReactNode }) => {
+export const DynamicContainer = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) => {
   const { state } = useDynamicIslandSize();
   const { size, previousSize } = state;
 
@@ -423,7 +427,13 @@ export const DynamicContainer = ({ className, children }: { className?: string; 
   );
 };
 
-export const DynamicDiv = ({ className, children }: { className?: string; children?: React.ReactNode }) => {
+export const DynamicDiv = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) => {
   const { state } = useDynamicIslandSize();
   const { size, previousSize } = state;
 
@@ -450,7 +460,13 @@ export const DynamicDiv = ({ className, children }: { className?: string; childr
   );
 };
 
-export const DynamicTitle = ({ className, children }: { className: string; children: React.ReactNode }) => {
+export const DynamicTitle = ({
+  className,
+  children,
+}: {
+  className: string;
+  children: React.ReactNode;
+}) => {
   const { state } = useDynamicIslandSize();
   const { size, previousSize } = state;
 
@@ -469,7 +485,13 @@ export const DynamicTitle = ({ className, children }: { className: string; child
   );
 };
 
-export const DynamicDescription = ({ className, children }: { className: string; children: React.ReactNode }) => {
+export const DynamicDescription = ({
+  className,
+  children,
+}: {
+  className: string;
+  children: React.ReactNode;
+}) => {
   const { state } = useDynamicIslandSize();
   const { size, previousSize } = state;
 

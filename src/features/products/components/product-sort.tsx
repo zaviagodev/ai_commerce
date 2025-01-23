@@ -4,9 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { SortOption, SORT_OPTIONS } from '../types/sorting';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { SortOption, SORT_OPTIONS } from "../types/sorting";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductSortProps {
   value: string;

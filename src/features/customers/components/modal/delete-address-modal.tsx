@@ -5,10 +5,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { useState } from "react";
 
 interface DeleteConfirmModalProps {
   open: boolean;
@@ -55,7 +55,8 @@ export function DeleteAddressModal({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              Are you sure you want to delete this address of <strong>{address}</strong>.
+              Are you sure you want to delete this address of{" "}
+              <strong>{address}</strong>.
             </p>
           </div>
         </div>
@@ -73,7 +74,7 @@ export function DeleteAddressModal({
             onClick={handleConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? 'Deleting...' : 'Delete address'}
+            {isDeleting ? "Deleting..." : "Delete address"}
           </Button>
         </DialogFooter>
       </DialogContent>

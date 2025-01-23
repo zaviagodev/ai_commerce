@@ -5,23 +5,23 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { useState } from "react";
 
 interface SetAsDefaultModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
-  description?: string
+  description?: string;
 }
 
 export function SetAsDefaultModal({
   open,
   onOpenChange,
   onConfirm,
-  description
+  description,
 }: SetAsDefaultModalProps) {
   const [isSetting, setIsSetting] = useState(false);
 
@@ -45,9 +45,7 @@ export function SetAsDefaultModal({
             </div>
             <div>
               <DialogTitle>Set as default</DialogTitle>
-              <DialogDescription>
-                {description}
-              </DialogDescription>
+              <DialogDescription>{description}</DialogDescription>
             </div>
           </div>
         </DialogHeader>
@@ -65,7 +63,7 @@ export function SetAsDefaultModal({
             onClick={handleConfirm}
             disabled={isSetting}
           >
-            {isSetting ? 'Setting...' : 'Set as Default'}
+            {isSetting ? "Setting..." : "Set as Default"}
           </Button>
         </DialogFooter>
       </DialogContent>

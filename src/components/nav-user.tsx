@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/lib/auth/auth-hooks';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/lib/auth/auth-hooks";
 import {
   BadgeCheck,
   Bell,
@@ -9,9 +9,9 @@ import {
   CreditCard,
   LogOut,
   Sparkles,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,13 +20,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 export function NavUser({
   user,
@@ -44,9 +44,9 @@ export function NavUser({
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/auth/login');
+      navigate("/auth/login");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -64,7 +64,9 @@ export function NavUser({
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate text-sm font-semibold">{user.name}</span>
+                <span className="truncate text-sm font-semibold">
+                  {user.name}
+                </span>
                 <span className="truncate text-[11px]">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-3" />
@@ -72,7 +74,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
+            side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >

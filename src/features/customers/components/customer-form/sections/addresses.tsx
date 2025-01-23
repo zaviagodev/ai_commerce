@@ -1,17 +1,17 @@
-import { UseFormReturn } from 'react-hook-form';
-import { useState } from 'react';
-import { Plus, Home } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { UseFormReturn } from "react-hook-form";
+import { useState } from "react";
+import { Plus, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
-import { AddressForm } from './address-form';
-import { Customer, CustomerAddress } from '@/types/customer';
-import { useTranslation } from '@/lib/i18n/hooks';
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { AddressForm } from "./address-form";
+import { Customer, CustomerAddress } from "@/types/customer";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface AddressesProps {
   form: UseFormReturn<Customer>;
@@ -25,7 +25,7 @@ function AddressCard({
   onEdit: () => void;
 }) {
   const t = useTranslation();
-  
+
   return (
     <button
       type="button"
@@ -44,7 +44,8 @@ function AddressCard({
               </p>
               {address.isDefault && (
                 <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                  {t.customers.customer.form.sections.addresses.default} {address.type}
+                  {t.customers.customer.form.sections.addresses.default}{" "}
+                  {address.type}
                 </div>
               )}
             </div>
@@ -66,37 +67,37 @@ function AddressCard({
 
 export function Addresses({ form }: AddressesProps) {
   const t = useTranslation();
-  const addresses = form.watch('addresses') || [];
+  const addresses = form.watch("addresses") || [];
   const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(
-    null
+    null,
   );
 
   const addAddress = () => {
     const newAddress: CustomerAddress = {
       id: crypto.randomUUID(),
-      type: 'shipping',
-      firstName: '',
-      lastName: '',
-      company: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      country: '',
-      phone: '',
+      type: "shipping",
+      firstName: "",
+      lastName: "",
+      company: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      country: "",
+      phone: "",
       isDefault: false,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    form.setValue('addresses', [...addresses, newAddress]);
+    form.setValue("addresses", [...addresses, newAddress]);
     setEditingAddress(newAddress);
   };
 
   const removeAddress = (id: string) => {
     form.setValue(
-      'addresses',
-      addresses.filter((address) => address.id !== id)
+      "addresses",
+      addresses.filter((address) => address.id !== id),
     );
   };
 
@@ -104,14 +105,14 @@ export function Addresses({ form }: AddressesProps) {
     const newAddresses = editingAddress
       ? addresses.map((a) => (a.id === editingAddress.id ? address : a))
       : [...addresses, address];
-    form.setValue('addresses', newAddresses);
+    form.setValue("addresses", newAddresses);
     setEditingAddress(null);
   };
 
   const handleDeleteAddress = (id: string) => {
     form.setValue(
-      'addresses',
-      addresses.filter((address) => address.id !== id)
+      "addresses",
+      addresses.filter((address) => address.id !== id),
     );
     setEditingAddress(null);
   };
@@ -123,7 +124,9 @@ export function Addresses({ form }: AddressesProps) {
           <Home className="h-5 w-5 text-blue-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.customers.customer.form.sections.addresses.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.customers.customer.form.sections.addresses.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t.customers.customer.form.sections.addresses.description}
           </p>
@@ -159,7 +162,7 @@ export function Addresses({ form }: AddressesProps) {
           >
             <DialogHeader>
               <DialogTitle id="address-dialog-title">
-                {editingAddress?.id 
+                {editingAddress?.id
                   ? t.customers.customer.form.sections.addresses.actions.edit
                   : t.customers.customer.form.sections.addresses.actions.add}
               </DialogTitle>

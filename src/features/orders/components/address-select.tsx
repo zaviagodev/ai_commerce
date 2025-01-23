@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
-import { MapPin } from 'lucide-react';
+import { useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { MapPin } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { CustomerAddress } from '@/types/customer';
-import { Order } from '@/types/order';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CustomerAddress } from "@/types/customer";
+import { Order } from "@/types/order";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface AddressSelectProps {
   addresses: CustomerAddress[];
@@ -20,10 +20,16 @@ interface AddressSelectProps {
   onSelect: (address: CustomerAddress) => void;
 }
 
-export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressSelectProps) {
+export function AddressSelect({
+  addresses,
+  selectedAddress,
+  onSelect,
+}: AddressSelectProps) {
   const t = useTranslation();
   const [open, setOpen] = useState(false);
-  const defaultAddress = addresses.find(a => a.isDefault && a.type === 'shipping');
+  const defaultAddress = addresses.find(
+    (a) => a.isDefault && a.type === "shipping",
+  );
 
   const formatAddress = (address: CustomerAddress) => {
     const parts = [
@@ -32,9 +38,9 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
       address.city,
       address.state,
       address.postalCode,
-      address.country
+      address.country,
     ].filter(Boolean);
-    return parts.join(', ');
+    return parts.join(", ");
   };
 
   return (
@@ -48,12 +54,11 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
             <MapPin className="h-4 w-4 mt-1 shrink-0" />
             <div className="flex-1 space-y-1">
               <p className="font-medium">
-                {selectedAddress ? 
-                  `${selectedAddress.firstName} ${selectedAddress.lastName}` :
-                  defaultAddress ?
-                    `${defaultAddress.firstName} ${defaultAddress.lastName}` :
-                    t.orders.orders.address.select.placeholder
-                }
+                {selectedAddress
+                  ? `${selectedAddress.firstName} ${selectedAddress.lastName}`
+                  : defaultAddress
+                    ? `${defaultAddress.firstName} ${defaultAddress.lastName}`
+                    : t.orders.orders.address.select.placeholder}
               </p>
               {(selectedAddress || defaultAddress) && (
                 <p className="text-sm text-muted-foreground">
@@ -90,7 +95,7 @@ export function AddressSelect({ addresses, selectedAddress, onSelect }: AddressS
                       <span className="font-medium">
                         {address.firstName} {address.lastName}
                       </span>
-                      {address.isDefault && address.type === 'shipping' && (
+                      {address.isDefault && address.type === "shipping" && (
                         <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
                           {t.orders.orders.address.select.default}
                         </span>

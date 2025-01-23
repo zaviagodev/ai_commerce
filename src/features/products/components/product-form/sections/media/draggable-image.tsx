@@ -1,10 +1,10 @@
-import { motion, Reorder, useMotionValue } from 'framer-motion';
-import { GripVertical, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ProductImage } from '@/types/product';
-import { cn } from '@/lib/utils';
-import { useReducedMotion } from 'framer-motion';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { motion, Reorder, useMotionValue } from "framer-motion";
+import { GripVertical, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ProductImage } from "@/types/product";
+import { cn } from "@/lib/utils";
+import { useReducedMotion } from "framer-motion";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface DraggableImageProps {
   image: ProductImage;
@@ -12,14 +12,18 @@ interface DraggableImageProps {
   onRemove: () => void;
 }
 
-export function DraggableImage({ image, isPrimary, onRemove }: DraggableImageProps) {
+export function DraggableImage({
+  image,
+  isPrimary,
+  onRemove,
+}: DraggableImageProps) {
   const t = useTranslation();
   const y = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <Reorder.Item 
-      value={image} 
+    <Reorder.Item
+      value={image}
       id={image.id}
       style={{ y }}
       initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
@@ -32,7 +36,7 @@ export function DraggableImage({ image, isPrimary, onRemove }: DraggableImagePro
         className={cn(
           "group relative h-full w-full rounded-lg border bg-muted overflow-hidden",
           "hover:shadow-lg transition-all duration-200",
-          isPrimary && "ring-2 ring-primary border-primary"
+          isPrimary && "ring-2 ring-primary border-primary",
         )}
         whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
         whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
@@ -42,7 +46,7 @@ export function DraggableImage({ image, isPrimary, onRemove }: DraggableImagePro
           alt={image.alt}
           className="absolute inset-0 h-full w-full rounded-lg object-cover"
         />
-        
+
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="absolute inset-0 flex items-center justify-center">

@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Archive, ChevronDown, Trash2, FolderInput } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dropdown-menu";
+import { Archive, ChevronDown, Trash2, FolderInput } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BulkActionsMenuProps {
   selectedCount: number;
@@ -25,7 +25,7 @@ export function BulkActionsMenu({
   disabled,
 }: BulkActionsMenuProps) {
   const t = useTranslation();
-  
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

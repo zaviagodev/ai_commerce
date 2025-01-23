@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { User } from '@/types';
-import { AuthError } from './types';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { User } from "@/types";
+import { AuthError } from "./types";
 
 interface AuthState {
   user: User | null;
@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>()(
       setLoading: (isLoading) => set({ isLoading }),
     }),
     {
-      name: 'auth-storage',
-    }
-  )
+      name: "auth-storage",
+    },
+  ),
 );
