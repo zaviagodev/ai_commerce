@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowUpDown, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowUpDown, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,24 +9,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { useProducts } from '@/features/products/hooks/use-products';
-import { cn, formatCurrency } from '@/lib/utils';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import Loading from '@/components/loading';
-import { ProductSearch } from '@/features/products/components/product-search';
-import { useMemo, useState } from 'react';
-import { SORT_OPTIONS } from '@/features/products/types/sorting';
-import { sortProducts } from '@/features/products/utils/sorting';
-import { ProductSort } from '@/features/products/components/product-sort';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { useProducts } from "@/features/products/hooks/use-products";
+import { cn, formatCurrency } from "@/lib/utils";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import Loading from "@/components/loading";
+import { ProductSearch } from "@/features/products/components/product-search";
+import { useMemo, useState } from "react";
+import { SORT_OPTIONS } from "@/features/products/types/sorting";
+import { sortProducts } from "@/features/products/utils/sorting";
+import { ProductSort } from "@/features/products/components/product-sort";
+import { useTranslation } from "@/lib/i18n/hooks";
 
-export function RewardsItemsPage() {
+export function RewardsPage() {
   const t = useTranslation();
   const navigate = useNavigate();
-  const { products, isLoading } = useProducts();
+  const { products, isLoading } = useProducts({ isReward: true });
   const {
     pageIndex,
     pageSize,
@@ -36,8 +36,8 @@ export function RewardsItemsPage() {
     pageCount,
   } = usePagination();
 
-  const [sortValue, setSortValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [sortValue, setSortValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const sortedProducts = useMemo(() => {
     let filtered = products;
@@ -49,16 +49,16 @@ export function RewardsItemsPage() {
         (product) =>
           product.name.toLowerCase().includes(query) ||
           product.sku?.toLowerCase().includes(query) ||
-          product.category?.name.toLowerCase().includes(query)
+          product.category?.name.toLowerCase().includes(query),
       );
     }
 
     // Apply sorting
     if (!sortValue) return filtered;
 
-    const [field, direction] = sortValue.split('-');
+    const [field, direction] = sortValue.split("-");
     const option = SORT_OPTIONS.find(
-      (opt) => opt.field === field && opt.direction === direction
+      (opt) => opt.field === field && opt.direction === direction,
     );
 
     if (!option) return filtered;
@@ -97,7 +97,7 @@ export function RewardsItemsPage() {
         </Button>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -110,7 +110,11 @@ export function RewardsItemsPage() {
         />
         <div className="flex items-center gap-4">
           <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
-          <ProductSort value={sortValue} options={SORT_OPTIONS} onValueChange={setSortValue} />
+          <ProductSort
+            value={sortValue}
+            options={SORT_OPTIONS}
+            onValueChange={setSortValue}
+          />
         </div>
       </motion.div>
 
@@ -120,7 +124,7 @@ export function RewardsItemsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={paginatedProducts.length > 0 ? 'rounded-b-none' : ''}>
+        <Table className={paginatedProducts.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
               <TableHead>Product</TableHead>
@@ -150,7 +154,13 @@ export function RewardsItemsPage() {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/reward-items/${product.id}`)}>
+                <TableRow
+                  key={product.id}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    navigate(`/dashboard/reward-items/${product.id}`)
+                  }
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -163,7 +173,9 @@ export function RewardsItemsPage() {
                         <div className="h-12 w-12 rounded-sm bg-muted" />
                       )}
                       <div>
-                        <span className="font-medium hover:underline">{product.name}</span>
+                        <span className="font-medium hover:underline">
+                          {product.name}
+                        </span>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
                             SKU: {product.sku}
@@ -175,16 +187,19 @@ export function RewardsItemsPage() {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": product.status === 'active',
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                          product.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                          product.status === "archived",
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                          product.status === "draft",
                       })}
                     >
                       {product.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || 'Uncategorized'}
+                    {product.category?.name || "Uncategorized"}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
@@ -203,8 +218,8 @@ export function RewardsItemsPage() {
                       <span
                         className={
                           (product.quantity || 0) > 0
-                            ? 'text-green-600'
-                            : 'text-red-600'
+                            ? "text-green-600"
+                            : "text-red-600"
                         }
                       >
                         {product.quantity || 0} in stock
@@ -220,7 +235,9 @@ export function RewardsItemsPage() {
         </Table>
 
         <motion.div
-          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedProducts.length === 0})}
+          className={cn("border-t p-4 bg-main rounded-b-lg", {
+            hidden: paginatedProducts.length === 0,
+          })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.4 }}

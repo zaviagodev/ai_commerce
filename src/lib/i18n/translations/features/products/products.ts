@@ -1,1042 +1,1060 @@
 export const productsTranslations = {
   en: {
-      title: "Products",
-      description: "Manage your store's products",
-      actions: {
-        add: "Add product",
-        edit: "Edit product",
-        delete: "Delete product",
-        archive: "Archive product",
-        store: "Store",
-        save: "Save changes",
-        cancel: "Cancel",
-        share: "Share"
+    title: "Products",
+    description: "Manage your store's products",
+    actions: {
+      add: "Add product",
+      edit: "Edit product",
+      delete: "Delete product",
+      archive: "Archive product",
+      store: "Store",
+      save: "Save changes",
+      cancel: "Cancel",
+      share: "Share",
+    },
+    list: {
+      title: "Product List",
+      empty: {
+        title: "No products found",
+        description: "Get started by adding your first product",
       },
-      list: {
-        title: "Product List",
-        empty: {
-          title: "No products found",
-          description: "Get started by adding your first product"
-        },
-        search: "Search products...",
-        filter: "Filter products",
-        columns: {
-          product: "Product",
-          status: "Status",
-          category: "Category",
-          price: "Price",
-          quantity: "Quantity"
-        },
-        uncategorized: "Uncategorized",
-        inStock: "in stock",
-        notTracked: "Not tracked",
-        draft: "Draft"
-      },
-      bulk: {
-        mode: "Bulk selection mode",
-        selected: "{count} items selected",
-        actions: {
-          title: "Bulk Actions",
-          delete: "Delete selected",
-          archive: "Archive selected",
-          changeCategory: "Change category"
-        },
-        delete: {
-          title: "Delete Products",
-          description: "This action cannot be undone",
-          warning: "Are you sure you want to delete {count} selected product(s)? This will permanently remove them from your store.",
-          deleting: "Deleting...",
-          cancel: "Cancel"
-        },
-        category: {
-          title: "Change Category",
-          description: "Select a new category for the selected products",
-          applying: "Applying changes...",
-          success: "Category updated successfully"
-        }
-      },
-      sort: {
-        title: "Sort by",
-        options: {
-          nameAsc: "Name (A-Z)",
-          nameDesc: "Name (Z-A)",
-          priceAsc: "Price (Low to High)",
-          priceDesc: "Price (High to Low)",
-          dateAsc: "Date (Oldest first)",
-          dateDesc: "Date (Newest first)"
-        }
-      },
-      status: {
-        active: "Active",
-        inactive: "Inactive",
-        archived: "Archived",
-        outOfStock: "Out of Stock",
-        draft: "Draft"
-      },
-      attributes: {
-        title: "Product Attributes",
-        description: {
-          event: "Manage custom attributes for your events",
-          product: "Manage custom attributes for your products",
-          rewardItem: "Manage custom attributes for your reward items"
-        },
-        add: "Add attribute",
-        edit: "Edit attribute",
-        delete: "Delete attribute"
-      },
-      form: {
-        name: {
-          event: "Event Name",
-          product: "Product Name",
-          rewardItem: "Reward Item Name"
-        },
-        description: "Description",
-        price: "Price",
+      search: "Search products...",
+      filter: "Filter products",
+      columns: {
+        product: "Product",
+        status: "Status",
         category: "Category",
-        stock: "Stock Quantity",
-        sku: {
-          event: "Event SKU",
-          product: "Product SKU",
-          rewardItem: "Reward Item SKU"
+        price: "Price",
+        quantity: "Quantity",
+      },
+      uncategorized: "Uncategorized",
+      inStock: "in stock",
+      notTracked: "Not tracked",
+      draft: "Draft",
+    },
+    bulk: {
+      mode: "Bulk selection mode",
+      selected: "{count} items selected",
+      actions: {
+        title: "Bulk Actions",
+        delete: "Delete selected",
+        archive: "Archive selected",
+        changeCategory: "Change category",
+      },
+      delete: {
+        title: "Delete Products",
+        description: "This action cannot be undone",
+        warning:
+          "Are you sure you want to delete {count} selected product(s)? This will permanently remove them from your store.",
+        deleting: "Deleting...",
+        cancel: "Cancel",
+      },
+      category: {
+        title: "Change Category",
+        description: "Select a new category for the selected products",
+        applying: "Applying changes...",
+        success: "Category updated successfully",
+      },
+    },
+    sort: {
+      title: "Sort by",
+      options: {
+        nameAsc: "Name (A-Z)",
+        nameDesc: "Name (Z-A)",
+        priceAsc: "Price (Low to High)",
+        priceDesc: "Price (High to Low)",
+        dateAsc: "Date (Oldest first)",
+        dateDesc: "Date (Newest first)",
+      },
+    },
+    status: {
+      active: "Active",
+      inactive: "Inactive",
+      archived: "Archived",
+      outOfStock: "Out of Stock",
+      draft: "Draft",
+    },
+    attributes: {
+      title: "Product Attributes",
+      description: {
+        event: "Manage custom attributes for your events",
+        product: "Manage custom attributes for your products",
+        rewardItem: "Manage custom attributes for your reward items",
+      },
+      add: "Add attribute",
+      edit: "Edit attribute",
+      delete: "Delete attribute",
+    },
+    form: {
+      name: {
+        event: "Event Name",
+        product: "Product Name",
+        rewardItem: "Reward Item Name",
+      },
+      description: "Description",
+      price: "Price",
+      category: "Category",
+      stock: "Stock Quantity",
+      sku: {
+        event: "Event SKU",
+        product: "Product SKU",
+        rewardItem: "Reward Item SKU",
+      },
+      images: "Product Images",
+      variants: "Product Variants",
+      untitled: {
+        event: "Untitled Event",
+        product: "Untitled Product",
+        rewardItem: "Untitled Reward Item",
+      },
+      created: "Created by",
+      lastUpdated: "Last updated",
+      rewardItem: "Reward Item",
+      sections: {
+        media: {
+          title: "Media",
+          description: {
+            event: "Add photos of your event",
+            product: "Add photos of your product",
+            rewardItem: "Add photos of your reward item",
+          },
+          dropzone: "Drop your images here",
+          maxFiles: "or click to browse files",
+          maxSize: "Maximum file size: 5MB",
+          uploading: "Uploading...",
+          chooseFiles: "Choose files",
+          primary: "Primary",
+          uploadSuccess: "Images uploaded successfully",
+          uploadError: "Failed to upload images",
+          removeError: "Failed to remove image",
         },
-        images: "Product Images",
-        variants: "Product Variants",
-        untitled: {
-          event: "Untitled Event",
-          product: "Untitled Product",
-          rewardItem: "Untitled Reward Item"
+        basicDetails: {
+          title: "Basic Details",
+          description: {
+            event: "Add the essential information about your event",
+            product: "Add the essential information about your product",
+            rewardItem: "Add the essential information about your reward item",
+          },
+          nameDescription: "Customers will see this name in your store",
+          descriptionPlaceholder: {
+            event: "Describe your event...",
+            product: "Describe your product...",
+            rewardItem: "Describe your reward item...",
+          },
+          descriptionHelp: {
+            event: "Write a detailed description of your event",
+            product: "Write a detailed description of your product",
+            rewardItem: "Write a detailed description of your reward item",
+          },
         },
-        created: "Created by",
-        lastUpdated: "Last updated",
-        rewardItem: "Reward Item",
-        sections: {
-          media: {
-            title: "Media",
+        pricing: {
+          title: "Pricing",
+          description: {
+            event: "Set your event's pricing information",
+            product: "Set your product's pricing information",
+            rewardItem: "Set your reward item's pricing information",
+          },
+          compareAtPrice: "Compare at price",
+          cost: "Cost per item",
+          margin: "Profit margin",
+          profit: "Estimated profit",
+          enable: {
+            title: "Enable discount",
             description: {
-              event: "Add photos of your event", 
-              product: "Add photos of your product",
-              rewardItem: "Add photos of your reward item"
+              event: "Apply a discount to this event",
+              product: "Apply a discount to this product",
+              rewardItem: "Apply a discount to this reward item",
             },
-            dropzone: "Drop your images here",
-            maxFiles: "or click to browse files",
-            maxSize: "Maximum file size: 5MB",
-            uploading: "Uploading...",
-            chooseFiles: "Choose files",
-            primary: "Primary",
-            uploadSuccess: "Images uploaded successfully",
-            uploadError: "Failed to upload images",
-            removeError: "Failed to remove image"
           },
-          basicDetails: {
-            title: "Basic Details",
-            description: {
-              event: "Add the essential information about your event", 
-              product: "Add the essential information about your product",
-              rewardItem: "Add the essential information about your reward item"
-            },
-            nameDescription: "Customers will see this name in your store",
-            descriptionPlaceholder: {
-              event: "Describe your event...",
-              product: "Describe your product...",
-              rewardItem: "Describe your reward item..."
-            },
-            descriptionHelp: {
-              event: "Write a detailed description of your event",
-              product: "Write a detailed description of your product",
-              rewardItem: "Write a detailed description of your reward item"
-            }
+        },
+        inventory: {
+          title: "Inventory",
+          description: {
+            event: "Manage your event's inventory",
+            product: "Manage your product's inventory",
+            rewardItem: "Manage your reward item's inventory",
           },
-          pricing: {
-            title: "Pricing",
-            description: {
-              event: "Set your event's pricing information",
-              product: "Set your product's pricing information",
-              rewardItem: "Set your reward item's pricing information"
-            },
-            compareAtPrice: "Compare at price",
-            cost: "Cost per item",
-            margin: "Profit margin",
-            profit: "Estimated profit",
-            enable: {
-              title: "Enable discount",
-              description: {
-                event: "Apply a discount to this event",
-                product: "Apply a discount to this product",
-                rewardItem: "Apply a discount to this reward item"
-              }
-            }
+          trackQuantity: "Track quantity",
+          trackQuantityDescription: "Track and manage inventory quantities",
+          quantity: "Available quantity",
+          quantityDescription: "Current stock quantity",
+          sku: {
+            event: "SKU (Stock Keeping Unit)",
+            product: "SKU (Stock Keeping Unit)",
+            rewardItem: "SKU (Stock Keeping Unit)",
           },
-          inventory: {
-            title: "Inventory",
-            description: {
-              event: "Manage your event's inventory",
-              product: "Manage your product's inventory",
-              rewardItem: "Manage your reward item's inventory"
-            },
-            trackQuantity: "Track quantity",
-            trackQuantityDescription: "Track and manage inventory quantities",
-            quantity: "Available quantity",
-            quantityDescription: "Current stock quantity",
-            sku: {
-              event: "SKU (Stock Keeping Unit)",
-              product: "SKU (Stock Keeping Unit)",
-              rewardItem: "SKU (Stock Keeping Unit)"
-            },
-            skuPlaceholder: {
-              event: "Enter SKU",
-              product: "Enter SKU",
-              rewardItem: "Enter SKU"
-            },
-            skuDescription: {
-              event: "A unique identifier for your event",
-              product: "A unique identifier for your product",
-              rewardItem: "A unique identifier for your reward item"
-            },
-            barcode: "Barcode (ISBN, UPC, GTIN, etc.)",
-            barcodePlaceholder: "Enter barcode",
-            barcodeDescription: {
-              event: "A unique barcode for your event (optional)",
-              product: "A unique barcode for your product (optional)",
-              rewardItem: "A unique barcode for your reward item (optional)"
-            }
+          skuPlaceholder: {
+            event: "Enter SKU",
+            product: "Enter SKU",
+            rewardItem: "Enter SKU",
           },
-          shipping: {
-            title: "Size & Weight Shipping",
-            description: "Set up shipping details",
-            weight: "Weight",
-            weightUnit: "Weight unit",
-            dimensions: "Dimensions",
-            length: "Length",
-            width: "Width",
-            height: "Height",
-            enableShipping: "Enable Shipping",
-            enableShippingDescription: "Enable if this event requires shipping of physical items",
-            selectUnit: "Select unit",
-            weightUnits: {
-              kg: "Kilograms (kg)",
-              lb: "Pounds (lb)"
-            },
-            dimensionUnits: {
-              cm: "Centimeters (cm)",
-              in: "Inches (in)"
-            }
+          skuDescription: {
+            event: "A unique identifier for your event",
+            product: "A unique identifier for your product",
+            rewardItem: "A unique identifier for your reward item",
           },
-          organization: {
-            title: "Organization",
-            description: {
-              event: "Organize and categorize your event",
-              product: "Organize and categorize your product",
-              rewardItem: "Organize and categorize your reward item"
-            },
-            choose: {
-              event: "Choose a category for your events",
-              product: "Choose a category for your products",
-              rewardItem: "Choose a category for your reward items"
-            },
-            tags: "Tags",
-            tagsPlaceholder: "Press enter to add tags",
-            addTag: "Add tag",
-            category: "Category",
-            selectCategory: "Select a category",
-            addCategory: "Add category",
-            noCategory: "No category",
-            tiers: {
-              selectTier: "Select Customer Tier",
-              membership: "Membership",
-              activeMembers: "Active Members",
-              addNew: "Add New Tier",
-              cancel: "Cancel"
-            }
+          barcode: "Barcode (ISBN, UPC, GTIN, etc.)",
+          barcodePlaceholder: "Enter barcode",
+          barcodeDescription: {
+            event: "A unique barcode for your event (optional)",
+            product: "A unique barcode for your product (optional)",
+            rewardItem: "A unique barcode for your reward item (optional)",
           },
-          salesChannels: {
-            title: "Sales Channels",
-            description: "Manage where your product is sold",
-            addChannel: "Add sales channel",
-            noChannels: "No sales channels"
+        },
+        shipping: {
+          title: "Size & Weight Shipping",
+          description: "Set up shipping details",
+          weight: "Weight",
+          weightUnit: "Weight unit",
+          dimensions: "Dimensions",
+          length: "Length",
+          width: "Width",
+          height: "Height",
+          enableShipping: "Enable Shipping",
+          enableShippingDescription:
+            "Enable if this event requires shipping of physical items",
+          selectUnit: "Select unit",
+          weightUnits: {
+            kg: "Kilograms (kg)",
+            lb: "Pounds (lb)",
           },
-          pointsRewards: {
-            title: "Points & Rewards",
-            description: "Configure points and rewards settings",
-            enable: "Enable as Reward Item",
-            enableDescription: "Configure this product as a redeemable reward item",
-            pointsEnabled: "Enable points",
-            pointsEarned: "Points earned",
-            pointsRequired: "Points Required for Redemption",
-            pointsRequiredDescription: "Number of points required to redeem this product",
-            pointsValue: "Points Value ($)",
-            pointsValueDescription: "Monetary value of points when redeemed for this product"
+          dimensionUnits: {
+            cm: "Centimeters (cm)",
+            in: "Inches (in)",
           },
-          eventDetails: {
-            title: "Event Details",
-            description: "Configure event specific details",
-            startDate: "Start date",
-            endDate: "End date",
-            location: "Location",
-            capacity: "Capacity"
+        },
+        organization: {
+          title: "Organization",
+          description: {
+            event: "Organize and categorize your event",
+            product: "Organize and categorize your product",
+            rewardItem: "Organize and categorize your reward item",
           },
-          attendees: {
-            title: "Attendees",
-            description: "Manage event attendees and ticket status",
-            ticketScanning: {
-              title: "Ticket Scanning",
-              description: "Scan QR codes or barcodes to validate tickets and track attendance",
-              scanButton: "Scan Ticket"
-            },
-            table: {
-              attendee: "Attendee",
-              ticketType: "Ticket Type",
-              purchaseDate: "Purchase Date",
-              price: "Price",
-              status: "Status"
-            },
-            status: {
-              paid: "Paid",
-              pending: "Pending",
-              failed: "Failed"
-            }
+          choose: {
+            event: "Choose a category for your events",
+            product: "Choose a category for your products",
+            rewardItem: "Choose a category for your reward items",
           },
-          variations: {
-            title: {
-              event: "Time Slots",
-              product: "Product Variations",
-            },
-            description: {
-              event: "Configure time slots and options",
-              product: "Configure product variants and options",
-            },
-            enable: {
-              event: "Enable Time Slots",
-              product: "Enable Product Variations"
-            },
-            enableDescription: {
-              event: "Create multiple slots of this event with different options",
-              product: "Create multiple variants of this product with different options"
-            },
-            optionNamePlaceholder: {
-              event: "Option {index} (e.g., Time slots)",
-              product: "Option {index} (e.g., Size, Color)"
-            },
-            optionValuesPlaceholder: {
-              event: "Enter time slot",
-              product: "Enter value"
-            },
-            addOption: "Add Option",
-            variantName: "Variant",
-            sku: "SKU",
+          tags: "Tags",
+          tagsPlaceholder: "Press enter to add tags",
+          addTag: "Add tag",
+          category: "Category",
+          selectCategory: "Select a category",
+          addCategory: "Add category",
+          noCategory: "No category",
+          tiers: {
+            selectTier: "Select Customer Tier",
+            membership: "Membership",
+            activeMembers: "Active Members",
+            addNew: "Add New Tier",
+            cancel: "Cancel",
+          },
+        },
+        salesChannels: {
+          title: "Sales Channels",
+          description: "Manage where your product is sold",
+          addChannel: "Add sales channel",
+          noChannels: "No sales channels",
+        },
+        pointsRewards: {
+          title: "Points & Rewards",
+          description: "Configure points and rewards settings",
+          enable: "Enable as Reward Item",
+          enableDescription:
+            "Configure this product as a redeemable reward item",
+          pointsEnabled: "Enable points",
+          pointsEarned: "Points earned",
+          pointsRequired: "Points Required for Redemption",
+          pointsRequiredDescription:
+            "Number of points required to redeem this product",
+          pointsValue: "Points Value ($)",
+          pointsValueDescription:
+            "Monetary value of points when redeemed for this product",
+        },
+        eventDetails: {
+          title: "Event Details",
+          description: "Configure event specific details",
+          startDate: "Start date",
+          endDate: "End date",
+          location: "Location",
+          capacity: "Capacity",
+        },
+        attendees: {
+          title: "Attendees",
+          description: "Manage event attendees and ticket status",
+          ticketScanning: {
+            title: "Ticket Scanning",
+            description:
+              "Scan QR codes or barcodes to validate tickets and track attendance",
+            scanButton: "Scan Ticket",
+          },
+          table: {
+            attendee: "Attendee",
+            ticketType: "Ticket Type",
+            purchaseDate: "Purchase Date",
             price: "Price",
-            quantity: "Quantity",
             status: "Status",
-            noVariants: "No variants created yet. Add variant options above to generate variants.",
-            grouping: {
-              title: "Variant Grouping",
-              description: "Group variants by attribute for better organization",
-              ungrouped: "No grouping",
-              selectAttribute: "Select attribute to group by"
-            },
-            inStock: "in stock",
-            totalStock: "Total Stock",
-            addValue: {
-              event: "Add time slot",
-              product: "Add value"
-            },
-            addAnotherOption: "Add another option"
-          }
+          },
+          status: {
+            paid: "Paid",
+            pending: "Pending",
+            failed: "Failed",
+          },
         },
-        tabs: {
-          itemInfo: "Item Info",
-          pointsRewards: "Points & Rewards",
-          eventSummary: "Event Summary",
-          attendees: "Attendees"
+        variations: {
+          title: {
+            event: "Time Slots",
+            product: "Product Variations",
+          },
+          description: {
+            event: "Configure time slots and options",
+            product: "Configure product variants and options",
+          },
+          enable: {
+            event: "Enable Time Slots",
+            product: "Enable Product Variations",
+          },
+          enableDescription: {
+            event: "Create multiple slots of this event with different options",
+            product:
+              "Create multiple variants of this product with different options",
+          },
+          optionNamePlaceholder: {
+            event: "Option {index} (e.g., Time slots)",
+            product: "Option {index} (e.g., Size, Color)",
+          },
+          optionValuesPlaceholder: {
+            event: "Enter time slot",
+            product: "Enter value",
+          },
+          addOption: "Add Option",
+          variantName: "Variant",
+          sku: "SKU",
+          price: "Price",
+          quantity: "Quantity",
+          pointsBasedPrice: "Points Based Price",
+          status: "Status",
+          noVariants:
+            "No variants created yet. Add variant options above to generate variants.",
+          grouping: {
+            title: "Variant Grouping",
+            description: "Group variants by attribute for better organization",
+            ungrouped: "No grouping",
+            selectAttribute: "Select attribute to group by",
+          },
+          inStock: "in stock",
+          totalStock: "Total Stock",
+          addValue: {
+            event: "Add time slot",
+            product: "Add value",
+          },
+          addAnotherOption: "Add another option",
         },
-        modals: {
-          itemActions: {
-            title: "Item Actions",
-            edit: {
-              title: {
-                event: "Edit Event",
-                product: "Edit Product",
-                rewardItem: "Edit Reward Item"
-              },
-              description: {
-                event: "Modify event details and settings",
-                product: "Modify product details and settings",
-                rewardItem: "Modify reward item details and settings"
-              }
+      },
+      tabs: {
+        itemInfo: "Item Info",
+        pointsRewards: "Points & Rewards",
+        eventSummary: "Event Summary",
+        attendees: "Attendees",
+      },
+      modals: {
+        itemActions: {
+          title: "Item Actions",
+          edit: {
+            title: {
+              event: "Edit Event",
+              product: "Edit Product",
+              rewardItem: "Edit Reward Item",
             },
-            duplicate: {
-              title: {
-                event: "Duplicate Event",
-                product: "Duplicate Product",
-                rewardItem: "Duplicate Reward Item"
-              },
-              description: "Create a copy with all settings"
+            description: {
+              event: "Modify event details and settings",
+              product: "Modify product details and settings",
+              rewardItem: "Modify reward item details and settings",
             },
-            delete: {
-              title: {
-                event: "Delete Event",
-                product: "Delete Product",
-                rewardItem: "Delete Reward Item"
-              },
-              description: {
-                event: "Permanently remove this event",
-                product: "Permanently remove this product",
-                rewardItem: "Permanently remove this reward item"
-              }
-            }
+          },
+          duplicate: {
+            title: {
+              event: "Duplicate Event",
+              product: "Duplicate Product",
+              rewardItem: "Duplicate Reward Item",
+            },
+            description: "Create a copy with all settings",
           },
           delete: {
             title: {
               event: "Delete Event",
               product: "Delete Product",
-              rewardItem: "Delete Reward Item"
+              rewardItem: "Delete Reward Item",
             },
-            description: "This action cannot be undone",
-            warning: "This will permanently delete {name} and all of its data. This action cannot be undone.",
-            confirmText: "Type {text} to confirm",
-            cancel: "Cancel",
-            deleting: "Deleting...",
-            confirm: {
-              event: "Delete Event",
-              product: "Delete Product",
-              rewardItem: "Delete Reward Item"
+            description: {
+              event: "Permanently remove this event",
+              product: "Permanently remove this product",
+              rewardItem: "Permanently remove this reward item",
             },
           },
-          advancedTypes: {
-            title: "Advanced Product Types",
-            types: {
-              tickets: {
-                name: "Event Tickets",
-                description: "Sell tickets for events, workshops, or seminars"
-              },
-              booking: {
-                name: "Booking & Appointments",
-                description: "Allow customers to book time slots for services"
-              },
-              subscription: {
-                name: "Subscription",
-                description: "Offer recurring billing and subscriptions"
-              },
-              digital: {
-                name: "Digital Downloads",
-                description: "Sell downloadable digital products"
-              },
-              bundle: {
-                name: "Product Bundle",
-                description: "Create bundles of multiple products"
-              },
-              customizable: {
-                name: "Customizable Product",
-                description: "Allow product customization options"
-              }
-            }
+        },
+        delete: {
+          title: {
+            event: "Delete Event",
+            product: "Delete Product",
+            rewardItem: "Delete Reward Item",
           },
-          productType: {
-            configuration: "Configuration",
+          description: "This action cannot be undone",
+          warning:
+            "This will permanently delete {name} and all of its data. This action cannot be undone.",
+          confirmText: "Type {text} to confirm",
+          cancel: "Cancel",
+          deleting: "Deleting...",
+          confirm: {
+            event: "Delete Event",
+            product: "Delete Product",
+            rewardItem: "Delete Reward Item",
+          },
+        },
+        advancedTypes: {
+          title: "Advanced Product Types",
+          types: {
             tickets: {
-              defaultType: "General Admission",
-              eventDetails: "Event Details",
-              types: "Ticket Types",
-              namePlaceholder: "Ticket name",
-              pricePlaceholder: "Price",
-              addType: "Add Ticket Type"
+              name: "Event Tickets",
+              description: "Sell tickets for events, workshops, or seminars",
             },
             booking: {
-              duration: "Service Duration (minutes)",
-              timeSlots: "Available Time Slots",
-              capacityPlaceholder: "Capacity",
-              addSlot: "Add Time Slot"
+              name: "Booking & Appointments",
+              description: "Allow customers to book time slots for services",
             },
             subscription: {
-              billingCycle: "Billing Cycle",
-              weekly: "Weekly",
-              monthly: "Monthly",
-              annually: "Annually",
-              trialPeriod: "Free Trial Period (days)"
+              name: "Subscription",
+              description: "Offer recurring billing and subscriptions",
             },
             digital: {
-              downloadSettings: "Download Settings",
-              limitDownloads: "Limit Downloads",
-              maxDownloads: "Maximum downloads",
-              linkExpiration: "Link Expiration (hours)"
+              name: "Digital Downloads",
+              description: "Sell downloadable digital products",
             },
             bundle: {
-              settings: "Bundle Settings",
-              allowIndividual: "Allow Individual Sales",
-              dynamicPricing: "Dynamic Pricing",
-              discount: "Bundle Discount (%)"
+              name: "Product Bundle",
+              description: "Create bundles of multiple products",
             },
             customizable: {
-              options: "Customization Options",
-              textEngraving: "Text Engraving",
-              colorSelection: "Color Selection",
-              sizeOptions: "Size Options",
-              additionalFee: "Additional Fee",
-              feePlaceholder: "Fee for customization"
-            }
-          }
-        }
-      },
-      messages: {
-        createSuccess: "Product created successfully",
-        updateSuccess: "Product updated successfully",
-        deleteSuccess: "Product deleted successfully",
-        error: "An error occurred while processing your request",
-        duplicateSuccess: "Product duplicated successfully",
-        duplicateError: "Failed to duplicate product"
-      },
-      categories: {
-        title: "Categories",
-        description: "Manage your product categories",
-        actions: {
-          add: "Add category",
-          edit: "Edit category",
-          delete: "Delete category"
-        },
-        list: {
-          empty: {
-            title: "No categories found",
-            description: "Get started by adding your first category"
+              name: "Customizable Product",
+              description: "Allow product customization options",
+            },
           },
-          columns: {
-            category: "Category",
-            slug: "Slug",
-            description: "Description"
-          },
-          search: "Search categories..."
         },
-        form: {
-          name: "Category Name",
+        productType: {
+          configuration: "Configuration",
+          tickets: {
+            defaultType: "General Admission",
+            eventDetails: "Event Details",
+            types: "Ticket Types",
+            namePlaceholder: "Ticket name",
+            pricePlaceholder: "Price",
+            addType: "Add Ticket Type",
+          },
+          booking: {
+            duration: "Service Duration (minutes)",
+            timeSlots: "Available Time Slots",
+            capacityPlaceholder: "Capacity",
+            addSlot: "Add Time Slot",
+          },
+          subscription: {
+            billingCycle: "Billing Cycle",
+            weekly: "Weekly",
+            monthly: "Monthly",
+            annually: "Annually",
+            trialPeriod: "Free Trial Period (days)",
+          },
+          digital: {
+            downloadSettings: "Download Settings",
+            limitDownloads: "Limit Downloads",
+            maxDownloads: "Maximum downloads",
+            linkExpiration: "Link Expiration (hours)",
+          },
+          bundle: {
+            settings: "Bundle Settings",
+            allowIndividual: "Allow Individual Sales",
+            dynamicPricing: "Dynamic Pricing",
+            discount: "Bundle Discount (%)",
+          },
+          customizable: {
+            options: "Customization Options",
+            textEngraving: "Text Engraving",
+            colorSelection: "Color Selection",
+            sizeOptions: "Size Options",
+            additionalFee: "Additional Fee",
+            feePlaceholder: "Fee for customization",
+          },
+        },
+      },
+    },
+    messages: {
+      createSuccess: "Product created successfully",
+      updateSuccess: "Product updated successfully",
+      deleteSuccess: "Product deleted successfully",
+      error: "An error occurred while processing your request",
+      duplicateSuccess: "Product duplicated successfully",
+      duplicateError: "Failed to duplicate product",
+    },
+    categories: {
+      title: "Categories",
+      description: "Manage your product categories",
+      actions: {
+        add: "Add category",
+        edit: "Edit category",
+        delete: "Delete category",
+      },
+      list: {
+        empty: {
+          title: "No categories found",
+          description: "Get started by adding your first category",
+        },
+        columns: {
+          category: "Category",
           slug: "Slug",
           description: "Description",
-          namePlaceholder: "Enter category name",
-          slugPlaceholder: "enter-category-slug",
-          descriptionPlaceholder: "Enter category description",
-          nameHelp: "This name will be displayed to customers",
-          slugHelp: "URL-friendly version of the name",
-          descriptionHelp: "Describe what types of products belong in this category"
         },
-        messages: {
-          createSuccess: "Category created successfully",
-          updateSuccess: "Category updated successfully",
-          deleteSuccess: "Category deleted successfully",
-          error: "An error occurred while processing your request"
-        }
-      }
-  },
-  th: {
-      title: "สินค้า",
-      description: "จัดการสินค้าในร้านของคุณ",
-      actions: {
-        add: "เพิ่มสินค้า",
-        edit: "แก้ไขสินค้า",
-        delete: "ลบสินค้า",
-        archive: "เก็บถาวรสินค้า",
-        store: "ร้านค้า",
-        save: "บันทึกการเปลี่ยนแปลง",
-        cancel: "ยกเลิก",
-        share: "แชร์"
-      },
-      list: {
-        title: "รายการสินค้า",
-        empty: {
-          title: "ไม่พบสินค้า",
-          description: "เริ่มต้นด้วยการเพิ่มสินค้าแรกของคุณ"
-        },
-        search: "ค้นหาสินค้า...",
-        filter: "กรองสินค้า",
-        columns: {
-          product: "สินค้า",
-          status: "สถานะ",
-          category: "หมวดหมู่",
-          price: "ราคา",
-          quantity: "จำนวน"
-        },
-        uncategorized: "ไม่มีหมวดหมู่",
-        inStock: "ในคลัง",
-        notTracked: "ไม่ได้ติดตาม",
-        draft: "ฉบับร่าง"
-      },
-      bulk: {
-        mode: "โหมดเลือกหลายรายการ",
-        selected: "เลือก {count} รายการ",
-        actions: {
-          title: "การดำเนินการกับหลายรายการ",
-          delete: "ลบที่เลือก",
-          archive: "เก็บถาวรที่เลือก",
-          changeCategory: "เปลี่ยนหมวดหมู่"
-        },
-        delete: {
-          title: "ลบสินค้า",
-          description: "การดำเนินการนี้ไม่สามารถยกเลิกได้",
-          warning: "คุณแน่ใจหรือไม่ที่จะลบสินค้าที่เลือก {count} รายการ? การดำเนินการนี้จะลบสินค้าออกจากร้านค้าของคุณอย่างถาวร",
-          deleting: "กำลังลบ...",
-          cancel: "ยกเลิก"
-        },
-        category: {
-          title: "เปลี่ยนหมวดหมู่",
-          description: "เลือกหมวดหมู่ใหม่สำหรับสินค้าที่เลือก",
-          applying: "กำลังเปลี่ยนแปลง...",
-          success: "อัปเดตหมวดหมู่สำเร็จ"
-        }
-      },
-      sort: {
-        title: "เรียงตาม",
-        options: {
-          nameAsc: "ชื่อ (ก-ฮ)",
-          nameDesc: "ชื่อ (ฮ-ก)",
-          priceAsc: "ราคา (ต่ำไปสูง)",
-          priceDesc: "ราคา (สูงไปต่ำ)",
-          dateAsc: "วันที่ (เก่าสุดก่อน)",
-          dateDesc: "วันที่ (ใหม่สุดก่อน)"
-        }
-      },
-      status: {
-        active: "ใช้งาน",
-        inactive: "ไม่ใช้งาน",
-        archived: "เก็บถาวร",
-        outOfStock: "สินค้าหมด",
-        draft: "ฉบับร่าง"
-      },
-      attributes: {
-        title: "คุณลักษณะสินค้า",
-        description: {
-          event: "จัดการคุณลักษณะที่กำหนดเองสำหรับอีเวนต์ของคุณ",
-          product: "จัดการคุณลักษณะที่กำหนดเองสำหรับสินค้าของคุณ",
-          rewardItem: "จัดการคุณลักษณะที่กำหนดเองสำหรับรายการรางวัลของคุณ"
-        },
-        add: "เพิ่มคุณลักษณะ",
-        edit: "แก้ไขคุณลักษณะ",
-        delete: "ลบคุณลักษณะ"
+        search: "Search categories...",
       },
       form: {
-        name: {
-          event: "ชื่ออีเวนต์",
-          product: "ชื่อสินค้า",
-          rewardItem: "ชื่อรายการรางวัล"
-        },
-        description: "รายละเอียด",
-        price: "ราคา",
+        name: "Category Name",
+        slug: "Slug",
+        description: "Description",
+        namePlaceholder: "Enter category name",
+        slugPlaceholder: "enter-category-slug",
+        descriptionPlaceholder: "Enter category description",
+        nameHelp: "This name will be displayed to customers",
+        slugHelp: "URL-friendly version of the name",
+        descriptionHelp:
+          "Describe what types of products belong in this category",
+      },
+      messages: {
+        createSuccess: "Category created successfully",
+        updateSuccess: "Category updated successfully",
+        deleteSuccess: "Category deleted successfully",
+        error: "An error occurred while processing your request",
+      },
+    },
+  },
+  th: {
+    title: "สินค้า",
+    description: "จัดการสินค้าในร้านของคุณ",
+    actions: {
+      add: "เพิ่มสินค้า",
+      edit: "แก้ไขสินค้า",
+      delete: "ลบสินค้า",
+      archive: "เก็บถาวรสินค้า",
+      store: "ร้านค้า",
+      save: "บันทึกการเปลี่ยนแปลง",
+      cancel: "ยกเลิก",
+      share: "แชร์",
+    },
+    list: {
+      title: "รายการสินค้า",
+      empty: {
+        title: "ไม่พบสินค้า",
+        description: "เริ่มต้นด้วยการเพิ่มสินค้าแรกของคุณ",
+      },
+      search: "ค้นหาสินค้า...",
+      filter: "กรองสินค้า",
+      columns: {
+        product: "สินค้า",
+        status: "สถานะ",
         category: "หมวดหมู่",
-        stock: "จำนวนในคลัง",
-        sku: {
-          event: "รหัสอีเวนต์",
-          product: "รหัสสินค้า",
-          rewardItem: "รหัสรายการรางวัล"
+        price: "ราคา",
+        quantity: "จำนวน",
+      },
+      uncategorized: "ไม่มีหมวดหมู่",
+      inStock: "ในคลัง",
+      notTracked: "ไม่ได้ติดตาม",
+      draft: "ฉบับร่าง",
+    },
+    bulk: {
+      mode: "โหมดเลือกหลายรายการ",
+      selected: "เลือก {count} รายการ",
+      actions: {
+        title: "การดำเนินการกับหลายรายการ",
+        delete: "ลบที่เลือก",
+        archive: "เก็บถาวรที่เลือก",
+        changeCategory: "เปลี่ยนหมวดหมู่",
+      },
+      delete: {
+        title: "ลบสินค้า",
+        description: "การดำเนินการนี้ไม่สามารถยกเลิกได้",
+        warning:
+          "คุณแน่ใจหรือไม่ที่จะลบสินค้าที่เลือก {count} รายการ? การดำเนินการนี้จะลบสินค้าออกจากร้านค้าของคุณอย่างถาวร",
+        deleting: "กำลังลบ...",
+        cancel: "ยกเลิก",
+      },
+      category: {
+        title: "เปลี่ยนหมวดหมู่",
+        description: "เลือกหมวดหมู่ใหม่สำหรับสินค้าที่เลือก",
+        applying: "กำลังเปลี่ยนแปลง...",
+        success: "อัปเดตหมวดหมู่สำเร็จ",
+      },
+    },
+    sort: {
+      title: "เรียงตาม",
+      options: {
+        nameAsc: "ชื่อ (ก-ฮ)",
+        nameDesc: "ชื่อ (ฮ-ก)",
+        priceAsc: "ราคา (ต่ำไปสูง)",
+        priceDesc: "ราคา (สูงไปต่ำ)",
+        dateAsc: "วันที่ (เก่าสุดก่อน)",
+        dateDesc: "วันที่ (ใหม่สุดก่อน)",
+      },
+    },
+    status: {
+      active: "ใช้งาน",
+      inactive: "ไม่ใช้งาน",
+      archived: "เก็บถาวร",
+      outOfStock: "สินค้าหมด",
+      draft: "ฉบับร่าง",
+    },
+    attributes: {
+      title: "คุณลักษณะสินค้า",
+      description: {
+        event: "จัดการคุณลักษณะที่กำหนดเองสำหรับอีเวนต์ของคุณ",
+        product: "จัดการคุณลักษณะที่กำหนดเองสำหรับสินค้าของคุณ",
+        rewardItem: "จัดการคุณลักษณะที่กำหนดเองสำหรับรายการรางวัลของคุณ",
+      },
+      add: "เพิ่มคุณลักษณะ",
+      edit: "แก้ไขคุณลักษณะ",
+      delete: "ลบคุณลักษณะ",
+    },
+    form: {
+      name: {
+        event: "ชื่ออีเวนต์",
+        product: "ชื่อสินค้า",
+        rewardItem: "ชื่อรายการรางวัล",
+      },
+      description: "รายละเอียด",
+      price: "ราคา",
+      category: "หมวดหมู่",
+      stock: "จำนวนในคลัง",
+      sku: {
+        event: "รหัสอีเวนต์",
+        product: "รหัสสินค้า",
+        rewardItem: "รหัสรายการรางวัล",
+      },
+      images: "รูปภาพสินค้า",
+      variants: "ตัวเลือกสินค้า",
+      untitled: {
+        event: "อีเวนต์ไม่มีชื่อ",
+        product: "สินค้าไม่มีชื่อ",
+        rewardItem: "รายการรางวัลไม่มีชื่อ",
+      },
+      created: "สร้างโดย",
+      lastUpdated: "อัปเดตล่าสุด",
+      rewardItem: "สินค้าแลกรางวัล",
+      sections: {
+        media: {
+          title: "สื่อ",
+          description: {
+            event: "เพิ่มรูปภาพอีเวนต์ของคุณ",
+            product: "เพิ่มรูปภาพสินค้าของคุณ",
+            rewardItem: "เพิ่มรูปภาพรายการรางวัลของคุณ",
+          },
+          dropzone: "ลากและวางรูปภาพที่นี่",
+          maxFiles: "หรือคลิกเพื่อเลือกไฟล์",
+          maxSize: "ขนาดไฟล์สูงสุด: 5MB",
+          uploading: "กำลังอัปโหลด...",
+          chooseFiles: "เลือกไฟล์",
+          primary: "หลัก",
+          uploadSuccess: "อัปโหลดรูปภาพสำเร็จ",
+          uploadError: "ไม่สามารถอัปโหลดรูปภาพได้",
+          removeError: "ไม่สามารถลบรูปภาพได้",
         },
-        images: "รูปภาพสินค้า",
-        variants: "ตัวเลือกสินค้า",
-        untitled: {
-          event: "อีเวนต์ไม่มีชื่อ",
-          product: "สินค้าไม่มีชื่อ",
-          rewardItem: "รายการรางวัลไม่มีชื่อ"
+        basicDetails: {
+          title: "รายละเอียดพื้นฐาน",
+          description: {
+            event: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับอีเวนต์ของคุณ",
+            product: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับสินค้าของคุณ",
+            rewardItem: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับรายการรางวัลของคุณ",
+          },
+          nameDescription: "ลูกค้าจะเห็นชื่อนี้ในร้านค้าของคุณ",
+          descriptionPlaceholder: {
+            event: "อธิบายอีเวนต์ของคุณ...",
+            product: "อธิบายสินค้าของคุณ...",
+            rewardItem: "อธิบายรายการรางวัลของคุณ...",
+          },
+          descriptionHelp: {
+            event: "เขียนรายละเอียดอีเวนต์ของคุณ",
+            product: "เขียนรายละเอียดสินค้าของคุณ",
+            rewardItem: "เขียนรายละเอียดรายการรางวัลของคุณ",
+          },
         },
-        created: "สร้างโดย",
-        lastUpdated: "อัปเดตล่าสุด",
-        rewardItem: "สินค้าแลกรางวัล",
-        sections: {
-          media: {
-            title: "สื่อ",
-            description: {
-              event: "เพิ่มรูปภาพอีเวนต์ของคุณ", 
-              product: "เพิ่มรูปภาพสินค้าของคุณ",
-              rewardItem: "เพิ่มรูปภาพรายการรางวัลของคุณ"
-            },
-            dropzone: "ลากและวางรูปภาพที่นี่",
-            maxFiles: "หรือคลิกเพื่อเลือกไฟล์",
-            maxSize: "ขนาดไฟล์สูงสุด: 5MB",
-            uploading: "กำลังอัปโหลด...",
-            chooseFiles: "เลือกไฟล์",
-            primary: "หลัก",
-            uploadSuccess: "อัปโหลดรูปภาพสำเร็จ",
-            uploadError: "ไม่สามารถอัปโหลดรูปภาพได้",
-            removeError: "ไม่สามารถลบรูปภาพได้"
+        pricing: {
+          title: "ราคา",
+          description: {
+            event: "ตั้งค่าข้อมูลราคาอีเวนต์ของคุณ",
+            product: "ตั้งค่าข้อมูลราคาสินค้าของคุณ",
+            rewardItem: "ตั้งค่าข้อมูลราคารายการรางวัลของคุณ",
           },
-          basicDetails: {
-            title: "รายละเอียดพื้นฐาน",
-            description: {
-              event: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับอีเวนต์ของคุณ", 
-              product: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับสินค้าของคุณ",
-              rewardItem: "เพิ่มข้อมูลพื้นฐานเกี่ยวกับรายการรางวัลของคุณ"
-            },
-            nameDescription: "ลูกค้าจะเห็นชื่อนี้ในร้านค้าของคุณ",
-            descriptionPlaceholder: {
-              event: "อธิบายอีเวนต์ของคุณ...",
-              product: "อธิบายสินค้าของคุณ...",
-              rewardItem: "อธิบายรายการรางวัลของคุณ..."
-            },
-            descriptionHelp: {
-              event: "เขียนรายละเอียดอีเวนต์ของคุณ",
-              product: "เขียนรายละเอียดสินค้าของคุณ",
-              rewardItem: "เขียนรายละเอียดรายการรางวัลของคุณ"
-            }
+          compareAtPrice: "ราคาเปรียบเทียบ",
+          cost: "ต้นทุนต่อชิ้น",
+          margin: "กำไรขั้นต้น",
+          profit: "กำไรโดยประมาณ",
+        },
+        inventory: {
+          title: "สินค้าคงคลัง",
+          description: {
+            event: "จัดการอีเวนต์คงคลังของคุณ",
+            product: "จัดการสินค้าคงคลังของคุณ",
+            rewardItem: "จัดการรายการรางวัลคงคลังของคุณ",
           },
-          pricing: {
-            title: "ราคา",
-            description: {
-              event: "ตั้งค่าข้อมูลราคาอีเวนต์ของคุณ",
-              product: "ตั้งค่าข้อมูลราคาสินค้าของคุณ",
-              rewardItem: "ตั้งค่าข้อมูลราคารายการรางวัลของคุณ"
-            },
-            compareAtPrice: "ราคาเปรียบเทียบ",
-            cost: "ต้นทุนต่อชิ้น",
-            margin: "กำไรขั้นต้น",
-            profit: "กำไรโดยประมาณ"
+          trackQuantity: "ติดตามจำนวน",
+          trackQuantityDescription: "ติดตามและจัดการจำนวนสินค้าคงคลัง",
+          quantity: "จำนวนที่มี",
+          quantityDescription: "จำนวนสินค้าคงคลังปัจจุบัน",
+          sku: {
+            event: "รหัสอีเวนต์ (SKU)",
+            product: "รหัสสินค้า (SKU)",
+            rewardItem: "รหัสรายการรางวัล (SKU)",
           },
-          inventory: {
-            title: "สินค้าคงคลัง",
-            description: {
-              event: "จัดการอีเวนต์คงคลังของคุณ",
-              product: "จัดการสินค้าคงคลังของคุณ",
-              rewardItem: "จัดการรายการรางวัลคงคลังของคุณ"
-            },
-            trackQuantity: "ติดตามจำนวน",
-            trackQuantityDescription: "ติดตามและจัดการจำนวนสินค้าคงคลัง",
-            quantity: "จำนวนที่มี",
-            quantityDescription: "จำนวนสินค้าคงคลังปัจจุบัน",
-            sku: {
-              event: "รหัสอีเวนต์ (SKU)",
-              product: "รหัสสินค้า (SKU)",
-              rewardItem: "รหัสรายการรางวัล (SKU)"
-            },
-            skuPlaceholder: {
-              event: "ใส่รหัสอีเวนต์",
-              product: "ใส่รหัสสินค้า",
-              rewardItem: "ใส่รหัสรายการรางวัล"
-            },
-            skuDescription: {
-              event: "รหัสที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ",
-              product: "รหัสที่ไม่ซ้ำกันสำหรับสินค้าของคุณ",
-              rewardItem: "รหัสที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ"
-            },
-            barcode: "บาร์โค้ด (ISBN, UPC, GTIN, ฯลฯ)",
-            barcodePlaceholder: "ใส่บาร์โค้ด",
-            barcodeDescription: {
-              event: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ (ไม่บังคับ)",
-              product: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับสินค้าของคุณ (ไม่บังคับ)",
-              rewardItem: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ (ไม่บังคับ)"
-            }
+          skuPlaceholder: {
+            event: "ใส่รหัสอีเวนต์",
+            product: "ใส่รหัสสินค้า",
+            rewardItem: "ใส่รหัสรายการรางวัล",
           },
-          shipping: {
-            title: "การจัดส่งโดยขนาดและน้ำหนัก",
-            description: "ตั้งค่ารายละเอียดการจัดส่ง",
-            weight: "น้ำหนัก",
-            weightUnit: "หน่วยน้ำหนัก",
-            dimensions: "ขนาด",
-            length: "ความยาว",
-            width: "ความกว้าง",
-            height: "ความสูง",
-            enableShipping: "เปิดใช้งานการจัดส่ง",
-            enableShippingDescription: "เปิดใช้งานหากอีเวนต์นี้ต้องมีการจัดส่งสินค้า",
-            selectUnit: "เลือกหน่วย",
-            weightUnits: {
-              kg: "กิโลกรัม (kg)",
-              lb: "ปอนด์ (lb)"
-            },
-            dimensionUnits: {
-              cm: "เซนติเมตร (cm)",
-              in: "นิ้ว (in)"
-            }
+          skuDescription: {
+            event: "รหัสที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ",
+            product: "รหัสที่ไม่ซ้ำกันสำหรับสินค้าของคุณ",
+            rewardItem: "รหัสที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ",
           },
-          organization: {
-            title: "การจัดการ",
-            description: {
-              event: "จัดระเบียบและจัดหมวดหมู่อีเวนต์ของคุณ",
-              product: "จัดระเบียบและจัดหมวดหมู่สินค้าของคุณ",
-              rewardItem: "จัดระเบียบและจัดหมวดหมู่รายการรางวัลของคุณ"
-            },
-            choose: {
-              event: "เลือกหมวดหมู่สำหรับอีเวนต์ของคุณ",
-              product: "เลือกหมวดหมู่สำหรับสินค้าของคุณ",
-              rewardItem: "เลือกหมวดหมู่สำหรับรายการรางวัลของคุณ"
-            },
-            tags: "แท็ก",
-            tagsPlaceholder: "กด Enter เพื่อเพิ่มแท็ก",
-            addTag: "เพิ่มแท็ก",
-            category: "หมวดหมู่",
-            selectCategory: "เลือกหมวดหมู่",
-            addCategory: "เพิ่มหมวดหมู่",
-            noCategory: "ไม่มีหมวดหมู่",
-            tiers: {
-              selectTier: "เลือกระดับลูกค้า",
-              membership: "สมาชิก",
-              activeMembers: "สมาชิกที่ใช้งาน",
-              addNew: "เพิ่มระดับใหม่",
-              cancel: "ยกเลิก"
-            }
+          barcode: "บาร์โค้ด (ISBN, UPC, GTIN, ฯลฯ)",
+          barcodePlaceholder: "ใส่บาร์โค้ด",
+          barcodeDescription: {
+            event: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับอีเวนต์ของคุณ (ไม่บังคับ)",
+            product: "บาร์โค้ดที่ไม่ซ้ำกันสำหรับสินค้าของคุณ (ไม่บังคับ)",
+            rewardItem:
+              "บาร์โค้ดที่ไม่ซ้ำกันสำหรับรายการรางวัลของคุณ (ไม่บังคับ)",
           },
-          salesChannels: {
-            title: "ช่องทางการขาย",
-            description: "จัดการช่องทางการขายสินค้าของคุณ",
-            addChannel: "เพิ่มช่องทางการขาย",
-            noChannels: "ไม่มีช่องทางการขาย"
+        },
+        shipping: {
+          title: "การจัดส่งโดยขนาดและน้ำหนัก",
+          description: "ตั้งค่ารายละเอียดการจัดส่ง",
+          weight: "น้ำหนัก",
+          weightUnit: "หน่วยน้ำหนัก",
+          dimensions: "ขนาด",
+          length: "ความยาว",
+          width: "ความกว้าง",
+          height: "ความสูง",
+          enableShipping: "เปิดใช้งานการจัดส่ง",
+          enableShippingDescription:
+            "เปิดใช้งานหากอีเวนต์นี้ต้องมีการจัดส่งสินค้า",
+          selectUnit: "เลือกหน่วย",
+          weightUnits: {
+            kg: "กิโลกรัม (kg)",
+            lb: "ปอนด์ (lb)",
           },
-          pointsRewards: {
-            title: "คะแนนและรางวัล",
-            description: "กำหนดค่าการตั้งค่าคะแนนและรางวัล",
-            enable: "เปิดใช้งานเป็นรางวัล",
-            enableDescription: "กำหนดค่าสินค้านี้เป็นรางวัลที่สามารถแลกได้",
-            pointsEnabled: "เปิดใช้งานคะแนน",
-            pointsEarned: "คะแนนที่ได้รับ",
-            pointsRequired: "คะแนนที่ต้องใช้ในการแลก",
-            pointsRequiredDescription: "จำนวนคะแนนที่ต้องใช้ในการแลกสินค้านี้",
-            pointsValue: "มูลค่าคะแนน (฿)",
-            pointsValueDescription: "มูลค่าเป็นเงินของคะแนนเมื่อแลกสินค้านี้"
+          dimensionUnits: {
+            cm: "เซนติเมตร (cm)",
+            in: "นิ้ว (in)",
           },
-          eventDetails: {
-            title: "รายละเอียดอีเวนต์",
-            description: "กำหนดค่ารายละเอียดเฉพาะของอีเวนต์",
-            startDate: "วันที่เริ่ม",
-            endDate: "วันที่สิ้นสุด",
-            location: "สถานที่",
-            capacity: "ความจุ"
+        },
+        organization: {
+          title: "การจัดการ",
+          description: {
+            event: "จัดระเบียบและจัดหมวดหมู่อีเวนต์ของคุณ",
+            product: "จัดระเบียบและจัดหมวดหมู่สินค้าของคุณ",
+            rewardItem: "จัดระเบียบและจัดหมวดหมู่รายการรางวัลของคุณ",
           },
-          attendees: {
-            title: "ผู้เข้าร่วม",
-            description: "จัดการผู้เข้าร่วมและสถานะบัตร",
-            ticketScanning: {
-              title: "สแกนบัตร",
-              description: "สแกน QR code หรือบาร์โค้ดเพื่อตรวจสอบบัตรและติดตามการเข้าร่วม",
-              scanButton: "สแกนบัตร"
-            },
-            table: {
-              attendee: "ผู้เข้าร่วม",
-              ticketType: "ประเภทบัตร",
-              purchaseDate: "วันที่ซื้อ",
-              price: "ราคา",
-              status: "สถานะ"
-            },
-            status: {
-              paid: "ชำระแล้ว",
-              pending: "รอดำเนินการ",
-              failed: "ล้มเหลว"
-            }
+          choose: {
+            event: "เลือกหมวดหมู่สำหรับอีเวนต์ของคุณ",
+            product: "เลือกหมวดหมู่สำหรับสินค้าของคุณ",
+            rewardItem: "เลือกหมวดหมู่สำหรับรายการรางวัลของคุณ",
           },
-          variations: {
-            title: {
-              event: "ช่วงเวลา",
-              product: "ตัวเลือกสินค้า",
-            },
-            description: {
-              event: "กำหนดค่าตัวเลือกและรูปแบบช่วงเวลา",
-              product: "กำหนดค่าตัวเลือกและรูปแบบสินค้า",
-            },
-            enable: {
-              event: "เปิดใช้งานตัวเลือกช่วงเวลา",
-              product: "เปิดใช้งานตัวเลือกสินค้า"
-            },
-            enableDescription: {
-              event: "สร้างตัวเลือกหลายรูปแบบสำหรับช่วงเวลานี้",
-              product: "สร้างตัวเลือกหลายรูปแบบสำหรับสินค้านี้"
-            },
-            optionNamePlaceholder: {
-              event: "ตัวเลือกที่ {index} (เช่น ช่วงเวลา)",
-              product: "ตัวเลือกที่ {index} (เช่น ขนาด, สี)"
-            },
-            optionValuesPlaceholder: {
-              event: "ใส่ช่วงเวลา",
-              product: "ใส่ค่า"
-            },
-            addOption: "เพิ่มตัวเลือก",
-            variantName: "ตัวเลือก",
-            sku: "รหัสสินค้า",
+          tags: "แท็ก",
+          tagsPlaceholder: "กด Enter เพื่อเพิ่มแท็ก",
+          addTag: "เพิ่มแท็ก",
+          category: "หมวดหมู่",
+          selectCategory: "เลือกหมวดหมู่",
+          addCategory: "เพิ่มหมวดหมู่",
+          noCategory: "ไม่มีหมวดหมู่",
+          tiers: {
+            selectTier: "เลือกระดับลูกค้า",
+            membership: "สมาชิก",
+            activeMembers: "สมาชิกที่ใช้งาน",
+            addNew: "เพิ่มระดับใหม่",
+            cancel: "ยกเลิก",
+          },
+        },
+        salesChannels: {
+          title: "ช่องทางการขาย",
+          description: "จัดการช่องทางการขายสินค้าของคุณ",
+          addChannel: "เพิ่มช่องทางการขาย",
+          noChannels: "ไม่มีช่องทางการขาย",
+        },
+        pointsRewards: {
+          title: "คะแนนและรางวัล",
+          description: "กำหนดค่าการตั้งค่าคะแนนและรางวัล",
+          enable: "เปิดใช้งานเป็นรางวัล",
+          enableDescription: "กำหนดค่าสินค้านี้เป็นรางวัลที่สามารถแลกได้",
+          pointsEnabled: "เปิดใช้งานคะแนน",
+          pointsEarned: "คะแนนที่ได้รับ",
+          pointsRequired: "คะแนนที่ต้องใช้ในการแลก",
+          pointsRequiredDescription: "จำนวนคะแนนที่ต้องใช้ในการแลกสินค้านี้",
+          pointsValue: "มูลค่าคะแนน (฿)",
+          pointsValueDescription: "มูลค่าเป็นเงินของคะแนนเมื่อแลกสินค้านี้",
+        },
+        eventDetails: {
+          title: "รายละเอียดอีเวนต์",
+          description: "กำหนดค่ารายละเอียดเฉพาะของอีเวนต์",
+          startDate: "วันที่เริ่ม",
+          endDate: "วันที่สิ้นสุด",
+          location: "สถานที่",
+          capacity: "ความจุ",
+        },
+        attendees: {
+          title: "ผู้เข้าร่วม",
+          description: "จัดการผู้เข้าร่วมและสถานะบัตร",
+          ticketScanning: {
+            title: "สแกนบัตร",
+            description:
+              "สแกน QR code หรือบาร์โค้ดเพื่อตรวจสอบบัตรและติดตามการเข้าร่วม",
+            scanButton: "สแกนบัตร",
+          },
+          table: {
+            attendee: "ผู้เข้าร่วม",
+            ticketType: "ประเภทบัตร",
+            purchaseDate: "วันที่ซื้อ",
             price: "ราคา",
-            quantity: "จำนวน",
             status: "สถานะ",
-            noVariants: "ยังไม่มีตัวเลือกสินค้า กรุณาเพิ่มตัวเลือกด้านบนเพื่อสร้างตัวเลือกสินค้า",
-            grouping: {
-              title: "การจัดกลุ่มตัวเลือก",
-              description: "จัดกลุ่มตัวเลือกตามคุณลักษณะเพื่อการจัดการที่ดีขึ้น",
-              ungrouped: "ไม่จัดกลุ่ม",
-              selectAttribute: "เลือกคุณลักษณะที่ต้องการจัดกลุ่ม"
-            },
-            inStock: "ในสต็อก",
-            totalStock: "จำนวนทั้งหมด",
-            addValue: {
-              event: "เพิ่มช่วงเวลา",
-              product: "เพิ่มค่า"
-            },
-            addAnotherOption: "เพิ่มตัวเลือกอื่น"
-          }
+          },
+          status: {
+            paid: "ชำระแล้ว",
+            pending: "รอดำเนินการ",
+            failed: "ล้มเหลว",
+          },
         },
-        tabs: {
-          itemInfo: "ข้อมูลสินค้า",
-          pointsRewards: "คะแนนและรางวัล",
-          eventSummary: "สรุปอีเวนต์",
-          attendees: "ผู้เข้าร่วม"
+        variations: {
+          title: {
+            event: "ช่วงเวลา",
+            product: "ตัวเลือกสินค้า",
+          },
+          description: {
+            event: "กำหนดค่าตัวเลือกและรูปแบบช่วงเวลา",
+            product: "กำหนดค่าตัวเลือกและรูปแบบสินค้า",
+          },
+          enable: {
+            event: "เปิดใช้งานตัวเลือกช่วงเวลา",
+            product: "เปิดใช้งานตัวเลือกสินค้า",
+          },
+          enableDescription: {
+            event: "สร้างตัวเลือกหลายรูปแบบสำหรับช่วงเวลานี้",
+            product: "สร้างตัวเลือกหลายรูปแบบสำหรับสินค้านี้",
+          },
+          optionNamePlaceholder: {
+            event: "ตัวเลือกที่ {index} (เช่น ช่วงเวลา)",
+            product: "ตัวเลือกที่ {index} (เช่น ขนาด, สี)",
+          },
+          optionValuesPlaceholder: {
+            event: "ใส่ช่วงเวลา",
+            product: "ใส่ค่า",
+          },
+          addOption: "เพิ่มตัวเลือก",
+          variantName: "ตัวเลือก",
+          sku: "รหัสสินค้า",
+          price: "ราคา",
+          quantity: "จำนวน",
+          pointsBasedPrice: "ราคาคะแนน",
+          status: "สถานะ",
+          noVariants:
+            "ยังไม่มีตัวเลือกสินค้า กรุณาเพิ่มตัวเลือกด้านบนเพื่อสร้างตัวเลือกสินค้า",
+          grouping: {
+            title: "การจัดกลุ่มตัวเลือก",
+            description: "จัดกลุ่มตัวเลือกตามคุณลักษณะเพื่อการจัดการที่ดีขึ้น",
+            ungrouped: "ไม่จัดกลุ่ม",
+            selectAttribute: "เลือกคุณลักษณะที่ต้องการจัดกลุ่ม",
+          },
+          inStock: "ในสต็อก",
+          totalStock: "จำนวนทั้งหมด",
+          addValue: {
+            event: "เพิ่มช่วงเวลา",
+            product: "เพิ่มค่า",
+          },
+          addAnotherOption: "เพิ่มตัวเลือกอื่น",
         },
-        modals: {
-          itemActions: {
-            title: "การดำเนินการ",
-            edit: {
-              title: {
-                event: "แก้ไขอีเวนต์",
-                product: "แก้ไขสินค้า",
-                rewardItem: "แก้ไขรายการรางวัล"
-              },
-              description: {
-                event: "แก้ไขรายละเอียดและการตั้งค่าอีเวนต์",
-                product: "แก้ไขรายละเอียดและการตั้งค่าสินค้า",
-                rewardItem: "แก้ไขรายละเอียดและการตั้งค่ารายการรางวัล"
-              }
+      },
+      tabs: {
+        itemInfo: "ข้อมูลสินค้า",
+        pointsRewards: "คะแนนและรางวัล",
+        eventSummary: "สรุปอีเวนต์",
+        attendees: "ผู้เข้าร่วม",
+      },
+      modals: {
+        itemActions: {
+          title: "การดำเนินการ",
+          edit: {
+            title: {
+              event: "แก้ไขอีเวนต์",
+              product: "แก้ไขสินค้า",
+              rewardItem: "แก้ไขรายการรางวัล",
             },
-            duplicate: {
-              title: {
-                event: "คัดลอกอีเวนต์",
-                product: "คัดลอกสินค้า",
-                rewardItem: "คัดลอกรายการรางวัล"
-              },
-              description: "สร้างสำเนาพร้อมการตั้งค่าทั้งหมด"
+            description: {
+              event: "แก้ไขรายละเอียดและการตั้งค่าอีเวนต์",
+              product: "แก้ไขรายละเอียดและการตั้งค่าสินค้า",
+              rewardItem: "แก้ไขรายละเอียดและการตั้งค่ารายการรางวัล",
             },
-            delete: {
-              title: {
-                event: "ลบอีเวนต์",
-                product: "ลบสินค้า",
-                rewardItem: "ลบรายการรางวัล"
-              },
-              description: {
-                event: "ลบอีเวนต์อย่างถาวร",
-                product: "ลบสินค้าอย่างถาวร",
-                rewardItem: "ลบรายการรางวัลอย่างถาวร"
-              }
-            }
+          },
+          duplicate: {
+            title: {
+              event: "คัดลอกอีเวนต์",
+              product: "คัดลอกสินค้า",
+              rewardItem: "คัดลอกรายการรางวัล",
+            },
+            description: "สร้างสำเนาพร้อมการตั้งค่าทั้งหมด",
           },
           delete: {
             title: {
               event: "ลบอีเวนต์",
               product: "ลบสินค้า",
-              rewardItem: "ลบรายการรางวัล"
+              rewardItem: "ลบรายการรางวัล",
             },
-            description: "การดำเนินการนี้ไม่สามารถยกเลิกได้",
-            warning: "การดำเนินการนี้จะลบ {name} และข้อมูลทั้งหมดอย่างถาวร ไม่สามารถยกเลิกได้",
-            confirmText: "พิมพ์ {text} เพื่อยืนยัน",
-            cancel: "ยกเลิก",
-            deleting: "กำลังลบ...",
-            confirm: {
-              event: "ลบอีเวนต์",
-              product: "ลบสินค้า",
-              rewardItem: "ลบรายการรางวัล"
+            description: {
+              event: "ลบอีเวนต์อย่างถาวร",
+              product: "ลบสินค้าอย่างถาวร",
+              rewardItem: "ลบรายการรางวัลอย่างถาวร",
             },
           },
-          advancedTypes: {
-            title: "ประเภทสินค้าขั้นสูง",
-            types: {
-              tickets: {
-                name: "บัตรอีเวนต์",
-                description: "ขายบัตรสำหรับอีเวนต์ เวิร์คช็อป หรือสัมมนา"
-              },
-              booking: {
-                name: "การจองและนัดหมาย",
-                description: "ให้ลูกค้าจองช่วงเวลาสำหรับบริการ"
-              },
-              subscription: {
-                name: "การสมัครสมาชิก",
-                description: "เสนอการเรียกเก็บเงินและการสมัครสมาชิกแบบต่อเนื่อง"
-              },
-              digital: {
-                name: "ดาวน์โหลดดิจิทัล",
-                description: "ขายสินค้าดิจิทัลที่ดาวน์โหลดได้"
-              },
-              bundle: {
-                name: "ชุดสินค้า",
-                description: "สร้างชุดสินค้าจากหลายรายการ"
-              },
-              customizable: {
-                name: "สินค้าที่ปรับแต่งได้",
-                description: "อนุญาตให้ปรับแต่งสินค้าได้"
-              }
-            }
+        },
+        delete: {
+          title: {
+            event: "ลบอีเวนต์",
+            product: "ลบสินค้า",
+            rewardItem: "ลบรายการรางวัล",
           },
-          productType: {
-            configuration: "การกำหนดค่า",
+          description: "การดำเนินการนี้ไม่สามารถยกเลิกได้",
+          warning:
+            "การดำเนินการนี้จะลบ {name} และข้อมูลทั้งหมดอย่างถาวร ไม่สามารถยกเลิกได้",
+          confirmText: "พิมพ์ {text} เพื่อยืนยัน",
+          cancel: "ยกเลิก",
+          deleting: "กำลังลบ...",
+          confirm: {
+            event: "ลบอีเวนต์",
+            product: "ลบสินค้า",
+            rewardItem: "ลบรายการรางวัล",
+          },
+        },
+        advancedTypes: {
+          title: "ประเภทสินค้าขั้นสูง",
+          types: {
             tickets: {
-              defaultType: "บัตรทั่วไป",
-              eventDetails: "รายละเอียดอีเวนต์",
-              types: "ประเภทบัตร",
-              namePlaceholder: "ชื่อบัตร",
-              pricePlaceholder: "ราคา",
-              addType: "เพิ่มประเภทบัตร"
+              name: "บัตรอีเวนต์",
+              description: "ขายบัตรสำหรับอีเวนต์ เวิร์คช็อป หรือสัมมนา",
             },
             booking: {
-              duration: "ระยะเวลาบริการ (นาที)",
-              timeSlots: "ช่วงเวลาที่ว่าง",
-              capacityPlaceholder: "ความจุ",
-              addSlot: "เพิ่มช่วงเวลา"
+              name: "การจองและนัดหมาย",
+              description: "ให้ลูกค้าจองช่วงเวลาสำหรับบริการ",
             },
             subscription: {
-              billingCycle: "รอบการเรียกเก็บเงิน",
-              weekly: "รายสัปดาห์",
-              monthly: "รายเดือน",
-              annually: "รายปี",
-              trialPeriod: "ระยะเวลาทดลองใช้ (วัน)"
+              name: "การสมัครสมาชิก",
+              description: "เสนอการเรียกเก็บเงินและการสมัครสมาชิกแบบต่อเนื่อง",
             },
             digital: {
-              downloadSettings: "การตั้งค่าการดาวน์โหลด",
-              limitDownloads: "จำกัดการดาวน์โหลด",
-              maxDownloads: "จำนวนดาวน์โหลดสูงสุด",
-              linkExpiration: "ระยะเวลาลิงก์หมดอายุ (ชั่วโมง)"
+              name: "ดาวน์โหลดดิจิทัล",
+              description: "ขายสินค้าดิจิทัลที่ดาวน์โหลดได้",
             },
             bundle: {
-              settings: "การตั้งค่าชุดสินค้า",
-              allowIndividual: "อนุญาตการขายแยก",
-              dynamicPricing: "ราคาแบบไดนามิก",
-              discount: "ส่วนลดชุดสินค้า (%)"
+              name: "ชุดสินค้า",
+              description: "สร้างชุดสินค้าจากหลายรายการ",
             },
             customizable: {
-              options: "ตัวเลือกการปรับแต่ง",
-              textEngraving: "การแกะสลักข้อความ",
-              colorSelection: "การเลือกสี",
-              sizeOptions: "ตัวเลือกขนาด",
-              additionalFee: "ค่าธรรมเนียมเพิ่มเติม",
-              feePlaceholder: "ค่าธรรมเนียมสำหรับการปรับแต่ง"
-            }
-          }
-        }
-      },
-      messages: {
-        createSuccess: "สร้างสินค้าสำเร็จ",
-        updateSuccess: "อัปเดตสินค้าสำเร็จ",
-        deleteSuccess: "ลบสินค้าสำเร็จ",
-        error: "เกิดข้อผิดพลาดในการดำเนินการ",
-        duplicateSuccess: "คัดลอกสินค้าสำเร็จ",
-        duplicateError: "ไม่สามารถคัดลอกสินค้าได้"
-      },
-      categories: {
-        title: "หมวดหมู่",
-        description: "จัดการหมวดหมู่สินค้าของคุณ",
-        actions: {
-          add: "เพิ่มหมวดหมู่",
-          edit: "แก้ไขหมวดหมู่",
-          delete: "ลบหมวดหมู่"
-        },
-        list: {
-          empty: {
-            title: "ไม่พบหมวดหมู่",
-            description: "เริ่มต้นด้วยการเพิ่มหมวดหมู่แรกของคุณ"
+              name: "สินค้าที่ปรับแต่งได้",
+              description: "อนุญาตให้ปรับแต่งสินค้าได้",
+            },
           },
-          columns: {
-            category: "หมวดหมู่",
-            slug: "สลัก",
-            description: "รายละเอียด"
-          },
-          search: "ค้นหาหมวดหมู่..."
         },
-        form: {
-          name: "ชื่อหมวดหมู่",
+        productType: {
+          configuration: "การกำหนดค่า",
+          tickets: {
+            defaultType: "บัตรทั่วไป",
+            eventDetails: "รายละเอียดอีเวนต์",
+            types: "ประเภทบัตร",
+            namePlaceholder: "ชื่อบัตร",
+            pricePlaceholder: "ราคา",
+            addType: "เพิ่มประเภทบัตร",
+          },
+          booking: {
+            duration: "ระยะเวลาบริการ (นาที)",
+            timeSlots: "ช่วงเวลาที่ว่าง",
+            capacityPlaceholder: "ความจุ",
+            addSlot: "เพิ่มช่วงเวลา",
+          },
+          subscription: {
+            billingCycle: "รอบการเรียกเก็บเงิน",
+            weekly: "รายสัปดาห์",
+            monthly: "รายเดือน",
+            annually: "รายปี",
+            trialPeriod: "ระยะเวลาทดลองใช้ (วัน)",
+          },
+          digital: {
+            downloadSettings: "การตั้งค่าการดาวน์โหลด",
+            limitDownloads: "จำกัดการดาวน์โหลด",
+            maxDownloads: "จำนวนดาวน์โหลดสูงสุด",
+            linkExpiration: "ระยะเวลาลิงก์หมดอายุ (ชั่วโมง)",
+          },
+          bundle: {
+            settings: "การตั้งค่าชุดสินค้า",
+            allowIndividual: "อนุญาตการขายแยก",
+            dynamicPricing: "ราคาแบบไดนามิก",
+            discount: "ส่วนลดชุดสินค้า (%)",
+          },
+          customizable: {
+            options: "ตัวเลือกการปรับแต่ง",
+            textEngraving: "การแกะสลักข้อความ",
+            colorSelection: "การเลือกสี",
+            sizeOptions: "ตัวเลือกขนาด",
+            additionalFee: "ค่าธรรมเนียมเพิ่มเติม",
+            feePlaceholder: "ค่าธรรมเนียมสำหรับการปรับแต่ง",
+          },
+        },
+      },
+    },
+    messages: {
+      createSuccess: "สร้างสินค้าสำเร็จ",
+      updateSuccess: "อัปเดตสินค้าสำเร็จ",
+      deleteSuccess: "ลบสินค้าสำเร็จ",
+      error: "เกิดข้อผิดพลาดในการดำเนินการ",
+      duplicateSuccess: "คัดลอกสินค้าสำเร็จ",
+      duplicateError: "ไม่สามารถคัดลอกสินค้าได้",
+    },
+    categories: {
+      title: "หมวดหมู่",
+      description: "จัดการหมวดหมู่สินค้าของคุณ",
+      actions: {
+        add: "เพิ่มหมวดหมู่",
+        edit: "แก้ไขหมวดหมู่",
+        delete: "ลบหมวดหมู่",
+      },
+      list: {
+        empty: {
+          title: "ไม่พบหมวดหมู่",
+          description: "เริ่มต้นด้วยการเพิ่มหมวดหมู่แรกของคุณ",
+        },
+        columns: {
+          category: "หมวดหมู่",
           slug: "สลัก",
           description: "รายละเอียด",
-          namePlaceholder: "ใส่ชื่อหมวดหมู่",
-          slugPlaceholder: "ใส่-สลัก-หมวดหมู่",
-          descriptionPlaceholder: "ใส่รายละเอียดหมวดหมู่",
-          nameHelp: "ชื่อนี้จะแสดงให้ลูกค้าเห็น",
-          slugHelp: "เวอร์ชัน URL ที่เป็นมิตรของชื่อ",
-          descriptionHelp: "อธิบายว่าสินค้าประเภทใดที่ควรอยู่ในหมวดหมู่นี้"
         },
-        messages: {
-          createSuccess: "สร้างหมวดหมู่สำเร็จ",
-          updateSuccess: "อัปเดตหมวดหมู่สำเร็จ",
-          deleteSuccess: "ลบหมวดหมู่สำเร็จ",
-          error: "เกิดข้อผิดพลาดในการดำเนินการ"
-        }
-      }
-  }
-}; 
+        search: "ค้นหาหมวดหมู่...",
+      },
+      form: {
+        name: "ชื่อหมวดหมู่",
+        slug: "สลัก",
+        description: "รายละเอียด",
+        namePlaceholder: "ใส่ชื่อหมวดหมู่",
+        slugPlaceholder: "ใส่-สลัก-หมวดหมู่",
+        descriptionPlaceholder: "ใส่รายละเอียดหมวดหมู่",
+        nameHelp: "ชื่อนี้จะแสดงให้ลูกค้าเห็น",
+        slugHelp: "เวอร์ชัน URL ที่เป็นมิตรของชื่อ",
+        descriptionHelp: "อธิบายว่าสินค้าประเภทใดที่ควรอยู่ในหมวดหมู่นี้",
+      },
+      messages: {
+        createSuccess: "สร้างหมวดหมู่สำเร็จ",
+        updateSuccess: "อัปเดตหมวดหมู่สำเร็จ",
+        deleteSuccess: "ลบหมวดหมู่สำเร็จ",
+        error: "เกิดข้อผิดพลาดในการดำเนินการ",
+      },
+    },
+  },
+};

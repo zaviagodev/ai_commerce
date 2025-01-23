@@ -27,22 +27,22 @@ export interface Product {
   images: ProductImage[];
   category?: ProductCategory;
   price: number;
+  pointsBasedPrice?: number;
   compareAtPrice?: number;
   cost?: number;
   sku?: string;
   barcode?: string;
   trackQuantity: boolean;
   weight: number;
-  weightUnit: 'kg' | 'lb';
+  weightUnit: "kg" | "lb";
   width: number;
   length: number;
   height: number;
-  dimensionUnit: 'cm' | 'in';
+  dimensionUnit: "cm" | "in";
   tags: ProductTag[];
   status: "draft" | "active" | "archived";
-  isRewardItem?: boolean;
-  pointsRequired?: number;
-  pointsValue?: number;
+  isReward?: boolean;
+  isGiftCard?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -60,6 +60,7 @@ export interface ProductVariant {
   sku: string;
   price: number;
   compareAtPrice?: number;
+  pointsBasedPrice?: number;
   quantity: number;
   options: {
     name: string;

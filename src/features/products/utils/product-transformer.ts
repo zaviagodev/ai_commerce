@@ -1,4 +1,4 @@
-import { Product } from '@/types/product';
+import { Product } from "@/types/product";
 
 export function transformProduct(product: any): Product {
   return {
@@ -6,15 +6,22 @@ export function transformProduct(product: any): Product {
     name: product.name,
     description: product.description,
     variantOptions: product.variant_options || [],
+    isReward: product.is_reward || false,
+    isGiftCard: product.is_gift_card || false,
     variants: (product.product_variants || []).map((variant: any) => ({
       id: variant.id,
       name: variant.name,
-      sku: variant.sku || '',
+      sku: variant.sku || "",
       price: Number(variant.price),
-      compareAtPrice: variant.compare_at_price ? Number(variant.compare_at_price) : undefined,
+      compareAtPrice: variant.compare_at_price
+        ? Number(variant.compare_at_price)
+        : undefined,
+      pointsBasedPrice: variant.points_based_price
+        ? Number(variant.points_based_price)
+        : undefined,
       quantity: variant.quantity || 0,
       options: variant.options || [],
-      status: variant.status || 'active',
+      status: variant.status || "active",
       position: variant.position || 0,
     })),
     images: (product.product_images || [])
@@ -22,16 +29,20 @@ export function transformProduct(product: any): Product {
       .map((image: any) => ({
         id: image.id,
         url: image.url,
-        alt: image.alt || '',
+        alt: image.alt || "",
         position: image.position,
       })),
-    category: product.product_categories ? {
-      id: product.product_categories.id,
-      name: product.product_categories.name,
-      slug: product.product_categories.slug,
-    } : undefined,
+    category: product.product_categories
+      ? {
+          id: product.product_categories.id,
+          name: product.product_categories.name,
+          slug: product.product_categories.slug,
+        }
+      : undefined,
     price: Number(product.price),
-    compareAtPrice: product.compare_at_price ? Number(product.compare_at_price) : undefined,
+    compareAtPrice: product.compare_at_price
+      ? Number(product.compare_at_price)
+      : undefined,
     cost: product.cost ? Number(product.cost) : undefined,
     sku: product.sku,
     barcode: product.barcode,

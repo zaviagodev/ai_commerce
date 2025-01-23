@@ -75,7 +75,10 @@ import { DashboardPage } from "@/features/dashboard/pages/dashboard-page";
 import { EditEventOrderPage } from "./features/tickets/pages/edit-event-order-page";
 import { NewEventOrderPage } from "./features/tickets/pages/new-event-order-page";
 import { TeamsPage } from "./features/teams/pages/teams-page";
-import MemberDetailsPage from './features/teams/pages/member-details-page';
+import MemberDetailsPage from "./features/teams/pages/member-details-page";
+import { EditRewardPage } from "./features/rewards/pages/edit-reward-page";
+import { NewRewardPage } from "./features/rewards/pages/new-reward-page";
+import { RewardsPage } from "./features/rewards/pages/rewards-page";
 
 export default function App() {
   useEffect(() => {
@@ -140,14 +143,8 @@ export default function App() {
 
               {/* Category Routes */}
               <Route path="categories" element={<CategoriesPage />} />
-              <Route
-                path="categories/new"
-                element={<NewCategoryPage />}
-              />
-              <Route
-                path="categories/:id"
-                element={<EditCategoryPage />}
-              />
+              <Route path="categories/new" element={<NewCategoryPage />} />
+              <Route path="categories/:id" element={<EditCategoryPage />} />
 
               {/* Event & Ticket Routes */}
               <Route path="events" element={<EventsPage />} />
@@ -156,7 +153,7 @@ export default function App() {
 
               {/* Event Orders Routes */}
               <Route path="event-orders" element={<EventOrdersPage />} />
-              <Route path="event-orders/new" element={<NewEventOrderPage/>} />
+              <Route path="event-orders/new" element={<NewEventOrderPage />} />
               <Route path="event-orders/:id" element={<EditEventOrderPage />} />
 
               {/* Customer Routes */}
@@ -184,14 +181,8 @@ export default function App() {
 
               {/* Campaigns Routes */}
               <Route path="campaigns" element={<CampaignsPage />} />
-              <Route
-                path="campaigns/new"
-                element={<NewCampaignPage />}
-              />
-              <Route
-                path="campaigns/:id"
-                element={<EditCampaignPage />}
-              />
+              <Route path="campaigns/new" element={<NewCampaignPage />} />
+              <Route path="campaigns/:id" element={<EditCampaignPage />} />
 
               {/* Coupon Campaigns Routes */}
               <Route
@@ -212,9 +203,9 @@ export default function App() {
               <Route path="redeem-list/:id" element={<EditRedeemPage />} />
 
               {/* Reward Items Routes */}
-              <Route path="reward-items" element={<RewardsItemsPage />} />
-              <Route path="reward-items/new" element={<NewProductPage />} />
-              <Route path="reward-items/:id" element={<EditProductPage />} />
+              <Route path="reward-items" element={<RewardsPage />} />
+              <Route path="reward-items/new" element={<NewRewardPage />} />
+              <Route path="reward-items/:id" element={<EditRewardPage />} />
 
               <Route path="customer-tiers" element={<CustomerTiersPage />} />
               <Route
