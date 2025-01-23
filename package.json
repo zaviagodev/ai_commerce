@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "migrate": "npx supabase db push"
+    "migrate": "npx supabase db push",
+    "prepare": "cp scripts/pre-commit .git/hooks/pre-commit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
