@@ -228,7 +228,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
       </motion.div>
 
       {/* Usage Statistics */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      {/* <div className="grid gap-4 sm:grid-cols-3">
         <Card>
           <div className="p-6">
             <div className="flex items-center gap-2">
@@ -291,7 +291,7 @@ export function CouponPreview({ form }: CouponPreviewProps) {
             </p>
           </div>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

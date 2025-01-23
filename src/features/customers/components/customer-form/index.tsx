@@ -150,7 +150,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
 
             {/* Action Buttons */}
             <div className="flex items-center">
-              <ShareModal
+              {/* <ShareModal
                 title={customerName || "New Customer"}
                 url={window.location.href}
               >
@@ -158,7 +158,7 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                   <Share2 className="mr-2 h-4 w-4" />
                   Share
                 </Button>
-              </ShareModal>
+              </ShareModal> */}
               {/* <div className="mx-4 h-4 w-px bg-border" />
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon">
@@ -170,8 +170,8 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                 <Button variant="ghost" size="icon">
                   <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                 </Button>
-              </div> */}
-              <div className="mx-2 h-4 w-px bg-border" />
+              </div> 
+              <div className="mx-2 h-4 w-px bg-border" /> */}
               <Button type="submit">Save customer</Button>
             </div>
           </motion.div>

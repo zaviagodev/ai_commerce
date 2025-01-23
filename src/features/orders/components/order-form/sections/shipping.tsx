@@ -45,17 +45,17 @@ export function Shipping({ form }: ShippingProps) {
             {t.orders.orders.form.sections.shipping.description}
           </p>
         </div>
-        {/* <ShippingTypeDialog 
+        <ShippingTypeDialog
           currentType={shippingType}
           onSelect={handleShippingTypeChange}
         >
           <Button variant="outline" size="sm">
             <Settings className="h-4 w-4 mr-2" />
-            {shippingType === 'dynamic' 
-              ? t.orders.orders.form.sections.shipping.types.dynamic 
+            {shippingType === "dynamic"
+              ? t.orders.orders.form.sections.shipping.types.dynamic
               : t.orders.orders.form.sections.shipping.types.manual}
           </Button>
-        </ShippingTypeDialog> */}
+        </ShippingTypeDialog>
       </CardHeader>
       <CardContent>
         {shippingType === "dynamic" ? (

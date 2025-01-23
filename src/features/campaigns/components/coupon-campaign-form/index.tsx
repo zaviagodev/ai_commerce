@@ -137,7 +137,7 @@ export function CouponCampaignForm({
 
               {/* Right Section */}
               <div className="flex items-center justify-end gap-2">
-                <ShareModal
+                {/* <ShareModal
                   title={couponCode || "New Coupon"}
                   url={window.location.href}
                 >
@@ -145,8 +145,8 @@ export function CouponCampaignForm({
                     <Share2 className="mr-2 h-4 w-4" />
                     Share
                   </Button>
-                </ShareModal>
-                <div className="mx-2 h-4 w-px bg-border" />
+                </ShareModal> 
+                <div className="mx-2 h-4 w-px bg-border" /> */}
                 <Button type="submit">Save campaign</Button>
               </div>
             </div>
@@ -180,7 +180,7 @@ export function CouponCampaignForm({
                     <BasicDetails form={form} />
                     <DiscountRules form={form} />
                     <UsageLimits form={form} />
-                    <AdvancedConditions form={form} />
+                    {/* <AdvancedConditions form={form} /> */}
                   </TabsContent>
                 </Tabs>
               </div>

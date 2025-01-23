@@ -287,9 +287,9 @@ export function ProductForm({
                 className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
-                {headerActions}
-                <div className="mx-2 h-4 w-px bg-border" />
-                <ShareModal
+                {productName && headerActions}
+                {productName && <div className="mx-2 h-4 w-px bg-border" />}
+                {/* <ShareModal
                   title={productName || `${t.products.products.form.untitled}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
@@ -299,7 +299,7 @@ export function ProductForm({
                     {t.products.products.actions.share}
                   </Button>
                 </ShareModal>
-                <div className="mx-2 h-4 w-px bg-border" />
+                <div className="mx-2 h-4 w-px bg-border" /> */}
                 <Button
                   type="submit"
                   onClick={(e) => {
@@ -324,11 +324,11 @@ export function ProductForm({
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
                   <TabsList className="mb-6">
-                    {isEventProduct && (
+                    {/* {isEventProduct && (
                       <TabsTrigger value="event-summary">
                         {t.products.products.form.tabs.eventSummary}
                       </TabsTrigger>
-                    )}
+                    )} */}
                     <TabsTrigger value="item-info">
                       {t.products.products.form.tabs.itemInfo}
                     </TabsTrigger>
@@ -338,11 +338,11 @@ export function ProductForm({
                       </TabsTrigger>
                     )}
                   </TabsList>
-                  {isEventProduct && (
+                  {/* {isEventProduct && (
                     <TabsContent value="event-summary" className="space-y-8">
                       <EventSummary form={form} />
                     </TabsContent>
-                  )}
+                  )} */}
                   <TabsContent value="item-info" className="space-y-8">
                     {/* Media Section */}
                     <Card>

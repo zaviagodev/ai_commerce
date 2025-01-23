@@ -69,7 +69,7 @@ export function NavUser({
                 </span>
                 <span className="truncate text-[11px]">{user.email}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-3" />
+              {/* <ChevronsUpDown className="ml-auto size-3" /> */}
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
