@@ -148,11 +148,6 @@ export function ProductForm({
     }
   };
 
-  const checkTypeofItem: string = 
-    isEventProduct ? 'event' : 
-    isRewardProduct ? 'rewardItem' : 
-    'product'
-
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -212,17 +207,17 @@ export function ProductForm({
                           className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text truncate"
                           onClick={handleStartEditing}
                         >
-                          {productName || t.products.products.form.untitled[checkTypeofItem]}
+                          {productName || t.products.products.form.untitled}
                         </h1>
                         {initialData?.status && !isEditing && (
                           <Badge
                             variant="secondary"
                             className={cn('whitespace-nowrap gap-2', {
-                              '!bg-green-200 text-green-700 dark:!bg-green-700 dark:text-green-200':
+                              '!bg-green-100 text-green-700 dark:!bg-green-700 dark:text-green-200':
                                 initialData.status === 'active',
-                              '!bg-red-200 text-red-700 dark:!bg-red-700 dark:text-red-200':
+                              '!bg-red-100 text-red-700 dark:!bg-red-700 dark:text-red-200':
                                 initialData.status === 'archived',
-                              '!bg-gray-200 text-gray-700 dark:!bg-gray-700 dark:text-gray-200':
+                              '!bg-gray-100 text-gray-700 dark:!bg-gray-700 dark:text-gray-200':
                                 initialData.status === 'draft',
                             })}
                           >
@@ -292,7 +287,7 @@ export function ProductForm({
                 {headerActions}
                 <div className="mx-2 h-4 w-px bg-border" />
                 <ShareModal
-                  title={productName || `${t.products.products.form.untitled[checkTypeofItem]}`}
+                  title={productName || `${t.products.products.form.untitled}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
@@ -359,7 +354,7 @@ export function ProductForm({
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.media.description[checkTypeofItem]}
+                            {t.products.products.form.sections.media.description}
                           </p>
                         </div>
                       </CardHeader>
@@ -379,12 +374,12 @@ export function ProductForm({
                             {t.products.products.form.sections.basicDetails.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.basicDetails.description[checkTypeofItem]}
+                            {t.products.products.form.sections.basicDetails.description}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <BasicDetails form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
+                        <BasicDetails form={form} />
                       </CardContent>
                     </Card>
 
@@ -402,12 +397,12 @@ export function ProductForm({
                             {t.products.products.form.sections.pricing.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.pricing.description[checkTypeofItem]}
+                            {t.products.products.form.sections.pricing.description}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} isEventProduct={isEventProduct}/>
+                        <Pricing form={form} />
                       </CardContent>
                     </Card>
 
@@ -422,17 +417,17 @@ export function ProductForm({
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.inventory.description[checkTypeofItem]}
+                            {t.products.products.form.sections.inventory.description}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Inventory form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
+                        <Inventory form={form} />
                       </CardContent>
                     </Card>
 
                     {/* Variations Section */}
-                    <Variations form={form} isEventProduct={isEventProduct}/>
+                    <Variations form={form} />
 
                     {/* Shipping Section */}
                     {/* <Card>
@@ -465,12 +460,12 @@ export function ProductForm({
                             {t.products.products.form.sections.organization.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.organization.description[checkTypeofItem]}
+                            {t.products.products.form.sections.organization.description}
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Organization form={form} isEventProduct={isEventProduct} isRewardProduct={isRewardProduct}/>
+                        <Organization form={form} />
                       </CardContent>
                     </Card>
 

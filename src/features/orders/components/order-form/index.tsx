@@ -140,11 +140,11 @@ export function OrderForm({
                     ? `${formatDate(initialData.createdAt)} • ${formatDaysAgo(
                         initialData.createdAt
                       )}`
-                    : "Create a new order for your store"}
+                    : t.orders.orders.form.description.create}
                 </p>
               </div>
               <div className="flex items-center gap-4 ml-auto">
-                {headerActions || <Button type="submit">Save order</Button>}
+                {headerActions || <Button type="submit">{t.orders.orders.actions.saveOrder}</Button>}
               </div>
             </div>
           </motion.div>

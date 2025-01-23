@@ -22,10 +22,9 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface VariantTableProps {
   form: UseFormReturn<Product>;
-  isEventProduct?: boolean
 }
 
-export function VariantTable({ form, isEventProduct }: VariantTableProps) {
+export function VariantTable({ form }: VariantTableProps) {
   const t = useTranslation();
   const variants = form.watch('variants') || [];
   const variantOptions = form.watch('variantOptions') || [];
@@ -43,9 +42,6 @@ export function VariantTable({ form, isEventProduct }: VariantTableProps) {
   } = usePagination({
     initialPageSize: 20,
   });
-
-  const checkTypeofItem = 
-    isEventProduct ? "event" : "product"
 
   // Group variants by selected attribute
   const groupedVariants = useMemo(() => {
@@ -116,9 +112,9 @@ export function VariantTable({ form, isEventProduct }: VariantTableProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between border-b pb-4">
         <div className="flex flex-col gap-1">
-          <h3 className="text-sm font-medium">{t.products.products.form.sections.variations.title[checkTypeofItem]}</h3>
+          <h3 className="text-sm font-medium">{t.products.products.form.sections.variations.title}</h3>
           <p className="text-[0.8rem] text-muted-foreground">
-          {t.products.products.form.sections.variations.description[checkTypeofItem]}
+          {t.products.products.form.sections.variations.description}
           </p>
         </div>
         <div className="flex items-center gap-2">

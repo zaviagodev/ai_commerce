@@ -25,8 +25,6 @@ interface ItemActionsModalProps {
   onOpenChange: (open: boolean) => void;
   product: Product;
   onDelete: () => Promise<void>;
-  isEventProduct?: boolean;
-  isRewardProduct?: boolean;
 }
 
 export function ItemActionsModal({ 
@@ -34,8 +32,6 @@ export function ItemActionsModal({
   onOpenChange,
   product,
   onDelete,
-  isEventProduct,
-  isRewardProduct
 }: ItemActionsModalProps) {
   const t = useTranslation();
   const navigate = useNavigate();
@@ -52,11 +48,6 @@ export function ItemActionsModal({
     }
   };
 
-  const checkTypeofItem = 
-    isEventProduct ? "event" :
-    isRewardProduct ? "rewardItem" :
-    "product"
-
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -69,7 +60,7 @@ export function ItemActionsModal({
               variant="ghost"
               className="justify-start h-auto py-4"
               onClick={() => {
-                navigate(`/dashboard/${isEventProduct ? 'events' : 'products'}/${product.id}`);
+                navigate(`/dashboard/products/${product.id}`);
                 onOpenChange(false);
               }}
             >
@@ -78,9 +69,9 @@ export function ItemActionsModal({
                   <PencilRuler className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title[checkTypeofItem]}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.edit.description[checkTypeofItem]}
+                    {t.products.products.form.modals.itemActions.edit.description}
                   </p>
                 </div>
               </div>
@@ -96,7 +87,7 @@ export function ItemActionsModal({
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title[checkTypeofItem]}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title}</div>
                   <p className="text-sm text-muted-foreground">
                     {t.products.products.form.modals.itemActions.duplicate.description}
                   </p>
@@ -117,9 +108,9 @@ export function ItemActionsModal({
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title[checkTypeofItem]}</div>
+                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.delete.description[checkTypeofItem]}
+                    {t.products.products.form.modals.itemActions.delete.description}
                   </p>
                 </div>
               </div>

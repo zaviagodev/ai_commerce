@@ -212,10 +212,12 @@ export const customersTranslations = {
             name: {
               label: 'Group Name',
               placeholder: 'Enter group name',
+              description: "Choose a descriptive name for this customer group"
             },
             description: {
               label: 'Description',
               placeholder: 'Enter group description',
+              description: "Explain how this group will be used"
             },
             color: {
               label: 'Group Color',
@@ -225,6 +227,7 @@ export const customersTranslations = {
               label: 'Status',
               active: 'Active',
               inactive: 'Inactive',
+              description: "Control whether this group is currently active"
             },
           },
         },
@@ -877,10 +880,12 @@ export const customersTranslations = {
             name: {
               label: 'ชื่อกลุ่ม',
               placeholder: 'ระบุชื่อกลุ่ม',
+              description: "เลือกชื่อที่อธิบายกลุ่มลูกค้านี้"
             },
             description: {
               label: 'คำอธิบาย',
               placeholder: 'ระบุคำอธิบายกลุ่ม',
+              description: "อธิบายวิธีการใช้กลุ่มนี้"
             },
             color: {
               label: 'สีของกลุ่ม',
@@ -890,6 +895,7 @@ export const customersTranslations = {
               label: 'สถานะ',
               active: 'เปิดใช้งาน',
               inactive: 'ปิดใช้งาน',
+              description: "ควบคุมว่ากลุ่มนี้กำลังใช้งานอยู่หรือไม่"
             },
           },
         },

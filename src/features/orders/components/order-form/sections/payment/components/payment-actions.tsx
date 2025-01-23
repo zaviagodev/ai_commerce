@@ -74,7 +74,7 @@ export function PaymentActions({
                     type="button"
                   >
                     <MoreHorizontal className="mr-2 h-4 w-4" />
-                    {t.orders.orders.form.sections.payment.actions.title}
+                    {t.orders.orders.payment.actions.title}
                   </Button>
                 </motion.div>
                 <motion.div
@@ -136,7 +136,7 @@ export function PaymentActions({
             onClick={onReopenClick}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
-            {t.orders.payment.actions.reopen}
+            {t.orders.orders.actions.reopen}
           </Button>
           <Button
             variant="outline"
@@ -144,7 +144,7 @@ export function PaymentActions({
             onClick={onActionsClick}
           >
             <MoreHorizontal className="mr-2 h-4 w-4" />
-            {t.orders.payment.actions.title}
+            {t.orders.orders.payment.actions.title}
           </Button>
         </motion.div>
       )}

@@ -25,18 +25,12 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface OrganizationProps {
   form: UseFormReturn<Product>;
-  isEventProduct?: boolean;
-  isRewardProduct?: boolean;
 }
 
-export function Organization({ form, isEventProduct, isRewardProduct }: OrganizationProps) {
+export function Organization({ form }: OrganizationProps) {
   const t = useTranslation();
   const { categories, isLoading } = useCategories();
   const tags = form.watch('tags') || [];
-  const checkTypeofItem =
-    isEventProduct ? "event" :
-    isRewardProduct ? "rewardItem" :
-    "product"
 
   return (
     <div className="space-y-4">
@@ -67,7 +61,7 @@ export function Organization({ form, isEventProduct, isRewardProduct }: Organiza
                   </SelectItem>
                 ) : categories.length === 0 ? (
                   <SelectItem value="empty" disabled>
-                    {t.products.products.form.sections.organization.noCategories}
+                    {t.products.products.form.sections.organization.noCategory}
                   </SelectItem>
                 ) : (
                   categories.map((category) => (
@@ -80,7 +74,7 @@ export function Organization({ form, isEventProduct, isRewardProduct }: Organiza
             </Select>
             <div className="flex items-center justify-between">
               <FormDescription>
-                {t.products.products.form.sections.organization.choose[checkTypeofItem]}
+                {t.products.products.form.sections.organization.choose}
               </FormDescription>
               <Button variant="link" className="px-0" asChild>
                 <Link to="/dashboard/categories/new">
@@ -107,9 +101,27 @@ export function Organization({ form, isEventProduct, isRewardProduct }: Organiza
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="draft">{t.products.products.status.draft}</SelectItem>
-                <SelectItem value="active">{t.products.products.status.active}</SelectItem>
-                <SelectItem value="archived">{t.products.products.status.archived}</SelectItem>
+                <SelectItem value="draft">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="!bg-gray-100 text-gray-700">
+                      {t.products.products.status.draft}
+                    </Badge>
+                  </div>
+                </SelectItem>
+                <SelectItem value="active">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="!bg-green-100 text-green-700">
+                      {t.products.products.status.active}
+                    </Badge>
+                  </div>
+                </SelectItem>
+                <SelectItem value="archived">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="!bg-red-100 text-red-700">
+                      {t.products.products.status.archived}
+                    </Badge>
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
             <FormMessage />
@@ -167,7 +179,7 @@ export function Organization({ form, isEventProduct, isRewardProduct }: Organiza
               </div>
             </FormControl>
             <FormDescription>
-              Tags can help customers find your {isEventProduct ? 'event' : 'product'}s easily
+              {t.products.products.form.sections.organization.tagsDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -11,11 +11,9 @@ import { useTranslation } from "@/lib/i18n/hooks";
 interface DynamicPricingProps {
   value: number;
   onChange: (value: { price: number; compareAtPrice?: number }) => void;
-  isEventProduct?: boolean;
-  isRewardProduct?: boolean;
 }
 
-export function DynamicPricing({ value, onChange, isEventProduct, isRewardProduct }: DynamicPricingProps) {
+export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
   const t = useTranslation();
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
@@ -87,15 +85,10 @@ export function DynamicPricing({ value, onChange, isEventProduct, isRewardProduc
     });
   }, [price, isDiscountEnabled, finalPrice, onChange]);
 
-  const checkTypeofItem = 
-    isEventProduct ? "event" :
-    isRewardProduct ? "rewardItem" :
-    "product"
-
   return (
     <div className="space-y-6">
       <PriceInput
-        label="Price"
+        label={t.products.products.form.sections.pricing.title}
         value={price}
         onChange={handlePriceChange}
       />
@@ -108,7 +101,7 @@ export function DynamicPricing({ value, onChange, isEventProduct, isRewardProduc
                 {t.products.products.form.sections.pricing.title}
               </Label>
               <p className="text-sm text-muted-foreground">
-                {t.products.products.form.sections.pricing.description[checkTypeofItem]}
+                {t.products.products.form.sections.pricing.description}
               </p>
             </div>
             <Switch

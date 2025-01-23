@@ -1,5 +1,7 @@
 export const ecommerce = {
     en: {
+      title: "E-commerce Settings",
+      subtitle: "Configure your store's e-commerce settings",
       general: {
         title: 'General Settings',
         subtitle: 'Configure basic store settings',
@@ -88,6 +90,8 @@ export const ecommerce = {
       }
     },
     th: {
+      title: "การตั้งค่าอีคอมเมิร์ซ",
+      subtitle: "กำหนดค่าอีคอมเมิร์ซของร้านค้าของคุณ",
       general: {
         title: 'การตั้งค่าทั่วไป',
         subtitle: 'กำหนดค่าพื้นฐานของร้านค้า',

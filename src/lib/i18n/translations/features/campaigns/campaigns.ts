@@ -115,7 +115,10 @@ export const campaignTranslations = {
               description: 'Whether this coupon is active or not',
               options: {
                 active: 'Active',
-                inactive: 'Inactive'
+                inactive: 'Inactive',
+                draft: 'Draft',
+                scheduled: 'Scheduled',
+                ended: 'Ended'
               }
             }
           }
@@ -408,7 +411,10 @@ export const campaignTranslations = {
               description: 'คูปองนี้ใช้งานได้หรือไม่',
               options: {
                 active: 'ใช้งาน',
-                inactive: 'ไม่ใช้งาน'
+                inactive: 'ไม่ใช้งาน',
+                draft: 'แบบร่าง',
+                scheduled: 'กำหนดเวลา',
+                ended: 'สิ้นสุด'
               }
             }
           }

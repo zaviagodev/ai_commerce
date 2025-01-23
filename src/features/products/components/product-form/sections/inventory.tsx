@@ -14,20 +14,13 @@ import { useTranslation } from '@/lib/i18n/hooks';
 
 interface InventoryProps {
   form: UseFormReturn<Product>;
-  isEventProduct?: boolean;
-  isRewardProduct?: boolean
 }
 
-export function Inventory({ form, isEventProduct, isRewardProduct }: InventoryProps) {
+export function Inventory({ form }: InventoryProps) {
   const t = useTranslation();
   const trackQuantity = form.watch('trackQuantity');
   const variantOptions = form.watch('variantOptions') || [];
   const hasVariants = variantOptions.length > 0;
-
-  const checkTypeofItem: string = 
-    isEventProduct ? 'event' : 
-    isRewardProduct ? 'rewardItem' : 
-    'product'
 
   return (
     <div className="space-y-4">
@@ -36,15 +29,15 @@ export function Inventory({ form, isEventProduct, isRewardProduct }: InventoryPr
         name="sku"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sku[checkTypeofItem]}</FormLabel>
+            <FormLabel>{t.products.products.form.sku}</FormLabel>
             <FormControl>
               <Input 
-                placeholder={t.products.products.form.sections.inventory.skuPlaceholder[checkTypeofItem]} 
+                placeholder={t.products.products.form.sections.inventory.skuPlaceholder} 
                 {...field} 
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.inventory.skuDescription[checkTypeofItem]}
+              {t.products.products.form.sections.inventory.skuDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -64,7 +57,7 @@ export function Inventory({ form, isEventProduct, isRewardProduct }: InventoryPr
               />
             </FormControl>
             <FormDescription>
-              {t.products.products.form.sections.inventory.barcodeDescription[checkTypeofItem]}
+              {t.products.products.form.sections.inventory.barcodeDescription}
             </FormDescription>
             <FormMessage />
           </FormItem>

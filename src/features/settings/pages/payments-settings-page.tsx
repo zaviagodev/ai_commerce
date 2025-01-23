@@ -6,8 +6,10 @@ import { PaymentSettingsSchema } from '../schemas/payment-settings-schema';
 import { ThaiPaymentMethods } from '../components/payments/thai-payment-methods';
 import { PaymentGateways } from '../components/payments/payment-gateways';
 import { PaymentNotifications } from '../components/payments/payment-notifications';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function PaymentSettingsPage() {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(PaymentSettingsSchema),
     defaultValues: {
@@ -36,12 +38,12 @@ export function PaymentSettingsPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-medium">Payment Settings</h2>
+            <h2 className="text-lg font-medium">{t.settings.payments.title}</h2>
             <p className="text-sm text-muted-foreground">
-              Configure your store's payment methods and gateways
+              {t.settings.payments.subtitle}
             </p>
           </div>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">{t.settings.settings.save}</Button>
         </div>
 
         <div className="grid gap-6">

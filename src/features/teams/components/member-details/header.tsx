@@ -9,6 +9,7 @@ import { ROLES } from '../../data/roles';
 import { getTimeAgo } from '@/lib/utils'; 
 import { RemoveMemberModal } from './remove-member-modal';
 import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface HeaderProps {
   member: Member;
@@ -16,6 +17,7 @@ interface HeaderProps {
 }
 
 export function Header({ member, onShowActions }: HeaderProps) {
+  const t = useTranslation();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const RoleIcon = ROLES[member.role as keyof typeof ROLES].icon;
 
@@ -97,12 +99,12 @@ export function Header({ member, onShowActions }: HeaderProps) {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <span className="hidden sm:inline">Created by</span>
+                <span className="hidden sm:inline">{t.teams.members.createdBy}</span>
                 <span className="truncate">Admin</span>
               </div>
               <span className="hidden sm:inline">•</span>
               <span className="truncate">
-                Last updated {getTimeAgo(member.updatedAt)}
+                {t.teams.members.lastUpdated} {getTimeAgo(member.updatedAt)}
               </span>
             </div>
           </div>
@@ -129,7 +131,7 @@ export function Header({ member, onShowActions }: HeaderProps) {
             variant="destructive"
             onClick={() => setShowRemoveModal(true)}
           >
-            Remove Member
+            {t.teams.members.actions.removeMember}
           </Button>
         </div>
       </div>

@@ -19,6 +19,7 @@ import { RedeemCodeModal } from './redeem-code-modal';
 import { useMemo, useState } from 'react';
 import Loading from '@/components/loading';
 import { ProductSearch } from '@/features/products/components/product-search';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RedeemListProps {
   redeems: Redeem[];
@@ -26,6 +27,7 @@ interface RedeemListProps {
 }
 
 export function RedeemList({ redeems, isLoading }: RedeemListProps) {
+  const t = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const {
@@ -73,14 +75,14 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">Redeem List</h1>
+          <h1 className="text-2xl font-semibold">{t.redeemList.redeemList.list.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage point redemption orders
+            {t.redeemList.redeemList.list.description}
           </p>
         </div>
         <Button onClick={() => setIsModalOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
-          New Redeem
+          {t.redeemList.redeemList.list.actions.newRedeem}
         </Button>
       </motion.div>
 
@@ -93,7 +95,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Search redeem list..."
+          placeholder={t.redeemList.redeemList.list.search}
         />
       </motion.div>
 
@@ -106,11 +108,11 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         <Table className={paginatedRedeems.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>Redeem Code</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Points Redeemed</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date Redeemed</TableHead>
+              <TableHead>{t.redeemList.redeemList.list.table.headers.redeemCode}</TableHead>
+              <TableHead>{t.redeemList.redeemList.list.table.headers.customer}</TableHead>
+              <TableHead>{t.redeemList.redeemList.list.table.headers.pointsRedeemed}</TableHead>
+              <TableHead>{t.redeemList.redeemList.list.table.headers.status}</TableHead>
+              <TableHead>{t.redeemList.redeemList.list.table.headers.dateRedeemed}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -118,9 +120,9 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">No redeems found</p>
+                    <p className="text-lg font-medium">{t.redeemList.redeemList.list.table.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      Start by processing a new redeem order
+                      {t.redeemList.redeemList.list.table.empty.description}
                     </p>
                     <Button
                       onClick={() => setIsModalOpen(true)}
@@ -128,7 +130,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                       variant="outline"
                     >
                       <Plus className="mr-2 h-4 w-4" />
-                      New Redeem
+                      {t.redeemList.redeemList.list.actions.newRedeem}
                     </Button>
                   </div>
                 </TableCell>
@@ -153,7 +155,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                   </TableCell>
                   <TableCell>
                     {redeem.pointsRedeemed.toLocaleString()}{' '}
-                    {redeem.pointsRedeemed === 1 ? 'point' : 'points'}
+                    {t.redeemList.redeemList.list.table.cells[redeem.pointsRedeemed === 1 ? "point" : "points"]}
                   </TableCell>
                   <TableCell>
                     <Badge
@@ -163,7 +165,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
                         "!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100": redeem.status === 'pending',
                       })}
                     >
-                      {redeem.status}
+                      {t.redeemList.redeemList.list.table.status[redeem.status as keyof typeof t.redeemList.redeemList.list.table.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>{formatDate(redeem.redeemedAt)}</TableCell>

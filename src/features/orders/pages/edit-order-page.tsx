@@ -8,8 +8,10 @@ import { useOrders } from '../hooks/use-orders';
 import { PrintButton } from '../components/print-invoice/print-button';
 import { motion } from 'framer-motion';
 import { Pencil, Printer } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function EditOrderPage() {
+  const t = useTranslation();
   const { id } = useParams();
   const { orders, updateOrder } = useOrders();
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -42,7 +44,7 @@ export function EditOrderPage() {
           className="bg-blue-600 hover:bg-blue-700"
         >
           <Pencil className="mr-2 h-4 w-4" />
-          Edit Order
+          {t.orders.orders.actions.edit}
         </Button>
       ) : (
         <motion.div 
@@ -56,14 +58,14 @@ export function EditOrderPage() {
             variant="outline" 
             onClick={handleCancel}
           >
-            Cancel
+            {t.orders.orders.actions.cancel}
           </Button>
           <Button 
             type="submit"
             disabled={!hasChanges}
             className="bg-green-600 hover:bg-green-700"
           >
-            Save Changes
+            {t.orders.orders.actions.save}
           </Button>
         </motion.div>
       )}

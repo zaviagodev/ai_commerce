@@ -107,11 +107,11 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         <Table className={paginatedCampaigns.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>{ t.customers.customer.campaign.list.columns.campaign}</TableHead>
-              <TableHead>{ t.customers.customer.campaign.list.columns.type}</TableHead>
-              <TableHead>{ t.customers.customer.campaign.list.columns.duration}</TableHead>
-              <TableHead>{ t.customers.customer.campaign.list.columns.target}</TableHead>
-              <TableHead>{ t.customers.customer.campaign.list.columns.status}</TableHead>
+              <TableHead>{t.customers.customer.campaign.list.columns.campaign}</TableHead>
+              <TableHead>{t.customers.customer.campaign.list.columns.type}</TableHead>
+              <TableHead>{t.customers.customer.campaign.list.columns.duration}</TableHead>
+              <TableHead>{t.customers.customer.campaign.list.columns.target}</TableHead>
+              <TableHead>{t.customers.customer.campaign.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -119,14 +119,14 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">{ t.customers.customer.campaign.list.empty.title}</p>
+                    <p className="text-lg font-medium">{t.customers.customer.campaign.list.empty.title}</p>
                     <p className="text-sm text-muted-foreground">
-                      { t.customers.customer.campaign.list.empty.description}
+                      {t.customers.customer.campaign.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
                       <Link to="/dashboard/campaigns/new">
                         <Plus className="mr-2 h-4 w-4" />
-                        { t.customers.customer.campaign.actions.create}
+                        {t.customers.customer.campaign.actions.create}
                       </Link>
                     </Button>
                   </div>
@@ -150,7 +150,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">
-                      { t.customers.customer.campaign.list.types[campaign.type]}
+                      {t.customers.customer.campaign.list.types[campaign.type]}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -168,7 +168,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-muted-foreground" />
                       <span>
-                        { t.customers.customer.campaign.list.target[campaign.targetType]}
+                        {t.customers.customer.campaign.list.target[campaign.targetType]}
                       </span>
                     </div>
                   </TableCell>
@@ -183,7 +183,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                       }
                       className="capitalize"
                     >
-                      { t.customers.customer.campaign.list.status[campaign.status]}
+                      {t.customers.customer.campaign.list.status[campaign.status]}
                     </Badge>
                   </TableCell>
                 </TableRow>

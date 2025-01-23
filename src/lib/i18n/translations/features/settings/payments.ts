@@ -1,5 +1,7 @@
 export const payments = {
     en: {
+      title: "Payment Settings",
+      subtitle: "Configure your store's payment methods and gateways",
       promptpay: {
         title: 'PromptPay',
         subtitle: 'Configure PromptPay payment settings',
@@ -74,6 +76,8 @@ export const payments = {
       }
     },
     th: {
+      title: "การตั้งค่าการชำระเงิน",
+      subtitle: "กำหนดค่าวิธีและช่องทางการชำระเงินของร้านค้าของคุณ",
       promptpay: {
         title: 'พร้อมเพย์',
         subtitle: 'ตั้งค่าการชำระเงินผ่านพร้อมเพย์',

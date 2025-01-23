@@ -10,6 +10,8 @@ export const ordersTranslations = {
       print: 'Print invoice',
       saveOrder: 'Save order',
       reopen: 'Reopen Order',
+      edit: "Edit Order",
+      back: "Back"
     },
     list: {
       empty: {
@@ -244,7 +246,8 @@ export const ordersTranslations = {
             slipImage: "Upload Slip Image",
             confirm: "Confirm Payment",
             uploading: "Uploading...",
-            uploadPrompt: "Click to upload slip"
+            uploadPrompt: "Click to upload slip",
+            cancel: "Cancel"
           },
           checkout: {
             title: "Checkout Link",
@@ -265,7 +268,8 @@ export const ordersTranslations = {
             cancel: "Cancel Order",
             reopen: "Reopen Order",
             ship: "Mark as Shipped",
-            confirm: "Confirm Payment"
+            confirm: "Confirm Payment",
+
           },
           messages: {
             confirmCancel: "Are you sure you want to cancel this order?",
@@ -353,6 +357,8 @@ export const ordersTranslations = {
       print: 'พิมพ์ใบกำกับภาษี',
       saveOrder: 'บันทึกคำสั่งซื้อ',
       reopen: 'เปิดคำสั่งซื้อใหม่',
+      edit: "แก้ไขคำสั่งซื้อ",
+      back: "ย้อนกลับ"
     },
     list: {
       empty: {
@@ -587,7 +593,8 @@ export const ordersTranslations = {
             slipImage: "อัพโหลดสลิป",
             confirm: "ยืนยันการชำระเงิน",
             uploading: "กำลังอัพโหลด...",
-            uploadPrompt: "คลิกเพื่ออัพโหลดสลิป"
+            uploadPrompt: "คลิกเพื่ออัพโหลดสลิป",
+            cancel: "ยกเลิก"
           },
           checkout: {
             title: "ลิงก์ชำระเงิน",

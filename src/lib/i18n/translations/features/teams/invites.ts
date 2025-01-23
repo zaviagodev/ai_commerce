@@ -7,6 +7,7 @@ export const invites = {
       noLink: {
         title: 'No active invite link',
         subtitle: 'Generate a link to invite team members',
+        takeMoment: "This will only take a moment"
       },
       settings: {
         role: {
@@ -21,19 +22,19 @@ export const invites = {
         expiration: {
           label: 'Expires in',
           options: {
-            '24h': '24 hours',
-            '7d': '7 days',
-            '30d': '30 days',
+            hours24: '24 hours',
+            days7: '7 days',
+            days30: '30 days',
             never: 'Never',
           },
         },
         maxUses: {
           label: 'Max uses',
           options: {
-            '1': '1 use',
-            '5': '5 uses',
-            '10': '10 uses',
-            '25': '25 uses',
+            one: '1 use',
+            five: '5 uses',
+            ten: '10 uses',
+            twentyFive: '25 uses',
             unlimited: 'Unlimited',
           },
         },
@@ -74,6 +75,7 @@ export const invites = {
         noLink: {
           title: 'ไม่มีลิงก์เชิญที่ใช้งานอยู่',
           subtitle: 'สร้างลิงก์เพื่อเชิญสมาชิกทีม',
+          takeMoment: "จะใช้เวลาเพียงแค่ชั่วครู่"
         },
         settings: {
           role: {
@@ -88,19 +90,19 @@ export const invites = {
           expiration: {
             label: 'หมดอายุใน',
             options: {
-              '24h': '24 ชั่วโมง',
-              '7d': '7 วัน',
-              '30d': '30 วัน',
+              hours24: '24 ชั่วโมง',
+              days7: '7 วัน',
+              days30: '30 วัน',
               never: 'ไม่มีกำหนด',
             },
           },
           maxUses: {
             label: 'จำนวนการใช้สูงสุด',
             options: {
-              '1': '1 ครั้ง',
-              '5': '5 ครั้ง',
-              '10': '10 ครั้ง',
-              '25': '25 ครั้ง',
+              one: '1 ครั้ง',
+              five: '5 ครั้ง',
+              ten: '10 ครั้ง',
+              twentyFive: '25 ครั้ง',
               unlimited: 'ไม่จำกัด',
             },
           },

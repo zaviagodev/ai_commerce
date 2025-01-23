@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 import { Member } from '@/types/member';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RemoveMemberModalProps {
   open: boolean;
@@ -23,6 +24,7 @@ export function RemoveMemberModal({
   member,
   onConfirm,
 }: RemoveMemberModalProps) {
+  const t = useTranslation();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -32,9 +34,9 @@ export function RemoveMemberModal({
               <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div>
-              <DialogTitle>Remove Member</DialogTitle>
+              <DialogTitle>{t.teams.members.actions.removeMember}</DialogTitle>
               <DialogDescription>
-                This action cannot be undone
+                {t.teams.members.remove.description}
               </DialogDescription>
             </div>
           </div>
@@ -43,12 +45,12 @@ export function RemoveMemberModal({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              Are you sure you want to remove {member.name}? This will:
+              {t.teams.members.remove.warning.replace('{name}', member.name)}
             </p>
             <ul className="mt-2 text-sm text-red-800 space-y-1">
-              <li>Revoke all access permissions</li>
-              <li>Remove them from all teams and projects</li>
-              <li>Delete their account settings</li>
+              {t.teams.members.remove.consequences.map(consequence => (
+                <li>{consequence}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -58,7 +60,7 @@ export function RemoveMemberModal({
             variant="outline"
             onClick={() => onOpenChange(false)}
           >
-            Cancel
+            {t.teams.members.actions.cancel}
           </Button>
           <Button
             variant="destructive"
@@ -67,7 +69,7 @@ export function RemoveMemberModal({
               onOpenChange(false);
             }}
           >
-            Remove Member
+            {t.teams.members.actions.removeMember}
           </Button>
         </DialogFooter>
       </DialogContent>

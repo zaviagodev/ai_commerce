@@ -1,3 +1,4 @@
+import { useTranslation } from '@/lib/i18n/hooks';
 import { motion } from 'framer-motion';
 
 interface StatusTextProps {
@@ -11,6 +12,7 @@ export function StatusText({
   isCancelled,
   isShipped,
 }: StatusTextProps) {
+  const t = useTranslation();
   return (
     <div className="relative h-5 w-full">
       <motion.p
@@ -28,7 +30,7 @@ export function StatusText({
           color: 'rgb(156, 163, 175)',
         }}
       >
-        Total Outstanding
+        {t.orders.orders.form.sections.payment.status.outstanding}
       </motion.p>
       <motion.p
         className="text-sm absolute inset-0 flex items-center justify-center whitespace-nowrap"
@@ -46,7 +48,7 @@ export function StatusText({
           color: 'rgb(74, 222, 128)',
         }}
       >
-        Payment Completed
+        {t.orders.orders.form.sections.payment.status.completed}
       </motion.p>
       <motion.p
         className="text-sm absolute inset-0 flex items-center justify-center whitespace-nowrap"
@@ -64,7 +66,7 @@ export function StatusText({
           color: 'rgb(74, 222, 128)',
         }}
       >
-        Completed and Shipped
+        {t.orders.orders.form.sections.payment.status.shipped}
       </motion.p>
       <motion.p
         className="text-sm absolute inset-0 flex items-center justify-center whitespace-nowrap"
@@ -82,7 +84,7 @@ export function StatusText({
           color: 'rgb(239, 68, 68)',
         }}
       >
-        Order Cancelled
+        {t.orders.orders.form.sections.payment.status.cancelled}
       </motion.p>
     </div>
   );

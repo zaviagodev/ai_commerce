@@ -269,7 +269,7 @@ export function ShareableLink({ onOpenChange }: ShareableLinkProps) {
               } : { opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              {isGenerating ? "This will only take a moment" : "Generate a link to invite team members"}
+              {isGenerating ? t.teams.invite.noLink.takeMoment : t.teams.invite.noLink.subtitle}
             </motion.p>
             <Button 
               onClick={generateLink} 

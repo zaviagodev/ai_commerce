@@ -20,6 +20,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Tags } from 'lucide-react';
 import { Coupon } from '@/types/coupon';
 import { useTranslation } from '@/lib/i18n/hooks';
+import { Badge } from '@/components/ui/badge';
 
 interface BasicDetailsProps {
   form: UseFormReturn<Coupon>;
@@ -143,10 +144,34 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="draft">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.draft}</SelectItem>
-                  <SelectItem value="scheduled">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.scheduled}</SelectItem>
-                  <SelectItem value="active">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.active}</SelectItem>
-                  <SelectItem value="expired">{t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.ended}</SelectItem>
+                  <SelectItem value="draft">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="!bg-gray-100 text-gray-700">
+                        {t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.draft}
+                      </Badge>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="scheduled">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="!bg-yellow-100 text-yellow-700">
+                        {t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.scheduled}
+                      </Badge>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="active">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="!bg-green-100 text-green-700">
+                        {t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.active}
+                      </Badge>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="expired">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="!bg-red-100 text-red-700">
+                        {t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options.ended}
+                      </Badge>
+                    </div>
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>

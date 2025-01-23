@@ -11,8 +11,10 @@ import { InventorySettings } from '../components/ecommerce/inventory-settings';
 import { useEcommerceSettings } from '../hooks/use-ecommerce-settings';
 import { useEffect } from 'react';
 import Loading from '@/components/loading';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 export function EcommerceSettingsPage() {
+  const t = useTranslation();
   const { settings, isLoading, updateSettings } = useEcommerceSettings();
 
   const form = useForm({
@@ -63,13 +65,13 @@ export function EcommerceSettingsPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-medium">E-commerce Settings</h2>
+            <h2 className="text-lg font-medium">{t.settings.ecommerce.title}</h2>
             <p className="text-sm text-muted-foreground">
-              Configure your store's e-commerce settings
+              {t.settings.ecommerce.subtitle}
             </p>
           </div>
           <Button type="submit" disabled={updateSettings.isPending}>
-            {updateSettings.isPending ? 'Saving...' : 'Save changes'}
+            {updateSettings.isPending ? t.settings.settings.saving : t.settings.settings.save}
           </Button>
         </div>
 

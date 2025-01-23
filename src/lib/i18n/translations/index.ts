@@ -10,7 +10,9 @@ import { orders } from './features/orders';
 import { customer } from './features/customers';
 import { events } from './features/events';
 import { campaign } from './features/campaigns';
-
+import { pagination } from './features/pagination';
+import { rewardItems } from './features/reward-items';
+import { redeemList } from './features/redeem-list';
 
 export const translations = {
   'en-US': {
@@ -28,6 +30,9 @@ export const translations = {
     customers: customer.en,
     events: events.en,
     campaigns: campaign.en,
+    pagination: pagination.en,
+    rewardItems: rewardItems.en,
+    redeemList: redeemList.en
   },
   'th-TH': {
     dashboard: dashboard.th,
@@ -44,6 +49,9 @@ export const translations = {
     events: events.th,
     customers: customer.th,
     campaigns: campaign.th,
+    pagination: pagination.th,
+    rewardItems: rewardItems.th,
+    redeemList: redeemList.th
   },
 } as const;
 

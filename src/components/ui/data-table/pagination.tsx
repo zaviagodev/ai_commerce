@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface DataTablePaginationProps {
   pageIndex: number;
@@ -30,14 +31,15 @@ export function DataTablePagination({
   onPageChange,
   onPageSizeChange,
 }: DataTablePaginationProps) {
+  const t = useTranslation();
   return (
     <div className="flex flex-col md:flex-row items-center justify-between bg-main gap-y-4">
       <div className="flex-1 text-sm text-muted-foreground">
-        {totalItems} {totalItems === 1 ? 'total item' : 'total items'}
+        {t.pagination.pagination[totalItems === 1 ? "totalItem" : "totalItems"].replace("{count}", totalItems as any)}
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Items per page</p>
+          <p className="text-sm font-medium">{t.pagination.pagination.itemsPerPage}</p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
@@ -57,7 +59,7 @@ export function DataTablePagination({
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {pageIndex + 1} of {pageCount}
+          {t.pagination.pagination.page} {pageIndex + 1} {t.pagination.pagination.of} {pageCount}
         </div>
         <div className="flex items-center space-x-2">
           <Button

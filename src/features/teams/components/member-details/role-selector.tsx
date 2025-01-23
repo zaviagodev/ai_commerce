@@ -1,6 +1,7 @@
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Crown, Shield, Users2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n/hooks';
 
 interface RoleSelectorProps {
   value: string;
@@ -8,6 +9,7 @@ interface RoleSelectorProps {
 }
 
 export function RoleSelector({ value, onChange }: RoleSelectorProps) {
+  const t = useTranslation();
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-full h-auto p-3 flex items-center gap-3">
@@ -24,11 +26,15 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               {value === "Staff" && <Users2 className="h-4 w-4 text-green-600" />}
             </div>
             <div className="flex flex-col items-start">
-              <span className="font-medium">{value}</span>
+              <span className="font-medium">
+                {value === "Owner" && t.teams.members.rolePermissions.roleAssignment.owner.title}
+                {value === "Admin" && t.teams.members.rolePermissions.roleAssignment.admin.title}
+                {value === "Staff" && t.teams.members.rolePermissions.roleAssignment.staff.title}
+              </span>
               <span className="text-xs text-muted-foreground">
-                {value === "Owner" && "Full access with ownership rights"}
-                {value === "Admin" && "Full access to all features"}
-                {value === "Staff" && "Limited access to features"}
+                {value === "Owner" && t.teams.members.rolePermissions.roleAssignment.owner.subtitle}
+                {value === "Admin" && t.teams.members.rolePermissions.roleAssignment.admin.subtitle}
+                {value === "Staff" && t.teams.members.rolePermissions.roleAssignment.staff.subtitle}
               </span>
             </div>
           </div>
@@ -43,8 +49,8 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               <Crown className="h-4 w-4 text-yellow-600" />
             </div>
             <div className="flex flex-col items-start">
-              <p className="font-medium">Owner</p>
-              <p className="text-sm text-muted-foreground">Full access with ownership rights</p>
+              <p className="font-medium">{t.teams.members.rolePermissions.roleAssignment.owner.title}</p>
+              <p className="text-sm text-muted-foreground">{t.teams.members.rolePermissions.roleAssignment.owner.subtitle}</p>
             </div>
           </div>
         </SelectItem>
@@ -54,8 +60,8 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               <Shield className="h-4 w-4 text-blue-600" />
             </div>
             <div className="flex flex-col items-start">
-              <p className="font-medium">Admin</p>
-              <p className="text-sm text-muted-foreground">Full access to all features</p>
+              <p className="font-medium">{t.teams.members.rolePermissions.roleAssignment.admin.title}</p>
+              <p className="text-sm text-muted-foreground">{t.teams.members.rolePermissions.roleAssignment.admin.subtitle}</p>
             </div>
           </div>
         </SelectItem>
@@ -65,8 +71,8 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
               <Users2 className="h-4 w-4 text-green-600" />
             </div>
             <div className="flex flex-col items-start">
-              <p className="font-medium">Staff</p>
-              <p className="text-sm text-muted-foreground">Limited access to features</p>
+              <p className="font-medium">{t.teams.members.rolePermissions.roleAssignment.staff.title}</p>
+              <p className="text-sm text-muted-foreground">{t.teams.members.rolePermissions.roleAssignment.staff.subtitle}</p>
             </div>
           </div>
         </SelectItem>
