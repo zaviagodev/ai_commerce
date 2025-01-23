@@ -49,15 +49,15 @@ const DISCOUNT_TYPES = [
     iconBg: 'bg-orange-100',
     iconColor: 'text-orange-600',
   },
-  {
-    id: 'points',
-    name: 'Cashback Points',
-    description: 'Award bonus points on purchases',
-    icon: Gift,
-    gradient: 'from-purple-500/10 to-pink-500/10',
-    iconBg: 'bg-purple-100',
-    iconColor: 'text-purple-600',
-  },
+  // {
+  //   id: 'points',
+  //   name: 'Cashback Points',
+  //   description: 'Award bonus points on purchases',
+  //   icon: Gift,
+  //   gradient: 'from-purple-500/10 to-pink-500/10',
+  //   iconBg: 'bg-purple-100',
+  //   iconColor: 'text-purple-600',
+  // },
 ] as const;
 
 export function DiscountRules({ form }: DiscountRulesProps) {
@@ -88,7 +88,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
         <div className="flex-1">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-medium">{t.campaigns.campaign.coupon.sections.discountRules.title}</h2>
-            <TemplateModal
+            {/* <TemplateModal
               onSelect={(template) => {
                 form.setValue('type', template.defaults.type);
                 form.setValue('value', template.defaults.value);
@@ -102,7 +102,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                 <Sparkles className="mr-2 h-4 w-4" />
                 Templates
               </Button>
-            </TemplateModal>
+            </TemplateModal> */}
           </div>
           <p className="text-sm text-muted-foreground">
             {t.campaigns.campaign.coupon.sections.discountRules.description}

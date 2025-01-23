@@ -119,7 +119,7 @@ export function Attendees({ form }: AttendeesProps) {
                 <TableHead>{t.products.products.form.sections.attendees.table.attendee}</TableHead>
                 <TableHead>{t.products.products.form.sections.attendees.table.ticketType}</TableHead>
                 <TableHead>{t.products.products.form.sections.attendees.table.purchaseDate}</TableHead>
-                <TableHead>{t.products.products.form.sections.attendees.table.price}</TableHead>
+                {/* <TableHead>{t.products.products.form.sections.attendees.table.price}</TableHead> */}
                 <TableHead>{t.products.products.form.sections.attendees.table.status}</TableHead>
               </TableRow>
             </TableHeader>
@@ -161,7 +161,7 @@ export function Attendees({ form }: AttendeesProps) {
                     <TableCell>
                       {format(new Date(order.createdAt), "MMM d, yyyy")}
                     </TableCell>
-                    <TableCell>{formatCurrency(order.total)}</TableCell>
+                    {/* <TableCell>{formatCurrency(order.total)}</TableCell> */}
                     <TableCell>
                       <div className="flex items-center gap-2">
                         {isPaid(order) ? (

@@ -107,11 +107,10 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         <Table className={paginatedCampaigns.length > 0 ? 'rounded-b-none' : ''}>
           <TableHeader>
             <TableRow>
-              <TableHead>{t.customers.customer.campaign.list.columns.campaign}</TableHead>
-              <TableHead>{t.customers.customer.campaign.list.columns.type}</TableHead>
-              <TableHead>{t.customers.customer.campaign.list.columns.duration}</TableHead>
-              <TableHead>{t.customers.customer.campaign.list.columns.target}</TableHead>
-              <TableHead>{t.customers.customer.campaign.list.columns.status}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.campaign}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.type}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.duration}</TableHead>
+              <TableHead>{ t.customers.customer.campaign.list.columns.status}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -162,14 +161,6 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                           { t.customers.customer.campaign.list.duration.to} {formatDate(campaign.endDate)}
                         </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-muted-foreground" />
-                      <span>
-                        {t.customers.customer.campaign.list.target[campaign.targetType]}
-                      </span>
                     </div>
                   </TableCell>
                   <TableCell>
