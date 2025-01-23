@@ -19,6 +19,7 @@ export const customersTranslations = {
         phone: "Phone",
         tags: "Tags",
         orders: "Orders",
+        loyaltyPoints: "Loyalty Points",
       },
       orders: "orders",
       search: "Search customers...",
@@ -177,6 +178,11 @@ export const customersTranslations = {
         phone: {
           label: "Phone",
           placeholder: "+1234567890",
+        },
+        loyaltyPoints: {
+          label: "Loyalty Points",
+          placeholder: "Enter points",
+          description: "Current loyalty points balance",
         },
         tags: {
           label: "Tags",
@@ -693,6 +699,7 @@ export const customersTranslations = {
         phone: "เบอร์โทรศัพท์",
         tags: "แท็ก",
         orders: "คำสั่งซื้อ",
+        loyaltyPoints: "คะแนนสะสม",
       },
       orders: "คำสั่งซื้อ",
       search: "ค้นหาลูกค้า...",
@@ -851,6 +858,11 @@ export const customersTranslations = {
         phone: {
           label: "เบอร์โทรศัพท์",
           placeholder: "+1234567890",
+        },
+        loyaltyPoints: {
+          label: "คะแนนสะสม",
+          placeholder: "ใส่คะแนน",
+          description: "ยอดคะแนนสะสมปัจจุบัน",
         },
         tags: {
           label: "แท็ก",
