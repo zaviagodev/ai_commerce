@@ -106,13 +106,13 @@ export function OrderForm({
 
   function formatDaysAgo(date: Date) {
     const days = Math.floor(
-      (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24)
+      (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24),
     );
     if (days === 0) return t.orders.orders.form.daysAgo.today;
     if (days === 1) return t.orders.orders.form.daysAgo.yesterday;
     return t.orders.orders.form.daysAgo.other.replace(
       "{days}",
-      days.toString()
+      days.toString(),
     );
   }
 
@@ -138,13 +138,17 @@ export function OrderForm({
                 <p className="text-sm text-muted-foreground">
                   {initialData
                     ? `${formatDate(initialData.createdAt)} • ${formatDaysAgo(
-                        initialData.createdAt
+                        initialData.createdAt,
                       )}`
                     : t.orders.orders.form.description.create}
                 </p>
               </div>
               <div className="flex items-center gap-4 ml-auto">
-                {headerActions || <Button type="submit">{t.orders.orders.actions.saveOrder}</Button>}
+                {headerActions || (
+                  <Button type="submit">
+                    {t.orders.orders.actions.saveOrder}
+                  </Button>
+                )}
               </div>
             </div>
           </motion.div>

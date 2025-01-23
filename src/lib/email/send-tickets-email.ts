@@ -31,11 +31,11 @@ async function generateBarcode(code: string): Promise<string> {
     const document = new DOMImplementation().createDocument(
       "http://www.w3.org/1999/xhtml",
       "html",
-      null
+      null,
     );
     const svgNode = document.createElementNS(
       "http://www.w3.org/2000/svg",
-      "svg"
+      "svg",
     );
 
     // Generate barcode as SVG
@@ -51,7 +51,7 @@ async function generateBarcode(code: string): Promise<string> {
     // Convert SVG to string and then to data URL
     const svgString = xmlSerializer.serializeToString(svgNode);
     const dataUrl = `data:image/svg+xml;base64,${Buffer.from(
-      svgString
+      svgString,
     ).toString("base64")}`;
 
     return dataUrl;
@@ -64,18 +64,21 @@ async function generateBarcode(code: string): Promise<string> {
 export async function sendTicketEmail(
   toEmail: string,
   tickets: Ticket[],
-  order: Order
+  order: Order,
 ): Promise<void> {
   try {
     // Group tickets by event
-    const ticketsByEvent = tickets.reduce((acc, ticket) => {
-      const eventId = ticket.metadata.eventId;
-      if (!acc[eventId]) {
-        acc[eventId] = [];
-      }
-      acc[eventId].push(ticket);
-      return acc;
-    }, {} as Record<string, Ticket[]>);
+    const ticketsByEvent = tickets.reduce(
+      (acc, ticket) => {
+        const eventId = ticket.metadata.eventId;
+        if (!acc[eventId]) {
+          acc[eventId] = [];
+        }
+        acc[eventId].push(ticket);
+        return acc;
+      },
+      {} as Record<string, Ticket[]>,
+    );
 
     // Create email content with tickets grouped by event
     const emailContent = await Promise.all(
@@ -97,7 +100,7 @@ export async function sendTicketEmail(
               </div>
             </div>
           `;
-          })
+          }),
         );
 
         return `
@@ -106,7 +109,7 @@ export async function sendTicketEmail(
             ${ticketsHtml.join("")}
           </div>
         `;
-      })
+      }),
     );
 
     const finalEmailContent = `

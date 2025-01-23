@@ -1,27 +1,27 @@
-import { useEffect } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { CustomerSelect } from '../../customer-select';
-import { AddressSelect } from '../../address-select';
-import { useCustomers } from '@/features/customers/hooks/use-customers';
-import { Order } from '@/types/order';
-import { User, Package } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { CustomerSelect } from "../../customer-select";
+import { AddressSelect } from "../../address-select";
+import { useCustomers } from "@/features/customers/hooks/use-customers";
+import { Order } from "@/types/order";
+import { User, Package } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Order>;
@@ -30,19 +30,18 @@ interface BasicDetailsProps {
 export function BasicDetails({ form }: BasicDetailsProps) {
   const t = useTranslation();
   const { customers } = useCustomers();
-  const selectedCustomerId = form.watch('customerId');
-  const selectedCustomer = customers.find(c => c.id === selectedCustomerId);
-  const selectedAddress = form.watch('shippingAddress');
-
+  const selectedCustomerId = form.watch("customerId");
+  const selectedCustomer = customers.find((c) => c.id === selectedCustomerId);
+  const selectedAddress = form.watch("shippingAddress");
 
   // Set default shipping address when customer is selected
   useEffect(() => {
     if (selectedCustomer && !selectedAddress) {
       const defaultAddress = selectedCustomer.addresses.find(
-        addr => addr.isDefault && addr.type === 'shipping'
+        (addr) => addr.isDefault && addr.type === "shipping",
       );
       if (defaultAddress) {
-        form.setValue('shippingAddress', defaultAddress);
+        form.setValue("shippingAddress", defaultAddress);
       }
     }
   }, [selectedCustomer, selectedAddress, form]);
@@ -56,7 +55,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             <User className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-medium">{t.orders.orders.form.sections.basicDetails.title}</h2>
+            <h2 className="text-lg font-medium">
+              {t.orders.orders.form.sections.basicDetails.title}
+            </h2>
             <p className="text-sm text-muted-foreground">
               {t.orders.orders.form.sections.basicDetails.description}
             </p>
@@ -71,7 +72,9 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="shippingAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.orders.orders.form.sections.basicDetails.shippingAddress}</FormLabel>
+                  <FormLabel>
+                    {t.orders.orders.form.sections.basicDetails.shippingAddress}
+                  </FormLabel>
                   <FormControl>
                     <AddressSelect
                       addresses={selectedCustomer.addresses}
@@ -91,13 +94,18 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="customerEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.orders.orders.form.sections.basicDetails.email.label}</FormLabel>
+                  <FormLabel>
+                    {t.orders.orders.form.sections.basicDetails.email.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input 
-                      type="email" 
-                      placeholder={t.orders.orders.form.sections.basicDetails.email.placeholder}
-                      value={field.value || ''}
-                      {...field} 
+                    <Input
+                      type="email"
+                      placeholder={
+                        t.orders.orders.form.sections.basicDetails.email
+                          .placeholder
+                      }
+                      value={field.value || ""}
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -110,13 +118,18 @@ export function BasicDetails({ form }: BasicDetailsProps) {
               name="customerPhone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.orders.orders.form.sections.basicDetails.phone.label}</FormLabel>
+                  <FormLabel>
+                    {t.orders.orders.form.sections.basicDetails.phone.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input 
-                      type="tel" 
-                      placeholder={t.orders.orders.form.sections.basicDetails.phone.placeholder}
-                      value={field.value || ''}
-                      {...field} 
+                    <Input
+                      type="tel"
+                      placeholder={
+                        t.orders.orders.form.sections.basicDetails.phone
+                          .placeholder
+                      }
+                      value={field.value || ""}
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -126,7 +139,6 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           </div>
         </CardContent>
       </Card>
-
     </div>
   );
 }

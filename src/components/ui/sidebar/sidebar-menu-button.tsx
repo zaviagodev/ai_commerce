@@ -9,7 +9,7 @@ return (
         "h-8": size === "default",
         "h-11": size === "lg",
       },
-      className
+      className,
     )}
     {...props}
   >

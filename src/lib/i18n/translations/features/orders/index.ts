@@ -1,4 +1,4 @@
-import { ordersTranslations } from './orders';
+import { ordersTranslations } from "./orders";
 
 export const orders = {
   en: {
@@ -7,4 +7,4 @@ export const orders = {
   th: {
     orders: ordersTranslations.th,
   },
-}; 
+};

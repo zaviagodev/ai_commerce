@@ -1,7 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { CampaignForm } from '../components/campaign-form';
-import { Campaign } from '@/types/campaign';
-import { useCampaigns } from '../hooks/use-campaigns';
+import { useParams, useNavigate } from "react-router-dom";
+import { CampaignForm } from "../components/campaign-form";
+import { Campaign } from "@/types/campaign";
+import { useCampaigns } from "../hooks/use-campaigns";
 
 export function EditCampaignPage() {
   const { id } = useParams();
@@ -16,9 +16,9 @@ export function EditCampaignPage() {
   const handleSubmit = async (data: Campaign) => {
     try {
       await updateCampaign.mutateAsync({ id, data });
-      navigate('/dashboard/campaigns');
+      navigate("/dashboard/campaigns");
     } catch (error) {
-      console.error('Failed to update campaign:', error);
+      console.error("Failed to update campaign:", error);
     }
   };
 

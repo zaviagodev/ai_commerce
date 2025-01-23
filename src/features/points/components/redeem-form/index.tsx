@@ -1,15 +1,15 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from '@/components/ui/form';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { RedeemSchema } from '../../schemas/redeem-schema';
-import { Overview } from './sections/overview';
-import { Redeem } from '@/types/redeem';
-import { BasicDetails } from './sections/basic-details';
-import { ItemsTable } from './sections/items-table';
-import { RedeemDetails } from './sections/redeem-details';
-import { StatusSelect } from './sections/status-select';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "@/components/ui/form";
+import { motion, AnimatePresence } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RedeemSchema } from "../../schemas/redeem-schema";
+import { Overview } from "./sections/overview";
+import { Redeem } from "@/types/redeem";
+import { BasicDetails } from "./sections/basic-details";
+import { ItemsTable } from "./sections/items-table";
+import { RedeemDetails } from "./sections/redeem-details";
+import { StatusSelect } from "./sections/status-select";
 
 interface RedeemFormProps {
   initialData: Redeem;
@@ -18,31 +18,31 @@ interface RedeemFormProps {
   onFieldChange?: () => void;
 }
 
-export function RedeemForm({ 
-  initialData, 
+export function RedeemForm({
+  initialData,
   isEditing,
   headerActions,
-  onFieldChange 
+  onFieldChange,
 }: RedeemFormProps) {
   const form = useForm({
     resolver: zodResolver(RedeemSchema),
     defaultValues: initialData,
   });
 
-  const redeemCode = form.watch('code');
-  const customerName = form.watch('customerName');
+  const redeemCode = form.watch("code");
+  const customerName = form.watch("customerName");
 
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
-        <motion.form 
+        <motion.form
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -62,13 +62,11 @@ export function RedeemForm({
               </div>
 
               {/* Right Section: Actions */}
-              <div className="flex items-center gap-2">
-                {headerActions}
-              </div>
+              <div className="flex items-center gap-2">{headerActions}</div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex-1 overflow-y-auto"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -76,18 +74,23 @@ export function RedeemForm({
           >
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
-                <Tabs 
-                  defaultValue="overview" 
+                <Tabs
+                  defaultValue="overview"
                   className="w-full"
-                  value={!initialData ? "basic" : isEditing ? "basic" : "overview"}
+                  value={
+                    !initialData ? "basic" : isEditing ? "basic" : "overview"
+                  }
                 >
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
-                      <TabsTrigger value="overview" disabled={!initialData || isEditing}>
+                      <TabsTrigger
+                        value="overview"
+                        disabled={!initialData || isEditing}
+                      >
                         Overview
                       </TabsTrigger>
-                      <TabsTrigger 
-                        value="basic" 
+                      <TabsTrigger
+                        value="basic"
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >

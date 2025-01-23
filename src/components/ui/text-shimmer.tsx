@@ -16,13 +16,16 @@ export function TextShimmer({
     <div
       className={cn(
         "relative inline-flex overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent",
-        className
+        className,
       )}
-      style={{
-        WebkitMaskImage: "linear-gradient(rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 1) 100%)",
-        maskImage: "linear-gradient(rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 1) 100%)",
-        "--duration": `${duration}s`,
-      } as React.CSSProperties}
+      style={
+        {
+          WebkitMaskImage:
+            "linear-gradient(rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 1) 100%)",
+          maskImage: "linear-gradient(rgb(0 0 0 / 1) 0%, rgb(0 0 0 / 1) 100%)",
+          "--duration": `${duration}s`,
+        } as React.CSSProperties
+      }
       {...props}
     >
       {children}

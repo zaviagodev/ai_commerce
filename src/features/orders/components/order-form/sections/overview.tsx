@@ -1,7 +1,7 @@
-import { format } from 'date-fns';
-import { Order, CustomerAddress } from '@/types/order';
-import { TicketOverview } from './ticket-overview';
-import { PaymentSection } from './payment/payment-section';
+import { format } from "date-fns";
+import { Order, CustomerAddress } from "@/types/order";
+import { TicketOverview } from "./ticket-overview";
+import { PaymentSection } from "./payment/payment-section";
 
 interface OverviewProps {
   order: Order;

@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { 
-  Copy, 
-  Trash2, 
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Copy,
+  Trash2,
   AlertTriangle,
   Sparkles,
   PencilRuler,
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { Product } from '@/types/product';
-import { AdvancedTypesModal } from './advanced-types-modal';
-import { DeleteConfirmModal } from './delete-confirm-modal';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "lucide-react";
+import { toast } from "sonner";
+import { Product } from "@/types/product";
+import { AdvancedTypesModal } from "./advanced-types-modal";
+import { DeleteConfirmModal } from "./delete-confirm-modal";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ItemActionsModalProps {
   open: boolean;
@@ -27,8 +27,8 @@ interface ItemActionsModalProps {
   onDelete: () => Promise<void>;
 }
 
-export function ItemActionsModal({ 
-  open, 
+export function ItemActionsModal({
+  open,
   onOpenChange,
   product,
   onDelete,
@@ -53,7 +53,9 @@ export function ItemActionsModal({
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{t.products.products.form.modals.itemActions.title}</DialogTitle>
+            <DialogTitle>
+              {t.products.products.form.modals.itemActions.title}
+            </DialogTitle>
           </DialogHeader>
           <div className="grid gap-2">
             <Button
@@ -69,9 +71,14 @@ export function ItemActionsModal({
                   <PencilRuler className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.edit.title}</div>
+                  <div className="font-medium">
+                    {t.products.products.form.modals.itemActions.edit.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.edit.description}
+                    {
+                      t.products.products.form.modals.itemActions.edit
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -87,9 +94,17 @@ export function ItemActionsModal({
                   <Copy className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.duplicate.title}</div>
+                  <div className="font-medium">
+                    {
+                      t.products.products.form.modals.itemActions.duplicate
+                        .title
+                    }
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.duplicate.description}
+                    {
+                      t.products.products.form.modals.itemActions.duplicate
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -108,9 +123,14 @@ export function ItemActionsModal({
                   <Trash2 className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.products.products.form.modals.itemActions.delete.title}</div>
+                  <div className="font-medium">
+                    {t.products.products.form.modals.itemActions.delete.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.modals.itemActions.delete.description}
+                    {
+                      t.products.products.form.modals.itemActions.delete
+                        .description
+                    }
                   </p>
                 </div>
               </div>

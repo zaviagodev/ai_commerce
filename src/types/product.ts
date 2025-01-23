@@ -33,11 +33,11 @@ export interface Product {
   barcode?: string;
   trackQuantity: boolean;
   weight: number;
-  weightUnit: 'kg' | 'lb';
+  weightUnit: "kg" | "lb";
   width: number;
   length: number;
   height: number;
-  dimensionUnit: 'cm' | 'in';
+  dimensionUnit: "cm" | "in";
   tags: ProductTag[];
   status: "draft" | "active" | "archived";
   isRewardItem?: boolean;

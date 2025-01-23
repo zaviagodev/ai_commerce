@@ -75,7 +75,7 @@ import { DashboardPage } from "@/features/dashboard/pages/dashboard-page";
 import { EditEventOrderPage } from "./features/tickets/pages/edit-event-order-page";
 import { NewEventOrderPage } from "./features/tickets/pages/new-event-order-page";
 import { TeamsPage } from "./features/teams/pages/teams-page";
-import MemberDetailsPage from './features/teams/pages/member-details-page';
+import MemberDetailsPage from "./features/teams/pages/member-details-page";
 
 export default function App() {
   useEffect(() => {
@@ -140,14 +140,8 @@ export default function App() {
 
               {/* Category Routes */}
               <Route path="categories" element={<CategoriesPage />} />
-              <Route
-                path="categories/new"
-                element={<NewCategoryPage />}
-              />
-              <Route
-                path="categories/:id"
-                element={<EditCategoryPage />}
-              />
+              <Route path="categories/new" element={<NewCategoryPage />} />
+              <Route path="categories/:id" element={<EditCategoryPage />} />
 
               {/* Event & Ticket Routes */}
               <Route path="events" element={<EventsPage />} />
@@ -156,7 +150,7 @@ export default function App() {
 
               {/* Event Orders Routes */}
               <Route path="event-orders" element={<EventOrdersPage />} />
-              <Route path="event-orders/new" element={<NewEventOrderPage/>} />
+              <Route path="event-orders/new" element={<NewEventOrderPage />} />
               <Route path="event-orders/:id" element={<EditEventOrderPage />} />
 
               {/* Customer Routes */}
@@ -184,14 +178,8 @@ export default function App() {
 
               {/* Campaigns Routes */}
               <Route path="campaigns" element={<CampaignsPage />} />
-              <Route
-                path="campaigns/new"
-                element={<NewCampaignPage />}
-              />
-              <Route
-                path="campaigns/:id"
-                element={<EditCampaignPage />}
-              />
+              <Route path="campaigns/new" element={<NewCampaignPage />} />
+              <Route path="campaigns/:id" element={<EditCampaignPage />} />
 
               {/* Coupon Campaigns Routes */}
               <Route

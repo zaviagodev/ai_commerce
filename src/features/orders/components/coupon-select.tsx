@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Search, Tag, X } from 'lucide-react';
+import { useState } from "react";
+import { Search, Tag, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
-import { useCoupons } from '@/features/campaigns/hooks/use-coupons';
-import { formatCurrency } from '@/lib/utils';
-import { Coupon } from '@/types/coupon';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { useCoupons } from "@/features/campaigns/hooks/use-coupons";
+import { formatCurrency } from "@/lib/utils";
+import { Coupon } from "@/types/coupon";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CouponSelectProps {
   children: React.ReactNode;
@@ -23,29 +23,36 @@ interface CouponSelectProps {
   subtotal: number;
 }
 
-export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal }: CouponSelectProps) {
+export function CouponSelect({
+  children,
+  onSelect,
+  appliedCoupons = [],
+  subtotal,
+}: CouponSelectProps) {
   const t = useTranslation();
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const { coupons, isLoading } = useCoupons();
 
   // Filter active and applicable coupons
-  const availableCoupons = coupons.filter(coupon => {
+  const availableCoupons = coupons.filter((coupon) => {
     // Check if already applied
     if (appliedCoupons.includes(coupon.code)) return false;
 
     // Check if active
-    if (coupon.status !== 'active') return false;
+    if (coupon.status !== "active") return false;
 
     // Check dates
     const now = new Date();
     if (now < coupon.startDate || now > coupon.endDate) return false;
 
     // Check usage limit
-    if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) return false;
+    if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit)
+      return false;
 
     // Check minimum purchase amount
-    if (coupon.minPurchaseAmount && subtotal < coupon.minPurchaseAmount) return false;
+    if (coupon.minPurchaseAmount && subtotal < coupon.minPurchaseAmount)
+      return false;
 
     // Match search term
     return (
@@ -56,25 +63,25 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
 
   const getCouponValue = (coupon: Coupon) => {
     switch (coupon.type) {
-      case 'percentage':
+      case "percentage":
         return `${coupon.value}% off`;
-      case 'fixed':
+      case "fixed":
         return formatCurrency(coupon.value);
-      case 'shipping':
-        return 'Free Shipping';
-      case 'points':
+      case "shipping":
+        return "Free Shipping";
+      case "points":
         return `${coupon.value}x Points`;
     }
   };
 
   const getEstimatedDiscount = (coupon: Coupon) => {
-    if (coupon.type === 'percentage') {
+    if (coupon.type === "percentage") {
       const discount = (subtotal * coupon.value) / 100;
-      return coupon.maxDiscountAmount 
+      return coupon.maxDiscountAmount
         ? Math.min(discount, coupon.maxDiscountAmount)
         : discount;
     }
-    if (coupon.type === 'fixed') {
+    if (coupon.type === "fixed") {
       return coupon.value;
     }
     return 0;
@@ -83,12 +90,14 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent 
-        className="sm:max-w-[600px]" 
+      <DialogContent
+        className="sm:max-w-[600px]"
         aria-labelledby="coupon-select-title"
       >
         <DialogHeader>
-          <DialogTitle id="coupon-select-title">{t.orders.orders.form.sections.coupon.title}</DialogTitle>
+          <DialogTitle id="coupon-select-title">
+            {t.orders.orders.form.sections.coupon.title}
+          </DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh]">
           <div className="space-y-4 p-1">
@@ -101,7 +110,7 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            
+
             {isLoading ? (
               <div className="py-8 text-center text-muted-foreground">
                 {t.orders.orders.form.sections.coupon.empty}
@@ -122,7 +131,7 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
                       onClick={() => {
                         onSelect(coupon);
                         setOpen(false);
-                        setSearch('');
+                        setSearch("");
                       }}
                     >
                       <div className="flex items-center gap-3 w-full">
@@ -143,12 +152,14 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
                           )}
                           {estimatedDiscount > 0 && (
                             <p className="text-sm text-green-600 mt-1">
-                              Estimated savings: {formatCurrency(estimatedDiscount)}
+                              Estimated savings:{" "}
+                              {formatCurrency(estimatedDiscount)}
                             </p>
                           )}
                           {coupon.minPurchaseAmount && (
                             <p className="text-sm text-muted-foreground mt-1">
-                              Minimum purchase: {formatCurrency(coupon.minPurchaseAmount)}
+                              Minimum purchase:{" "}
+                              {formatCurrency(coupon.minPurchaseAmount)}
                             </p>
                           )}
                         </div>
@@ -160,7 +171,9 @@ export function CouponSelect({ children, onSelect, appliedCoupons = [], subtotal
             )}
           </div>
         </ScrollArea>
-        <div className="flex justify-end"> {/*additional classes: px-6 py-4 border-t bg-gray-50/50 */}
+        <div className="flex justify-end">
+          {" "}
+          {/*additional classes: px-6 py-4 border-t bg-gray-50/50 */}
           <Button variant="outline" onClick={() => setOpen(false)}>
             {t.orders.orders.actions.cancel}
           </Button>

@@ -8,7 +8,7 @@ import {
   DynamicIslandProvider,
   useDynamicIslandSize,
   useScheduledAnimations,
-} from './dynamic-island';
+} from "./dynamic-island";
 
 export {
   DynamicContainer,

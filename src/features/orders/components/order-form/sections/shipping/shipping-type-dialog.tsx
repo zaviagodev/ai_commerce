@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
-import { Truck, Calculator } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Truck, Calculator } from "lucide-react";
 
 interface ShippingTypeDialogProps {
   children: React.ReactNode;
-  currentType: 'dynamic' | 'manual';
-  onSelect: (type: 'dynamic' | 'manual') => void;
+  currentType: "dynamic" | "manual";
+  onSelect: (type: "dynamic" | "manual") => void;
 }
 
-export function ShippingTypeDialog({ children, currentType, onSelect }: ShippingTypeDialogProps) {
+export function ShippingTypeDialog({
+  children,
+  currentType,
+  onSelect,
+}: ShippingTypeDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,12 +35,16 @@ export function ShippingTypeDialog({ children, currentType, onSelect }: Shipping
           value={currentType}
           className="grid gap-4"
           onValueChange={(value) => {
-            onSelect(value as 'dynamic' | 'manual');
+            onSelect(value as "dynamic" | "manual");
             setOpen(false);
           }}
         >
           <div className="relative">
-            <RadioGroupItem value="dynamic" id="dynamic" className="peer sr-only" />
+            <RadioGroupItem
+              value="dynamic"
+              id="dynamic"
+              className="peer sr-only"
+            />
             <Label
               htmlFor="dynamic"
               className="flex items-center justify-between rounded-lg border p-4 hover:bg-accent peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
@@ -55,7 +63,11 @@ export function ShippingTypeDialog({ children, currentType, onSelect }: Shipping
             </Label>
           </div>
           <div className="relative">
-            <RadioGroupItem value="manual" id="manual" className="peer sr-only" />
+            <RadioGroupItem
+              value="manual"
+              id="manual"
+              className="peer sr-only"
+            />
             <Label
               htmlFor="manual"
               className="flex items-center justify-between rounded-lg border p-4 hover:bg-accent peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"

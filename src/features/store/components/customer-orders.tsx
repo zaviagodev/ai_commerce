@@ -1,22 +1,23 @@
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/lib/supabase';
-import { Order } from '@/types/order';
-import { formatCurrency } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Package, ChevronRight } from 'lucide-react';
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+import { Order } from "@/types/order";
+import { formatCurrency } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Package, ChevronRight } from "lucide-react";
 
 export function CustomerOrders() {
   const { storeName } = useParams<{ storeName: string }>();
 
   const { data: orders = [], isLoading } = useQuery({
-    queryKey: ['customer-orders', storeName],
+    queryKey: ["customer-orders", storeName],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('orders')
-        .select(`
+        .from("orders")
+        .select(
+          `
           *,
           order_items (
             id,
@@ -39,9 +40,10 @@ export function CustomerOrders() {
               )
             )
           )
-        `)
-        .eq('store_name', storeName)
-        .order('created_at', { ascending: false });
+        `,
+        )
+        .eq("store_name", storeName)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       return data as Order[];
@@ -71,18 +73,20 @@ export function CustomerOrders() {
           <div className="border-b p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium">Order #{order.id.split('-')[0].toUpperCase()}</p>
+                <p className="font-medium">
+                  Order #{order.id.split("-")[0].toUpperCase()}
+                </p>
                 <p className="text-sm text-muted-foreground">
                   {new Date(order.createdAt).toLocaleDateString()}
                 </p>
               </div>
               <Badge
-                className={cn('capitalize shadow-none', {
-                  'bg-yellow-100 text-yellow-800': order.status === 'pending',
-                  'bg-blue-100 text-blue-800': order.status === 'processing',
-                  'bg-purple-100 text-purple-800': order.status === 'shipped',
-                  'bg-green-100 text-green-800': order.status === 'delivered',
-                  'bg-red-100 text-red-800': order.status === 'cancelled',
+                className={cn("capitalize shadow-none", {
+                  "bg-yellow-100 text-yellow-800": order.status === "pending",
+                  "bg-blue-100 text-blue-800": order.status === "processing",
+                  "bg-purple-100 text-purple-800": order.status === "shipped",
+                  "bg-green-100 text-green-800": order.status === "delivered",
+                  "bg-red-100 text-red-800": order.status === "cancelled",
                 })}
               >
                 {order.status}

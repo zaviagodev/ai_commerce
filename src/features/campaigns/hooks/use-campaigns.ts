@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CampaignService } from '../services/campaign-service';
-import { Campaign } from '@/types/campaign';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { CampaignService } from "../services/campaign-service";
+import { Campaign } from "@/types/campaign";
 
 export function useCampaigns() {
   const queryClient = useQueryClient();
@@ -10,15 +10,15 @@ export function useCampaigns() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['campaigns'],
+    queryKey: ["campaigns"],
     queryFn: CampaignService.getCampaigns,
   });
 
   const createCampaign = useMutation({
-    mutationFn: (campaign: Omit<Campaign, 'id' | 'createdAt' | 'updatedAt'>) =>
+    mutationFn: (campaign: Omit<Campaign, "id" | "createdAt" | "updatedAt">) =>
       CampaignService.createCampaign(campaign),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['campaigns'] });
+      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
     },
   });
 
@@ -26,7 +26,7 @@ export function useCampaigns() {
     mutationFn: ({ id, data }: { id: string; data: Partial<Campaign> }) =>
       CampaignService.updateCampaign(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['campaigns'] });
+      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
     },
   });
 

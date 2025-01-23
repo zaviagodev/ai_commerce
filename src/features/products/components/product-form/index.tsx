@@ -56,10 +56,10 @@ export function ProductForm({
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
-  const t  = useTranslation();
+  const t = useTranslation();
   const isEventProduct = location.pathname.startsWith("/dashboard/events");
   const isRewardProduct = location.pathname.startsWith(
-    "/dashboard/reward-items"
+    "/dashboard/reward-items",
   );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
@@ -212,13 +212,13 @@ export function ProductForm({
                         {initialData?.status && !isEditing && (
                           <Badge
                             variant="secondary"
-                            className={cn('whitespace-nowrap gap-2', {
-                              '!bg-green-100 text-green-700 dark:!bg-green-700 dark:text-green-200':
-                                initialData.status === 'active',
-                              '!bg-red-100 text-red-700 dark:!bg-red-700 dark:text-red-200':
-                                initialData.status === 'archived',
-                              '!bg-gray-100 text-gray-700 dark:!bg-gray-700 dark:text-gray-200':
-                                initialData.status === 'draft',
+                            className={cn("whitespace-nowrap gap-2", {
+                              "!bg-green-100 text-green-700 dark:!bg-green-700 dark:text-green-200":
+                                initialData.status === "active",
+                              "!bg-red-100 text-red-700 dark:!bg-red-700 dark:text-red-200":
+                                initialData.status === "archived",
+                              "!bg-gray-100 text-gray-700 dark:!bg-gray-700 dark:text-gray-200":
+                                initialData.status === "draft",
                             })}
                           >
                             <span className="relative flex h-1.5 w-1.5">
@@ -226,26 +226,26 @@ export function ProductForm({
                                 className={cn(
                                   "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
                                   {
-                                    '!bg-green-400 dark:!bg-green-500':
-                                      initialData.status === 'active',
-                                    '!bg-red-400 dark:!bg-red-500':
-                                      initialData.status === 'archived',
-                                    '!bg-gray-400 dark:!bg-gray-500':
-                                      initialData.status === 'draft',
-                                  }
+                                    "!bg-green-400 dark:!bg-green-500":
+                                      initialData.status === "active",
+                                    "!bg-red-400 dark:!bg-red-500":
+                                      initialData.status === "archived",
+                                    "!bg-gray-400 dark:!bg-gray-500":
+                                      initialData.status === "draft",
+                                  },
                                 )}
                               />
                               <span
                                 className={cn(
                                   "relative inline-flex h-1.5 w-1.5 rounded-full",
                                   {
-                                    '!bg-green-500 dark:!bg-green-400':
-                                      initialData.status === 'active',
-                                    '!bg-red-500 dark:!bg-red-400':
-                                      initialData.status === 'archived',
-                                    '!bg-gray-500 dark:!bg-gray-400':
-                                      initialData.status === 'draft',
-                                  }
+                                    "!bg-green-500 dark:!bg-green-400":
+                                      initialData.status === "active",
+                                    "!bg-red-500 dark:!bg-red-400":
+                                      initialData.status === "archived",
+                                    "!bg-gray-500 dark:!bg-gray-400":
+                                      initialData.status === "draft",
+                                  },
                                 )}
                               />
                             </span>
@@ -268,12 +268,15 @@ export function ProductForm({
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground overflow-hidden">
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="hidden sm:inline">{t.products.products.form.created}</span>
+                      <span className="hidden sm:inline">
+                        {t.products.products.form.created}
+                      </span>
                       <span className="truncate">{user?.fullName}</span>
                     </div>
                     <span className="hidden sm:inline">•</span>
                     <span className="truncate">
-                      {t.products.products.form.lastUpdated} {new Date().toLocaleDateString()}
+                      {t.products.products.form.lastUpdated}{" "}
+                      {new Date().toLocaleDateString()}
                     </span>
                   </div>
                 </div>
@@ -291,11 +294,7 @@ export function ProductForm({
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
                 >
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex"
-                  >
+                  <Button type="button" variant="outline" className="flex">
                     <Share2 className="mr-2 h-4 w-4" />
                     {t.products.products.actions.share}
                   </Button>
@@ -330,7 +329,9 @@ export function ProductForm({
                         {t.products.products.form.tabs.eventSummary}
                       </TabsTrigger>
                     )}
-                    <TabsTrigger value="item-info">{t.products.products.form.tabs.itemInfo}</TabsTrigger>
+                    <TabsTrigger value="item-info">
+                      {t.products.products.form.tabs.itemInfo}
+                    </TabsTrigger>
                     {isEventProduct && (
                       <TabsTrigger value="attendees">
                         {t.products.products.form.tabs.attendees}
@@ -354,7 +355,10 @@ export function ProductForm({
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.media.description}
+                            {
+                              t.products.products.form.sections.media
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>
@@ -371,10 +375,16 @@ export function ProductForm({
                         </div>
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">
-                            {t.products.products.form.sections.basicDetails.title}
+                            {
+                              t.products.products.form.sections.basicDetails
+                                .title
+                            }
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.basicDetails.description}
+                            {
+                              t.products.products.form.sections.basicDetails
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>
@@ -397,7 +407,10 @@ export function ProductForm({
                             {t.products.products.form.sections.pricing.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.pricing.description}
+                            {
+                              t.products.products.form.sections.pricing
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>
@@ -417,7 +430,10 @@ export function ProductForm({
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.inventory.description}
+                            {
+                              t.products.products.form.sections.inventory
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>
@@ -457,10 +473,16 @@ export function ProductForm({
                         </div>
                         <div className="flex-1">
                           <h2 className="text-lg font-medium">
-                            {t.products.products.form.sections.organization.title}
+                            {
+                              t.products.products.form.sections.organization
+                                .title
+                            }
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.organization.description}
+                            {
+                              t.products.products.form.sections.organization
+                                .description
+                            }
                           </p>
                         </div>
                       </CardHeader>

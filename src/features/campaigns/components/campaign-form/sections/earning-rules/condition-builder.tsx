@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { X } from 'lucide-react';
-import { CampaignCondition } from '@/features/campaigns/types/campaign-rules';
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { CampaignCondition } from "@/features/campaigns/types/campaign-rules";
 
 interface Condition {
   id: string;
@@ -21,42 +21,48 @@ interface Condition {
 }
 
 interface ConditionBuilderProps {
- condition: CampaignCondition;
+  condition: CampaignCondition;
   onUpdate: (data: Partial<CampaignCondition>) => void;
   onRemove: () => void;
 }
 
 const CONDITION_TYPES = [
   {
-    id: 'customer_attributes',
-    label: 'Customer Attributes',
+    id: "customer_attributes",
+    label: "Customer Attributes",
     options: [
-      { value: 'lifetime_value', label: 'Customer Lifetime Value' },
-      { value: 'account_age', label: 'Account Age (days)' },
+      { value: "lifetime_value", label: "Customer Lifetime Value" },
+      { value: "account_age", label: "Account Age (days)" },
     ],
   },
   {
-    id: 'order_metrics',
-    label: 'Order Metrics',
+    id: "order_metrics",
+    label: "Order Metrics",
     options: [
-      { value: 'order_count', label: 'Total Order Count' },
-      { value: 'order_value', label: 'Order Value Range' },
-      { value: 'recent_purchase_within_days', label: 'Recent Purchase Within Days' },
+      { value: "order_count", label: "Total Order Count" },
+      { value: "order_value", label: "Order Value Range" },
+      {
+        value: "recent_purchase_within_days",
+        label: "Recent Purchase Within Days",
+      },
     ],
   },
   {
-    id: 'purchase_behavior',
-    label: 'Purchase Behavior',
+    id: "purchase_behavior",
+    label: "Purchase Behavior",
     options: [
-      { value: 'first_purchase', label: 'First-time Purchase' },
-      { value: 'days_since_order', label: 'Days Since Last Order' },
-      { value: 'avg_order_value', label: 'Average Order Value' },
+      { value: "first_purchase", label: "First-time Purchase" },
+      { value: "days_since_order", label: "Days Since Last Order" },
+      { value: "avg_order_value", label: "Average Order Value" },
     ],
   },
 ];
 
-export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBuilderProps) {
-
+export function ConditionBuilder({
+  condition,
+  onUpdate,
+  onRemove,
+}: ConditionBuilderProps) {
   return (
     <div className="p-4 rounded-lg border bg-muted/50 relative">
       <div className="flex items-center">
@@ -65,7 +71,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
           variant="ghost"
           size="icon"
           onClick={onRemove}
-          className='absolute right-0 top-0 !bg-transparent'
+          className="absolute right-0 top-0 !bg-transparent"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -74,11 +80,13 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
       <div className="grid gap-4">
         <div className="grid gap-2">
           <label className="text-sm font-medium">Condition Type</label>
-          <Select 
-            value={condition.type} 
-            onValueChange={(value) => onUpdate({ type: value as CampaignCondition['type'] })}
+          <Select
+            value={condition.type}
+            onValueChange={(value) =>
+              onUpdate({ type: value as CampaignCondition["type"] })
+            }
           >
-            <SelectTrigger className='bg-white'>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select condition type" />
             </SelectTrigger>
             <SelectContent>
@@ -104,9 +112,13 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
               <label className="text-sm font-medium">Operator</label>
               <Select
                 value={condition.operator}
-                onValueChange={(value) => onUpdate({ operator: value as CampaignProductRule['operator'] })}
+                onValueChange={(value) =>
+                  onUpdate({
+                    operator: value as CampaignProductRule["operator"],
+                  })
+                }
               >
-                <SelectTrigger className='bg-white'>
+                <SelectTrigger className="bg-white">
                   <SelectValue placeholder="Select operator" />
                 </SelectTrigger>
                 <SelectContent>
@@ -123,7 +135,7 @@ export function ConditionBuilder({ condition, onUpdate, onRemove }: ConditionBui
                 value={condition.value}
                 onChange={(e) => onUpdate({ value: e.target.value })}
                 placeholder="Enter value"
-                className='bg-white'
+                className="bg-white"
               />
             </div>
           </>

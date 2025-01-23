@@ -1,8 +1,8 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { CustomerTierForm } from '../components/customer-tier-form';
-import { CustomerTier } from '@/types/customer';
-import { useCustomerTiers } from '../hooks/use-customer-tiers';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useParams, useNavigate } from "react-router-dom";
+import { CustomerTierForm } from "../components/customer-tier-form";
+import { CustomerTier } from "@/types/customer";
+import { useCustomerTiers } from "../hooks/use-customer-tiers";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export function EditCustomerTierPage() {
   const { id } = useParams();
@@ -18,9 +18,9 @@ export function EditCustomerTierPage() {
   const handleSubmit = async (data: CustomerTier) => {
     try {
       await updateTier.mutateAsync({ id, data });
-      navigate('/dashboard/customer-tiers');
+      navigate("/dashboard/customer-tiers");
     } catch (error) {
-      console.error('Failed to update tier:', error);
+      console.error("Failed to update tier:", error);
     }
   };
 

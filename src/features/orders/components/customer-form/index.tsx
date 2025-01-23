@@ -1,12 +1,12 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { CustomerSchema } from '@/features/customers/schemas/customer-schema';
-import { BasicDetails } from './sections/basic-details';
-import { Addresses } from './sections/addresses';
-import { Customer } from '@/types/customer';
-import { toast } from 'sonner';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { CustomerSchema } from "@/features/customers/schemas/customer-schema";
+import { BasicDetails } from "./sections/basic-details";
+import { Addresses } from "./sections/addresses";
+import { Customer } from "@/types/customer";
+import { toast } from "sonner";
 
 interface CustomerFormProps {
   onSubmit: (data: Customer) => Promise<void>;
@@ -14,30 +14,36 @@ interface CustomerFormProps {
   isSubmitting?: boolean;
 }
 
-export function CustomerForm({ onSubmit, onCancel, isSubmitting }: CustomerFormProps) {
+export function CustomerForm({
+  onSubmit,
+  onCancel,
+  isSubmitting,
+}: CustomerFormProps) {
   const form = useForm({
     resolver: zodResolver(CustomerSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
       isVerified: false,
       acceptsMarketing: false,
       tags: [],
-      addresses: [{
-        id: crypto.randomUUID(),
-        type: 'shipping',
-        firstName: '',
-        lastName: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        postalCode: '',
-        country: '',
-        isDefault: true,
-      }],
+      addresses: [
+        {
+          id: crypto.randomUUID(),
+          type: "shipping",
+          firstName: "",
+          lastName: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          postalCode: "",
+          country: "",
+          isDefault: true,
+        },
+      ],
     },
   });
 
@@ -45,7 +51,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting }: CustomerFormP
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save customer:', error);
+      console.error("Failed to save customer:", error);
     }
   };
 
@@ -65,7 +71,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting }: CustomerFormP
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating...' : 'Create Customer'}
+            {isSubmitting ? "Creating..." : "Create Customer"}
           </Button>
         </div>
       </form>

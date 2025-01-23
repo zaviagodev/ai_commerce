@@ -1,17 +1,17 @@
-import { Badge } from '@/components/ui/badge';
-import { ChevronRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Circle } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { Badge } from "@/components/ui/badge";
+import { ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Circle } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 const PAYMENT_STATUSES = [
-  { id: 'unpaid', label: 'pending' },
-  { id: 'pending', label: 'pending' },
-  { id: 'paid', label: 'paid' },
+  { id: "unpaid", label: "pending" },
+  { id: "pending", label: "pending" },
+  { id: "paid", label: "paid" },
 ] as const;
 
 interface PaymentStatusTrackerProps {
-  currentStatus: 'unpaid' | 'pending' | 'paid';
+  currentStatus: "unpaid" | "pending" | "paid";
 }
 
 export function PaymentStatusTracker({
@@ -19,7 +19,7 @@ export function PaymentStatusTracker({
 }: PaymentStatusTrackerProps) {
   const t = useTranslation();
   const currentIndex = PAYMENT_STATUSES.findIndex(
-    (status) => status.id === currentStatus
+    (status) => status.id === currentStatus,
   );
   const nextStatus = PAYMENT_STATUSES[currentIndex + 1];
   const currentStatusData = PAYMENT_STATUSES[currentIndex];
@@ -41,7 +41,7 @@ export function PaymentStatusTracker({
                 className="absolute h-full w-8 animate-[shimmer_2s_infinite]"
                 style={{
                   background:
-                    'linear-gradient(90deg, transparent, rgba(156,163,175,0.3), transparent)',
+                    "linear-gradient(90deg, transparent, rgba(156,163,175,0.3), transparent)",
                 }}
               />
             </div>
@@ -59,14 +59,14 @@ export function PaymentStatusTracker({
       {/* Current Status */}
       <div className="relative z-10">
         <Badge
-          variant={currentStatus === 'unpaid' ? 'outline' : 'default'}
-          className={cn('flex items-center gap-1.5', {
-            'border-yellow-500/50 bg-yellow-50 text-yellow-700':
-              currentStatus === 'unpaid',
-            'bg-primary text-primary-foreground': currentStatus === 'paid',
+          variant={currentStatus === "unpaid" ? "outline" : "default"}
+          className={cn("flex items-center gap-1.5", {
+            "border-yellow-500/50 bg-yellow-50 text-yellow-700":
+              currentStatus === "unpaid",
+            "bg-primary text-primary-foreground": currentStatus === "paid",
           })}
         >
-          {currentStatus === 'unpaid' && (
+          {currentStatus === "unpaid" && (
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-yellow-500"></span>

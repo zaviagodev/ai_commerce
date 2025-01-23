@@ -42,7 +42,7 @@ export class OrderService {
               )
             )
           )
-        `
+        `,
         )
         .eq("store_name", user.storeName)
         .order("created_at", { ascending: false });
@@ -57,7 +57,7 @@ export class OrderService {
   }
 
   static async createOrder(
-    order: Omit<Order, "id" | "createdAt" | "updatedAt">
+    order: Omit<Order, "id" | "createdAt" | "updatedAt">,
   ): Promise<Order> {
     try {
       // Validate required customer ID
@@ -154,7 +154,7 @@ export class OrderService {
                 quantity: item.quantity,
                 price: item.price,
                 total: item.total,
-              }))
+              })),
             );
 
           if (insertError) throw insertError;
@@ -283,7 +283,7 @@ export class OrderService {
               )
             )
           )
-        `
+        `,
         )
         .eq("id", id)
         .eq("store_name", user.storeName)
@@ -322,7 +322,7 @@ export class OrderService {
               product_id
             )
           )
-        `
+        `,
         )
         .eq("store_name", user.storeName)
         .eq("order_items.product_variants.product_id", productId)

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 interface PrintOptions {
   content: () => HTMLElement | null;
@@ -9,13 +9,13 @@ export function useReactToPrint({ content, onAfterPrint }: PrintOptions) {
   return useCallback(() => {
     const printContent = content();
     if (!printContent) {
-      console.warn('Print content not found');
+      console.warn("Print content not found");
       return;
     }
 
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open("", "_blank");
     if (!printWindow) {
-      console.warn('Could not open print window');
+      console.warn("Could not open print window");
       return;
     }
 
@@ -60,7 +60,7 @@ export function useReactToPrint({ content, onAfterPrint }: PrintOptions) {
     const handleLoad = () => {
       // Small delay to ensure styles are applied
       setTimeout(() => {
-      printWindow.print();
+        printWindow.print();
         // Only close window and call callback after print dialog is closed
         setTimeout(() => {
           printWindow.close();
@@ -71,7 +71,7 @@ export function useReactToPrint({ content, onAfterPrint }: PrintOptions) {
       }, 100);
     };
 
-    if (printWindow.document.readyState === 'complete') {
+    if (printWindow.document.readyState === "complete") {
       handleLoad();
     } else {
       printWindow.onload = handleLoad;

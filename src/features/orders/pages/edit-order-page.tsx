@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button } from '@/components/ui/button'; 
-import { toast } from 'sonner';
-import { OrderForm } from '../components/order-form';
-import { Order } from '@/types/order';
-import { useOrders } from '../hooks/use-orders';
-import { PrintButton } from '../components/print-invoice/print-button';
-import { motion } from 'framer-motion';
-import { Pencil, Printer } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { OrderForm } from "../components/order-form";
+import { Order } from "@/types/order";
+import { useOrders } from "../hooks/use-orders";
+import { PrintButton } from "../components/print-invoice/print-button";
+import { motion } from "framer-motion";
+import { Pencil, Printer } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export function EditOrderPage() {
   const t = useTranslation();
@@ -16,16 +16,16 @@ export function EditOrderPage() {
   const { orders, updateOrder } = useOrders();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [hasChanges, setHasChanges] = useState<boolean>(false);
-  
+
   const order = orders.find((o) => o.id === id);
 
   if (!order) {
-    return <div className='pt-14'>Order not found</div>;
+    return <div className="pt-14">Order not found</div>;
   }
 
   const handleCancel = () => {
     if (hasChanges) {
-      if (window.confirm('Are you sure? Any unsaved changes will be lost.')) {
+      if (window.confirm("Are you sure? Any unsaved changes will be lost.")) {
         setIsEditing(false);
         setHasChanges(false);
       }
@@ -38,8 +38,8 @@ export function EditOrderPage() {
     <div className="flex items-center gap-2">
       <PrintButton order={order} />
       {!isEditing ? (
-        <Button 
-          onClick={() => setIsEditing(true)} 
+        <Button
+          onClick={() => setIsEditing(true)}
           variant="default"
           className="bg-blue-600 hover:bg-blue-700"
         >
@@ -47,20 +47,16 @@ export function EditOrderPage() {
           {t.orders.orders.actions.edit}
         </Button>
       ) : (
-        <motion.div 
+        <motion.div
           className="flex items-center gap-2"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
         >
-          <Button 
-            type="button" 
-            variant="outline" 
-            onClick={handleCancel}
-          >
+          <Button type="button" variant="outline" onClick={handleCancel}>
             {t.orders.orders.actions.cancel}
           </Button>
-          <Button 
+          <Button
             type="submit"
             disabled={!hasChanges}
             className="bg-green-600 hover:bg-green-700"
@@ -92,14 +88,14 @@ export function EditOrderPage() {
           total: data.total,
           notes: data.notes,
           tags: data.tags,
-        }
+        },
       });
       setIsEditing(false);
       setHasChanges(false);
-      toast.success('Order updated successfully');
+      toast.success("Order updated successfully");
     } catch (error) {
-      console.error('Failed to update order:', error);
-      toast.error('Failed to update order');
+      console.error("Failed to update order:", error);
+      toast.error("Failed to update order");
     }
   };
 

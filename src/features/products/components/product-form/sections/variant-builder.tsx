@@ -1,12 +1,12 @@
-import { UseFormReturn } from 'react-hook-form';
-import { useState, useEffect } from 'react';
-import { X, Plus, GripVertical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Product, VariantOption, ProductVariant } from '@/types/product';
-import { VariantTable } from './variant-table';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { UseFormReturn } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { X, Plus, GripVertical } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Product, VariantOption, ProductVariant } from "@/types/product";
+import { VariantTable } from "./variant-table";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface VariantBuilderProps {
   form: UseFormReturn<Product>;
@@ -15,17 +15,17 @@ interface VariantBuilderProps {
 export function VariantBuilder({ form }: VariantBuilderProps) {
   const t = useTranslation();
   const [editingOptionId, setEditingOptionId] = useState<string | null>(null);
-  const [newValue, setNewValue] = useState('');
-  const variantOptions = form.watch('variantOptions') || [];
-  const productName = form.watch('name');
+  const [newValue, setNewValue] = useState("");
+  const variantOptions = form.watch("variantOptions") || [];
+  const productName = form.watch("name");
   const [inputKey, setInputKey] = useState(0);
 
   const addOption = () => {
-    form.setValue('variantOptions', [
+    form.setValue("variantOptions", [
       ...variantOptions,
       {
         id: crypto.randomUUID(),
-        name: '',
+        name: "",
         values: [],
         position: variantOptions.length,
       },
@@ -34,48 +34,48 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
 
   const removeOption = (id: string) => {
     const updatedOptions = variantOptions.filter((opt) => opt.id !== id);
-    form.setValue('variantOptions', updatedOptions);
+    form.setValue("variantOptions", updatedOptions);
     generateVariants(updatedOptions);
   };
 
   const updateOption = (id: string, data: Partial<VariantOption>) => {
     const updatedOptions = variantOptions.map((opt) =>
-      opt.id === id ? { ...opt, ...data } : opt
+      opt.id === id ? { ...opt, ...data } : opt,
     );
-    form.setValue('variantOptions', updatedOptions);
+    form.setValue("variantOptions", updatedOptions);
     generateVariants(updatedOptions);
   };
 
   const addValue = (optionId: string, value: string) => {
     const option = variantOptions.find((opt) => opt.id === optionId);
     const trimmedValue = value.trim();
-    
+
     // Reset input state first
-    setNewValue('');
-    setInputKey(prev => prev + 1);
-    
+    setNewValue("");
+    setInputKey((prev) => prev + 1);
+
     if (!option || !trimmedValue || option.values.includes(trimmedValue)) {
       return;
     }
 
     const updatedOptions = variantOptions.map((opt) =>
-      opt.id === optionId 
+      opt.id === optionId
         ? { ...opt, values: [...opt.values, trimmedValue] }
-        : opt
+        : opt,
     );
 
-    form.setValue('variantOptions', updatedOptions);
+    form.setValue("variantOptions", updatedOptions);
     generateVariants(updatedOptions);
   };
 
   const removeValue = (optionId: string, value: string) => {
     const updatedOptions = variantOptions.map((opt) =>
-      opt.id === optionId 
+      opt.id === optionId
         ? { ...opt, values: opt.values.filter((v) => v !== value) }
-        : opt
+        : opt,
     );
 
-    form.setValue('variantOptions', updatedOptions);
+    form.setValue("variantOptions", updatedOptions);
     generateVariants(updatedOptions);
   };
 
@@ -86,21 +86,18 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
     }
 
     // Generate all possible combinations
-    const combinations = options.reduce<string[][]>(
-      (acc, option) => {
-        if (acc.length === 0) {
-          return option.values.map((value) => [value]);
-        }
-        return acc.flatMap((combo) =>
-          option.values.map((value) => [...combo, value])
-        );
-      },
-      []
-    );
-    console.log("combinations", combinations)
+    const combinations = options.reduce<string[][]>((acc, option) => {
+      if (acc.length === 0) {
+        return option.values.map((value) => [value]);
+      }
+      return acc.flatMap((combo) =>
+        option.values.map((value) => [...combo, value]),
+      );
+    }, []);
+    console.log("combinations", combinations);
 
     // Create variants from combinations
-    const existingVariants = form.watch('variants') || [];
+    const existingVariants = form.watch("variants") || [];
     const newVariants = combinations.map((combo) => {
       var variantName = combo.join("-");
       // Create options array with both names and values
@@ -112,8 +109,8 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
       // Check if variant already exists
       // const existing = existingVariants.find((v) =>
       //   v.options.every(
-      //     (opt, i) => 
-      //       opt.name === variantOptions[i].name && 
+      //     (opt, i) =>
+      //       opt.name === variantOptions[i].name &&
       //       opt.value === variantOptions[i].value
       //   )
       // );
@@ -123,23 +120,28 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
       // Create variant name in format: "Product Name-Large-Blue"
       variantName = `${productName}-${variantName}`;
       const variantSku = variantName.toLowerCase().replaceAll(" ", "-");
-      const oldVariant = form.watch('variants').find(variant =>  variant.sku === variantName.toLowerCase().replaceAll(" ", "-"));
+      const oldVariant = form
+        .watch("variants")
+        .find(
+          (variant) =>
+            variant.sku === variantName.toLowerCase().replaceAll(" ", "-"),
+        );
       return {
         id: crypto.randomUUID(),
         name: variantName,
         sku: variantSku,
         price: oldVariant?.price ?? 0,
-        compareAtPrice: form.watch('compareAtPrice'),
-        quantity: form.watch('trackQuantity') ? 
-          oldVariant?.quantity ?? 0
+        compareAtPrice: form.watch("compareAtPrice"),
+        quantity: form.watch("trackQuantity")
+          ? (oldVariant?.quantity ?? 0)
           : undefined,
         options: variantOptions,
-        status: 'active',
+        status: "active",
         position: combinations.indexOf(combo),
       };
     });
 
-    form.setValue('variants', newVariants);
+    form.setValue("variants", newVariants);
   };
 
   // Generate variants whenever options change
@@ -171,14 +173,17 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
               {/* Option Name */}
               <Input
                 // placeholder={`Option ${index + 1} (e.g., ${isEventProduct ? 'Time slots' : 'Size, Color'})`}
-                placeholder={t.products.products.form.sections.variations.optionNamePlaceholder.replace("{index}", Number(index + 1))}
+                placeholder={t.products.products.form.sections.variations.optionNamePlaceholder.replace(
+                  "{index}",
+                  Number(index + 1),
+                )}
                 value={option.name}
                 onChange={(e) =>
                   updateOption(option.id, { name: e.target.value })
                 }
                 onKeyDown={(e) => {
                   /* When pressing 'Enter' it will open the item actions modal, so I prevent it by setting this function */
-                  if (e.key === "Enter") e.preventDefault()
+                  if (e.key === "Enter") e.preventDefault();
                 }}
               />
 
@@ -207,7 +212,10 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
                   <div className="flex gap-2">
                     <Input
                       key={inputKey}
-                      placeholder={t.products.products.form.sections.variations.optionValuesPlaceholder}
+                      placeholder={
+                        t.products.products.form.sections.variations
+                          .optionValuesPlaceholder
+                      }
                       value={newValue}
                       onChange={(e) => setNewValue(e.target.value)}
                       autoFocus
@@ -218,13 +226,13 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
                         setEditingOptionId(null);
                       }}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' && newValue) {
+                        if (e.key === "Enter" && newValue) {
                           e.preventDefault();
                           addValue(option.id, newValue);
                           setEditingOptionId(null);
-                        } else if (e.key === 'Escape') {
+                        } else if (e.key === "Escape") {
                           setEditingOptionId(null);
-                          setNewValue('');
+                          setNewValue("");
                         }
                       }}
                     />
@@ -277,9 +285,7 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
       </div>
 
       {/* Variant Table */}
-      {variantOptions.length > 0 && (
-        <VariantTable form={form} />
-      )}
+      {variantOptions.length > 0 && <VariantTable form={form} />}
     </div>
   );
 }

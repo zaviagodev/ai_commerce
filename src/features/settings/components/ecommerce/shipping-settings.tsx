@@ -1,8 +1,8 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Truck } from 'lucide-react';
-import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Truck } from "lucide-react";
+import { EcommerceSettings } from "../../schemas/ecommerce-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ShippingSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
@@ -18,7 +18,9 @@ export function ShippingSettings({ form }: ShippingSettingsProps) {
           <Truck className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">{t.settings.ecommerce.shipping.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.ecommerce.shipping.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.ecommerce.shipping.subtitle}
           </p>

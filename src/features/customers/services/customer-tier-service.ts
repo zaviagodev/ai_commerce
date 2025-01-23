@@ -1,23 +1,23 @@
-import { supabase } from '@/lib/supabase';
-import { CustomerTier } from '@/types/customer';
-import { toast } from 'sonner';
-import { useAuthStore } from '@/lib/auth/auth-store';
+import { supabase } from "@/lib/supabase";
+import { CustomerTier } from "@/types/customer";
+import { toast } from "sonner";
+import { useAuthStore } from "@/lib/auth/auth-store";
 
 export class CustomerTierService {
   static async getTiers(): Promise<CustomerTier[]> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: tiers, error } = await supabase
-        .from('customer_tiers')
-        .select('*')
-        .eq('store_name', user.storeName)
-        .order('created_at', { ascending: false });
+        .from("customer_tiers")
+        .select("*")
+        .eq("store_name", user.storeName)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
 
-      return (tiers || []).map(tier => ({
+      return (tiers || []).map((tier) => ({
         id: tier.id,
         name: tier.name,
         description: tier.description,
@@ -31,19 +31,21 @@ export class CustomerTierService {
         status: tier.status,
       }));
     } catch (error) {
-      console.error('Failed to fetch tiers:', error);
-      toast.error('Failed to load customer tiers');
+      console.error("Failed to fetch tiers:", error);
+      toast.error("Failed to load customer tiers");
       return [];
     }
   }
 
-  static async createTier(tier: Omit<CustomerTier, 'id'>): Promise<CustomerTier> {
+  static async createTier(
+    tier: Omit<CustomerTier, "id">,
+  ): Promise<CustomerTier> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: newTier, error } = await supabase
-        .from('customer_tiers')
+        .from("customer_tiers")
         .insert({
           store_name: user.storeName,
           name: tier.name,
@@ -62,7 +64,7 @@ export class CustomerTierService {
 
       if (error) throw error;
 
-      toast.success('Customer tier created successfully');
+      toast.success("Customer tier created successfully");
       return {
         id: newTier.id,
         name: newTier.name,
@@ -77,19 +79,22 @@ export class CustomerTierService {
         status: newTier.status,
       };
     } catch (error: any) {
-      console.error('Failed to create tier:', error);
-      toast.error(error.message || 'Failed to create tier');
+      console.error("Failed to create tier:", error);
+      toast.error(error.message || "Failed to create tier");
       throw error;
     }
   }
 
-  static async updateTier(id: string, tier: Partial<CustomerTier>): Promise<CustomerTier> {
+  static async updateTier(
+    id: string,
+    tier: Partial<CustomerTier>,
+  ): Promise<CustomerTier> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { data: updatedTier, error } = await supabase
-        .from('customer_tiers')
+        .from("customer_tiers")
         .update({
           name: tier.name,
           description: tier.description,
@@ -103,14 +108,14 @@ export class CustomerTierService {
           status: tier.status,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', id)
-        .eq('store_name', user.storeName)
+        .eq("id", id)
+        .eq("store_name", user.storeName)
         .select()
         .single();
 
       if (error) throw error;
 
-      toast.success('Customer tier updated successfully');
+      toast.success("Customer tier updated successfully");
       return {
         id: updatedTier.id,
         name: updatedTier.name,
@@ -125,8 +130,8 @@ export class CustomerTierService {
         status: updatedTier.status,
       };
     } catch (error: any) {
-      console.error('Failed to update tier:', error);
-      toast.error(error.message || 'Failed to update tier');
+      console.error("Failed to update tier:", error);
+      toast.error(error.message || "Failed to update tier");
       throw error;
     }
   }
@@ -134,20 +139,20 @@ export class CustomerTierService {
   static async deleteTier(id: string): Promise<void> {
     try {
       const user = useAuthStore.getState().user;
-      if (!user?.storeName) throw new Error('Store not found');
+      if (!user?.storeName) throw new Error("Store not found");
 
       const { error } = await supabase
-        .from('customer_tiers')
+        .from("customer_tiers")
         .delete()
-        .eq('id', id)
-        .eq('store_name', user.storeName);
+        .eq("id", id)
+        .eq("store_name", user.storeName);
 
       if (error) throw error;
 
-      toast.success('Customer tier deleted successfully');
+      toast.success("Customer tier deleted successfully");
     } catch (error) {
-      console.error('Failed to delete tier:', error);
-      toast.error('Failed to delete tier');
+      console.error("Failed to delete tier:", error);
+      toast.error("Failed to delete tier");
       throw error;
     }
   }

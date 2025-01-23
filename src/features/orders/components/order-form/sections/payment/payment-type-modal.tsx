@@ -1,15 +1,15 @@
-import { CreditCard, Link2, Receipt } from 'lucide-react';
+import { CreditCard, Link2, Receipt } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Order } from '@/types/order';
-import { useState } from 'react';
-import { ManualPaymentSection } from './manual-payment-section';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Order } from "@/types/order";
+import { useState } from "react";
+import { ManualPaymentSection } from "./manual-payment-section";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentTypeModalProps {
   open: boolean;
@@ -19,26 +19,28 @@ interface PaymentTypeModalProps {
   onCheckoutLinkSelect?: () => void;
 }
 
-export function PaymentTypeModal({ 
-  open, 
-  onOpenChange, 
+export function PaymentTypeModal({
+  open,
+  onOpenChange,
   order,
   onManualPaymentSelect,
-  onCheckoutLinkSelect
+  onCheckoutLinkSelect,
 }: PaymentTypeModalProps) {
   const t = useTranslation();
-  const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(null);
+  const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(
+    null,
+  );
 
   const handleManualPayment = () => {
     // Close modal and trigger manual payment section
     onManualPaymentSelect();
-    setSelectedPaymentType('manual');
+    setSelectedPaymentType("manual");
     onOpenChange(false);
   };
 
   const handleShareCheckout = () => {
     // Close modal and set payment type
-    setSelectedPaymentType('checkout');
+    setSelectedPaymentType("checkout");
     if (onCheckoutLinkSelect) {
       onCheckoutLinkSelect();
     }
@@ -47,7 +49,10 @@ export function PaymentTypeModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md" onClick={(e) => e.stopPropagation()}>
+      <DialogContent
+        className="sm:max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
         <DialogHeader>
           <DialogTitle>{t.orders.orders.payment.type.title}</DialogTitle>
         </DialogHeader>
@@ -60,7 +65,9 @@ export function PaymentTypeModal({
           >
             <Receipt className="h-5 w-5" />
             <div className="text-left">
-              <div className="font-medium">{t.orders.orders.payment.type.manual.title}</div>
+              <div className="font-medium">
+                {t.orders.orders.payment.type.manual.title}
+              </div>
               <p className="text-sm text-muted-foreground">
                 {t.orders.orders.payment.type.manual.description}
               </p>
@@ -75,7 +82,9 @@ export function PaymentTypeModal({
           >
             <Link2 className="h-5 w-5" />
             <div className="text-left">
-              <div className="font-medium">{t.orders.orders.payment.type.checkout.title}</div>
+              <div className="font-medium">
+                {t.orders.orders.payment.type.checkout.title}
+              </div>
               <p className="text-sm text-muted-foreground">
                 {t.orders.orders.payment.type.checkout.description}
               </p>

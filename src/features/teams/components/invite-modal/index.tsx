@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { ShareableLink } from './shareable-link';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { ShareableLink } from "./shareable-link";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface InviteModalProps {
   open: boolean;

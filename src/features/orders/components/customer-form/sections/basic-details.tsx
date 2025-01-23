@@ -1,13 +1,13 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Customer } from '@/types/customer';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Customer } from "@/types/customer";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Customer>;

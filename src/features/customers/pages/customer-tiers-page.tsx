@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Crown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from "react-router-dom";
+import { Plus, Crown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,34 +9,33 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { useCustomerTiers } from '../hooks/use-customer-tiers';
-import Loading from '@/components/loading';
-import { cn } from '@/lib/utils';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { ProductSearch } from '@/features/products/components/product-search';
-import { useMemo, useState } from 'react';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { useCustomerTiers } from "../hooks/use-customer-tiers";
+import Loading from "@/components/loading";
+import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { ProductSearch } from "@/features/products/components/product-search";
+import { useMemo, useState } from "react";
 
 export function CustomerTiersPage() {
   const navigate = useNavigate();
   const { tiers, isLoading } = useCustomerTiers();
   const t = useTranslation();
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const filteredTiers = useMemo(() => {
     let filtered = tiers;
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = tiers.filter(
-        (tier) =>
-          tier.name.toLowerCase().includes(query)
+      filtered = tiers.filter((tier) =>
+        tier.name.toLowerCase().includes(query),
       );
     }
 
-    return filtered
-  }, [tiers, searchQuery])
+    return filtered;
+  }, [tiers, searchQuery]);
 
   if (isLoading) {
     return (
@@ -55,7 +54,9 @@ export function CustomerTiersPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{t.customers.customer.tier.list.title}</h1>
+          <h1 className="text-2xl font-semibold">
+            {t.customers.customer.tier.list.title}
+          </h1>
           <p className="text-sm text-muted-foreground">
             {t.customers.customer.tier.list.description}
           </p>
@@ -68,7 +69,7 @@ export function CustomerTiersPage() {
         </Button>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,11 +91,21 @@ export function CustomerTiersPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t.customers.customer.tier.list.columns.tier}</TableHead>
-              <TableHead>{t.customers.customer.tier.list.columns.rewardsMultiplier}</TableHead>
-              <TableHead>{t.customers.customer.tier.list.columns.discount}</TableHead>
-              <TableHead>{t.customers.customer.tier.list.columns.benefits}</TableHead>
-              <TableHead>{t.customers.customer.tier.list.columns.status}</TableHead>
+              <TableHead>
+                {t.customers.customer.tier.list.columns.tier}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.tier.list.columns.rewardsMultiplier}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.tier.list.columns.discount}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.tier.list.columns.benefits}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.tier.list.columns.status}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -102,7 +113,9 @@ export function CustomerTiersPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">{t.customers.customer.tier.list.empty.title}</p>
+                    <p className="text-lg font-medium">
+                      {t.customers.customer.tier.list.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       {t.customers.customer.tier.list.empty.description}
                     </p>
@@ -117,7 +130,13 @@ export function CustomerTiersPage() {
               </TableRow>
             ) : (
               filteredTiers.map((tier) => (
-                <TableRow key={tier.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customer-tiers/${tier.id}`)}>
+                <TableRow
+                  key={tier.id}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    navigate(`/dashboard/customer-tiers/${tier.id}`)
+                  }
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -126,7 +145,9 @@ export function CustomerTiersPage() {
                         <Crown className={`h-5 w-5 text-${tier.color}-600`} />
                       </div>
                       <div>
-                        <span className="font-medium hover:underline">{tier.name}</span>
+                        <span className="font-medium hover:underline">
+                          {tier.name}
+                        </span>
                         {tier.description && (
                           <p className="text-sm text-muted-foreground">
                             {tier.description}
@@ -140,21 +161,32 @@ export function CustomerTiersPage() {
                   <TableCell>
                     <div className="flex gap-1">
                       {tier.freeShipping && (
-                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.freeShipping}</Badge>
+                        <Badge variant="secondary">
+                          {t.customers.customer.tier.list.benefits.freeShipping}
+                        </Badge>
                       )}
                       {tier.prioritySupport && (
-                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.prioritySupport}</Badge>
+                        <Badge variant="secondary">
+                          {
+                            t.customers.customer.tier.list.benefits
+                              .prioritySupport
+                          }
+                        </Badge>
                       )}
                       {tier.earlyAccess && (
-                        <Badge variant="secondary">{t.customers.customer.tier.list.benefits.earlyAccess}</Badge>
+                        <Badge variant="secondary">
+                          {t.customers.customer.tier.list.benefits.earlyAccess}
+                        </Badge>
                       )}
                     </div>
                   </TableCell>
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": tier.status === "active",
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": tier.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                          tier.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                          tier.status === "inactive",
                       })}
                     >
                       {t.customers.customer.tier.list.status[tier.status]}

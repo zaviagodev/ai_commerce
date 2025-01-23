@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/lib/auth/auth-hooks';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/lib/auth/auth-hooks";
 import {
   AudioWaveform,
   Command,
@@ -15,11 +15,11 @@ import {
   Crown,
   UsersRound,
   Folder,
-} from 'lucide-react';
-import { TeamList } from './team-list';
-import { NavMain } from './nav-main';
-import { NavUser } from './nav-user';
-import { TeamSwitcher } from './team-switcher';
+} from "lucide-react";
+import { TeamList } from "./team-list";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
+import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -31,74 +31,74 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 // This is sample data.
 const dashboardMenus = [
   {
-    title: 'Dashboard',
-    url: '/dashboard',
+    title: "Dashboard",
+    url: "/dashboard",
     icon: LayoutDashboard,
     items: [
       {
-        title: 'Dashboard',
-        url: '/dashboard',
+        title: "Dashboard",
+        url: "/dashboard",
       },
     ],
   },
   {
-    title: 'Products',
-    url: '/dashboard/products',
+    title: "Products",
+    url: "/dashboard/products",
     icon: Package,
     items: [
       {
-        title: 'Items',
-        url: '/dashboard/products',
+        title: "Items",
+        url: "/dashboard/products",
         icon: Package,
       },
       {
-        title: 'Categories',
-        url: '/dashboard/categories',
+        title: "Categories",
+        url: "/dashboard/categories",
         icon: Folder,
-      }
+      },
     ],
   },
   {
-    title: 'Customers',
-    url: '/dashboard/customers',
+    title: "Customers",
+    url: "/dashboard/customers",
     icon: Users,
     items: [
       {
-        title: 'Customers',
-        url: '/dashboard/customers',
+        title: "Customers",
+        url: "/dashboard/customers",
         icon: UsersRound,
       },
       {
-        title: 'Customer Groups',
-        url: '/dashboard/customer-groups',
+        title: "Customer Groups",
+        url: "/dashboard/customer-groups",
         icon: Users,
       },
     ],
   },
   {
-    title: 'Orders',
-    url: '/dashboard/orders',
+    title: "Orders",
+    url: "/dashboard/orders",
     icon: ShoppingCart,
     items: [
       {
-        title: 'Orders',
-        url: '/dashboard/orders',
+        title: "Orders",
+        url: "/dashboard/orders",
       },
     ],
   },
   {
-    title: 'Profile',
-    url: '/dashboard/profile',
+    title: "Profile",
+    url: "/dashboard/profile",
     icon: UserCircle,
     items: [
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
+        title: "Profile",
+        url: "/dashboard/profile",
       },
     ],
   },
@@ -106,125 +106,125 @@ const dashboardMenus = [
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: 'Acme Inc',
+      name: "Acme Inc",
       logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
+      plan: "Enterprise",
     },
     {
-      name: 'Acme Corp.',
+      name: "Acme Corp.",
       logo: AudioWaveform,
-      plan: 'Startup',
+      plan: "Startup",
     },
     {
-      name: 'Evil Corp.',
+      name: "Evil Corp.",
       logo: Command,
-      plan: 'Free',
+      plan: "Free",
     },
   ],
   navMain: [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
+      title: "Dashboard",
+      url: "/dashboard",
       icon: LayoutDashboard,
       isActive: true,
       items: [
         {
-          title: 'Dashboard',
-          url: '/dashboard',
+          title: "Dashboard",
+          url: "/dashboard",
         },
         {
-          title: 'Products',
-          url: '/dashboard/products',
+          title: "Products",
+          url: "/dashboard/products",
         },
         {
-          title: 'Customers',
-          url: '/dashboard/customers',
+          title: "Customers",
+          url: "/dashboard/customers",
         },
         {
-          title: 'Orders',
-          url: '/dashboard/orders',
+          title: "Orders",
+          url: "/dashboard/orders",
         },
         {
-          title: 'Profile',
-          url: '/dashboard/profile',
+          title: "Profile",
+          url: "/dashboard/profile",
         },
       ],
     },
     {
-      title: 'Products',
-      url: '/dashboard/products',
+      title: "Products",
+      url: "/dashboard/products",
       icon: Package,
       items: [
         {
-          title: 'Products',
-          url: '/dashboard/products',
+          title: "Products",
+          url: "/dashboard/products",
         },
         {
-          title: 'Product Categories',
-          url: '#',
+          title: "Product Categories",
+          url: "#",
         },
         {
-          title: 'Brands',
-          url: '#',
+          title: "Brands",
+          url: "#",
         },
         {
-          title: 'Warehouse',
-          url: '#',
+          title: "Warehouse",
+          url: "#",
         },
       ],
     },
     {
-      title: 'Customers',
-      url: '/dashboard/customers',
+      title: "Customers",
+      url: "/dashboard/customers",
       icon: Users,
       items: [
         {
-          title: 'Customers',
-          url: '/dashboard/customers',
+          title: "Customers",
+          url: "/dashboard/customers",
         },
         {
-          title: 'Customer Group',
-          url: '#',
+          title: "Customer Group",
+          url: "#",
         },
       ],
     },
     {
-      title: 'Orders',
-      url: '/dashboard/orders',
+      title: "Orders",
+      url: "/dashboard/orders",
       icon: ShoppingCart,
       items: [
         {
-          title: 'Orders',
-          url: '/dashboard/orders',
+          title: "Orders",
+          url: "/dashboard/orders",
         },
         {
-          title: 'Sales Invoices',
-          url: '#',
+          title: "Sales Invoices",
+          url: "#",
         },
         {
-          title: 'Sales Returns',
-          url: '#',
+          title: "Sales Returns",
+          url: "#",
         },
       ],
     },
     {
-      title: 'Profile',
-      url: '/dashboard/profile',
+      title: "Profile",
+      url: "/dashboard/profile",
       icon: UserCircle,
       items: [
         {
-          title: 'Profile',
-          url: '/dashboard/profile',
+          title: "Profile",
+          url: "/dashboard/profile",
         },
         {
-          title: 'Edit Profile',
-          url: '#',
+          title: "Edit Profile",
+          url: "#",
         },
       ],
     },
@@ -252,7 +252,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader>
           <div
             className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-primary/5 mx-auto"
-            style={{ width: '32px', height: '32px' }}
+            style={{ width: "32px", height: "32px" }}
           >
             <Command className="h-4 w-4 text-primary" />
           </div>
@@ -281,7 +281,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         className="h-full flex-1 flex absolute md:relative top-0 ml-12 md:ml-0 bg-background w-[calc(100%_-_48px)]"
       >
         <SidebarHeader>
-          <TeamSwitcher storeName={user?.storeName || ''} />
+          <TeamSwitcher storeName={user?.storeName || ""} />
         </SidebarHeader>
         <SidebarContent className="flex-1 overflow-y-auto h-full">
           <NavMain items={dashboardMenus} />
@@ -289,8 +289,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarFooter>
           <NavUser
             user={{
-              name: user?.fullName || '',
-              email: user?.email || '',
+              name: user?.fullName || "",
+              email: user?.email || "",
               avatar: data.user.avatar,
             }}
           />

@@ -3,16 +3,16 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface DataTablePaginationProps {
   pageIndex: number;
@@ -35,11 +35,15 @@ export function DataTablePagination({
   return (
     <div className="flex flex-col md:flex-row items-center justify-between bg-main gap-y-4">
       <div className="flex-1 text-sm text-muted-foreground">
-        {t.pagination.pagination[totalItems === 1 ? "totalItem" : "totalItems"].replace("{count}", totalItems as any)}
+        {t.pagination.pagination[
+          totalItems === 1 ? "totalItem" : "totalItems"
+        ].replace("{count}", totalItems as any)}
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">{t.pagination.pagination.itemsPerPage}</p>
+          <p className="text-sm font-medium">
+            {t.pagination.pagination.itemsPerPage}
+          </p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
@@ -59,7 +63,8 @@ export function DataTablePagination({
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          {t.pagination.pagination.page} {pageIndex + 1} {t.pagination.pagination.of} {pageCount}
+          {t.pagination.pagination.page} {pageIndex + 1}{" "}
+          {t.pagination.pagination.of} {pageCount}
         </div>
         <div className="flex items-center space-x-2">
           <Button

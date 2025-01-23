@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { MoreHorizontal, Plus, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from "react-router-dom";
+import { MoreHorizontal, Plus, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,27 +9,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { useCustomerGroups } from '../hooks/use-customer-groups';
-import Loading from '@/components/loading';
-import { cn } from '@/lib/utils';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { ProductSearch } from '@/features/products/components/product-search';
-import { useMemo, useState } from 'react';
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { useCustomerGroups } from "../hooks/use-customer-groups";
+import Loading from "@/components/loading";
+import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { ProductSearch } from "@/features/products/components/product-search";
+import { useMemo, useState } from "react";
 
 export function CustomerGroupsPage() {
   const navigate = useNavigate();
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
   const t = useTranslation();
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
   const filteredGroups = useMemo(() => {
     let filtered = groups;
 
@@ -38,7 +38,7 @@ export function CustomerGroupsPage() {
       filtered = groups.filter(
         (group) =>
           group.name.toLowerCase().includes(query) ||
-          group.description?.toLowerCase().includes(query)
+          group.description?.toLowerCase().includes(query),
       );
     }
 
@@ -49,7 +49,7 @@ export function CustomerGroupsPage() {
     try {
       await deleteGroup.mutateAsync(id);
     } catch (error) {
-      console.error('Failed to delete group:', error);
+      console.error("Failed to delete group:", error);
     }
   };
 
@@ -70,7 +70,9 @@ export function CustomerGroupsPage() {
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{t.customers.customer.group.list.title}</h1>
+          <h1 className="text-2xl font-semibold">
+            {t.customers.customer.group.list.title}
+          </h1>
           <p className="text-sm text-muted-foreground">
             {t.customers.customer.group.list.description}
           </p>
@@ -83,7 +85,7 @@ export function CustomerGroupsPage() {
         </Button>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -105,11 +107,21 @@ export function CustomerGroupsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t.customers.customer.group.list.columns.name}</TableHead>
-              <TableHead>{t.customers.customer.group.list.columns.members}</TableHead>
-              <TableHead>{t.customers.customer.group.list.columns.autoAssign}</TableHead>
-              <TableHead>{t.customers.customer.group.list.columns.status}</TableHead>
-              <TableHead className="w-[70px]">{t.customers.customer.group.list.columns.actions}</TableHead>
+              <TableHead>
+                {t.customers.customer.group.list.columns.name}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.group.list.columns.members}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.group.list.columns.autoAssign}
+              </TableHead>
+              <TableHead>
+                {t.customers.customer.group.list.columns.status}
+              </TableHead>
+              <TableHead className="w-[70px]">
+                {t.customers.customer.group.list.columns.actions}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -117,7 +129,9 @@ export function CustomerGroupsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">{t.customers.customer.group.list.empty.title}</p>
+                    <p className="text-lg font-medium">
+                      {t.customers.customer.group.list.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       {t.customers.customer.group.list.empty.description}
                     </p>
@@ -132,7 +146,13 @@ export function CustomerGroupsPage() {
               </TableRow>
             ) : (
               filteredGroups.map((group) => (
-                <TableRow key={group.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/customer-groups/${group.id}`)}>
+                <TableRow
+                  key={group.id}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    navigate(`/dashboard/customer-groups/${group.id}`)
+                  }
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div
@@ -141,7 +161,9 @@ export function CustomerGroupsPage() {
                         <Users className={`h-5 w-5 text-${group.color}-600`} />
                       </div>
                       <div>
-                        <span className="font-medium hover:underline">{group.name}</span>
+                        <span className="font-medium hover:underline">
+                          {group.name}
+                        </span>
                         {group.description && (
                           <p className="text-sm text-muted-foreground">
                             {group.description}
@@ -152,21 +174,23 @@ export function CustomerGroupsPage() {
                   </TableCell>
                   <TableCell>
                     {t.customers.customer.group.list.memberCount
-                      .replace('{count}', String(group.members?.length || 0))
-                      .replace('{s}', group.members?.length === 1 ? '' : 's')}
+                      .replace("{count}", String(group.members?.length || 0))
+                      .replace("{s}", group.members?.length === 1 ? "" : "s")}
                   </TableCell>
                   <TableCell>
-                    <Badge variant={group.autoAssign ? 'default' : 'secondary'}>
-                      {group.autoAssign 
-                        ?  t.customers.customer.group.list.autoAssign.enabled 
-                        :  t.customers.customer.group.list.autoAssign.disabled}
+                    <Badge variant={group.autoAssign ? "default" : "secondary"}>
+                      {group.autoAssign
+                        ? t.customers.customer.group.list.autoAssign.enabled
+                        : t.customers.customer.group.list.autoAssign.disabled}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": group.status === "active",
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": group.status === "inactive"
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                          group.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                          group.status === "inactive",
                       })}
                     >
                       {t.customers.customer.group.list.status[group.status]}
@@ -181,9 +205,7 @@ export function CustomerGroupsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
-                          <Link
-                            to={`/dashboard/customer-groups/${group.id}`}
-                          >
+                          <Link to={`/dashboard/customer-groups/${group.id}`}>
                             {t.customers.customer.group.list.actions.edit}
                           </Link>
                         </DropdownMenuItem>

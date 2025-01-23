@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Command, Plus } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import * as React from "react";
+import { Command, Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 interface Team {
   id: string;
@@ -24,15 +24,15 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
-        setFocusedIndex(prev => (prev + 1) % teams.length);
+        setFocusedIndex((prev) => (prev + 1) % teams.length);
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
-        setFocusedIndex(prev => (prev - 1 + teams.length) % teams.length);
+        setFocusedIndex((prev) => (prev - 1 + teams.length) % teams.length);
         break;
-      case 'Enter':
+      case "Enter":
         if (focusedIndex !== -1) {
           onTeamSelect(teams[focusedIndex].id);
         }
@@ -41,9 +41,9 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
   };
 
   return (
-    <div 
+    <div
       className="flex flex-col gap-1.5 p-1.5"
-      style={{ width: '100%' }}
+      style={{ width: "100%" }}
       role="listbox"
       tabIndex={0}
       onKeyDown={handleKeyDown}
@@ -58,7 +58,7 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
                 "relative flex h-8 w-8 items-center justify-center rounded-lg transition-all mx-auto",
                 "hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                 team.id === activeTeamId && "bg-primary/5",
-                index === focusedIndex && "ring-2 ring-primary"
+                index === focusedIndex && "ring-2 ring-primary",
               )}
               onClick={() => onTeamSelect(team.id)}
             >
@@ -75,9 +75,9 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
           </TooltipContent>
         </Tooltip>
       ))}
-      
+
       <div className="my-1.5 border-t border-gray-200 dark:border-gray-700" />
-      
+
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -85,11 +85,11 @@ export function TeamList({ teams, activeTeamId, onTeamSelect }: TeamListProps) {
             className={cn(
               "relative flex h-8 w-8 items-center justify-center rounded-lg transition-all mx-auto",
               "hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-              "text-gray-500 hover:text-gray-900"
+              "text-gray-500 hover:text-gray-900",
             )}
             onClick={() => {
               // Handle add app click
-              console.log('Add app clicked');
+              console.log("Add app clicked");
             }}
           >
             <Plus className="h-4 w-4" />

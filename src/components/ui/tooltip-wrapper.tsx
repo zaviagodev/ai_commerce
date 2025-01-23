@@ -11,7 +11,10 @@ interface TooltipWrapperProps {
   componentName: string;
 }
 
-export function TooltipWrapper({ children, componentName }: TooltipWrapperProps) {
+export function TooltipWrapper({
+  children,
+  componentName,
+}: TooltipWrapperProps) {
   const { isDeveloperMode } = useDeveloperMode();
 
   if (!isDeveloperMode) {

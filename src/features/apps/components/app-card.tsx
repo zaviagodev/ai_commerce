@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
-import { Star } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Star } from "lucide-react";
 
 interface AppCardProps {
   app: {
@@ -11,7 +11,7 @@ interface AppCardProps {
     description: string;
     icon: string;
     rating: number;
-    price: number | 'Free';
+    price: number | "Free";
     category: string;
   };
 }
@@ -41,7 +41,9 @@ export function AppCard({ app }: AppCardProps) {
                     <Star
                       key={i}
                       className={`h-3.5 w-3.5 ${
-                        i < app.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+                        i < app.rating
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-gray-300"
                       }`}
                     />
                   ))}
@@ -54,11 +56,7 @@ export function AppCard({ app }: AppCardProps) {
 
             {/* Price */}
             <div className="text-sm font-medium">
-              {app.price === 'Free' ? (
-                'Free'
-              ) : (
-                `$${app.price.toFixed(2)}/mo`
-              )}
+              {app.price === "Free" ? "Free" : `$${app.price.toFixed(2)}/mo`}
             </div>
           </div>
 

@@ -5,17 +5,17 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useCategories } from '../../hooks/use-categories';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { useCategories } from "../../hooks/use-categories";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BulkCategoryDialogProps {
   open: boolean;
@@ -35,7 +35,7 @@ export function BulkCategoryDialog({
   const t = useTranslation();
   const { categories } = useCategories();
   const handleCloseModal = () => onOpenChange(false);
-  
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -49,7 +49,9 @@ export function BulkCategoryDialog({
         <div className="space-y-4 py-4">
           <Select onValueChange={(value) => onConfirm(value)}>
             <SelectTrigger>
-              <SelectValue placeholder={t.products.categories.form.selectCategory} />
+              <SelectValue
+                placeholder={t.products.categories.form.selectCategory}
+              />
             </SelectTrigger>
             <SelectContent>
               {categories.length === 0 ? (

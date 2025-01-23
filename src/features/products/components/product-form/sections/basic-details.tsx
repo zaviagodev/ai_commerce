@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,18 +6,18 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Product } from '@/types/product';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Product } from "@/types/product";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Product>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
-  const t  = useTranslation();
+  const t = useTranslation();
 
   return (
     <div className="grid gap-6 w-full">
@@ -26,12 +26,15 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel>{t.products.products.form.name} <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>
+              {t.products.products.form.name}{" "}
+              <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input 
+              <Input
                 placeholder={t.products.products.form.name}
                 className="w-full"
-                {...field} 
+                {...field}
               />
             </FormControl>
             <FormDescription>

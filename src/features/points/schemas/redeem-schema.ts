@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const RedeemItemSchema = z.object({
   id: z.string(),
@@ -19,6 +19,6 @@ export const RedeemSchema = z.object({
   pointsRedeemed: z.number().min(0),
   items: z.array(RedeemItemSchema),
   couponCode: z.string(),
-  status: z.enum(['pending', 'completed', 'cancelled']),
+  status: z.enum(["pending", "completed", "cancelled"]),
   redeemedAt: z.date(),
 });

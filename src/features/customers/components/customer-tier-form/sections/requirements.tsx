@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,26 +6,26 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CustomerTier } from '@/types/customer';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Minus, MinusCircle, Plus, PlusCircle, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { GroupSelector } from './group-selector';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { CustomerTier } from "@/types/customer";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Minus, MinusCircle, Plus, PlusCircle, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { GroupSelector } from "./group-selector";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { useRef } from 'react';
-import InputCounter from '@/components/input-counter';
+} from "@/components/ui/select";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { useRef } from "react";
+import InputCounter from "@/components/input-counter";
 
 interface RequirementsProps {
   form: UseFormReturn<CustomerTier>;
@@ -33,65 +33,68 @@ interface RequirementsProps {
 
 const REQUIREMENT_TYPES = [
   {
-    id: 'points',
-    name: 'Points',
-    description: 'Based on loyalty points earned',
+    id: "points",
+    name: "Points",
+    description: "Based on loyalty points earned",
   },
   {
-    id: 'spending',
-    name: 'Total Spending',
-    description: 'Based on total amount spent',
+    id: "spending",
+    name: "Total Spending",
+    description: "Based on total amount spent",
   },
   {
-    id: 'orders',
-    name: 'Order Count',
-    description: 'Based on number of orders placed',
+    id: "orders",
+    name: "Order Count",
+    description: "Based on number of orders placed",
   },
   {
-    id: 'group',
-    name: 'Customer Group',
-    description: 'Based on membership in specific groups',
+    id: "group",
+    name: "Customer Group",
+    description: "Based on membership in specific groups",
   },
   {
-    id: 'duration',
-    name: 'Membership Duration',
-    description: 'Based on length of membership',
+    id: "duration",
+    name: "Membership Duration",
+    description: "Based on length of membership",
   },
 ] as const;
 
 const DEMO_GROUPS = [
-  { id: '1', name: 'VIP Customers' },
-  { id: '2', name: 'New Customers' },
-  { id: '3', name: 'Wholesale' },
+  { id: "1", name: "VIP Customers" },
+  { id: "2", name: "New Customers" },
+  { id: "3", name: "Wholesale" },
 ];
 
 export function Requirements({ form }: RequirementsProps) {
   const t = useTranslation();
-  const requirements = form.watch('requirements') || [];
+  const requirements = form.watch("requirements") || [];
   const numRef = useRef(null);
 
   const addRequirement = (type: string) => {
     const newRequirement = {
       id: crypto.randomUUID(),
       type,
-      value: type === 'group' ? 1 : 0,
+      value: type === "group" ? 1 : 0,
       enabled: true,
-      groups: type === 'group' ? [] : undefined,
+      groups: type === "group" ? [] : undefined,
     };
-    form.setValue('requirements', [...requirements, newRequirement]);
+    form.setValue("requirements", [...requirements, newRequirement]);
   };
 
   const removeRequirement = (id: string) => {
     form.setValue(
-      'requirements',
-      requirements.filter((req) => req.id !== id)
+      "requirements",
+      requirements.filter((req) => req.id !== id),
     );
   };
 
-  const updateRequirement = (id: string, data: Partial<typeof requirements[0]>) => {
+  const updateRequirement = (
+    id: string,
+    data: Partial<(typeof requirements)[0]>,
+  ) => {
     form.setValue(
-      'requirements',
-      requirements.map((req) => (req.id === id ? { ...req, ...data } : req))
+      "requirements",
+      requirements.map((req) => (req.id === id ? { ...req, ...data } : req)),
     );
   };
 
@@ -99,7 +102,9 @@ export function Requirements({ form }: RequirementsProps) {
     <div className="space-y-6">
       {/* Active Requirements */}
       {requirements.length === 0 && (
-        <p className='text-center text-[0.8rem] text-muted-foreground py-4'>No requirements. Please add them below.</p>
+        <p className="text-center text-[0.8rem] text-muted-foreground py-4">
+          No requirements. Please add them below.
+        </p>
       )}
       <div className="space-y-4">
         {requirements.map((requirement) => (
@@ -110,7 +115,10 @@ export function Requirements({ form }: RequirementsProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Badge variant="secondary">
-                      {REQUIREMENT_TYPES.find((t) => t.id === requirement.type)?.name}
+                      {
+                        REQUIREMENT_TYPES.find((t) => t.id === requirement.type)
+                          ?.name
+                      }
                     </Badge>
                     <Switch
                       checked={requirement.enabled}
@@ -129,8 +137,8 @@ export function Requirements({ form }: RequirementsProps) {
                 </div>
 
                 {/* Requirement Value */}
-                {requirement.type !== 'group' && (
-                  <div className='flex items-center gap-3'>
+                {requirement.type !== "group" && (
+                  <div className="flex items-center gap-3">
                     <div className="relative w-full">
                       <Input
                         type="number"
@@ -138,7 +146,10 @@ export function Requirements({ form }: RequirementsProps) {
                         value={requirement.value}
                         onChange={(e) =>
                           updateRequirement(requirement.id, {
-                            value: e.target.value === '' ? 0 : Number(e.target.value),
+                            value:
+                              e.target.value === ""
+                                ? 0
+                                : Number(e.target.value),
                           })
                         }
                         className="pr-12"
@@ -157,20 +168,25 @@ export function Requirements({ form }: RequirementsProps) {
                     /> */}
                   </div>
                 )}
-                
+
                 {/* Group Selection */}
-                {requirement.type === 'group' && requirement.enabled && (
+                {requirement.type === "group" && requirement.enabled && (
                   <div className="mt-4 space-y-4">
                     <div className="space-y-2">
                       <GroupSelector
                         selectedGroups={requirement.groups || []}
-                        onSelect={(groups) => updateRequirement(requirement.id, { groups })}
+                        onSelect={(groups) =>
+                          updateRequirement(requirement.id, { groups })
+                        }
                       >
-                        <Button variant="outline" className="w-full justify-start">
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start"
+                        >
                           <span className="flex-1 text-left">
                             {requirement.groups?.length
                               ? `${requirement.groups.length} group${requirement.groups.length === 1 ? "" : "s"} selected`
-                              : 'Select groups'}
+                              : "Select groups"}
                           </span>
                         </Button>
                       </GroupSelector>
@@ -188,10 +204,14 @@ export function Requirements({ form }: RequirementsProps) {
 
       {/* Add Requirement */}
       <div className="space-y-4">
-        {REQUIREMENT_TYPES.filter((type) => !requirements.find((req) => req.type === type.id))?.length > 0 && (
+        {REQUIREMENT_TYPES.filter(
+          (type) => !requirements.find((req) => req.type === type.id),
+        )?.length > 0 && (
           <div className="flex items-center gap-2">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-sm text-muted-foreground">Add requirement</span>
+            <span className="text-sm text-muted-foreground">
+              Add requirement
+            </span>
             <div className="h-px flex-1 bg-border" />
           </div>
         )}
@@ -200,7 +220,7 @@ export function Requirements({ form }: RequirementsProps) {
           className="grid gap-2"
         >
           {REQUIREMENT_TYPES.filter(
-            (type) => !requirements.find((req) => req.type === type.id)
+            (type) => !requirements.find((req) => req.type === type.id),
           ).map((type) => (
             <div key={type.id} className="relative">
               <RadioGroupItem
@@ -232,7 +252,12 @@ export function Requirements({ form }: RequirementsProps) {
         name="spendingAmount"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.spendingAmount.label}</FormLabel>
+            <FormLabel>
+              {
+                t.customers.customer.tier.sections.requirements.fields
+                  .spendingAmount.label
+              }
+            </FormLabel>
             <FormControl>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
@@ -240,14 +265,20 @@ export function Requirements({ form }: RequirementsProps) {
                 </span>
                 <Input
                   type="number"
-                  placeholder={ t.customers.customer.tier.sections.requirements.fields.spendingAmount.placeholder}
+                  placeholder={
+                    t.customers.customer.tier.sections.requirements.fields
+                      .spendingAmount.placeholder
+                  }
                   className="pl-6"
                   {...field}
                 />
               </div>
             </FormControl>
             <FormDescription>
-              { t.customers.customer.tier.sections.requirements.fields.spendingAmount.description}
+              {
+                t.customers.customer.tier.sections.requirements.fields
+                  .spendingAmount.description
+              }
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -259,16 +290,27 @@ export function Requirements({ form }: RequirementsProps) {
         name="orderCount"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.orderCount.label}</FormLabel>
+            <FormLabel>
+              {
+                t.customers.customer.tier.sections.requirements.fields
+                  .orderCount.label
+              }
+            </FormLabel>
             <FormControl>
               <Input
                 type="number"
-                placeholder={ t.customers.customer.tier.sections.requirements.fields.orderCount.placeholder}
+                placeholder={
+                  t.customers.customer.tier.sections.requirements.fields
+                    .orderCount.placeholder
+                }
                 {...field}
               />
             </FormControl>
             <FormDescription>
-              { t.customers.customer.tier.sections.requirements.fields.orderCount.description}
+              {
+                t.customers.customer.tier.sections.requirements.fields
+                  .orderCount.description
+              }
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -280,27 +322,49 @@ export function Requirements({ form }: RequirementsProps) {
         name="timeframe"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{ t.customers.customer.tier.sections.requirements.fields.timeframe.label}</FormLabel>
+            <FormLabel>
+              {
+                t.customers.customer.tier.sections.requirements.fields.timeframe
+                  .label
+              }
+            </FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder={ t.customers.customer.tier.sections.requirements.fields.timeframe.label} />
+                  <SelectValue
+                    placeholder={
+                      t.customers.customer.tier.sections.requirements.fields
+                        .timeframe.label
+                    }
+                  />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 <SelectItem value="lifetime">
-                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.lifetime}
+                  {
+                    t.customers.customer.tier.sections.requirements.fields
+                      .timeframe.options.lifetime
+                  }
                 </SelectItem>
                 <SelectItem value="yearly">
-                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.yearly}
+                  {
+                    t.customers.customer.tier.sections.requirements.fields
+                      .timeframe.options.yearly
+                  }
                 </SelectItem>
                 <SelectItem value="monthly">
-                  { t.customers.customer.tier.sections.requirements.fields.timeframe.options.monthly}
+                  {
+                    t.customers.customer.tier.sections.requirements.fields
+                      .timeframe.options.monthly
+                  }
                 </SelectItem>
               </SelectContent>
             </Select>
             <FormDescription>
-              { t.customers.customer.tier.sections.requirements.fields.timeframe.description}
+              {
+                t.customers.customer.tier.sections.requirements.fields.timeframe
+                  .description
+              }
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -312,15 +376,15 @@ export function Requirements({ form }: RequirementsProps) {
 
 function getUnitLabel(type: string): string {
   switch (type) {
-    case 'points':
-      return 'point(s)';
-    case 'spending':
-      return 'USD';
-    case 'orders':
-      return 'order(s)';
-    case 'duration':
-      return 'day(s)';
+    case "points":
+      return "point(s)";
+    case "spending":
+      return "USD";
+    case "orders":
+      return "order(s)";
+    case "duration":
+      return "day(s)";
     default:
-      return '';
+      return "";
   }
 }

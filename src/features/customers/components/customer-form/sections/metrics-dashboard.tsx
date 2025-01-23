@@ -1,6 +1,13 @@
-import { Clock, ShoppingCart, Package, Wallet, TrendingUp, History } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
-import { useTranslation } from '@/lib/i18n/hooks';
+import {
+  Clock,
+  ShoppingCart,
+  Package,
+  Wallet,
+  TrendingUp,
+  History,
+} from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface MetricsCardProps {
   title: string;
@@ -11,7 +18,14 @@ interface MetricsCardProps {
   textColor: string;
 }
 
-function MetricsCard({ title, value, icon, subtitle, gradient, textColor }: MetricsCardProps) {
+function MetricsCard({
+  title,
+  value,
+  icon,
+  subtitle,
+  gradient,
+  textColor,
+}: MetricsCardProps) {
   return (
     <div className="relative overflow-hidden p-6 bg-main border card-shadow">
       <div className="relative z-10">
@@ -62,7 +76,9 @@ export function MetricsDashboard() {
       <MetricsCard
         title={t.customers.customer.form.sections.metrics.totalOrders.title}
         value="24"
-        subtitle={t.customers.customer.form.sections.metrics.totalOrders.subtitle}
+        subtitle={
+          t.customers.customer.form.sections.metrics.totalOrders.subtitle
+        }
         icon={<ShoppingCart className="h-6 w-6" />}
         gradient=""
         textColor="text-purple-500"
@@ -86,23 +102,47 @@ export function MetricsDashboard() {
         <div className="space-y-4">
           <RecentPurchase
             image="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
-            name={t.customers.customer.form.sections.metrics.recentPurchases.items.smartWatch}
-            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.today}
+            name={
+              t.customers.customer.form.sections.metrics.recentPurchases.items
+                .smartWatch
+            }
+            date={
+              t.customers.customer.form.sections.metrics.recentPurchases.dates
+                .today
+            }
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-            name={t.customers.customer.form.sections.metrics.recentPurchases.items.headphones}
-            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.yesterday}
+            name={
+              t.customers.customer.form.sections.metrics.recentPurchases.items
+                .headphones
+            }
+            date={
+              t.customers.customer.form.sections.metrics.recentPurchases.dates
+                .yesterday
+            }
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
-            name={t.customers.customer.form.sections.metrics.recentPurchases.items.cameraLens}
-            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.dec18}
+            name={
+              t.customers.customer.form.sections.metrics.recentPurchases.items
+                .cameraLens
+            }
+            date={
+              t.customers.customer.form.sections.metrics.recentPurchases.dates
+                .dec18
+            }
           />
           <RecentPurchase
             image="https://images.unsplash.com/photo-1583394838336-acd977736f90"
-            name={t.customers.customer.form.sections.metrics.recentPurchases.items.gamingConsole}
-            date={t.customers.customer.form.sections.metrics.recentPurchases.dates.dec15}
+            name={
+              t.customers.customer.form.sections.metrics.recentPurchases.items
+                .gamingConsole
+            }
+            date={
+              t.customers.customer.form.sections.metrics.recentPurchases.dates
+                .dec15
+            }
           />
         </div>
       </div>
@@ -110,7 +150,9 @@ export function MetricsDashboard() {
       <MetricsCard
         title={t.customers.customer.form.sections.metrics.totalSpending.title}
         value={formatCurrency(4521.59)}
-        subtitle={t.customers.customer.form.sections.metrics.totalSpending.subtitle}
+        subtitle={
+          t.customers.customer.form.sections.metrics.totalSpending.subtitle
+        }
         icon={<Wallet className="h-6 w-6" />}
         gradient=""
         textColor="text-pink-500"
@@ -118,8 +160,10 @@ export function MetricsDashboard() {
 
       <MetricsCard
         title={t.customers.customer.form.sections.metrics.averageOrder.title}
-        value={formatCurrency(188.40)}
-        subtitle={t.customers.customer.form.sections.metrics.averageOrder.subtitle}
+        value={formatCurrency(188.4)}
+        subtitle={
+          t.customers.customer.form.sections.metrics.averageOrder.subtitle
+        }
         icon={<TrendingUp className="h-6 w-6" />}
         gradient=""
         textColor="text-teal-500"

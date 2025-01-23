@@ -53,7 +53,7 @@ export class TicketService {
 
   static async updateTicketStatus(
     ticketId: string,
-    status: "unused" | "used"
+    status: "unused" | "used",
   ): Promise<void> {
     try {
       const user = useAuthStore.getState().user;
@@ -120,7 +120,7 @@ export class TicketService {
             ),
             quantity
           )
-        `
+        `,
         )
         .eq("id", ticket.order_id)
         .single();

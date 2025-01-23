@@ -1,12 +1,12 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { PaymentSettingsSchema } from '../schemas/payment-settings-schema';
-import { ThaiPaymentMethods } from '../components/payments/thai-payment-methods';
-import { PaymentGateways } from '../components/payments/payment-gateways';
-import { PaymentNotifications } from '../components/payments/payment-notifications';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { PaymentSettingsSchema } from "../schemas/payment-settings-schema";
+import { ThaiPaymentMethods } from "../components/payments/thai-payment-methods";
+import { PaymentGateways } from "../components/payments/payment-gateways";
+import { PaymentNotifications } from "../components/payments/payment-notifications";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export function PaymentSettingsPage() {
   const t = useTranslation();
@@ -14,22 +14,22 @@ export function PaymentSettingsPage() {
     resolver: zodResolver(PaymentSettingsSchema),
     defaultValues: {
       promptpayEnabled: false,
-      promptpayQrCode: '',
-      promptpayId: '',
-      promptpayName: '',
+      promptpayQrCode: "",
+      promptpayId: "",
+      promptpayName: "",
       bankTransferEnabled: false,
       bankAccounts: [],
       omiseEnabled: false,
-      omisePublicKey: '',
-      omiseSecretKey: '',
-      notifyEmail: '',
+      omisePublicKey: "",
+      omiseSecretKey: "",
+      notifyEmail: "",
       notifyLine: false,
-      lineNotifyToken: '',
+      lineNotifyToken: "",
     },
   });
 
   const onSubmit = async (data: any) => {
-    console.log('Saving payment settings:', data);
+    console.log("Saving payment settings:", data);
     // TODO: Implement settings save
   };
 

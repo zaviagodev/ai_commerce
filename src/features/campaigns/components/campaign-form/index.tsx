@@ -1,21 +1,21 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Form } from '@/components/ui/form';
-import { Campaign } from '@/types/campaign';
-import { CampaignSchema } from '../../schemas/campaign-schema';
-import { TemplateSelector } from './sections/template-selector';
-import { ProductRules } from './sections/product-rules';
-import { BasicDetails } from './sections/basic-details';
-import { Conditions } from './sections/conditions';
-import { EarningRules } from './sections/earning-rules';
-import { PointsConfig } from './sections/points-config';
-import { QrCodeConfig } from './sections/qr-code-config';
-import { ClickLinkConfig } from './sections/click-link-config';
-import { DisplaySettings } from './sections/display-settings';
-import { Limitations } from './sections/limitations';
-import { Gift } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { Form } from "@/components/ui/form";
+import { Campaign } from "@/types/campaign";
+import { CampaignSchema } from "../../schemas/campaign-schema";
+import { TemplateSelector } from "./sections/template-selector";
+import { ProductRules } from "./sections/product-rules";
+import { BasicDetails } from "./sections/basic-details";
+import { Conditions } from "./sections/conditions";
+import { EarningRules } from "./sections/earning-rules";
+import { PointsConfig } from "./sections/points-config";
+import { QrCodeConfig } from "./sections/qr-code-config";
+import { ClickLinkConfig } from "./sections/click-link-config";
+import { DisplaySettings } from "./sections/display-settings";
+import { Limitations } from "./sections/limitations";
+import { Gift } from "lucide-react";
 
 interface CampaignFormProps {
   initialData?: Campaign;
@@ -26,24 +26,24 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
   const form = useForm({
     resolver: zodResolver(CampaignSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      type: 'points_multiplier',
+      name: "",
+      description: "",
+      type: "points_multiplier",
       multiplier: 1,
       hasProductRules: false,
       productRules: [],
       conditions: [],
       bonusPoints: null,
-      targetType: 'all',
-      status: 'draft',
+      targetType: "all",
+      status: "draft",
       hasConditions: false,
       qrEnabled: false,
-      qrPointType: 'fixed',
+      qrPointType: "fixed",
       qrPointValue: 1,
       qrScanLimit: 1,
       qrTotalScans: 100,
       clickLinkEnabled: false,
-      clickLinkUrl: '',
+      clickLinkUrl: "",
       clickLinkLimit: 1,
       startDate: new Date(new Date().setMinutes(0, 0, 0)), // Start of current hour
       endDate: new Date(new Date().setDate(new Date().getDate() + 7)), // 7 days from now
@@ -51,26 +51,25 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
     },
   });
 
-
   const handleSubmit = async (data: Campaign) => {
     try {
       await onSubmit(form.getValues());
     } catch (error) {
-      console.error('Failed to save campaign:', error);
+      console.error("Failed to save campaign:", error);
     }
   };
 
   return (
     <div className="space-y-6">
       <Form {...form}>
-        <motion.form 
-          onSubmit={form.handleSubmit(handleSubmit)} 
+        <motion.form
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -78,12 +77,12 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? 'Edit campaign' : 'Create campaign'}
+                {initialData ? "Edit campaign" : "Create campaign"}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {initialData
-                  ? 'Update campaign details'
-                  : 'Create a new points and rewards campaign'}
+                  ? "Update campaign details"
+                  : "Create a new points and rewards campaign"}
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -94,7 +93,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid gap-6 mx-auto max-w-4xl pr-6"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -119,19 +118,19 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             </div>
 
             {/* Show relevant sections based on template type */}
-            {form.watch('type') === 'points_multiplier' ? (
+            {form.watch("type") === "points_multiplier" ? (
               <>
                 <PointsConfig form={form} />
                 <ProductRules form={form} />
                 <Conditions form={form} />
               </>
-            ) : form.watch('qrEnabled') ? (
+            ) : form.watch("qrEnabled") ? (
               <>
                 <QrCodeConfig form={form} />
                 <ProductRules form={form} />
                 <Conditions form={form} />
               </>
-            ) : form.watch('clickLinkEnabled') ? (
+            ) : form.watch("clickLinkEnabled") ? (
               <>
                 <ClickLinkConfig form={form} />
                 <ProductRules form={form} />

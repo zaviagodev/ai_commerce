@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { X } from 'lucide-react';
-import { ProductSelect } from '@/features/orders/components/product-select';
-import { Product } from '@/types/product';
-import { CampaignProductRule } from '@/features/campaigns/types/campaign-rules';
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { ProductSelect } from "@/features/orders/components/product-select";
+import { Product } from "@/types/product";
+import { CampaignProductRule } from "@/features/campaigns/types/campaign-rules";
 
 interface ProductRuleConditionProps {
   condition: CampaignProductRule;
@@ -22,26 +22,30 @@ interface ProductRuleConditionProps {
 
 const RULE_TYPES = [
   {
-    id: 'product_specific',
-    label: 'Specific Product',
+    id: "product_specific",
+    label: "Specific Product",
     options: [
-      { value: 'product_purchased', label: 'Product Purchased' },
-      { value: 'product_quantity', label: 'Product Quantity' },
-      { value: 'product_amount', label: 'Product Amount' },
+      { value: "product_purchased", label: "Product Purchased" },
+      { value: "product_quantity", label: "Product Quantity" },
+      { value: "product_amount", label: "Product Amount" },
     ],
   },
   {
-    id: 'category',
-    label: 'Product Category',
+    id: "category",
+    label: "Product Category",
     options: [
-      { value: 'category_purchased', label: 'Category Purchased' },
-      { value: 'category_quantity', label: 'Category Quantity' },
-      { value: 'category_amount', label: 'Category Amount' },
+      { value: "category_purchased", label: "Category Purchased" },
+      { value: "category_quantity", label: "Category Quantity" },
+      { value: "category_amount", label: "Category Amount" },
     ],
   },
 ];
 
-export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductRuleConditionProps) {
+export function ProductRuleCondition({
+  condition,
+  onUpdate,
+  onRemove,
+}: ProductRuleConditionProps) {
   const handleProductSelect = (product: Product) => {
     onUpdate({
       productId: product.id,
@@ -56,7 +60,7 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
           variant="ghost"
           size="icon"
           onClick={onRemove}
-          className='absolute right-0 top-0 !bg-transparent'
+          className="absolute right-0 top-0 !bg-transparent"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -65,11 +69,13 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
       <div className="grid gap-4">
         <div className="grid gap-2">
           <label className="text-sm font-medium">Rule Type</label>
-          <Select 
-            value={condition.type} 
-            onValueChange={(value) => onUpdate({ type: value as CampaignProductRule['type'] })}
+          <Select
+            value={condition.type}
+            onValueChange={(value) =>
+              onUpdate({ type: value as CampaignProductRule["type"] })
+            }
           >
-            <SelectTrigger className='bg-white'>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Select rule type" />
             </SelectTrigger>
             <SelectContent>
@@ -91,12 +97,12 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
 
         {condition.type && (
           <>
-            {condition.type.startsWith('product_') ? (
+            {condition.type.startsWith("product_") ? (
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Select Product</label>
                 <ProductSelect onSelect={handleProductSelect}>
                   <Button variant="outline" className="w-full justify-start">
-                    {condition.productId || 'Choose a product...'}
+                    {condition.productId || "Choose a product..."}
                   </Button>
                 </ProductSelect>
               </div>
@@ -116,13 +122,18 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
               </div>
             )}
 
-            {condition.type.includes('quantity') || condition.type.includes('amount') ? (
+            {condition.type.includes("quantity") ||
+            condition.type.includes("amount") ? (
               <>
                 <div className="grid gap-2">
                   <label className="text-sm font-medium">Operator</label>
                   <Select
                     value={condition.operator}
-                    onValueChange={(value) => onUpdate({ operator: value as CampaignProductRule['operator'] })}
+                    onValueChange={(value) =>
+                      onUpdate({
+                        operator: value as CampaignProductRule["operator"],
+                      })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select operator" />
@@ -140,10 +151,12 @@ export function ProductRuleCondition({ condition, onUpdate, onRemove }: ProductR
                   <Input
                     type="number"
                     min="0"
-                    step={condition.type.includes('amount') ? '0.01' : '1'}
+                    step={condition.type.includes("amount") ? "0.01" : "1"}
                     value={condition.value}
                     onChange={(e) => onUpdate({ value: e.target.value })}
-                    placeholder={condition.type.includes('amount') ? '0.00' : '0'}
+                    placeholder={
+                      condition.type.includes("amount") ? "0.00" : "0"
+                    }
                   />
                 </div>
               </>

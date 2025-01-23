@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { useAuth } from '@/lib/auth/auth-hooks';
-import { useNavigate, Outlet, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useProducts } from '@/features/products/hooks/use-products';
+import * as React from "react";
+import { useAuth } from "@/lib/auth/auth-hooks";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useProducts } from "@/features/products/hooks/use-products";
 import {
   LayoutDashboard,
   Package,
   Users,
   ShoppingCart,
   UserCircle,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,24 +17,25 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
-import { LanguageSwitcher } from '@/components/language-switcher';
-
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 function getBreadcrumbItems(pathname: string, itemName?: string) {
-  const segments = pathname.split('/').filter(Boolean);
+  const segments = pathname.split("/").filter(Boolean);
   const items = [];
 
-  if (segments[0] === 'dashboard') {
+  if (segments[0] === "dashboard") {
     if (segments[1]) {
-      const section = (segments[1].charAt(0).toUpperCase() + segments[1].slice(1)).replace(/-/g, " ");
+      const section = (
+        segments[1].charAt(0).toUpperCase() + segments[1].slice(1)
+      ).replace(/-/g, " ");
 
       items.push({
         title: section,
@@ -44,12 +45,14 @@ function getBreadcrumbItems(pathname: string, itemName?: string) {
 
       if (segments[2] && segments.includes("settings") === false) {
         let title;
-        const sectionCond = 
-          section === "Categories" ? "Category" : 
-          section === "Redeem list" ? "Redeem List" :
-          section.slice(0, -1)
+        const sectionCond =
+          section === "Categories"
+            ? "Category"
+            : section === "Redeem list"
+              ? "Redeem List"
+              : section.slice(0, -1);
 
-        if (segments[2] === 'new') {
+        if (segments[2] === "new") {
           title = `New ${sectionCond}`;
         } else if (itemName) {
           title = `${itemName} - Edit ${section === "Reward items" ? "Reward Item" : "Product"}`;
@@ -71,34 +74,34 @@ function getBreadcrumbItems(pathname: string, itemName?: string) {
 function getNavItems(currentPath: string) {
   return [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
+      title: "Dashboard",
+      url: "/dashboard",
       icon: LayoutDashboard,
-      isActive: currentPath === '/dashboard',
+      isActive: currentPath === "/dashboard",
     },
     {
-      title: 'Products',
-      url: '/dashboard/products',
+      title: "Products",
+      url: "/dashboard/products",
       icon: Package,
-      isActive: currentPath.startsWith('/dashboard/products'),
+      isActive: currentPath.startsWith("/dashboard/products"),
     },
     {
-      title: 'Customers',
-      url: '/dashboard/customers',
+      title: "Customers",
+      url: "/dashboard/customers",
       icon: Users,
-      isActive: currentPath.startsWith('/dashboard/customers'),
+      isActive: currentPath.startsWith("/dashboard/customers"),
     },
     {
-      title: 'Orders',
-      url: '/dashboard/orders',
+      title: "Orders",
+      url: "/dashboard/orders",
       icon: ShoppingCart,
-      isActive: currentPath.startsWith('/dashboard/orders'),
+      isActive: currentPath.startsWith("/dashboard/orders"),
     },
     {
-      title: 'Profile',
-      url: '/dashboard/profile',
+      title: "Profile",
+      url: "/dashboard/profile",
       icon: UserCircle,
-      isActive: currentPath.startsWith('/dashboard/profile'),
+      isActive: currentPath.startsWith("/dashboard/profile"),
     },
   ];
 }
@@ -108,7 +111,7 @@ export function DashboardLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { products } = useProducts();
-  const segments = location.pathname.split('/').filter(Boolean);
+  const segments = location.pathname.split("/").filter(Boolean);
   const productId = segments[2];
   const product = products.find((p) => p.id === productId);
   const breadcrumbItems = getBreadcrumbItems(location.pathname, product?.name);
@@ -116,9 +119,9 @@ export function DashboardLayout() {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/auth/login');
+      navigate("/auth/login");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -143,7 +146,7 @@ export function DashboardLayout() {
                   <div className="flex items-center gap-2">
                     <SidebarTrigger className="-ml-1" />
                     <Breadcrumb>
-                      <BreadcrumbList className='capitalize'>
+                      <BreadcrumbList className="capitalize">
                         {breadcrumbItems.map((item, index, array) => (
                           <React.Fragment key={item.title}>
                             <BreadcrumbItem>

@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ImagePlus, X } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { BankSelect } from './bank-select';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ImagePlus, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { BankSelect } from "./bank-select";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ManualPaymentSectionProps {
   onConfirm: (data: { bankName: string; slipImage: string }) => void;
@@ -16,8 +16,8 @@ export function ManualPaymentSection({
   onCancel,
 }: ManualPaymentSectionProps) {
   const t = useTranslation();
-  const [selectedBank, setSelectedBank] = useState<string>('');
-  const [slipImage, setSlipImage] = useState<string>('');
+  const [selectedBank, setSelectedBank] = useState<string>("");
+  const [slipImage, setSlipImage] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export function ManualPaymentSection({
       const previewUrl = URL.createObjectURL(file);
       setSlipImage(previewUrl);
     } catch (error) {
-      console.error('Failed to handle file:', error);
+      console.error("Failed to handle file:", error);
     } finally {
       setIsUploading(false);
     }
@@ -51,7 +51,9 @@ export function ManualPaymentSection({
       <BankSelect value={selectedBank} onValueChange={setSelectedBank} />
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-300">{t.orders.orders.form.sections.payment.manual.slipImage}</label>
+        <label className="text-sm text-gray-300">
+          {t.orders.orders.form.sections.payment.manual.slipImage}
+        </label>
         {slipImage ? (
           <div className="relative">
             <img
@@ -64,7 +66,7 @@ export function ManualPaymentSection({
               variant="ghost"
               size="icon"
               className="absolute right-2 top-2 bg-gray-900/50 hover:bg-gray-900/75"
-              onClick={() => setSlipImage('')}
+              onClick={() => setSlipImage("")}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -85,7 +87,9 @@ export function ManualPaymentSection({
             >
               <ImagePlus className="h-8 w-8 text-gray-400 mb-2" />
               <span className="text-sm text-gray-400">
-                {isUploading ? 'Uploading...' : t.orders.orders.form.sections.payment.manual.uploadPrompt}
+                {isUploading
+                  ? "Uploading..."
+                  : t.orders.orders.form.sections.payment.manual.uploadPrompt}
               </span>
             </label>
           </div>

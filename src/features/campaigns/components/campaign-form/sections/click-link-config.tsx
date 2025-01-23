@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,38 +6,38 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Campaign } from '@/types/campaign';
-import { Link2, Copy } from 'lucide-react';
-import { toast } from 'sonner';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Campaign } from "@/types/campaign";
+import { Link2, Copy } from "lucide-react";
+import { toast } from "sonner";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ClickLinkConfigProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
-  const clickLinkEnabled = form.watch('clickLinkEnabled');
-  const campaignId = form.watch('id');
+  const clickLinkEnabled = form.watch("clickLinkEnabled");
+  const campaignId = form.watch("id");
   const baseUrl = window.location.origin;
   const t = useTranslation();
-  
+
   // Auto-generate campaign link
-  const campaignLink = campaignId 
+  const campaignLink = campaignId
     ? `${baseUrl}/points/redeem/${campaignId}`
-    : 'Link will be generated when campaign is saved';
+    : "Link will be generated when campaign is saved";
 
   const handleCopyLink = async () => {
     if (!campaignId) return;
     try {
       await navigator.clipboard.writeText(campaignLink);
-      toast.success('Link copied to clipboard');
+      toast.success("Link copied to clipboard");
     } catch (err) {
-      toast.error('Failed to copy link');
+      toast.error("Failed to copy link");
     }
   };
 
@@ -48,9 +48,14 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
           <Link2 className="h-5 w-5 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.clickLinkConfig.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.customers.customer.campaignForm.sections.clickLinkConfig.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.campaignForm.sections.clickLinkConfig.description}
+            {
+              t.customers.customer.campaignForm.sections.clickLinkConfig
+                .description
+            }
           </p>
         </div>
       </CardHeader>
@@ -61,9 +66,17 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.enabled.label}</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.campaignForm.sections.clickLinkConfig
+                      .fields.enabled.label
+                  }
+                </FormLabel>
                 <FormDescription>
-                  { t.customers.customer.campaignForm.sections.clickLinkConfig.fields.enabled.description}
+                  {
+                    t.customers.customer.campaignForm.sections.clickLinkConfig
+                      .fields.enabled.description
+                  }
                 </FormDescription>
               </div>
               <FormControl>
@@ -83,13 +96,21 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
               name="clickPoints"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.points.label}</FormLabel>
+                  <FormLabel>
+                    {
+                      t.customers.customer.campaignForm.sections.clickLinkConfig
+                        .fields.points.label
+                    }
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type="number"
                         min="1"
-                        placeholder={ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.points.placeholder}
+                        placeholder={
+                          t.customers.customer.campaignForm.sections
+                            .clickLinkConfig.fields.points.placeholder
+                        }
                         className="pr-8"
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
@@ -100,7 +121,10 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
                     </div>
                   </FormControl>
                   <FormDescription>
-                    { t.customers.customer.campaignForm.sections.clickLinkConfig.fields.points.description}
+                    {
+                      t.customers.customer.campaignForm.sections.clickLinkConfig
+                        .fields.points.description
+                    }
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -113,18 +137,29 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
                 name="clickLimit"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.label}</FormLabel>
+                    <FormLabel>
+                      {
+                        t.customers.customer.campaignForm.sections
+                          .clickLinkConfig.fields.clickLimit.label
+                      }
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min="1"
-                        placeholder={ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.placeholder}
+                        placeholder={
+                          t.customers.customer.campaignForm.sections
+                            .clickLinkConfig.fields.clickLimit.placeholder
+                        }
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
-                      { t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.description}
+                      {
+                        t.customers.customer.campaignForm.sections
+                          .clickLinkConfig.fields.clickLimit.description
+                      }
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -136,18 +171,29 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
                 name="totalClicks"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.label}</FormLabel>
+                    <FormLabel>
+                      {
+                        t.customers.customer.campaignForm.sections
+                          .clickLinkConfig.fields.clickLimit.label
+                      }
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min="1"
-                        placeholder={ t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.placeholder}
+                        placeholder={
+                          t.customers.customer.campaignForm.sections
+                            .clickLinkConfig.fields.clickLimit.placeholder
+                        }
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
-                      { t.customers.customer.campaignForm.sections.clickLinkConfig.fields.clickLimit.description}
+                      {
+                        t.customers.customer.campaignForm.sections
+                          .clickLinkConfig.fields.clickLimit.description
+                      }
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -159,8 +205,15 @@ export function ClickLinkConfig({ form }: ClickLinkConfigProps) {
             <div className="rounded-lg border p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-medium mb-1">{ t.customers.customer.campaignForm.sections.clickLinkConfig.title}</h3>
-                  <p className="text-sm text-muted-foreground">{campaignLink}</p>
+                  <h3 className="text-sm font-medium mb-1">
+                    {
+                      t.customers.customer.campaignForm.sections.clickLinkConfig
+                        .title
+                    }
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {campaignLink}
+                  </p>
                 </div>
                 <Button
                   variant="outline"

@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { PercentageDiscountCard } from './percentage-discount-card';
-import { FreeShippingCard } from './free-shipping-card';
-import { CashbackPointsCard } from './cashback-points-card';
+import { motion } from "framer-motion";
+import { PercentageDiscountCard } from "./percentage-discount-card";
+import { FreeShippingCard } from "./free-shipping-card";
+import { CashbackPointsCard } from "./cashback-points-card";
 
 interface PromotionCardsProps {
   onEdit: (id: string) => void;
@@ -13,13 +13,13 @@ export function PromotionCards({ onEdit }: PromotionCardsProps) {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={container}
       initial="hidden"
       animate="show"

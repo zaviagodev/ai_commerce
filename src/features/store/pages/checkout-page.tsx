@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { StoreLayout } from '../components/store-layout';
-import { CheckoutForm } from '../components/checkout-form';
-import { useCart } from '../context/cart-context';
-import { StoreService } from '../services/store-service';
-import { toast } from 'sonner';
+import { useNavigate, useParams } from "react-router-dom";
+import { StoreLayout } from "../components/store-layout";
+import { CheckoutForm } from "../components/checkout-form";
+import { useCart } from "../context/cart-context";
+import { StoreService } from "../services/store-service";
+import { toast } from "sonner";
 
 export function CheckoutPage() {
   const navigate = useNavigate();
@@ -12,8 +12,8 @@ export function CheckoutPage() {
 
   const handleSubmit = async (data: any) => {
     try {
-      if (!storeName) throw new Error('Store not found');
-      
+      if (!storeName) throw new Error("Store not found");
+
       await StoreService.placeOrder({
         storeName,
         customer: {
@@ -40,12 +40,12 @@ export function CheckoutPage() {
         total: state.total, // We'll add shipping and tax calculation later
       });
 
-      toast.success('Order placed successfully!');
+      toast.success("Order placed successfully!");
       clearCart();
       navigate(`/store/${storeName}`);
     } catch (error) {
-      console.error('Failed to place order:', error);
-      toast.error('Failed to place order. Please try again.');
+      console.error("Failed to place order:", error);
+      toast.error("Failed to place order. Please try again.");
     }
   };
 

@@ -1,211 +1,222 @@
 export const ordersTranslations = {
   en: {
-    title: 'Orders',
+    title: "Orders",
     description: "Manage your store's orders",
     actions: {
-      create: 'Create order',
-      new: 'New order',
-      save: 'Save changes',
-      cancel: 'Cancel',
-      print: 'Print invoice',
-      saveOrder: 'Save order',
-      reopen: 'Reopen Order',
+      create: "Create order",
+      new: "New order",
+      save: "Save changes",
+      cancel: "Cancel",
+      print: "Print invoice",
+      saveOrder: "Save order",
+      reopen: "Reopen Order",
       edit: "Edit Order",
-      back: "Back"
+      back: "Back",
     },
     list: {
       empty: {
-        title: 'No orders found',
-        description: 'Get started by creating your first order',
+        title: "No orders found",
+        description: "Get started by creating your first order",
       },
-      search: 'Search orders...',
+      search: "Search orders...",
       columns: {
-        order: 'Order',
-        products: 'Products',
-        customer: 'Customer',
-        status: 'Status',
-        items: 'Items',
-        total: 'Total',
+        order: "Order",
+        products: "Products",
+        customer: "Customer",
+        status: "Status",
+        items: "Items",
+        total: "Total",
       },
-      noCustomer: 'No customer',
+      noCustomer: "No customer",
       itemCount: {
-        singular: 'item',
-        plural: 'items',
+        singular: "item",
+        plural: "items",
       },
     },
     status: {
-      all: 'All',
-      cancelled: 'Cancelled',
-      pending: 'Pending',
-      delivered: 'Delivered',
-      shipped: 'Shipped',
-      processing: 'Processing',
+      all: "All",
+      cancelled: "Cancelled",
+      pending: "Pending",
+      delivered: "Delivered",
+      shipped: "Shipped",
+      processing: "Processing",
     },
     customer: {
-      title: 'Customer',
+      title: "Customer",
       select: {
-        title: 'Select customer',
-        placeholder: 'Search customers...',
-        empty: 'No customers found',
-        create: 'Create New Customer',
+        title: "Select customer",
+        placeholder: "Search customers...",
+        empty: "No customers found",
+        create: "Create New Customer",
       },
       new: {
-        title: 'New Customer',
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        email: 'Email',
-        phone: 'Phone',
+        title: "New Customer",
+        firstName: "First Name",
+        lastName: "Last Name",
+        email: "Email",
+        phone: "Phone",
       },
     },
     address: {
       select: {
-        title: 'Select shipping address',
-        placeholder: 'Select shipping address',
-        empty: 'No addresses found',
-        default: 'Default shipping',
+        title: "Select shipping address",
+        placeholder: "Select shipping address",
+        empty: "No addresses found",
+        default: "Default shipping",
       },
     },
     product: {
       select: {
-        title: 'Select products',
-        placeholder: 'Search products...',
-        empty: 'No products found',
-        quantity: 'Quantity',
-        additional: 'Additional Products',
-        loading: 'Loading products...',
+        title: "Select products",
+        placeholder: "Search products...",
+        empty: "No products found",
+        quantity: "Quantity",
+        additional: "Additional Products",
+        loading: "Loading products...",
       },
       variant: {
-        title: 'Select variant',
-        select: 'variants',
-        inStock: 'in stock',
+        title: "Select variant",
+        select: "variants",
+        inStock: "in stock",
       },
     },
     payment: {
       status: {
-        title: 'Payment Status',
-        paid: 'Paid',
-        pending: 'Pending',
-        failed: 'Failed',
+        title: "Payment Status",
+        paid: "Paid",
+        pending: "Pending",
+        failed: "Failed",
       },
       type: {
-        title: 'Select Payment Type',
+        title: "Select Payment Type",
         manual: {
-          title: 'Manual Payment',
-          description: 'Record a manual payment for this order'
+          title: "Manual Payment",
+          description: "Record a manual payment for this order",
         },
         checkout: {
-          title: 'Share Checkout Link', 
-          description: 'Share a secure payment link with your customer'
-        }
+          title: "Share Checkout Link",
+          description: "Share a secure payment link with your customer",
+        },
       },
       actions: {
-        title: 'Order Actions',
-        back: 'Back',
+        title: "Order Actions",
+        back: "Back",
         refund: {
-          title: 'Issue Refund',
-          description: 'Process full or partial refund',
-          amount: 'Refund Amount',
-          reason: 'Reason for Refund',
-          reasonPlaceholder: 'Enter reason for refund...',
-          process: 'Process Refund'
+          title: "Issue Refund",
+          description: "Process full or partial refund",
+          amount: "Refund Amount",
+          reason: "Reason for Refund",
+          reasonPlaceholder: "Enter reason for refund...",
+          process: "Process Refund",
         },
         cancel: {
-          title: 'Cancel Order',
-          description: 'Cancel this order and notify customer',
-          warning: 'This action cannot be undone. The order will be marked as cancelled.',
-          reason: 'Cancellation Reason',
-          reasonPlaceholder: 'Enter reason for cancellation...',
-          processing: 'Cancelling...',
-          confirm: 'Cancel Order'
+          title: "Cancel Order",
+          description: "Cancel this order and notify customer",
+          warning:
+            "This action cannot be undone. The order will be marked as cancelled.",
+          reason: "Cancellation Reason",
+          reasonPlaceholder: "Enter reason for cancellation...",
+          processing: "Cancelling...",
+          confirm: "Cancel Order",
         },
         dispute: {
-          title: 'Mark as Disputed',
-          description: 'Flag order for payment dispute'
+          title: "Mark as Disputed",
+          description: "Flag order for payment dispute",
         },
         fulfill: {
-          title: 'Mark as Fulfilled',
-          description: 'Mark order as fulfilled and shipped'
+          title: "Mark as Fulfilled",
+          description: "Mark order as fulfilled and shipped",
         },
-        reopen: 'Reopen Order',
+        reopen: "Reopen Order",
       },
       messages: {
-        cancelSuccess: 'Order cancelled successfully',
-        cancelError: 'Failed to cancel order'
+        cancelSuccess: "Order cancelled successfully",
+        cancelError: "Failed to cancel order",
       },
       shipping: {
-        title: 'Shipping Details',
-        description: 'Enter shipping tracking information',
-        courier: 'Courier Service',
-        courierPlaceholder: 'Select courier',
-        trackingNumber: 'Tracking Number',
-        trackingNumberPlaceholder: 'Enter tracking number',
-        addTracking: 'Add Tracking',
-        confirm: 'Confirm Shipping'
+        title: "Shipping Details",
+        description: "Enter shipping tracking information",
+        courier: "Courier Service",
+        courierPlaceholder: "Select courier",
+        trackingNumber: "Tracking Number",
+        trackingNumberPlaceholder: "Enter tracking number",
+        addTracking: "Add Tracking",
+        confirm: "Confirm Shipping",
       },
       success: {
         cancelled: {
-          title: 'Order Cancelled',
-          description: 'This order has been cancelled'
+          title: "Order Cancelled",
+          description: "This order has been cancelled",
         },
         shipped: {
-          title: 'Shipping Added',
-          description: 'Shipping tracking has been added successfully'
+          title: "Shipping Added",
+          description: "Shipping tracking has been added successfully",
         },
         payment: {
-          title: 'Payment Confirmed',
-          description: 'Your payment has been successfully processed'
-        }
+          title: "Payment Confirmed",
+          description: "Your payment has been successfully processed",
+        },
       },
     },
     invoice: {
-      title: 'Invoice Preview',
-      print: 'Print',
+      title: "Invoice Preview",
+      print: "Print",
       header: {
-        invoice: 'INVOICE',
-        date: 'Date',
+        invoice: "INVOICE",
+        date: "Date",
       },
       customer: {
-        billTo: 'Bill To',
-        shipTo: 'Ship To',
+        billTo: "Bill To",
+        shipTo: "Ship To",
       },
       table: {
-        item: 'Item',
-        quantity: 'Quantity',
-        price: 'Price',
-        total: 'Total',
+        item: "Item",
+        quantity: "Quantity",
+        price: "Price",
+        total: "Total",
       },
       summary: {
-        subtotal: 'Subtotal',
-        discount: 'Discount',
-        shipping: 'Shipping',
-        tax: 'Tax',
-        total: 'Total',
+        subtotal: "Subtotal",
+        discount: "Discount",
+        shipping: "Shipping",
+        tax: "Tax",
+        total: "Total",
       },
-      notes: 'Notes',
-      footer: 'Thank you for your business!',
+      notes: "Notes",
+      footer: "Thank you for your business!",
     },
     form: {
       title: {
-        create: 'Create order',
-        edit: 'Edit order #{id}',
+        create: "Create order",
+        edit: "Edit order #{id}",
       },
       description: {
-        create: 'Create a new order for your store',
-        edit: '{date} • {daysAgo}',
+        create: "Create a new order for your store",
+        edit: "{date} • {daysAgo}",
       },
       tabs: {
-        overview: 'Overview',
-        basicDetails: 'Basic Details',
-        notes: 'Notes',
+        overview: "Overview",
+        basicDetails: "Basic Details",
+        notes: "Notes",
       },
       months: [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
       ],
       daysAgo: {
-        today: 'today',
-        yesterday: 'yesterday',
-        other: '{days} days ago',
+        today: "today",
+        yesterday: "yesterday",
+        other: "{days} days ago",
       },
       sections: {
         basicDetails: {
@@ -214,12 +225,12 @@ export const ordersTranslations = {
           shippingAddress: "Shipping Address",
           email: {
             label: "Email",
-            placeholder: "john@example.com"
+            placeholder: "john@example.com",
           },
           phone: {
             label: "Phone",
-            placeholder: "+1234567890"
-          }
+            placeholder: "+1234567890",
+          },
         },
         payment: {
           title: "Payment",
@@ -230,14 +241,14 @@ export const ordersTranslations = {
             outstanding: "Total Outstanding",
             cancelled: "Order Cancelled",
             shipped: "Completed and Shipped",
-            processing: "Processing Payment"
+            processing: "Processing Payment",
           },
           types: {
             title: "Select Payment Type",
             description: "Choose how you want to process the payment",
             manual: "Manual Payment",
             checkout: "Checkout Link",
-            bankTransfer: "Bank Transfer"
+            bankTransfer: "Bank Transfer",
           },
           manual: {
             title: "Manual Payment",
@@ -247,7 +258,7 @@ export const ordersTranslations = {
             confirm: "Confirm Payment",
             uploading: "Uploading...",
             uploadPrompt: "Click to upload slip",
-            cancel: "Cancel"
+            cancel: "Cancel",
           },
           checkout: {
             title: "Checkout Link",
@@ -255,21 +266,20 @@ export const ordersTranslations = {
             generate: "Generate Link",
             copy: "Copy Link",
             copied: "Link copied!",
-            send: "Send to Customer"
+            send: "Send to Customer",
           },
           shipping: {
             title: "Shipping Details",
             description: "Enter shipping tracking information",
             courier: "Courier",
             trackingNumber: "Tracking Number",
-            confirm: "Confirm Shipping"
+            confirm: "Confirm Shipping",
           },
           actions: {
             cancel: "Cancel Order",
             reopen: "Reopen Order",
             ship: "Mark as Shipped",
             confirm: "Confirm Payment",
-
           },
           messages: {
             confirmCancel: "Are you sure you want to cancel this order?",
@@ -281,23 +291,23 @@ export const ordersTranslations = {
             paymentSuccess: "Payment confirmed successfully",
             paymentError: "Failed to confirm payment",
             shippingSuccess: "Shipping tracking added successfully",
-            shippingError: "Failed to add shipping tracking"
-          }
+            shippingError: "Failed to add shipping tracking",
+          },
         },
         shipping: {
           title: "Shipping",
           description: "Configure shipping details and costs",
           types: {
             dynamic: "Dynamic Shipping",
-            manual: "Manual Shipping"
-          }
+            manual: "Manual Shipping",
+          },
         },
         summary: {
           title: "Order Summary",
           description: "Review order totals and adjustments",
           discount: {
             title: "Discount",
-            description: "Apply a discount to this order"
+            description: "Apply a discount to this order",
           },
           tax: {
             title: "Tax / VAT",
@@ -305,254 +315,265 @@ export const ordersTranslations = {
             types: {
               percentage: "Percentage",
               thaiVat: "Thailand VAT 7%",
-              fixed: "Fixed Amount"
+              fixed: "Fixed Amount",
             },
             percentage: "Tax Percentage",
-            amount: "Tax Amount"
-          }
+            amount: "Tax Amount",
+          },
         },
         products: {
           description: "Add products to this order",
           add: "Add product",
           perUnit: "per unit",
-          remove: "Remove"
+          remove: "Remove",
         },
         coupon: {
-          title: 'Coupons',
-          description: 'Apply discount coupons to this order',
-          add: 'Add Coupon',
-          apply: 'Apply',
-          placeholder: 'Enter coupon code',
-          empty: 'No coupons found',
-          invalid: 'Invalid coupon code',
-          applySuccess: 'Coupon applied successfully',
-          applyError: 'Failed to apply coupon',
-          removeSuccess: 'Coupon removed successfully',
+          title: "Coupons",
+          description: "Apply discount coupons to this order",
+          add: "Add Coupon",
+          apply: "Apply",
+          placeholder: "Enter coupon code",
+          empty: "No coupons found",
+          invalid: "Invalid coupon code",
+          applySuccess: "Coupon applied successfully",
+          applyError: "Failed to apply coupon",
+          removeSuccess: "Coupon removed successfully",
           discount: {
-            amount: 'Discount',
-            percentage: '{value}% off',
-            shipping: 'Free Shipping',
-            points: '{value}x Points'
-          }
+            amount: "Discount",
+            percentage: "{value}% off",
+            shipping: "Free Shipping",
+            points: "{value}x Points",
+          },
         },
         notes: {
           description: "Add notes and tags to this order",
           tags: "Tags",
-          tagsPlaceholder: "Press enter to add tags"
-        }
-      }
+          tagsPlaceholder: "Press enter to add tags",
+        },
+      },
     },
     notes: {
-      placeholder: 'Add any notes about this order...',
+      placeholder: "Add any notes about this order...",
     },
   },
   th: {
-    title: 'คำสั่งซื้อ',
-    description: 'จัดการคำสั่งซื้อของร้านค้าของคุณ',
+    title: "คำสั่งซื้อ",
+    description: "จัดการคำสั่งซื้อของร้านค้าของคุณ",
     actions: {
-      create: 'สร้างคำสั่งซื้อ',
-      new: 'คำสั่งซื้อใหม่',
-      save: 'บันทึกการเปลี่ยนแปลง',
-      cancel: 'ยกเลิก',
-      print: 'พิมพ์ใบกำกับภาษี',
-      saveOrder: 'บันทึกคำสั่งซื้อ',
-      reopen: 'เปิดคำสั่งซื้อใหม่',
+      create: "สร้างคำสั่งซื้อ",
+      new: "คำสั่งซื้อใหม่",
+      save: "บันทึกการเปลี่ยนแปลง",
+      cancel: "ยกเลิก",
+      print: "พิมพ์ใบกำกับภาษี",
+      saveOrder: "บันทึกคำสั่งซื้อ",
+      reopen: "เปิดคำสั่งซื้อใหม่",
       edit: "แก้ไขคำสั่งซื้อ",
-      back: "ย้อนกลับ"
+      back: "ย้อนกลับ",
     },
     list: {
       empty: {
-        title: 'ไม่พบคำสั่งซื้อ',
-        description: 'เริ่มต้นด้วยการสร้างคำสั่งซื้อแรกของคุณ',
+        title: "ไม่พบคำสั่งซื้อ",
+        description: "เริ่มต้นด้วยการสร้างคำสั่งซื้อแรกของคุณ",
       },
-      search: 'ค้นหาคำสั่งซื้อ...',
+      search: "ค้นหาคำสั่งซื้อ...",
       columns: {
-        order: 'คำสั่งซื้อ',
-        products: 'สินค้า',
-        customer: 'ลูกค้า',
-        status: 'สถานะ',
-        items: 'รายการ',
-        total: 'ยอดรวม',
+        order: "คำสั่งซื้อ",
+        products: "สินค้า",
+        customer: "ลูกค้า",
+        status: "สถานะ",
+        items: "รายการ",
+        total: "ยอดรวม",
       },
-      noCustomer: 'ไม่มีลูกค้า',
+      noCustomer: "ไม่มีลูกค้า",
       itemCount: {
-        singular: 'รายการ',
-        plural: 'รายการ',
+        singular: "รายการ",
+        plural: "รายการ",
       },
     },
     status: {
-      all: 'ทั้งหมด',
-      cancelled: 'ยกเลิก',
-      pending: 'รอดำเนินการ',
-      delivered: 'จัดส่งแล้ว',
-      shipped: 'กำลังจัดส่ง',
-      processing: 'กำลังดำเนินการ',
+      all: "ทั้งหมด",
+      cancelled: "ยกเลิก",
+      pending: "รอดำเนินการ",
+      delivered: "จัดส่งแล้ว",
+      shipped: "กำลังจัดส่ง",
+      processing: "กำลังดำเนินการ",
     },
     customer: {
-      title: 'ลูกค้า',
+      title: "ลูกค้า",
       select: {
-        title: 'เลือกลูกค้า',
-        placeholder: 'ค้นหาลูกค้า...',
-        empty: 'ไม่พบลูกค้า',
-        create: 'สร้างลูกค้าใหม่',
+        title: "เลือกลูกค้า",
+        placeholder: "ค้นหาลูกค้า...",
+        empty: "ไม่พบลูกค้า",
+        create: "สร้างลูกค้าใหม่",
       },
       new: {
-        title: 'ลูกค้าใหม่',
-        firstName: 'ชื่อ',
-        lastName: 'นามสกุล',
-        email: 'อีเมล',
-        phone: 'เบอร์โทรศัพท์',
+        title: "ลูกค้าใหม่",
+        firstName: "ชื่อ",
+        lastName: "นามสกุล",
+        email: "อีเมล",
+        phone: "เบอร์โทรศัพท์",
       },
     },
     address: {
       select: {
-        title: 'เลือกที่อยู่จัดส่ง',
-        placeholder: 'เลือกที่อยู่จัดส่ง',
-        empty: 'ไม่พบที่อยู่',
-        default: 'ที่อยู่จัดส่งหลัก',
+        title: "เลือกที่อยู่จัดส่ง",
+        placeholder: "เลือกที่อยู่จัดส่ง",
+        empty: "ไม่พบที่อยู่",
+        default: "ที่อยู่จัดส่งหลัก",
       },
     },
     product: {
       select: {
-        title: 'เลือกสินค้า',
-        placeholder: 'ค้นหาสินค้า...',
-        empty: 'ไม่พบสินค้า',
-        quantity: 'จำนวน',
-        additional: 'สินค้าเพิ่มเติม',
-        loading: 'กำลังโหลดสินค้า...',
+        title: "เลือกสินค้า",
+        placeholder: "ค้นหาสินค้า...",
+        empty: "ไม่พบสินค้า",
+        quantity: "จำนวน",
+        additional: "สินค้าเพิ่มเติม",
+        loading: "กำลังโหลดสินค้า...",
       },
       variant: {
-        title: 'เลือกตัวเลือก',
-        select: 'ตัวเลือก',
-        inStock: 'ในสต็อก',
+        title: "เลือกตัวเลือก",
+        select: "ตัวเลือก",
+        inStock: "ในสต็อก",
       },
     },
     payment: {
       status: {
-        title: 'สถานะการชำระเงิน',
-        paid: 'ชำระแล้ว',
-        pending: 'รอดำเนินการ',
-        failed: 'ล้มเหลว',
+        title: "สถานะการชำระเงิน",
+        paid: "ชำระแล้ว",
+        pending: "รอดำเนินการ",
+        failed: "ล้มเหลว",
       },
       type: {
-        title: 'เลือกประเภทการชำระเงิน',
+        title: "เลือกประเภทการชำระเงิน",
         manual: {
-          title: 'ชำระเงินด้วยตนเอง',
-          description: 'บันทึกการชำระเงินด้วยตนเองสำหรับคำสั่งซื้อนี้'
+          title: "ชำระเงินด้วยตนเอง",
+          description: "บันทึกการชำระเงินด้วยตนเองสำหรับคำสั่งซื้อนี้",
         },
         checkout: {
-          title: 'แชร์ลิงก์ชำระเงิน',
-          description: 'แชร์ลิงก์ชำระเงินที่ปลอดภัยให้กับลูกค้าของคุณ'
-        }
+          title: "แชร์ลิงก์ชำระเงิน",
+          description: "แชร์ลิงก์ชำระเงินที่ปลอดภัยให้กับลูกค้าของคุณ",
+        },
       },
       actions: {
-        title: 'การดำเนินการคำสั่งซื้อ',
-        back: 'ย้อนกลับ',
+        title: "การดำเนินการคำสั่งซื้อ",
+        back: "ย้อนกลับ",
         refund: {
-          title: 'คืนเงิน',
-          description: 'ดำเนินการคืนเงินทั้งหมดหรือบางส่วน',
-          amount: 'จำนวนเงินที่คืน',
-          reason: 'เหตุผลในการคืนเงิน',
-          reasonPlaceholder: 'ระบุเหตุผลในการคืนเงิน...',
-          process: 'ดำเนินการคืนเงิน'
+          title: "คืนเงิน",
+          description: "ดำเนินการคืนเงินทั้งหมดหรือบางส่วน",
+          amount: "จำนวนเงินที่คืน",
+          reason: "เหตุผลในการคืนเงิน",
+          reasonPlaceholder: "ระบุเหตุผลในการคืนเงิน...",
+          process: "ดำเนินการคืนเงิน",
         },
         cancel: {
-          title: 'ยกเลิกคำสั่งซื้อ',
-          description: 'ยกเลิกคำสั่งซื้อนี้และแจ้งลูกค้า',
-          warning: 'การดำเนินการนี้ไม่สามารถยกเลิกได้ คำสั่งซื้อจะถูกทำเครื่องหมายว่ายกเลิก',
-          reason: 'เหตุผลในการยกเลิก',
-          reasonPlaceholder: 'ระบุเหตุผลในการยกเลิก...',
-          processing: 'กำลังยกเลิก...',
-          confirm: 'ยกเลิกคำสั่งซื้อ'
+          title: "ยกเลิกคำสั่งซื้อ",
+          description: "ยกเลิกคำสั่งซื้อนี้และแจ้งลูกค้า",
+          warning:
+            "การดำเนินการนี้ไม่สามารถยกเลิกได้ คำสั่งซื้อจะถูกทำเครื่องหมายว่ายกเลิก",
+          reason: "เหตุผลในการยกเลิก",
+          reasonPlaceholder: "ระบุเหตุผลในการยกเลิก...",
+          processing: "กำลังยกเลิก...",
+          confirm: "ยกเลิกคำสั่งซื้อ",
         },
         dispute: {
-          title: 'ทำเครื่องหมายว่ามีข้อพิพาท',
-          description: 'ทำเครื่องหมายคำสั่งซื้อว่ามีข้อพิพาทการชำระเงิน'
+          title: "ทำเครื่องหมายว่ามีข้อพิพาท",
+          description: "ทำเครื่องหมายคำสั่งซื้อว่ามีข้อพิพาทการชำระเงิน",
         },
         fulfill: {
-          title: 'ทำเครื่องหมายว่าจัดส่งแล้ว',
-          description: 'ทำเครื่องหมายคำสั่งซื้อว่าจัดส่งและส่งมอบแล้ว'
+          title: "ทำเครื่องหมายว่าจัดส่งแล้ว",
+          description: "ทำเครื่องหมายคำสั่งซื้อว่าจัดส่งและส่งมอบแล้ว",
         },
-        reopen: 'เปิดคำสั่งซื้อใหม่',
+        reopen: "เปิดคำสั่งซื้อใหม่",
       },
       messages: {
-        cancelSuccess: 'ยกเลิกคำสั่งซื้อสำเร็จ',
-        cancelError: 'ไม่สามารถยกเลิกคำสั่งซื้อได้'
+        cancelSuccess: "ยกเลิกคำสั่งซื้อสำเร็จ",
+        cancelError: "ไม่สามารถยกเลิกคำสั่งซื้อได้",
       },
       shipping: {
-        title: 'รายละเอียดการจัดส่ง',
-        description: 'ระบุข้อมูลการติดตามการจัดส่ง',
-        courier: 'บริการขนส่ง',
-        courierPlaceholder: 'เลือกบริการขนส่ง',
-        trackingNumber: 'หมายเลขติดตามพัสดุ',
-        trackingNumberPlaceholder: 'ระบุหมายเลขติดตามพัสดุ',
-        addTracking: 'เพิ่มการติดตาม',
-        confirm: 'ยืนยันการจัดส่ง'
+        title: "รายละเอียดการจัดส่ง",
+        description: "ระบุข้อมูลการติดตามการจัดส่ง",
+        courier: "บริการขนส่ง",
+        courierPlaceholder: "เลือกบริการขนส่ง",
+        trackingNumber: "หมายเลขติดตามพัสดุ",
+        trackingNumberPlaceholder: "ระบุหมายเลขติดตามพัสดุ",
+        addTracking: "เพิ่มการติดตาม",
+        confirm: "ยืนยันการจัดส่ง",
       },
       success: {
         cancelled: {
-          title: 'ยกเลิกคำสั่งซื้อแล้ว',
-          description: 'คำสั่งซื้อนี้ถูกยกเลิกแล้ว'
+          title: "ยกเลิกคำสั่งซื้อแล้ว",
+          description: "คำสั่งซื้อนี้ถูกยกเลิกแล้ว",
         },
         shipped: {
-          title: 'เพิ่มการจัดส่งแล้ว',
-          description: 'เพิ่มข้อมูลการติดตามการจัดส่งเรียบร้อยแล้ว'
+          title: "เพิ่มการจัดส่งแล้ว",
+          description: "เพิ่มข้อมูลการติดตามการจัดส่งเรียบร้อยแล้ว",
         },
         payment: {
-          title: 'ยืนยันการชำระเงินแล้ว',
-          description: 'การชำระเงินของคุณดำเนินการเสร็จสิ้นแล้ว'
-        }
+          title: "ยืนยันการชำระเงินแล้ว",
+          description: "การชำระเงินของคุณดำเนินการเสร็จสิ้นแล้ว",
+        },
       },
     },
     invoice: {
-      title: 'ดูตัวอย่างใบกำกับภาษี',
-      print: 'พิมพ์',
+      title: "ดูตัวอย่างใบกำกับภาษี",
+      print: "พิมพ์",
       header: {
-        invoice: 'ใบกำกับภาษี',
-        date: 'วันที่',
+        invoice: "ใบกำกับภาษี",
+        date: "วันที่",
       },
       customer: {
-        billTo: 'ที่อยู่เรียกเก็บเงิน',
-        shipTo: 'ที่อยู่จัดส่ง',
+        billTo: "ที่อยู่เรียกเก็บเงิน",
+        shipTo: "ที่อยู่จัดส่ง",
       },
       table: {
-        item: 'รายการ',
-        quantity: 'จำนวน',
-        price: 'ราคา',
-        total: 'รวม',
+        item: "รายการ",
+        quantity: "จำนวน",
+        price: "ราคา",
+        total: "รวม",
       },
       summary: {
-        subtotal: 'ยอดรวม',
-        discount: 'ส่วนลด',
-        shipping: 'ค่าจัดส่ง',
-        tax: 'ภาษี',
-        total: 'ยอดสุทธิ',
+        subtotal: "ยอดรวม",
+        discount: "ส่วนลด",
+        shipping: "ค่าจัดส่ง",
+        tax: "ภาษี",
+        total: "ยอดสุทธิ",
       },
-      notes: 'หมายเหตุ',
-      footer: 'ขอบคุณที่ใช้บริการ',
+      notes: "หมายเหตุ",
+      footer: "ขอบคุณที่ใช้บริการ",
     },
     form: {
       title: {
-        create: 'สร้างคำสั่งซื้อ',
-        edit: 'แก้ไขคำสั่งซื้อ #{id}',
+        create: "สร้างคำสั่งซื้อ",
+        edit: "แก้ไขคำสั่งซื้อ #{id}",
       },
       description: {
-        create: 'สร้างคำสั่งซื้อใหม่สำหรับร้านค้าของคุณ',
-        edit: '{date} • {daysAgo}',
+        create: "สร้างคำสั่งซื้อใหม่สำหรับร้านค้าของคุณ",
+        edit: "{date} • {daysAgo}",
       },
       tabs: {
-        overview: 'ภาพรวม',
-        basicDetails: 'รายละเอียดพื้นฐาน',
-        notes: 'บันทึก',
+        overview: "ภาพรวม",
+        basicDetails: "รายละเอียดพื้นฐาน",
+        notes: "บันทึก",
       },
       months: [
-        'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+        "มกราคม",
+        "กุมภาพันธ์",
+        "มีนาคม",
+        "เมษายน",
+        "พฤษภาคม",
+        "มิถุนายน",
+        "กรกฎาคม",
+        "สิงหาคม",
+        "กันยายน",
+        "ตุลาคม",
+        "พฤศจิกายน",
+        "ธันวาคม",
       ],
       daysAgo: {
-        today: 'วันนี้',
-        yesterday: 'เมื่อวาน',
-        other: '{days} วันที่แล้ว',
+        today: "วันนี้",
+        yesterday: "เมื่อวาน",
+        other: "{days} วันที่แล้ว",
       },
       sections: {
         basicDetails: {
@@ -561,12 +582,12 @@ export const ordersTranslations = {
           shippingAddress: "ที่อยู่จัดส่ง",
           email: {
             label: "อีเมล",
-            placeholder: "john@example.com"
+            placeholder: "john@example.com",
           },
           phone: {
             label: "เบอร์โทรศัพท์",
-            placeholder: "+1234567890"
-          }
+            placeholder: "+1234567890",
+          },
         },
         payment: {
           title: "การชำระเงิน",
@@ -577,14 +598,14 @@ export const ordersTranslations = {
             outstanding: "ยอดค้างชำระ",
             cancelled: "ยกเลิกคำสั่งซื้อ",
             shipped: "จัดส่งเรียบร้อย",
-            processing: "กำลังดำเนินการชำระเงิน"
+            processing: "กำลังดำเนินการชำระเงิน",
           },
           types: {
             title: "เลือกวิธีการชำระเงิน",
             description: "เลือกวิธีที่คุณต้องการดำเนินการชำระเงิน",
             manual: "ชำระเงินด้วยตนเอง",
             checkout: "ลิงก์ชำระเงิน",
-            bankTransfer: "โอนเงินผ่านธนาคาร"
+            bankTransfer: "โอนเงินผ่านธนาคาร",
           },
           manual: {
             title: "ชำระเงินด้วยตนเอง",
@@ -594,7 +615,7 @@ export const ordersTranslations = {
             confirm: "ยืนยันการชำระเงิน",
             uploading: "กำลังอัพโหลด...",
             uploadPrompt: "คลิกเพื่ออัพโหลดสลิป",
-            cancel: "ยกเลิก"
+            cancel: "ยกเลิก",
           },
           checkout: {
             title: "ลิงก์ชำระเงิน",
@@ -602,20 +623,20 @@ export const ordersTranslations = {
             generate: "สร้างลิงก์",
             copy: "คัดลอกลิงก์",
             copied: "คัดลอกลิงก์แล้ว!",
-            send: "ส่งให้ลูกค้า"
+            send: "ส่งให้ลูกค้า",
           },
           shipping: {
             title: "รายละเอียดการจัดส่ง",
             description: "กรอกข้อมูลการติดตามการจัดส่ง",
             courier: "ผู้ให้บริการขนส่ง",
             trackingNumber: "หมายเลขติดตาม",
-            confirm: "ยืนยันการจัดส่ง"
+            confirm: "ยืนยันการจัดส่ง",
           },
           actions: {
             cancel: "ยกเลิกคำสั่งซื้อ",
             reopen: "เปิดคำสั่งซื้อใหม่",
             ship: "ทำเครื่องหมายว่าจัดส่งแล้ว",
-            confirm: "ยืนยันการชำระเงิน"
+            confirm: "ยืนยันการชำระเงิน",
           },
           messages: {
             confirmCancel: "คุณแน่ใจหรือไม่ที่จะยกเลิกคำสั่งซื้อนี้?",
@@ -627,23 +648,23 @@ export const ordersTranslations = {
             paymentSuccess: "ยืนยันการชำระเงินเรียบร้อย",
             paymentError: "ไม่สามารถยืนยันการชำระเงินได้",
             shippingSuccess: "เพิ่มข้อมูลการติดตามการจัดส่งเรียบร้อย",
-            shippingError: "ไม่สามารถเพิ่มข้อมูลการติดตามการจัดส่งได้"
-          }
+            shippingError: "ไม่สามารถเพิ่มข้อมูลการติดตามการจัดส่งได้",
+          },
         },
         shipping: {
           title: "การจัดส่ง",
           description: "กำหนดรายละเอียดและค่าจัดส่ง",
           types: {
             dynamic: "การจัดส่งแบบไดนามิก",
-            manual: "การจัดส่งแบบกำหนดเอง"
-          }
+            manual: "การจัดส่งแบบกำหนดเอง",
+          },
         },
         summary: {
           title: "สรุปคำสั่งซื้อ",
           description: "ตรวจสอบยอดรวมและการปรับแต่ง",
           discount: {
             title: "ส่วนลด",
-            description: "ใช้ส่วนลดสำหรับคำสั่งซื้อนี้"
+            description: "ใช้ส่วนลดสำหรับคำสั่งซื้อนี้",
           },
           tax: {
             title: "ภาษี / VAT",
@@ -651,45 +672,45 @@ export const ordersTranslations = {
             types: {
               percentage: "เปอร์เซ็นต์",
               thaiVat: "ภาษีมูลค่าเพิ่ม 7%",
-              fixed: "จำนวนเงินคงที่"
+              fixed: "จำนวนเงินคงที่",
             },
             percentage: "เปอร์เซ็นต์ภาษี",
-            amount: "จำนวนภาษี"
-          }
+            amount: "จำนวนภาษี",
+          },
         },
         products: {
           description: "เพิ่มสินค้าในคำสั่งซื้อนี้",
           add: "เพิ่มสินค้า",
           perUnit: "ต่อชิ้น",
-          remove: "ลบ"
+          remove: "ลบ",
         },
         coupon: {
-          title: 'คูปอง',
-          description: 'ใช้คูปองส่วนลดสำหรับคำสั่งซื้อนี้',
-          add: 'เพิ่มคูปอง',
-          apply: 'ใช้คูปอง',
-          placeholder: 'ใส่รหัสคูปอง',
-          empty: 'ไม่พบคูปอง',
-          invalid: 'รหัสคูปองไม่ถูกต้อง',
-          applySuccess: 'ใช้คูปองสำเร็จ',
-          applyError: 'ไม่สามารถใช้คูปองได้',
-          removeSuccess: 'ลบคูปองสำเร็จ',
+          title: "คูปอง",
+          description: "ใช้คูปองส่วนลดสำหรับคำสั่งซื้อนี้",
+          add: "เพิ่มคูปอง",
+          apply: "ใช้คูปอง",
+          placeholder: "ใส่รหัสคูปอง",
+          empty: "ไม่พบคูปอง",
+          invalid: "รหัสคูปองไม่ถูกต้อง",
+          applySuccess: "ใช้คูปองสำเร็จ",
+          applyError: "ไม่สามารถใช้คูปองได้",
+          removeSuccess: "ลบคูปองสำเร็จ",
           discount: {
-            amount: 'ส่วนลด',
-            percentage: 'ลด {value}%',
-            shipping: 'ฟรีค่าจัดส่ง',
-            points: 'คะแนน {value}x'
-          }
+            amount: "ส่วนลด",
+            percentage: "ลด {value}%",
+            shipping: "ฟรีค่าจัดส่ง",
+            points: "คะแนน {value}x",
+          },
         },
         notes: {
           description: "เพิ่มบันทึกและแท็กสำหรับคำสั่งซื้อนี้",
           tags: "แท็ก",
-          tagsPlaceholder: "กด Enter เพื่อเพิ่มแท็ก"
-        }
-      }
+          tagsPlaceholder: "กด Enter เพื่อเพิ่มแท็ก",
+        },
+      },
     },
     notes: {
-      placeholder: 'เพิ่มบันทึกเกี่ยวกับคำสั่งซื้อนี้...',
+      placeholder: "เพิ่มบันทึกเกี่ยวกับคำสั่งซื้อนี้...",
     },
   },
-}; 
+};

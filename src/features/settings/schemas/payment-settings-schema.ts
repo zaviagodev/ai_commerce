@@ -1,10 +1,12 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const BankAccountSchema = z.object({
   id: z.string(),
-  bankName: z.string().min(1, 'Bank name is required'),
-  accountName: z.string().min(1, 'Account name is required'),
-  accountNumber: z.string().min(10, 'Account number must be at least 10 digits'),
+  bankName: z.string().min(1, "Bank name is required"),
+  accountName: z.string().min(1, "Account name is required"),
+  accountNumber: z
+    .string()
+    .min(10, "Account number must be at least 10 digits"),
   branch: z.string().optional(),
   isDefault: z.boolean(),
 });

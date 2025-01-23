@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Bell } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Bell } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DynamicIsland,
   DynamicContainer,
@@ -9,7 +9,7 @@ import {
   DynamicIslandProvider,
   useDynamicIslandSize,
   SIZE_PRESETS,
-} from '../';
+} from "../";
 
 export function NotificationExample() {
   const [showNotification, setShowNotification] = useState(false);
@@ -25,7 +25,7 @@ export function NotificationExample() {
         <DynamicIsland id="notification">
           {showNotification ? <NotificationContent /> : null}
         </DynamicIsland>
-        
+
         <Button onClick={handleShowNotification}>
           <Bell className="mr-2 h-4 w-4" />
           Show Notification

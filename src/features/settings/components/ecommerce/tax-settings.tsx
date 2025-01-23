@@ -1,24 +1,24 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Calculator } from 'lucide-react';
-import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Calculator } from "lucide-react";
+import { EcommerceSettings } from "../../schemas/ecommerce-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface TaxSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
@@ -34,7 +34,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           <Calculator className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">{t.settings.ecommerce.tax.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.ecommerce.tax.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.ecommerce.tax.subtitle}
           </p>
@@ -46,7 +48,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           name="taxCalculation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.tax.taxCalculation.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.tax.taxCalculation.label}
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -75,7 +79,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.tax.taxInclusive.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.tax.taxInclusive.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.tax.taxInclusive.description}
                 </FormDescription>
@@ -95,7 +101,9 @@ export function TaxSettings({ form }: TaxSettingsProps) {
           name="defaultTaxRate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.tax.defaultTaxRate.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.tax.defaultTaxRate.label}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"

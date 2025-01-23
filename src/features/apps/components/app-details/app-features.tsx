@@ -1,36 +1,50 @@
-import { motion } from 'framer-motion';
-import { Check, BarChart, Box, Truck, Bell, RefreshCcw, Zap } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  Check,
+  BarChart,
+  Box,
+  Truck,
+  Bell,
+  RefreshCcw,
+  Zap,
+} from "lucide-react";
 
 const FEATURES = [
   {
     icon: BarChart,
-    title: 'Real-time Analytics',
-    description: 'Track inventory levels, sales, and trends in real-time with powerful analytics dashboards.',
+    title: "Real-time Analytics",
+    description:
+      "Track inventory levels, sales, and trends in real-time with powerful analytics dashboards.",
   },
   {
     icon: Box,
-    title: 'Multi-warehouse Management',
-    description: 'Manage inventory across multiple locations with ease. Track stock levels and transfers between warehouses.',
+    title: "Multi-warehouse Management",
+    description:
+      "Manage inventory across multiple locations with ease. Track stock levels and transfers between warehouses.",
   },
   {
     icon: Truck,
-    title: 'Automated Reordering',
-    description: 'Set up automatic purchase orders when stock levels reach your specified thresholds.',
+    title: "Automated Reordering",
+    description:
+      "Set up automatic purchase orders when stock levels reach your specified thresholds.",
   },
   {
     icon: Bell,
-    title: 'Smart Notifications',
-    description: 'Get instant alerts for low stock, incoming shipments, and potential stockouts.',
+    title: "Smart Notifications",
+    description:
+      "Get instant alerts for low stock, incoming shipments, and potential stockouts.",
   },
   {
     icon: RefreshCcw,
-    title: 'Batch Processing',
-    description: 'Process multiple orders and update inventory in bulk to save time and reduce errors.',
+    title: "Batch Processing",
+    description:
+      "Process multiple orders and update inventory in bulk to save time and reduce errors.",
   },
   {
     icon: Zap,
-    title: 'Integration Ready',
-    description: 'Seamlessly connects with your existing e-commerce platform and other business tools.',
+    title: "Integration Ready",
+    description:
+      "Seamlessly connects with your existing e-commerce platform and other business tools.",
   },
 ];
 
@@ -40,14 +54,14 @@ export function AppFeatures() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    show: { opacity: 1, y: 0 },
   };
 
   return (

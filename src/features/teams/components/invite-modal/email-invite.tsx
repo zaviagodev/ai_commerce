@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,23 +11,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { X, Send, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { X, Send, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const emailSchema = z.object({
-  emails: z.array(z.string().email('Invalid email address')),
-  role: z.enum(['admin', 'editor', 'viewer']),
-  expiration: z.enum(['24h', '7d', '30d', 'never']),
+  emails: z.array(z.string().email("Invalid email address")),
+  role: z.enum(["admin", "editor", "viewer"]),
+  expiration: z.enum(["24h", "7d", "30d", "never"]),
 });
 
 type EmailFormValues = z.infer<typeof emailSchema>;
@@ -38,57 +38,63 @@ interface EmailInviteProps {
 
 export function EmailInvite({ onOpenChange }: EmailInviteProps) {
   const [emails, setEmails] = useState<string[]>([]);
-  const [currentEmail, setCurrentEmail] = useState('');
+  const [currentEmail, setCurrentEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
       emails: [],
-      role: 'viewer',
-      expiration: '7d',
+      role: "viewer",
+      expiration: "7d",
     },
   });
 
   const handleEmailKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' || e.key === ',') {
+    if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
       const email = currentEmail.trim();
-      
-      if (email && !emails.includes(email) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+
+      if (
+        email &&
+        !emails.includes(email) &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      ) {
         setEmails([...emails, email]);
-        setCurrentEmail('');
-        form.setValue('emails', [...emails, email]);
+        setCurrentEmail("");
+        form.setValue("emails", [...emails, email]);
       }
-    } else if (e.key === 'Backspace' && !currentEmail && emails.length > 0) {
+    } else if (e.key === "Backspace" && !currentEmail && emails.length > 0) {
       const newEmails = emails.slice(0, -1);
       setEmails(newEmails);
-      form.setValue('emails', newEmails);
+      form.setValue("emails", newEmails);
     }
   };
 
   const removeEmail = (emailToRemove: string) => {
     const newEmails = emails.filter((email) => email !== emailToRemove);
     setEmails(newEmails);
-    form.setValue('emails', newEmails);
+    form.setValue("emails", newEmails);
   };
 
   const onSubmit = async (data: EmailFormValues) => {
     if (emails.length === 0) {
-      toast.error('Please add at least one email address');
+      toast.error("Please add at least one email address");
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      toast.success(`Invitations sent to ${emails.length} email${emails.length > 1 ? 's' : ''}`);
+
+      toast.success(
+        `Invitations sent to ${emails.length} email${emails.length > 1 ? "s" : ""}`,
+      );
       onOpenChange(false);
     } catch (error) {
-      toast.error('Failed to send invitations');
+      toast.error("Failed to send invitations");
     } finally {
       setIsLoading(false);
     }
@@ -150,7 +156,10 @@ export function EmailInvite({ onOpenChange }: EmailInviteProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Role</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select role" />
@@ -173,7 +182,10 @@ export function EmailInvite({ onOpenChange }: EmailInviteProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Expiration</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select expiration" />

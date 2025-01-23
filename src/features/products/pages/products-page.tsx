@@ -1,5 +1,5 @@
-import { ProductList } from '../components/product-list';
-import { useProducts } from '../hooks/use-products';
+import { ProductList } from "../components/product-list";
+import { useProducts } from "../hooks/use-products";
 
 export function ProductsPage() {
   const { products, isLoading, deleteProduct } = useProducts();
@@ -8,9 +8,15 @@ export function ProductsPage() {
     try {
       await deleteProduct.mutateAsync(id);
     } catch (error) {
-      console.error('Failed to delete product:', error);
+      console.error("Failed to delete product:", error);
     }
   };
 
-  return <ProductList products={products} isLoading={isLoading} onDelete={handleDelete} />;
+  return (
+    <ProductList
+      products={products}
+      isLoading={isLoading}
+      onDelete={handleDelete}
+    />
+  );
 }

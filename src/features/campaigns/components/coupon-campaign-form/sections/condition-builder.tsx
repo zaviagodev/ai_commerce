@@ -4,20 +4,20 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { X } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { X } from "lucide-react";
+import { useState } from "react";
 
 interface Condition {
   id: string;
-  type: 'cart_total' | 'product_quantity' | 'customer_group' | 'first_purchase';
-  operator: 'greater_than' | 'less_than' | 'equal_to';
+  type: "cart_total" | "product_quantity" | "customer_group" | "first_purchase";
+  operator: "greater_than" | "less_than" | "equal_to";
   value: string;
   enabled: boolean;
-  logicGate?: 'and' | 'or';
+  logicGate?: "and" | "or";
 }
 
 interface ConditionBuilderProps {
@@ -27,9 +27,14 @@ interface ConditionBuilderProps {
   onRemove: () => void;
 }
 
-export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: ConditionBuilderProps) {
+export function ConditionBuilder({
+  condition,
+  isFirst,
+  onUpdate,
+  onRemove,
+}: ConditionBuilderProps) {
   // Initialize local state with empty string if value is undefined
-  const [inputValue, setInputValue] = useState(condition.value || '');
+  const [inputValue, setInputValue] = useState(condition.value || "");
 
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-muted/50">
@@ -38,7 +43,9 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
         <div className="flex items-center gap-2 -mt-8 -mx-4 mb-4 py-2 px-4 bg-muted border-b">
           <Select
             value={condition.logicGate}
-            onValueChange={(value) => onUpdate({ logicGate: value as 'and' | 'or' })}
+            onValueChange={(value) =>
+              onUpdate({ logicGate: value as "and" | "or" })
+            }
           >
             <SelectTrigger className="w-[100px]">
               <SelectValue />
@@ -48,7 +55,9 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
               <SelectItem value="or">OR</SelectItem>
             </SelectContent>
           </Select>
-          <span className="text-sm text-muted-foreground">the following condition:</span>
+          <span className="text-sm text-muted-foreground">
+            the following condition:
+          </span>
         </div>
       )}
 
@@ -60,15 +69,10 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
             onCheckedChange={(enabled) => onUpdate({ enabled })}
           />
           <span className="text-sm font-medium">
-            {condition.enabled ? 'Enabled' : 'Disabled'}
+            {condition.enabled ? "Enabled" : "Disabled"}
           </span>
         </div>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          onClick={onRemove}
-        >
+        <Button type="button" variant="ghost" size="icon" onClick={onRemove}>
           <X className="h-4 w-4" />
         </Button>
       </div>
@@ -79,10 +83,12 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
           <label className="text-sm font-medium">Condition Type</label>
           <Select
             value={condition.type}
-            onValueChange={(value) => onUpdate({ 
-              type: value as Condition['type'],
-              value: '' // Reset value when type changes
-            })}
+            onValueChange={(value) =>
+              onUpdate({
+                type: value as Condition["type"],
+                value: "", // Reset value when type changes
+              })
+            }
           >
             <SelectTrigger>
               <SelectValue />
@@ -96,14 +102,16 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
           </Select>
         </div>
 
-        {condition.type !== 'first_purchase' && (
+        {condition.type !== "first_purchase" && (
           <>
             {/* Operator */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">Operator</label>
               <Select
                 value={condition.operator}
-                onValueChange={(value) => onUpdate({ operator: value as Condition['operator'] })}
+                onValueChange={(value) =>
+                  onUpdate({ operator: value as Condition["operator"] })
+                }
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -119,7 +127,7 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
             {/* Value */}
             <div className="grid gap-2">
               <label className="text-sm font-medium">Value</label>
-              {condition.type === 'cart_total' ? (
+              {condition.type === "cart_total" ? (
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                     $
@@ -129,14 +137,14 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
                     min="0"
                     step="0.01"
                     className="pl-8"
-                    value={inputValue || ''}
+                    value={inputValue || ""}
                     onChange={(e) => {
                       setInputValue(e.target.value);
                       onUpdate({ value: e.target.value });
                     }}
                   />
                 </div>
-              ) : condition.type === 'product_quantity' ? (
+              ) : condition.type === "product_quantity" ? (
                 <Input
                   type="number"
                   min="0"
@@ -147,7 +155,7 @@ export function ConditionBuilder({ condition, isFirst, onUpdate, onRemove }: Con
                     onUpdate({ value: e.target.value });
                   }}
                 />
-              ) : condition.type === 'customer_group' ? (
+              ) : condition.type === "customer_group" ? (
                 <Select
                   value={inputValue}
                   onValueChange={(value) => {

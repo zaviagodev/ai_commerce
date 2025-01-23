@@ -1,16 +1,16 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { CreditCard } from 'lucide-react';
-import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { CreditCard } from "lucide-react";
+import { EcommerceSettings } from "../../schemas/ecommerce-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CheckoutSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
@@ -26,7 +26,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           <CreditCard className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">{t.settings.ecommerce.checkout.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.settings.ecommerce.checkout.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t.settings.ecommerce.checkout.subtitle}
           </p>
@@ -39,7 +41,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.checkout.guestCheckout.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.checkout.guestCheckout.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.checkout.guestCheckout.description}
                 </FormDescription>
@@ -60,7 +64,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.checkout.requirePhone.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.checkout.requirePhone.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.checkout.requirePhone.description}
                 </FormDescription>
@@ -81,7 +87,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.checkout.requireShipping.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.checkout.requireShipping.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.checkout.requireShipping.description}
                 </FormDescription>
@@ -102,7 +110,9 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.ecommerce.checkout.requireBilling.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.ecommerce.checkout.requireBilling.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.ecommerce.checkout.requireBilling.description}
                 </FormDescription>

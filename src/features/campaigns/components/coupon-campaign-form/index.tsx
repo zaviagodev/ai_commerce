@@ -1,19 +1,19 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Form } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CouponSchema } from '../../schemas/coupon-schema';
-import { Coupon } from '@/types/coupon';
-import { BasicDetails } from './sections/basic-details';
-import { DiscountRules } from './sections/discount-rules';
-import { UsageLimits } from './sections/usage-limits';
-import { AdvancedConditions } from './sections/advanced-conditions';
-import { CouponPreview } from './sections/coupon-preview';
-import { Tags, Share2 } from 'lucide-react';
-import { ShareModal } from '@/components/share/share-modal';
-import { useState, useRef, useEffect } from 'react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CouponSchema } from "../../schemas/coupon-schema";
+import { Coupon } from "@/types/coupon";
+import { BasicDetails } from "./sections/basic-details";
+import { DiscountRules } from "./sections/discount-rules";
+import { UsageLimits } from "./sections/usage-limits";
+import { AdvancedConditions } from "./sections/advanced-conditions";
+import { CouponPreview } from "./sections/coupon-preview";
+import { Tags, Share2 } from "lucide-react";
+import { ShareModal } from "@/components/share/share-modal";
+import { useState, useRef, useEffect } from "react";
 
 interface CouponCampaignFormProps {
   initialData?: Partial<Coupon>;
@@ -27,16 +27,16 @@ export function CouponCampaignForm({
   const form = useForm({
     resolver: zodResolver(CouponSchema),
     defaultValues: {
-      code: '',
-      description: '',
-      type: 'percentage',
+      code: "",
+      description: "",
+      type: "percentage",
       value: 0,
       minPurchaseAmount: undefined,
       maxDiscountAmount: undefined,
       usageLimit: undefined,
       startDate: new Date(),
       endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
-      status: 'draft',
+      status: "draft",
       advancedMode: false,
       conditions: [],
       ...initialData,
@@ -47,11 +47,11 @@ export function CouponCampaignForm({
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save coupon:', error);
+      console.error("Failed to save coupon:", error);
     }
   };
 
-  const couponCode = form.watch('code');
+  const couponCode = form.watch("code");
   const [isEditing, setIsEditing] = useState(false);
   const [editedCode, setEditedCode] = useState(couponCode);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -70,7 +70,7 @@ export function CouponCampaignForm({
 
   const handleCodeSubmit = () => {
     if (editedCode.trim()) {
-      form.setValue('code', editedCode.trim().toUpperCase());
+      form.setValue("code", editedCode.trim().toUpperCase());
     }
     setIsEditing(false);
   };
@@ -86,7 +86,7 @@ export function CouponCampaignForm({
           transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="flex items-center px-6 -mx-6 py-3 border-b sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -111,9 +111,9 @@ export function CouponCampaignForm({
                         onChange={(e) => setEditedCode(e.target.value)}
                         onBlur={handleCodeSubmit}
                         onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
+                          if (e.key === "Enter") {
                             handleCodeSubmit();
-                          } else if (e.key === 'Escape') {
+                          } else if (e.key === "Escape") {
                             setIsEditing(false);
                             setEditedCode(couponCode);
                           }
@@ -125,7 +125,7 @@ export function CouponCampaignForm({
                         className="text-xl sm:text-2xl font-semibold tracking-tight cursor-text"
                         onClick={handleStartEditing}
                       >
-                        {couponCode || 'UNTITLED-COUPON'}
+                        {couponCode || "UNTITLED-COUPON"}
                       </h1>
                     )}
                   </div>
@@ -138,14 +138,10 @@ export function CouponCampaignForm({
               {/* Right Section */}
               <div className="flex items-center justify-end gap-2">
                 <ShareModal
-                  title={couponCode || 'New Coupon'}
+                  title={couponCode || "New Coupon"}
                   url={window.location.href}
                 >
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex"
-                  >
+                  <Button type="button" variant="outline" className="flex">
                     <Share2 className="mr-2 h-4 w-4" />
                     Share
                   </Button>
@@ -157,7 +153,7 @@ export function CouponCampaignForm({
           </motion.div>
 
           {/* Content */}
-          <motion.div 
+          <motion.div
             className="flex-1 overflow-y-auto move-top"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -166,7 +162,7 @@ export function CouponCampaignForm({
             <div className="h-full">
               <div className="max-w-4xl mx-auto pl-0 pr-6 py-8 relative">
                 <Tabs
-                  defaultValue={initialData ? 'overview' : 'details'}
+                  defaultValue={initialData ? "overview" : "details"}
                   className="w-full"
                 >
                   <TabsList className="mb-6">

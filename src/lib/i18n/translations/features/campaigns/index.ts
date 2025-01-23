@@ -1,4 +1,4 @@
-import { campaignTranslations } from './campaigns';
+import { campaignTranslations } from "./campaigns";
 export const campaign = {
   en: {
     campaign: campaignTranslations.en,

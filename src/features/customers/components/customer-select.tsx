@@ -1,6 +1,9 @@
 <Dialog open={open} onOpenChange={setOpen}>
   <DialogTrigger asChild>{children}</DialogTrigger>
-  <DialogContent className="top-[10%] translate-y-0" aria-labelledby="customer-select-title">
+  <DialogContent
+    className="top-[10%] translate-y-0"
+    aria-labelledby="customer-select-title"
+  >
     <DialogHeader>
       <DialogTitle id="customer-select-title">Select customer</DialogTitle>
     </DialogHeader>
@@ -18,8 +21,11 @@
             className="w-full justify-start"
             onClick={() => {
               field.onChange(customer.id);
-              form.setValue('customerName', `${customer.firstName} ${customer.lastName}`);
-              form.setValue('customerEmail', customer.email);
+              form.setValue(
+                "customerName",
+                `${customer.firstName} ${customer.lastName}`,
+              );
+              form.setValue("customerEmail", customer.email);
               setOpen(false);
             }}
           >
@@ -41,4 +47,4 @@
       </Button>
     </div>
   </DialogContent>
-</Dialog>
+</Dialog>;

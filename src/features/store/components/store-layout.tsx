@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useCart } from '../context/cart-context';
-import { CartSheet } from './cart-sheet';
+import { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCart } from "../context/cart-context";
+import { CartSheet } from "./cart-sheet";
 
 interface StoreLayoutProps {
   children: ReactNode;

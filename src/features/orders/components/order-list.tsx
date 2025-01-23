@@ -66,7 +66,7 @@ export function OrderList({
       filtered = orderItems.filter(
         (order) =>
           order.id?.toLowerCase().includes(query) ||
-          order.customerName?.toLowerCase().includes(query)
+          order.customerName?.toLowerCase().includes(query),
       );
     }
 
@@ -75,10 +75,13 @@ export function OrderList({
 
   // Calculate counts for each status
   const statusCounts = useMemo(() => {
-    return orders.reduce((acc, order) => {
-      acc[order.status] = (acc[order.status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    return orders.reduce(
+      (acc, order) => {
+        acc[order.status] = (acc[order.status] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
   }, [orders]);
 
   const paginatedOrders = paginateItems(filteredOrders);

@@ -1,4 +1,4 @@
-import { event } from './events';
+import { event } from "./events";
 
 export const events = {
   en: {

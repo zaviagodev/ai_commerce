@@ -19,7 +19,9 @@ export function PriceSummary({
       </div>
       <div className="flex justify-between text-sm">
         <span className="text-muted-foreground">Discount</span>
-        <span className="text-destructive">-{formatCurrency(discountAmount)}</span>
+        <span className="text-destructive">
+          -{formatCurrency(discountAmount)}
+        </span>
       </div>
       <div className="flex justify-between font-medium">
         <span>Final price</span>

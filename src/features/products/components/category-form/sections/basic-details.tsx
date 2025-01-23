@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,11 +6,11 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { ProductCategory } from '@/types/product';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ProductCategory } from "@/types/product";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BasicDetailsProps {
   form: UseFormReturn<ProductCategory>;
@@ -18,7 +18,7 @@ interface BasicDetailsProps {
 
 export function BasicDetails({ form }: BasicDetailsProps) {
   const t = useTranslation();
-  
+
   return (
     <div className="grid gap-6">
       <FormField
@@ -26,9 +26,15 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.categories.form.name} <span className='text-destructive'>*</span></FormLabel>
+            <FormLabel>
+              {t.products.categories.form.name}{" "}
+              <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input placeholder={t.products.categories.form.namePlaceholder} {...field} />
+              <Input
+                placeholder={t.products.categories.form.namePlaceholder}
+                {...field}
+              />
             </FormControl>
             <FormDescription>
               {t.products.categories.form.nameHelp}

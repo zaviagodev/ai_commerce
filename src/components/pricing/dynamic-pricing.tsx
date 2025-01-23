@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { PriceInput } from "./price-input";
 import { DiscountTabs } from "./discount-tabs";
 import { PriceSummary } from "./price-summary";
@@ -17,7 +21,9 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
   const t = useTranslation();
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
-  const [discountType, setDiscountType] = useState<"percentage" | "fixed">("percentage");
+  const [discountType, setDiscountType] = useState<"percentage" | "fixed">(
+    "percentage",
+  );
   const [discountValue, setDiscountValue] = useState(0);
   const [finalPriceInput, setFinalPriceInput] = useState(price);
 
@@ -36,22 +42,23 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
     let validValue = Number.isFinite(newValue) ? Math.max(0, newValue) : 0;
     validValue = Math.round(validValue * 100) / 100;
     setDiscountValue(validValue);
-    
+
     // Update final price when discount changes
-    const newDiscountAmount = discountType === "percentage" 
-      ? (price * validValue) / 100 
-      : validValue;
+    const newDiscountAmount =
+      discountType === "percentage" ? (price * validValue) / 100 : validValue;
     setFinalPriceInput(Math.max(0, price - newDiscountAmount));
   };
 
   // Handle direct final price input
   const handleFinalPriceChange = (newFinalPrice: number) => {
     // Round to 2 decimal places
-    const roundedFinalPrice = Math.round(Math.min(Math.max(0, newFinalPrice), price) * 100) / 100;
+    const roundedFinalPrice =
+      Math.round(Math.min(Math.max(0, newFinalPrice), price) * 100) / 100;
     setFinalPriceInput(roundedFinalPrice);
-    
+
     // Calculate and update discount values
-    const newDiscountAmount = Math.round((price - roundedFinalPrice) * 100) / 100;
+    const newDiscountAmount =
+      Math.round((price - roundedFinalPrice) * 100) / 100;
     if (discountType === "percentage") {
       const percentage = price > 0 ? (newDiscountAmount / price) * 100 : 0;
       setDiscountValue(Math.round(percentage * 100) / 100);
@@ -61,10 +68,12 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
   };
 
   // Calculate discount amount and final price
-  const discountAmount = discountType === "percentage" 
-    ? Math.round((price * discountValue) / 100 * 100) / 100
-    : discountValue;
-  const finalPrice = Math.round(Math.max(0, price - discountAmount) * 100) / 100;
+  const discountAmount =
+    discountType === "percentage"
+      ? Math.round(((price * discountValue) / 100) * 100) / 100
+      : discountValue;
+  const finalPrice =
+    Math.round(Math.max(0, price - discountAmount) * 100) / 100;
 
   // Convert between percentage and fixed amount
   const handleDiscountTypeChange = (newType: "percentage" | "fixed") => {
@@ -125,7 +134,11 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
                 label="Final Price"
                 value={finalPriceInput}
                 onChange={handleFinalPriceChange}
-                error={finalPriceInput > price ? "Final price cannot exceed original price" : undefined}
+                error={
+                  finalPriceInput > price
+                    ? "Final price cannot exceed original price"
+                    : undefined
+                }
               />
 
               <div className="rounded-lg bg-muted p-4">

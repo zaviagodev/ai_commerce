@@ -1,11 +1,13 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface DeveloperModeContextType {
   isDeveloperMode: boolean;
   toggleDeveloperMode: () => void;
 }
 
-const DeveloperModeContext = createContext<DeveloperModeContextType | undefined>(undefined);
+const DeveloperModeContext = createContext<
+  DeveloperModeContextType | undefined
+>(undefined);
 
 export function DeveloperModeProvider({ children }: { children: ReactNode }) {
   const [isDeveloperMode, setIsDeveloperMode] = useState(false);
@@ -15,7 +17,9 @@ export function DeveloperModeProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <DeveloperModeContext.Provider value={{ isDeveloperMode, toggleDeveloperMode }}>
+    <DeveloperModeContext.Provider
+      value={{ isDeveloperMode, toggleDeveloperMode }}
+    >
       {children}
     </DeveloperModeContext.Provider>
   );
@@ -24,7 +28,9 @@ export function DeveloperModeProvider({ children }: { children: ReactNode }) {
 export function useDeveloperMode() {
   const context = useContext(DeveloperModeContext);
   if (context === undefined) {
-    throw new Error('useDeveloperMode must be used within a DeveloperModeProvider');
+    throw new Error(
+      "useDeveloperMode must be used within a DeveloperModeProvider",
+    );
   }
   return context;
 }

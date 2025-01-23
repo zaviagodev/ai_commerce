@@ -10,14 +10,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { formatCurrency } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { QrCode } from 'lucide-react';
-import { TicketScanModal } from './ticket-scanning/ticket-scan-modal';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { formatCurrency } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { QrCode } from "lucide-react";
+import { TicketScanModal } from "./ticket-scanning/ticket-scan-modal";
+import { useTranslation } from "@/lib/i18n/hooks";
 import { OrderService } from "@/features/orders/services/order-service";
 import { Order } from "@/types/order";
 import { format } from "date-fns";
@@ -42,9 +42,8 @@ export function Attendees({ form }: AttendeesProps) {
           console.error("Product ID not found");
           return;
         }
-        const eventOrders = await OrderService.getEventOrdersByProduct(
-          productId
-        );
+        const eventOrders =
+          await OrderService.getEventOrdersByProduct(productId);
         setOrders(eventOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -75,7 +74,9 @@ export function Attendees({ form }: AttendeesProps) {
           <Users className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.products.products.form.sections.attendees.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.products.products.form.sections.attendees.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t.products.products.form.sections.attendees.description}
           </p>
@@ -92,9 +93,17 @@ export function Attendees({ form }: AttendeesProps) {
                 </div>
                 <div className="flex-1 md:space-y-2 space-y-4 text-center md:text-left">
                   <div className="space-y-2">
-                    <h3 className="font-medium">{t.products.products.form.sections.attendees.ticketScanning.title}</h3>
+                    <h3 className="font-medium">
+                      {
+                        t.products.products.form.sections.attendees
+                          .ticketScanning.title
+                      }
+                    </h3>
                     <p className="text-sm text-muted-foreground">
-                    {t.products.products.form.sections.attendees.ticketScanning.description}
+                      {
+                        t.products.products.form.sections.attendees
+                          .ticketScanning.description
+                      }
                     </p>
                   </div>
                   <Button
@@ -104,7 +113,10 @@ export function Attendees({ form }: AttendeesProps) {
                     onClick={() => setShowScanModal(true)}
                   >
                     <QrCode className="mr-2 h-4 w-4" />
-                    {t.products.products.form.sections.attendees.ticketScanning.scanButton}
+                    {
+                      t.products.products.form.sections.attendees.ticketScanning
+                        .scanButton
+                    }
                   </Button>
                 </div>
               </div>
@@ -116,11 +128,22 @@ export function Attendees({ form }: AttendeesProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t.products.products.form.sections.attendees.table.attendee}</TableHead>
-                <TableHead>{t.products.products.form.sections.attendees.table.ticketType}</TableHead>
-                <TableHead>{t.products.products.form.sections.attendees.table.purchaseDate}</TableHead>
+                <TableHead>
+                  {t.products.products.form.sections.attendees.table.attendee}
+                </TableHead>
+                <TableHead>
+                  {t.products.products.form.sections.attendees.table.ticketType}
+                </TableHead>
+                <TableHead>
+                  {
+                    t.products.products.form.sections.attendees.table
+                      .purchaseDate
+                  }
+                </TableHead>
                 {/* <TableHead>{t.products.products.form.sections.attendees.table.price}</TableHead> */}
-                <TableHead>{t.products.products.form.sections.attendees.table.status}</TableHead>
+                <TableHead>
+                  {t.products.products.form.sections.attendees.table.status}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

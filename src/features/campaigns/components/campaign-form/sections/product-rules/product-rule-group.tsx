@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
-import { ProductConditionBuilder } from './condition-builder';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Plus, X } from "lucide-react";
+import { ProductConditionBuilder } from "./condition-builder";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface ProductRuleGroup {
   id: string;
@@ -23,7 +23,11 @@ interface ProductRuleGroupProps {
   onRemove: () => void;
 }
 
-export function ProductRuleGroup({ group, isLast, onRemove }: ProductRuleGroupProps) {
+export function ProductRuleGroup({
+  group,
+  isLast,
+  onRemove,
+}: ProductRuleGroupProps) {
   const [rules, setRules] = useState<{ id: string }[]>([]);
 
   const addCondition = () => {
@@ -31,7 +35,7 @@ export function ProductRuleGroup({ group, isLast, onRemove }: ProductRuleGroupPr
   };
 
   const removeCondition = (id: string) => {
-    setRules(rules.filter(rule => rule.id !== id));
+    setRules(rules.filter((rule) => rule.id !== id));
   };
 
   return (
@@ -41,7 +45,7 @@ export function ProductRuleGroup({ group, isLast, onRemove }: ProductRuleGroupPr
         <>
           {/* Vertical line from current box to operator */}
           <div className="absolute left-1/2 -bottom-8 h-8 w-px bg-border" />
-          
+
           {/* Connection dot */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4">
             <div className="absolute inset-0 rounded-full border-2 border-border bg-background" />

@@ -1,18 +1,14 @@
-import {
-  FormField,
-  FormItem,
-  FormControl,
-} from '@/components/ui/form';
+import { FormField, FormItem, FormControl } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { UseFormReturn } from 'react-hook-form';
-import { Redeem } from '@/types/redeem';
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { UseFormReturn } from "react-hook-form";
+import { Redeem } from "@/types/redeem";
 
 interface StatusSelectProps {
   form: UseFormReturn<Redeem>;
@@ -33,17 +29,32 @@ export function StatusSelect({ form }: StatusSelectProps) {
               <SelectContent>
                 <SelectItem value="pending" className="transition-colors">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">Pending</Badge>
+                    <Badge
+                      variant="secondary"
+                      className="bg-yellow-100 text-yellow-700"
+                    >
+                      Pending
+                    </Badge>
                   </div>
                 </SelectItem>
                 <SelectItem value="completed" className="transition-colors">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="bg-green-100 text-green-700">Completed</Badge>
+                    <Badge
+                      variant="secondary"
+                      className="bg-green-100 text-green-700"
+                    >
+                      Completed
+                    </Badge>
                   </div>
                 </SelectItem>
                 <SelectItem value="failed" className="transition-colors">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="bg-red-100 text-red-700">Failed</Badge>
+                    <Badge
+                      variant="secondary"
+                      className="bg-red-100 text-red-700"
+                    >
+                      Failed
+                    </Badge>
                   </div>
                 </SelectItem>
               </SelectContent>

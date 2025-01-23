@@ -1,41 +1,41 @@
-import { RuleElement, RuleGroup, GroupOperator } from '../types/campaign-rules';
+import { RuleElement, RuleGroup, GroupOperator } from "../types/campaign-rules";
 
 export function transformRulesToDb(rules: RuleElement[]): any[] {
-  return rules.map(rule => {
-    if (rule.type === 'group') {
+  return rules.map((rule) => {
+    if (rule.type === "group") {
       return {
         id: rule.id,
-        type: 'group',
+        type: "group",
         match: rule.match,
-        conditions: rule.conditions.map(condition => ({
+        conditions: rule.conditions.map((condition) => ({
           ...condition,
-          id: condition.id || crypto.randomUUID()
-        }))
+          id: condition.id || crypto.randomUUID(),
+        })),
       };
     } else {
       return {
         id: rule.id,
-        type: 'group_operator',
-        operator: rule.operator
+        type: "group_operator",
+        operator: rule.operator,
       };
     }
   });
 }
 
 export function transformRulesFromDb(dbRules: any[]): RuleElement[] {
-  return dbRules.map(rule => {
-    if (rule.type === 'group') {
+  return dbRules.map((rule) => {
+    if (rule.type === "group") {
       return {
         id: rule.id,
-        type: 'group',
+        type: "group",
         match: rule.match,
-        conditions: rule.conditions
+        conditions: rule.conditions,
       } as RuleGroup;
     } else {
       return {
         id: rule.id,
-        type: 'group_operator',
-        operator: rule.operator
+        type: "group_operator",
+        operator: rule.operator,
       } as GroupOperator;
     }
   });

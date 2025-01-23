@@ -33,6 +33,6 @@ export interface Order {
     price: number;
   }[];
   total: number;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   createdAt: Date;
 }

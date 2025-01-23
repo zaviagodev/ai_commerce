@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import {
   Plus,
   Package,
@@ -49,8 +49,8 @@ export function ProductList({
   isLoading,
   onDelete,
 }: ProductListProps) {
-const navigate = useNavigate();
-const t = useTranslation();
+  const navigate = useNavigate();
+  const t = useTranslation();
   const [sortValue, setSortValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -88,7 +88,7 @@ const t = useTranslation();
         (product) =>
           product.name.toLowerCase().includes(query) ||
           product.sku?.toLowerCase().includes(query) ||
-          product.category?.name.toLowerCase().includes(query)
+          product.category?.name.toLowerCase().includes(query),
       );
     }
 
@@ -97,7 +97,7 @@ const t = useTranslation();
 
     const [field, direction] = sortValue.split("-");
     const option = SORT_OPTIONS.find(
-      (opt) => opt.field === field && opt.direction === direction
+      (opt) => opt.field === field && opt.direction === direction,
     );
 
     if (!option) return filtered;
@@ -264,10 +264,16 @@ const t = useTranslation();
               paginatedProducts.map((product) => {
                 const quantity = product.variants.reduce(
                   (acc, variant) => acc + variant.quantity,
-                  0
+                  0,
                 );
                 return (
-                  <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/products/${product.id}`)}>
+                  <TableRow
+                    key={product.id}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(`/dashboard/products/${product.id}`)
+                    }
+                  >
                     {isBulkMode && (
                       <TableCell onClick={(e) => e.stopPropagation()}>
                         <Checkbox
@@ -319,7 +325,11 @@ const t = useTranslation();
                             product.status === "draft",
                         })}
                       >
-                        {t.products.products.status[product.status as keyof typeof t.products.products.status]}
+                        {
+                          t.products.products.status[
+                            product.status as keyof typeof t.products.products.status
+                          ]
+                        }
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -355,7 +365,10 @@ const t = useTranslation();
                       )}
                     </TableCell>
                     {!isBulkMode && (
-                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                      <TableCell
+                        className="text-right"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <ProductActionsMenu
                           product={product}
                           onDelete={() => onDelete(product.id)}

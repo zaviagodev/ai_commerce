@@ -1,23 +1,23 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Customer } from '@/types/customer';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { MapPin } from 'lucide-react';
-import { COUNTRY_CHOICE } from '@/data/countries';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Customer } from "@/types/customer";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { MapPin } from "lucide-react";
+import { COUNTRY_CHOICE } from "@/data/countries";
 
 interface AddressesProps {
   form: UseFormReturn<Customer>;
@@ -123,7 +123,9 @@ export function Addresses({ form }: AddressesProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {COUNTRY_CHOICE.map(choice => <SelectItem value={choice}>{choice}</SelectItem>)}
+                  {COUNTRY_CHOICE.map((choice) => (
+                    <SelectItem value={choice}>{choice}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { motion } from "framer-motion";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface SuccessAnimationProps {
   onComplete: () => void;
@@ -20,7 +20,7 @@ export function SuccessAnimation({
       opacity: 1,
       transition: {
         pathLength: {
-          type: 'tween',
+          type: "tween",
           duration: 0.8,
           ease: [0.65, 0, 0.35, 1],
         },
@@ -35,7 +35,7 @@ export function SuccessAnimation({
       scale: 1,
       opacity: 1,
       transition: {
-        type: 'tween',
+        type: "tween",
         duration: 0.6,
         ease: [0.65, 0, 0.35, 1],
       },
@@ -71,15 +71,15 @@ export function SuccessAnimation({
           className="absolute inset-0 bg-green-500 rounded-full"
           style={{
             backgroundColor: isCancelled
-              ? '#EF4444'
+              ? "#EF4444"
               : isShipped
-              ? '#22C55E'
-              : '#22C55E',
+                ? "#22C55E"
+                : "#22C55E",
           }}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{
-            type: 'tween',
+            type: "tween",
             duration: 0.6,
             ease: [0.65, 0, 0.35, 1],
           }}
@@ -89,7 +89,7 @@ export function SuccessAnimation({
           viewBox="0 0 50 50"
           fill="none"
           stroke="white"
-          strokeWidth={isCancelled ? '3' : '4'}
+          strokeWidth={isCancelled ? "3" : "4"}
         >
           {isCancelled ? (
             <>
@@ -119,7 +119,7 @@ export function SuccessAnimation({
               strokeLinejoin="round"
               transition={{
                 pathLength: {
-                  type: 'tween',
+                  type: "tween",
                   duration: 1.2,
                   ease: [0.65, 0, 0.35, 1],
                 },
@@ -139,25 +139,21 @@ export function SuccessAnimation({
       >
         <h3
           className={`text-lg font-medium mb-1 ${
-            isCancelled
-              ? 'text-red-500'
-              : isShipped
-              ? 'text-main'
-              : 'text-main'
+            isCancelled ? "text-red-500" : isShipped ? "text-main" : "text-main"
           }`}
         >
           {isCancelled
             ? t.orders.orders.payment.success.cancelled.title
             : isShipped
-            ? t.orders.orders.payment.success.shipped.title
-            : t.orders.orders.payment.success.payment.title}
+              ? t.orders.orders.payment.success.shipped.title
+              : t.orders.orders.payment.success.payment.title}
         </h3>
         <p className="text-sm text-gray-400">
           {isCancelled
             ? t.orders.orders.payment.success.cancelled.description
             : isShipped
-            ? t.orders.orders.payment.success.shipped.description
-            : t.orders.orders.payment.success.payment.description}
+              ? t.orders.orders.payment.success.shipped.description
+              : t.orders.orders.payment.success.payment.description}
         </p>
       </motion.div>
     </motion.div>

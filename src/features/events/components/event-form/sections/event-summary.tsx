@@ -78,8 +78,8 @@ export function EventSummary({ form }: EventSummaryProps) {
                       Math.ceil(
                         (new Date(eventStartDate).getTime() -
                           new Date().getTime()) /
-                          (1000 * 60 * 60 * 24)
-                      )
+                          (1000 * 60 * 60 * 24),
+                      ),
                     )
                   : 0}{" "}
                 days
@@ -108,7 +108,7 @@ export function EventSummary({ form }: EventSummaryProps) {
                           <>
                             {" "}
                             - {new Date(
-                              eventEndDate
+                              eventEndDate,
                             ).toLocaleDateString()} at{" "}
                             {new Date(eventEndDate).toLocaleTimeString()}
                           </>

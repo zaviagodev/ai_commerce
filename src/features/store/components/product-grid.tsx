@@ -1,7 +1,7 @@
-import { Link, useParams } from 'react-router-dom';
-import { Product } from '@/types/product';
-import { formatCurrency } from '@/lib/utils';
-import Loading from '@/components/loading';
+import { Link, useParams } from "react-router-dom";
+import { Product } from "@/types/product";
+import { formatCurrency } from "@/lib/utils";
+import Loading from "@/components/loading";
 
 interface ProductGridProps {
   products: Product[];

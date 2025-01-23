@@ -1,5 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { Plus, Package } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -79,8 +79,12 @@ export function EventList({ products, isLoading }: EventListProps) {
               <TableHead>{t.events.list.table.headers.product}</TableHead>
               <TableHead>{t.events.list.table.headers.status}</TableHead>
               <TableHead>{t.events.list.table.headers.category}</TableHead>
-              <TableHead className="text-right">{t.events.list.table.headers.price}</TableHead>
-              <TableHead className="text-right">{t.events.list.table.headers.quantity}</TableHead>
+              <TableHead className="text-right">
+                {t.events.list.table.headers.price}
+              </TableHead>
+              <TableHead className="text-right">
+                {t.events.list.table.headers.quantity}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -88,7 +92,9 @@ export function EventList({ products, isLoading }: EventListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">{t.events.list.table.empty.title}</p>
+                    <p className="text-lg font-medium">
+                      {t.events.list.table.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       {t.events.list.table.empty.description}
                     </p>
@@ -103,7 +109,11 @@ export function EventList({ products, isLoading }: EventListProps) {
               </TableRow>
             ) : (
               paginatedProducts.map((product) => (
-                <TableRow key={product.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/events/${product.id}`)}>
+                <TableRow
+                  key={product.id}
+                  className="cursor-pointer"
+                  onClick={() => navigate(`/dashboard/events/${product.id}`)}
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
                       {product.images[0] ? (
@@ -124,7 +134,10 @@ export function EventList({ products, isLoading }: EventListProps) {
                         </Link>
                         {product.sku && (
                           <p className="text-sm text-muted-foreground">
-                            {t.events.list.table.cells.sku.replace('{value}', product.sku)}
+                            {t.events.list.table.cells.sku.replace(
+                              "{value}",
+                              product.sku,
+                            )}
                           </p>
                         )}
                       </div>
@@ -133,16 +146,20 @@ export function EventList({ products, isLoading }: EventListProps) {
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100": product.status === 'active',
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100": product.status === 'archived',
-                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100": product.status === 'draft',
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                          product.status === "active",
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                          product.status === "archived",
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                          product.status === "draft",
                       })}
                     >
                       {t.events.list.table.status[product.status]}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {product.category?.name || t.events.list.table.cells.uncategorized}
+                    {product.category?.name ||
+                      t.events.list.table.cells.uncategorized}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="space-y-1">
@@ -165,10 +182,15 @@ export function EventList({ products, isLoading }: EventListProps) {
                             : "text-red-600"
                         }
                       >
-                        {t.events.list.table.cells.inStock.replace('{count}', String(product.quantity || 0))}
+                        {t.events.list.table.cells.inStock.replace(
+                          "{count}",
+                          String(product.quantity || 0),
+                        )}
                       </span>
                     ) : (
-                      <span className="text-muted-foreground">{t.events.list.table.cells.notTracked}</span>
+                      <span className="text-muted-foreground">
+                        {t.events.list.table.cells.notTracked}
+                      </span>
                     )}
                   </TableCell>
                 </TableRow>

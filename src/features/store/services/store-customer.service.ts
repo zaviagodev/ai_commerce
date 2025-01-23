@@ -1,5 +1,5 @@
-import { supabase } from '@/lib/supabase';
-import { StoreOrderCustomer } from '../types/store-order';
+import { supabase } from "@/lib/supabase";
+import { StoreOrderCustomer } from "../types/store-order";
 
 interface CreateCustomerParams {
   storeName: string;
@@ -19,10 +19,10 @@ export class CustomerService {
     try {
       // First try to get existing customer
       const { data: existingCustomer, error: fetchError } = await supabase
-        .from('customers')
+        .from("customers")
         .select()
-        .eq('store_name', params.storeName)
-        .eq('email', params.email)
+        .eq("store_name", params.storeName)
+        .eq("email", params.email)
         .single();
 
       if (existingCustomer) {
@@ -31,7 +31,7 @@ export class CustomerService {
 
       // If no existing customer, create new one
       const { data: newCustomer, error: createError } = await supabase
-        .from('customers')
+        .from("customers")
         .insert({
           store_name: params.storeName,
           first_name: params.firstName,
@@ -45,19 +45,19 @@ export class CustomerService {
       if (createError) throw createError;
       return newCustomer;
     } catch (error: any) {
-      console.error('Failed to create/get customer:', error);
-      throw new Error(error.message || 'Failed to create/get customer');
+      console.error("Failed to create/get customer:", error);
+      throw new Error(error.message || "Failed to create/get customer");
     }
   }
 
   static async createCustomerAddress(params: CreateAddressParams) {
     try {
       const { error: addressError } = await supabase
-        .from('customer_addresses')
+        .from("customer_addresses")
         .insert({
           customer_id: params.customerId,
           store_name: params.storeName,
-          type: 'shipping',
+          type: "shipping",
           first_name: params.firstName,
           last_name: params.lastName,
           address1: params.address.address1,
@@ -72,8 +72,8 @@ export class CustomerService {
 
       if (addressError) throw addressError;
     } catch (error: any) {
-      console.error('Failed to create customer address:', error);
-      throw new Error(error.message || 'Failed to create customer address');
+      console.error("Failed to create customer address:", error);
+      throw new Error(error.message || "Failed to create customer address");
     }
   }
 }

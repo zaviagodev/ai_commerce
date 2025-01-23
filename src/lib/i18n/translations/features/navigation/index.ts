@@ -1,4 +1,4 @@
-import { navMain } from './nav-main';
+import { navMain } from "./nav-main";
 
 export const navbar = {
   en: {

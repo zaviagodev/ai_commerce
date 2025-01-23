@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Check, Copy, Link2, X } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { Order } from '@/types/order';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Check, Copy, Link2, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { Order } from "@/types/order";
 
 interface CheckoutLinkSectionProps {
   open: boolean;
@@ -29,7 +29,7 @@ export function CheckoutLinkSection({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error('Failed to copy link:', error);
+      console.error("Failed to copy link:", error);
     }
   };
 
@@ -44,8 +44,12 @@ export function CheckoutLinkSection({
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-medium">{t.orders.orders.form.sections.payment.checkout.title}</h3>
-          <p className="text-sm text-gray-400">{t.orders.orders.form.sections.payment.checkout.description}</p>
+          <h3 className="text-lg font-medium">
+            {t.orders.orders.form.sections.payment.checkout.title}
+          </h3>
+          <p className="text-sm text-gray-400">
+            {t.orders.orders.form.sections.payment.checkout.description}
+          </p>
         </div>
         <Button
           variant="ghost"
@@ -58,7 +62,9 @@ export function CheckoutLinkSection({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-300">{t.orders.orders.form.sections.payment.checkout.title}</label>
+        <label className="text-sm text-gray-300">
+          {t.orders.orders.form.sections.payment.checkout.title}
+        </label>
         <div className="flex gap-2">
           <Input
             value={checkoutLink}
@@ -88,11 +94,10 @@ export function CheckoutLinkSection({
         >
           {t.orders.orders.actions.cancel}
         </Button>
-        <Button
-          onClick={handleCopy}
-          className="bg-primary hover:bg-primary/90"
-        >
-          {copied ? t.orders.orders.form.sections.payment.checkout.copied : t.orders.orders.form.sections.payment.checkout.copy}
+        <Button onClick={handleCopy} className="bg-primary hover:bg-primary/90">
+          {copied
+            ? t.orders.orders.form.sections.payment.checkout.copied
+            : t.orders.orders.form.sections.payment.checkout.copy}
         </Button>
       </div>
     </motion.div>

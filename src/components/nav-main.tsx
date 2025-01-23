@@ -16,7 +16,7 @@ import {
   Users2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useTranslation } from '@/lib/i18n/hooks';
+import { useTranslation } from "@/lib/i18n/hooks";
 
 import {
   Collapsible,
@@ -36,7 +36,6 @@ import {
 
 export function NavMain() {
   const t = useTranslation();
-
 
   return (
     <SidebarGroup className="flex h-full flex-col">
@@ -74,12 +73,17 @@ export function NavMain() {
       </SidebarMenu>
 
       {/* Products Section */}
-      <SidebarGroupLabel className="mt-4">{t.navigation.navigation.products.title}</SidebarGroupLabel>
+      <SidebarGroupLabel className="mt-4">
+        {t.navigation.navigation.products.title}
+      </SidebarGroupLabel>
       <SidebarMenu>
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.products.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.products.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
                   <Package className="h-3.5 w-3.5 text-pink-500" />
                 </div>
@@ -121,7 +125,10 @@ export function NavMain() {
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.orders.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.orders.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-orange-100">
                   <ShoppingCart className="h-3.5 w-3.5 text-orange-500" />
                 </div>
@@ -147,7 +154,10 @@ export function NavMain() {
         <Collapsible asChild defaultOpen className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.customers.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.customers.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-purple-100">
                   <Users className="h-3.5 w-3.5 text-purple-500" />
                 </div>
@@ -172,7 +182,9 @@ export function NavMain() {
                       className="font-medium"
                     >
                       <Users className="h-3 w-3 text-muted-foreground" />
-                      <span>{t.navigation.navigation.customerGroups.title}</span>
+                      <span>
+                        {t.navigation.navigation.customerGroups.title}
+                      </span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -184,7 +196,10 @@ export function NavMain() {
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.coupons.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.coupons.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-pink-100">
                   <Ticket className="h-3.5 w-3.5 text-pink-500" />
                 </div>
@@ -196,9 +211,14 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link to="/dashboard/coupon-campaigns" className="font-medium">
+                    <Link
+                      to="/dashboard/coupon-campaigns"
+                      className="font-medium"
+                    >
                       <Tags className="h-3 w-3 text-muted-foreground" />
-                      <span>{t.navigation.navigation.couponCampaign.title}</span>
+                      <span>
+                        {t.navigation.navigation.couponCampaign.title}
+                      </span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -209,12 +229,17 @@ export function NavMain() {
       </SidebarMenu>
 
       {/* Events Section */}
-      <SidebarGroupLabel className="mt-4">{t.navigation.navigation.eventTicket.title}</SidebarGroupLabel>
+      <SidebarGroupLabel className="mt-4">
+        {t.navigation.navigation.eventTicket.title}
+      </SidebarGroupLabel>
       <SidebarMenu>
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.eventTicket.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.eventTicket.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-blue-100">
                   <Ticket className="h-3.5 w-3.5 text-blue-500" />
                 </div>
@@ -248,7 +273,10 @@ export function NavMain() {
         <Collapsible asChild defaultOpen={false} className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton tooltip={t.navigation.navigation.pointsRewards.subtitle} className="font-medium">
+              <SidebarMenuButton
+                tooltip={t.navigation.navigation.pointsRewards.subtitle}
+                className="font-medium"
+              >
                 <div className="rounded-md bg-opacity-20 p-1 bg-yellow-100">
                   <Gift className="h-3.5 w-3.5 text-yellow-500" />
                 </div>

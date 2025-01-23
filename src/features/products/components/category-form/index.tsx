@@ -1,14 +1,14 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
-import { CategorySchema } from '../../schemas/category-schema';
-import { ProductCategory } from '@/types/product';
-import { BasicDetails } from './sections/basic-details';
-import { SEO } from './sections/seo';
-import { Folder, Search } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { CategorySchema } from "../../schemas/category-schema";
+import { ProductCategory } from "@/types/product";
+import { BasicDetails } from "./sections/basic-details";
+import { SEO } from "./sections/seo";
+import { Folder, Search } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CategoryFormProps {
   initialData?: ProductCategory;
@@ -20,9 +20,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
   const form = useForm<ProductCategory>({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
-      name: '',
-      slug: '',
-      description: '',
+      name: "",
+      slug: "",
+      description: "",
       ...initialData,
     },
   });
@@ -31,20 +31,21 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
     try {
       await onSubmit(data);
     } catch (error) {
-      console.error('Failed to save category:', error);
+      console.error("Failed to save category:", error);
     }
   };
 
   return (
     <div className="space-y-6">
       <Form {...form}>
-        <motion.form onSubmit={form.handleSubmit(handleSubmit)} 
+        <motion.form
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-8"
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -52,7 +53,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
           >
             <div>
               <h1 className="text-2xl font-semibold">
-                {initialData ? t.products.categories.actions.edit : t.products.categories.actions.add}
+                {initialData
+                  ? t.products.categories.actions.edit
+                  : t.products.categories.actions.add}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {t.products.categories.description}
@@ -66,7 +69,7 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid gap-6"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -79,7 +82,9 @@ export function CategoryForm({ initialData, onSubmit }: CategoryFormProps) {
                   <Folder className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-medium">{t.products.categories.form.name}</h2>
+                  <h2 className="text-lg font-medium">
+                    {t.products.categories.form.name}
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     {t.products.categories.form.nameHelp}
                   </p>

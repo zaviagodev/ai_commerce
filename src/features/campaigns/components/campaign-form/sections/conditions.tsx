@@ -1,24 +1,24 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Campaign } from '@/types/campaign';
-import { Filter } from 'lucide-react';
-import { EarningRules } from './earning-rules';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Campaign } from "@/types/campaign";
+import { Filter } from "lucide-react";
+import { EarningRules } from "./earning-rules";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ConditionsProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function Conditions({ form }: ConditionsProps) {
-  const hasConditions = form.watch('hasConditions');
+  const hasConditions = form.watch("hasConditions");
   const t = useTranslation();
 
   return (
@@ -28,9 +28,11 @@ export function Conditions({ form }: ConditionsProps) {
           <Filter className="h-5 w-5 text-teal-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.conditions.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.customers.customer.campaignForm.sections.conditions.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.campaignForm.sections.conditions.description}
+            {t.customers.customer.campaignForm.sections.conditions.description}
           </p>
         </div>
       </CardHeader>
@@ -41,9 +43,17 @@ export function Conditions({ form }: ConditionsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{ t.customers.customer.campaignForm.sections.conditions.fields.minimumPurchase.label}</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.campaignForm.sections.conditions.fields
+                      .minimumPurchase.label
+                  }
+                </FormLabel>
                 <FormDescription>
-                  { t.customers.customer.campaignForm.sections.conditions.fields.minimumPurchase.description}
+                  {
+                    t.customers.customer.campaignForm.sections.conditions.fields
+                      .minimumPurchase.description
+                  }
                 </FormDescription>
               </div>
               <FormControl>

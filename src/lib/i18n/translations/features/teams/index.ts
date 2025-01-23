@@ -1,5 +1,5 @@
-import { members } from './members';
-import { invites } from './invites';
+import { members } from "./members";
+import { invites } from "./invites";
 
 export const teams = {
   en: {

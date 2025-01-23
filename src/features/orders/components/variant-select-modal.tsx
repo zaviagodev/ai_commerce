@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { ProductVariant, Product } from '@/types/product';
-import { formatCurrency } from '@/lib/utils';
-import { Package } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { ProductVariant, Product } from "@/types/product";
+import { formatCurrency } from "@/lib/utils";
+import { Package } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface VariantSelectModalProps {
   open: boolean;
@@ -18,11 +18,11 @@ interface VariantSelectModalProps {
   onSelect: (variant: ProductVariant) => void;
 }
 
-export function VariantSelectModal({ 
-  open, 
-  onOpenChange, 
-  product, 
-  onSelect 
+export function VariantSelectModal({
+  open,
+  onOpenChange,
+  product,
+  onSelect,
 }: VariantSelectModalProps) {
   const t = useTranslation();
 
@@ -63,13 +63,16 @@ export function VariantSelectModal({
                     {formatCurrency(variant.price)}
                     {product.trackQuantity && (
                       <span className="ml-2">
-                        ({variant.quantity || 0} {t.orders.orders.product.variant.inStock})
+                        ({variant.quantity || 0}{" "}
+                        {t.orders.orders.product.variant.inStock})
                       </span>
                     )}
                   </div>
                   {variant.options.length > 0 && (
                     <div className="mt-1 text-sm text-muted-foreground">
-                      {variant.options.map(opt => `${opt.name}: ${opt.value}`).join(' / ')}
+                      {variant.options
+                        .map((opt) => `${opt.name}: ${opt.value}`)
+                        .join(" / ")}
                     </div>
                   )}
                 </div>

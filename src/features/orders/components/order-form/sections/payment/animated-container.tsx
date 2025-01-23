@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { ReactNode } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import { ReactNode } from "react";
 
 interface AnimatedContainerProps {
   children: ReactNode;
@@ -9,13 +9,13 @@ export function AnimatedContainer({ children }: AnimatedContainerProps) {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ 
+        initial={{
           scale: 0.8,
           opacity: 0,
           y: -20,
-          borderRadius: 50 
+          borderRadius: 50,
         }}
-        animate={{ 
+        animate={{
           scale: 1,
           opacity: 1,
           y: 0,
@@ -23,8 +23,8 @@ export function AnimatedContainer({ children }: AnimatedContainerProps) {
           transition: {
             type: "spring",
             duration: 0.6,
-            bounce: 0.3
-          }
+            bounce: 0.3,
+          },
         }}
         className="overflow-hidden"
       >

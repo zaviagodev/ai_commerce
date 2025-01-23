@@ -33,7 +33,9 @@ export function EventDetails({ form }: EventDetailsProps) {
             <Calendar className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-medium">{t.events.event.eventDetails.title}</h2>
+            <h2 className="text-lg font-medium">
+              {t.events.event.eventDetails.title}
+            </h2>
             <p className="text-sm text-muted-foreground">
               {t.events.event.eventDetails.subtitle}
             </p>
@@ -46,7 +48,9 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="startDateTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.events.event.eventDetails.startDateTime}</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.startDateTime}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="datetime-local"
@@ -69,7 +73,9 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="endDateTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.events.event.eventDetails.endDateTime}</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.endDateTime}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="datetime-local"
@@ -93,9 +99,16 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="venueName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.events.event.eventDetails.venueName.label}</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.venueName.label}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder={t.events.event.eventDetails.venueName.placeholder} {...field} />
+                  <Input
+                    placeholder={
+                      t.events.event.eventDetails.venueName.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,10 +120,14 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="venueAddress"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.events.event.eventDetails.venueAddress.label}</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.venueAddress.label}
+                </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder={t.events.event.eventDetails.venueAddress.placeholder}
+                    placeholder={
+                      t.events.event.eventDetails.venueAddress.placeholder
+                    }
                     className="min-h-[100px]"
                     {...field}
                   />
@@ -128,9 +145,16 @@ export function EventDetails({ form }: EventDetailsProps) {
             name="googleMapsLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.events.event.eventDetails.googleMapsLink.label}</FormLabel>
+                <FormLabel>
+                  {t.events.event.eventDetails.googleMapsLink.label}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder={t.events.event.eventDetails.googleMapsLink.placeholder} {...field} />
+                  <Input
+                    placeholder={
+                      t.events.event.eventDetails.googleMapsLink.placeholder
+                    }
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
                   {t.events.event.eventDetails.googleMapsLink.description}
@@ -146,9 +170,16 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="organizerName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.events.event.eventDetails.organizerName.label}</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.organizerName.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder={t.events.event.eventDetails.organizerName.placeholder} {...field} />
+                    <Input
+                      placeholder={
+                        t.events.event.eventDetails.organizerName.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -160,9 +191,16 @@ export function EventDetails({ form }: EventDetailsProps) {
               name="organizerContact"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.events.event.eventDetails.organizerContact.label}</FormLabel>
+                  <FormLabel>
+                    {t.events.event.eventDetails.organizerContact.label}
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder={t.events.event.eventDetails.organizerContact.placeholder} {...field} />
+                    <Input
+                      placeholder={
+                        t.events.event.eventDetails.organizerContact.placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

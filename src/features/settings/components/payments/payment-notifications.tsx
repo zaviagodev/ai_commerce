@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,13 +6,13 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Bell } from 'lucide-react';
-import { PaymentSettings } from '../../schemas/payment-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Bell } from "lucide-react";
+import { PaymentSettings } from "../../schemas/payment-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentNotificationsProps {
   form: UseFormReturn<PaymentSettings>;
@@ -20,7 +20,7 @@ interface PaymentNotificationsProps {
 
 export function PaymentNotifications({ form }: PaymentNotificationsProps) {
   const t = useTranslation();
-  const notifyLine = form.watch('notifyLine');
+  const notifyLine = form.watch("notifyLine");
 
   return (
     <Card>
@@ -29,7 +29,9 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           <Bell className="h-5 w-5 text-orange-600" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">{t.settings.payments.notifications.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.payments.notifications.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.payments.notifications.subtitle}
           </p>
@@ -42,9 +44,11 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.payments.notifications.email.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.payments.notifications.email.label}
+                </FormLabel>
                 <FormDescription>
-                {t.settings.payments.notifications.email.description}
+                  {t.settings.payments.notifications.email.description}
                 </FormDescription>
                 <FormMessage />
               </div>

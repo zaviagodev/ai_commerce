@@ -1,17 +1,17 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-import { Coupon } from '@/types/coupon';
-import { useState } from 'react';
-import { RuleGroup } from './rule-group';
+import { UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { Coupon } from "@/types/coupon";
+import { useState } from "react";
+import { RuleGroup } from "./rule-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface RuleBuilderProps {
   form: UseFormReturn<Coupon>;
@@ -19,36 +19,42 @@ interface RuleBuilderProps {
 
 export function RuleBuilder({ form }: RuleBuilderProps) {
   const t = useTranslation();
-  const [groups, setGroups] = useState([{ id: '1', operator: 'and', rules: [] }]);
+  const [groups, setGroups] = useState([
+    { id: "1", operator: "and", rules: [] },
+  ]);
 
   const addGroup = () => {
     const newGroup = {
       id: crypto.randomUUID(),
-      type: 'group',
-      match: 'all',
-      conditions: []
+      type: "group",
+      match: "all",
+      conditions: [],
     };
 
     // If there are existing groups, add an operator
-    if (form.getValues('conditions')?.length > 0) {
+    if (form.getValues("conditions")?.length > 0) {
       const operator = {
         id: crypto.randomUUID(),
-        type: 'group_operator',
-        operator: 'AND'
+        type: "group_operator",
+        operator: "AND",
       };
-      form.setValue('conditions', [...form.getValues('conditions'), operator, newGroup]);
+      form.setValue("conditions", [
+        ...form.getValues("conditions"),
+        operator,
+        newGroup,
+      ]);
     } else {
-      form.setValue('conditions', [newGroup]);
+      form.setValue("conditions", [newGroup]);
     }
   };
 
   const removeGroup = (groupId: string) => {
-    const conditions = form.getValues('conditions');
-    const index = conditions.findIndex(g => g.id === groupId);
+    const conditions = form.getValues("conditions");
+    const index = conditions.findIndex((g) => g.id === groupId);
     if (index === -1) return;
 
     const newConditions = [...conditions];
-    
+
     // If this is not the first group, also remove the operator before it
     if (index > 0) {
       newConditions.splice(index - 1, 2);
@@ -60,53 +66,65 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
       newConditions.splice(0, 1);
     }
 
-    form.setValue('conditions', newConditions);
+    form.setValue("conditions", newConditions);
   };
 
   const updateGroup = (groupId: string, data: any) => {
-    const conditions = form.getValues('conditions');
+    const conditions = form.getValues("conditions");
     form.setValue(
-      'conditions',
-      conditions.map(group => 
-        group.id === groupId ? { ...group, ...data } : group
-      )
+      "conditions",
+      conditions.map((group) =>
+        group.id === groupId ? { ...group, ...data } : group,
+      ),
     );
   };
 
-  const updateOperator = (operatorId: string, newOperator: 'AND' | 'OR') => {
-    const conditions = form.getValues('conditions');
+  const updateOperator = (operatorId: string, newOperator: "AND" | "OR") => {
+    const conditions = form.getValues("conditions");
     form.setValue(
-      'conditions',
-      conditions.map(element => 
-        element.id === operatorId && element.type === 'group_operator'
+      "conditions",
+      conditions.map((element) =>
+        element.id === operatorId && element.type === "group_operator"
           ? { ...element, operator: newOperator }
-          : element
-      )
+          : element,
+      ),
     );
   };
 
   return (
     <div className="space-y-6">
-      {form.getValues('conditions')?.map((element, index) => (
+      {form.getValues("conditions")?.map((element, index) => (
         <div key={element.id}>
-          {element.type === 'group' ? (
+          {element.type === "group" ? (
             <RuleGroup
               group={element}
-              isLast={index === form.getValues('conditions').length - 1}
+              isLast={index === form.getValues("conditions").length - 1}
               onRemove={() => removeGroup(element.id)}
               onUpdate={(data) => updateGroup(element.id, data)}
             />
           ) : (
-            <Select 
+            <Select
               value={element.operator}
-              onValueChange={(value) => updateOperator(element.id, value as 'AND' | 'OR')}
+              onValueChange={(value) =>
+                updateOperator(element.id, value as "AND" | "OR")
+              }
             >
               <SelectTrigger className="w-[150px] mx-auto border-dashed shadow-sm relative">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="AND">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.operators.and}</SelectItem>
-                <SelectItem value="OR">{t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.operators.or}</SelectItem>
+                <SelectItem value="AND">
+                  {
+                    t.campaigns.campaign.coupon.sections.advancedConditions
+                      .fields.ruleBuilder.operators.and
+                  }
+                </SelectItem>
+                <SelectItem value="OR">
+                  {
+                    t.campaigns.campaign.coupon.sections.advancedConditions
+                      .fields.ruleBuilder.operators.or
+                  }
+                </SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -120,7 +138,10 @@ export function RuleBuilder({ form }: RuleBuilderProps) {
         onClick={addGroup}
       >
         <Plus className="mr-2 h-4 w-4" />
-        {t.campaigns.campaign.coupon.sections.advancedConditions.fields.ruleBuilder.actions.addGroup}
+        {
+          t.campaigns.campaign.coupon.sections.advancedConditions.fields
+            .ruleBuilder.actions.addGroup
+        }
       </Button>
     </div>
   );

@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
-import { StoreLayout } from '../components/store-layout';
-import { ProductDetails } from '../components/product-details';
-import { useProduct } from '../hooks/use-store';
-import Loading from '@/components/loading';
+import { useParams } from "react-router-dom";
+import { StoreLayout } from "../components/store-layout";
+import { ProductDetails } from "../components/product-details";
+import { useProduct } from "../hooks/use-store";
+import Loading from "@/components/loading";
 
 export function ProductPage() {
   const { storeName, productId } = useParams<{

@@ -36,9 +36,14 @@ export function Shipping({ form }: ShippingProps) {
       {isEventProduct && (
         <div className="flex items-center justify-between rounded-lg border p-4">
           <div className="space-y-0.5">
-            <FormLabel>{t.products.products.form.sections.shipping.enableShipping}</FormLabel>
+            <FormLabel>
+              {t.products.products.form.sections.shipping.enableShipping}
+            </FormLabel>
             <FormDescription>
-              {t.products.products.form.sections.shipping.enableShippingDescription}
+              {
+                t.products.products.form.sections.shipping
+                  .enableShippingDescription
+              }
             </FormDescription>
           </div>
           <Switch checked={showShipping} onCheckedChange={setShowShipping} />
@@ -53,9 +58,11 @@ export function Shipping({ form }: ShippingProps) {
               name="weight"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.products.products.form.sections.shipping.weight}</FormLabel>
+                  <FormLabel>
+                    {t.products.products.form.sections.shipping.weight}
+                  </FormLabel>
                   <FormControl>
-                    <div className='relative'>
+                    <div className="relative">
                       <Input
                         type="number"
                         min="0"
@@ -63,7 +70,7 @@ export function Shipping({ form }: ShippingProps) {
                         placeholder="0.0"
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         value={field.value}
-                        className='pr-10'
+                        className="pr-10"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                         {form.getValues("weightUnit")}
@@ -80,19 +87,36 @@ export function Shipping({ form }: ShippingProps) {
               name="weightUnit"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.products.products.form.sections.shipping.weightUnit}</FormLabel>
+                  <FormLabel>
+                    {t.products.products.form.sections.shipping.weightUnit}
+                  </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t.products.products.form.sections.shipping.selectUnit} />
+                        <SelectValue
+                          placeholder={
+                            t.products.products.form.sections.shipping
+                              .selectUnit
+                          }
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="kg">{t.products.products.form.sections.shipping.weightUnits.kg}</SelectItem>
-                      <SelectItem value="lb">{t.products.products.form.sections.shipping.weightUnits.lb}</SelectItem>
+                      <SelectItem value="kg">
+                        {
+                          t.products.products.form.sections.shipping.weightUnits
+                            .kg
+                        }
+                      </SelectItem>
+                      <SelectItem value="lb">
+                        {
+                          t.products.products.form.sections.shipping.weightUnits
+                            .lb
+                        }
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -109,7 +133,7 @@ export function Shipping({ form }: ShippingProps) {
                 <FormItem>
                   <FormLabel>Width</FormLabel>
                   <FormControl>
-                    <div className='relative'>
+                    <div className="relative">
                       <Input
                         type="number"
                         min="0"
@@ -117,7 +141,7 @@ export function Shipping({ form }: ShippingProps) {
                         placeholder="0.0"
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         value={field.value}
-                        className='pr-10'
+                        className="pr-10"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                         {form.getValues("dimensionUnit")}
@@ -136,7 +160,7 @@ export function Shipping({ form }: ShippingProps) {
                 <FormItem>
                   <FormLabel>Length</FormLabel>
                   <FormControl>
-                    <div className='relative'>
+                    <div className="relative">
                       <Input
                         type="number"
                         min="0"
@@ -144,7 +168,7 @@ export function Shipping({ form }: ShippingProps) {
                         placeholder="0.0"
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         value={field.value}
-                        className='pr-10'
+                        className="pr-10"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                         {form.getValues("dimensionUnit")}
@@ -163,7 +187,7 @@ export function Shipping({ form }: ShippingProps) {
                 <FormItem>
                   <FormLabel>Height</FormLabel>
                   <FormControl>
-                    <div className='relative'>
+                    <div className="relative">
                       <Input
                         type="number"
                         min="0"
@@ -171,7 +195,7 @@ export function Shipping({ form }: ShippingProps) {
                         placeholder="0.0"
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         value={field.value}
-                        className='pr-10'
+                        className="pr-10"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                         {form.getValues("dimensionUnit")}
@@ -195,12 +219,27 @@ export function Shipping({ form }: ShippingProps) {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t.products.products.form.sections.shipping.selectUnit} />
+                        <SelectValue
+                          placeholder={
+                            t.products.products.form.sections.shipping
+                              .selectUnit
+                          }
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="cm">{t.products.products.form.sections.shipping.dimensionUnits.cm}</SelectItem>
-                      <SelectItem value="in">{t.products.products.form.sections.shipping.dimensionUnits.in}</SelectItem>
+                      <SelectItem value="cm">
+                        {
+                          t.products.products.form.sections.shipping
+                            .dimensionUnits.cm
+                        }
+                      </SelectItem>
+                      <SelectItem value="in">
+                        {
+                          t.products.products.form.sections.shipping
+                            .dimensionUnits.in
+                        }
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

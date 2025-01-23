@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useOrders } from '@/features/orders/hooks/use-orders';
-import { toast } from 'sonner';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useOrders } from "@/features/orders/hooks/use-orders";
+import { toast } from "sonner";
 import {
   RefreshCw,
   Ban,
@@ -20,8 +20,8 @@ import {
   Wallet,
   Flag,
   AlertCircle,
-} from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface OrderActionsModalProps {
   open: boolean;
@@ -32,13 +32,13 @@ interface OrderActionsModalProps {
 }
 
 type ActionStep =
-  | 'list'
-  | 'refund'
-  | 'cancel'
-  | 'dispute'
-  | 'fulfill'
-  | 'credit'
-  | 'flag';
+  | "list"
+  | "refund"
+  | "cancel"
+  | "dispute"
+  | "fulfill"
+  | "credit"
+  | "flag";
 
 export function OrderActionsModal({
   open,
@@ -48,18 +48,16 @@ export function OrderActionsModal({
   onSavingChange,
 }: OrderActionsModalProps) {
   const t = useTranslation();
-  const [step, setStep] = useState<ActionStep>('list');
-  const [refundAmount, setRefundAmount] = useState('');
-  const [reason, setReason] = useState('');
+  const [step, setStep] = useState<ActionStep>("list");
+  const [refundAmount, setRefundAmount] = useState("");
+  const [reason, setReason] = useState("");
   const { updateOrder } = useOrders();
   const [isLoading, setIsLoading] = useState(false);
 
-
-
   const handleBack = () => {
-    setStep('list');
-    setRefundAmount('');
-    setReason('');
+    setStep("list");
+    setRefundAmount("");
+    setReason("");
   };
 
   const handleCancel = async () => {
@@ -69,16 +67,18 @@ export function OrderActionsModal({
       await updateOrder.mutateAsync({
         id: order.id,
         data: {
-          status: 'cancelled',
+          status: "cancelled",
           notes: reason,
         },
       });
-      toast.success(t.orders.orders.form.sections.payment.messages.cancelSuccess);
+      toast.success(
+        t.orders.orders.form.sections.payment.messages.cancelSuccess,
+      );
       onOpenChange(false);
-      await onStatusChange('cancelled');
+      await onStatusChange("cancelled");
       setIsLoading(false);
     } catch (error) {
-      console.error('Failed to cancel order:', error);
+      console.error("Failed to cancel order:", error);
       toast.error(t.orders.orders.form.sections.payment.messages.cancelError);
       setIsLoading(false);
       onSavingChange(false);
@@ -87,7 +87,7 @@ export function OrderActionsModal({
 
   const renderStep = () => {
     switch (step) {
-      case 'refund':
+      case "refund":
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -116,7 +116,9 @@ export function OrderActionsModal({
               <Textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder={t.orders.orders.payment.actions.refund.reasonPlaceholder}
+                placeholder={
+                  t.orders.orders.payment.actions.refund.reasonPlaceholder
+                }
               />
             </div>
             <div className="flex justify-end gap-2">
@@ -125,7 +127,7 @@ export function OrderActionsModal({
               </Button>
               <Button
                 onClick={() => {
-                  onAction('refund', { amount: refundAmount, reason });
+                  onAction("refund", { amount: refundAmount, reason });
                   onOpenChange(false);
                 }}
                 disabled={!refundAmount || !reason}
@@ -136,7 +138,7 @@ export function OrderActionsModal({
           </motion.div>
         );
 
-      case 'cancel':
+      case "cancel":
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +150,9 @@ export function OrderActionsModal({
               <div className="flex items-center gap-3">
                 <AlertCircle className="h-5 w-5 text-red-600" />
                 <div>
-                  <h4 className="font-medium text-red-800">{t.orders.orders.payment.actions.cancel.title}</h4>
+                  <h4 className="font-medium text-red-800">
+                    {t.orders.orders.payment.actions.cancel.title}
+                  </h4>
                   <p className="text-sm text-red-600">
                     {t.orders.orders.payment.actions.cancel.warning}
                   </p>
@@ -160,7 +164,9 @@ export function OrderActionsModal({
               <Textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder={t.orders.orders.payment.actions.cancel.reasonPlaceholder}
+                placeholder={
+                  t.orders.orders.payment.actions.cancel.reasonPlaceholder
+                }
               />
             </div>
             <div className="flex justify-end gap-2">
@@ -172,7 +178,9 @@ export function OrderActionsModal({
                 onClick={handleCancel}
                 disabled={!reason || isLoading}
               >
-                {isLoading ? t.orders.orders.payment.actions.cancel.processing : t.orders.orders.payment.actions.cancel.confirm}
+                {isLoading
+                  ? t.orders.orders.payment.actions.cancel.processing
+                  : t.orders.orders.payment.actions.cancel.confirm}
               </Button>
             </div>
           </motion.div>
@@ -189,14 +197,16 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('refund')}
+              onClick={() => setStep("refund")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                   <RefreshCw className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.orders.orders.payment.actions.refund.title}</div>
+                  <div className="font-medium">
+                    {t.orders.orders.payment.actions.refund.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     {t.orders.orders.payment.actions.refund.description}
                   </p>
@@ -207,14 +217,16 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('cancel')}
+              onClick={() => setStep("cancel")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100">
                   <Ban className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.orders.orders.payment.actions.cancel.title}</div>
+                  <div className="font-medium">
+                    {t.orders.orders.payment.actions.cancel.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     {t.orders.orders.payment.actions.cancel.description}
                   </p>
@@ -225,14 +237,16 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('dispute')}
+              onClick={() => setStep("dispute")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
                   <AlertTriangle className="h-5 w-5 text-orange-600" />
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">{t.orders.orders.payment.actions.dispute.title}</div>
+                  <div className="font-medium">
+                    {t.orders.orders.payment.actions.dispute.title}
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     {t.orders.orders.payment.actions.dispute.description}
                   </p>
@@ -243,7 +257,7 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('fulfill')}
+              onClick={() => setStep("fulfill")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
@@ -261,7 +275,7 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('credit')}
+              onClick={() => setStep("credit")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
@@ -279,7 +293,7 @@ export function OrderActionsModal({
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"
-              onClick={() => setStep('flag')}
+              onClick={() => setStep("flag")}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-100">

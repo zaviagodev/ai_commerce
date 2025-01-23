@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Folder, MoreHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from "react-router-dom";
+import { Plus, Folder, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -9,22 +9,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ProductCategory } from '@/types/product';
-import { DataTablePagination } from '@/components/ui/data-table/pagination';
-import { usePagination } from '@/hooks/use-pagination';
-import Loading from '@/components/loading';
-import { useTranslation } from '@/lib/i18n/hooks';
-import { ProductSearch } from './product-search';
-import { useMemo, useState } from 'react';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dropdown-menu";
+import { ProductCategory } from "@/types/product";
+import { DataTablePagination } from "@/components/ui/data-table/pagination";
+import { usePagination } from "@/hooks/use-pagination";
+import Loading from "@/components/loading";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { ProductSearch } from "./product-search";
+import { useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -48,7 +48,7 @@ export function CategoryList({
     pageCount,
   } = usePagination();
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
   const filteredCategories = useMemo(() => {
     let filtered = categories;
 
@@ -57,7 +57,7 @@ export function CategoryList({
       filtered = categories.filter(
         (category) =>
           category.name.toLowerCase().includes(query) ||
-          category.slug.toLowerCase().includes(query)
+          category.slug.toLowerCase().includes(query),
       );
     }
 
@@ -83,7 +83,9 @@ export function CategoryList({
         transition={{ duration: 0.3 }}
       >
         <div>
-          <h1 className="text-2xl font-semibold">{t.products.products.categories.title}</h1>
+          <h1 className="text-2xl font-semibold">
+            {t.products.products.categories.title}
+          </h1>
           <p className="text-sm text-muted-foreground">
             {t.products.products.categories.description}
           </p>
@@ -96,7 +98,7 @@ export function CategoryList({
         </Button>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -115,12 +117,20 @@ export function CategoryList({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table className={paginatedCategories.length > 0 ? 'rounded-b-none' : ''}>
+        <Table
+          className={paginatedCategories.length > 0 ? "rounded-b-none" : ""}
+        >
           <TableHeader>
             <TableRow>
-              <TableHead>{t.products.products.categories.list.columns.category}</TableHead>
-              <TableHead>{t.products.products.categories.list.columns.slug}</TableHead>
-              <TableHead>{t.products.products.categories.list.columns.description}</TableHead>
+              <TableHead>
+                {t.products.products.categories.list.columns.category}
+              </TableHead>
+              <TableHead>
+                {t.products.products.categories.list.columns.slug}
+              </TableHead>
+              <TableHead>
+                {t.products.products.categories.list.columns.description}
+              </TableHead>
               <TableHead className="w-[70px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -129,7 +139,9 @@ export function CategoryList({
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">{t.products.products.categories.list.empty.title}</p>
+                    <p className="text-lg font-medium">
+                      {t.products.products.categories.list.empty.title}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       {t.products.products.categories.list.empty.description}
                     </p>
@@ -144,7 +156,13 @@ export function CategoryList({
               </TableRow>
             ) : (
               paginatedCategories.map((category) => (
-                <TableRow key={category.id} className='cursor-pointer' onClick={() => navigate(`/dashboard/categories/${category.id}`)}>
+                <TableRow
+                  key={category.id}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    navigate(`/dashboard/categories/${category.id}`)
+                  }
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
@@ -168,9 +186,7 @@ export function CategoryList({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild>
-                          <Link
-                            to={`/dashboard/categories/${category.id}`}
-                          >
+                          <Link to={`/dashboard/categories/${category.id}`}>
                             {t.products.products.categories.actions.edit}
                           </Link>
                         </DropdownMenuItem>
@@ -190,7 +206,9 @@ export function CategoryList({
         </Table>
 
         <motion.div
-          className={cn("border-t p-4 bg-main rounded-b-lg", {"hidden": paginatedCategories.length === 0})}
+          className={cn("border-t p-4 bg-main rounded-b-lg", {
+            hidden: paginatedCategories.length === 0,
+          })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.4 }}

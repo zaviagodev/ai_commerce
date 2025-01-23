@@ -1,23 +1,23 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Store } from 'lucide-react';
-import { EcommerceSettings } from '../../schemas/ecommerce-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Store } from "lucide-react";
+import { EcommerceSettings } from "../../schemas/ecommerce-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface GeneralSettingsProps {
   form: UseFormReturn<EcommerceSettings>;
@@ -33,7 +33,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           <Store className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">{t.settings.ecommerce.general.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.ecommerce.general.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.ecommerce.general.subtitle}
           </p>
@@ -45,7 +47,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           name="currency"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.general.currency.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.general.currency.label}
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -73,16 +77,31 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
             name="weightUnit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.settings.ecommerce.general.weightUnit.label}</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormLabel>
+                  {t.settings.ecommerce.general.weightUnit.label}
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select weight unit" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="kg">{t.products.products.form.sections.shipping.weightUnits.kg}</SelectItem>
-                    <SelectItem value="lb">{t.products.products.form.sections.shipping.weightUnits.lb}</SelectItem>
+                    <SelectItem value="kg">
+                      {
+                        t.products.products.form.sections.shipping.weightUnits
+                          .kg
+                      }
+                    </SelectItem>
+                    <SelectItem value="lb">
+                      {
+                        t.products.products.form.sections.shipping.weightUnits
+                          .lb
+                      }
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -97,16 +116,31 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
             name="dimensionUnit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t.settings.ecommerce.general.dimensionUnit.label}</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormLabel>
+                  {t.settings.ecommerce.general.dimensionUnit.label}
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select dimension unit" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="cm">{t.products.products.form.sections.shipping.dimensionUnits.cm}</SelectItem>
-                    <SelectItem value="in">{t.products.products.form.sections.shipping.dimensionUnits.in}</SelectItem>
+                    <SelectItem value="cm">
+                      {
+                        t.products.products.form.sections.shipping
+                          .dimensionUnits.cm
+                      }
+                    </SelectItem>
+                    <SelectItem value="in">
+                      {
+                        t.products.products.form.sections.shipping
+                          .dimensionUnits.in
+                      }
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -122,7 +156,9 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           name="orderPrefix"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t.settings.ecommerce.general.orderPrefix.label}</FormLabel>
+              <FormLabel>
+                {t.settings.ecommerce.general.orderPrefix.label}
+              </FormLabel>
               <FormControl>
                 <Input placeholder="#" {...field} />
               </FormControl>

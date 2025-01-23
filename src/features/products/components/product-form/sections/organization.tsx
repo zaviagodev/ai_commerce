@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,22 +6,22 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { X, Plus } from 'lucide-react';
-import { Product } from '@/types/product';
-import { useCategories } from '@/features/products/hooks/use-categories';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { X, Plus } from "lucide-react";
+import { Product } from "@/types/product";
+import { useCategories } from "@/features/products/hooks/use-categories";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface OrganizationProps {
   form: UseFormReturn<Product>;
@@ -30,7 +30,7 @@ interface OrganizationProps {
 export function Organization({ form }: OrganizationProps) {
   const t = useTranslation();
   const { categories, isLoading } = useCategories();
-  const tags = form.watch('tags') || [];
+  const tags = form.watch("tags") || [];
 
   return (
     <div className="space-y-4">
@@ -39,7 +39,9 @@ export function Organization({ form }: OrganizationProps) {
         name="category"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sections.organization.category}</FormLabel>
+            <FormLabel>
+              {t.products.products.form.sections.organization.category}
+            </FormLabel>
             <Select
               value={field.value?.id}
               onValueChange={(value) => {
@@ -49,15 +51,25 @@ export function Organization({ form }: OrganizationProps) {
             >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder={t.products.products.form.sections.organization.selectCategory}>
-                    {field.value?.name || t.products.products.form.sections.organization.selectCategory}
+                  <SelectValue
+                    placeholder={
+                      t.products.products.form.sections.organization
+                        .selectCategory
+                    }
+                  >
+                    {field.value?.name ||
+                      t.products.products.form.sections.organization
+                        .selectCategory}
                   </SelectValue>
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 {isLoading ? (
                   <SelectItem value="loading" disabled>
-                    {t.products.products.form.sections.organization.loadingCategories}
+                    {
+                      t.products.products.form.sections.organization
+                        .loadingCategories
+                    }
                   </SelectItem>
                 ) : categories.length === 0 ? (
                   <SelectItem value="empty" disabled>
@@ -93,31 +105,47 @@ export function Organization({ form }: OrganizationProps) {
         name="status"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sections.organization.status}</FormLabel>
+            <FormLabel>
+              {t.products.products.form.sections.organization.status}
+            </FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder={t.products.products.form.sections.organization.selectStatus} />
+                  <SelectValue
+                    placeholder={
+                      t.products.products.form.sections.organization
+                        .selectStatus
+                    }
+                  />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 <SelectItem value="draft">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="!bg-gray-100 text-gray-700">
+                    <Badge
+                      variant="secondary"
+                      className="!bg-gray-100 text-gray-700"
+                    >
                       {t.products.products.status.draft}
                     </Badge>
                   </div>
                 </SelectItem>
                 <SelectItem value="active">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="!bg-green-100 text-green-700">
+                    <Badge
+                      variant="secondary"
+                      className="!bg-green-100 text-green-700"
+                    >
                       {t.products.products.status.active}
                     </Badge>
                   </div>
                 </SelectItem>
                 <SelectItem value="archived">
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="!bg-red-100 text-red-700">
+                    <Badge
+                      variant="secondary"
+                      className="!bg-red-100 text-red-700"
+                    >
                       {t.products.products.status.archived}
                     </Badge>
                   </div>
@@ -134,13 +162,18 @@ export function Organization({ form }: OrganizationProps) {
         name="tags"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sections.organization.tags}</FormLabel>
+            <FormLabel>
+              {t.products.products.form.sections.organization.tags}
+            </FormLabel>
             <FormControl>
               <div className="space-y-2">
                 <Input
-                  placeholder={t.products.products.form.sections.organization.tagsPlaceholder}
+                  placeholder={
+                    t.products.products.form.sections.organization
+                      .tagsPlaceholder
+                  }
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       e.preventDefault();
                       const value = e.currentTarget.value.trim();
                       if (value) {
@@ -149,26 +182,20 @@ export function Organization({ form }: OrganizationProps) {
                           name: value,
                         };
                         field.onChange([...tags, newTag]);
-                        e.currentTarget.value = '';
+                        e.currentTarget.value = "";
                       }
                     }
                   }}
                 />
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag) => (
-                    <Badge
-                      key={tag.id}
-                      variant="secondary"
-                      className="gap-1"
-                    >
+                    <Badge key={tag.id} variant="secondary" className="gap-1">
                       {tag.name}
                       <button
                         type="button"
                         className="ml-1 rounded-full"
                         onClick={() => {
-                          field.onChange(
-                            tags.filter((t) => t.id !== tag.id)
-                          );
+                          field.onChange(tags.filter((t) => t.id !== tag.id));
                         }}
                       >
                         <X className="h-3 w-3" />

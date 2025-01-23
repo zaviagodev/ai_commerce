@@ -11,9 +11,9 @@ interface PaymentActionsProps {
 }
 
 const getShippingButtonText = (isPaid: boolean, isShipped: boolean) => {
-  if (isShipped) return 'Add More Shipment';
-  if (isPaid) return 'Add Shipping';
-  return '';
+  if (isShipped) return "Add More Shipment";
+  if (isPaid) return "Add Shipping";
+  return "";
 };
 
 export function PaymentActions({
@@ -28,7 +28,7 @@ export function PaymentActions({
   onReopenClick,
 }: PaymentActionsProps) {
   if (isSaving) return null;
-  const isShipped = order.status === 'shipped';
+  const isShipped = order.status === "shipped";
 
   return (
     <motion.div
@@ -111,7 +111,7 @@ export function PaymentActions({
                       <path d="M7 5v4" />
                       <path d="M17 5v4" />
                     </svg>
-                    {getShippingButtonText(isPaid, order.status === 'shipped')}
+                    {getShippingButtonText(isPaid, order.status === "shipped")}
                   </Button>
                 </motion.div>
               </div>

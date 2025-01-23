@@ -1,5 +1,5 @@
-import { greeting } from './greeting';
-import { onboarding } from './onboarding';
+import { greeting } from "./greeting";
+import { onboarding } from "./onboarding";
 
 export const dashboard = {
   en: {

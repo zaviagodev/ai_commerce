@@ -5,10 +5,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BulkDeleteDialogProps {
   open: boolean;
@@ -27,7 +27,7 @@ export function BulkDeleteDialog({
 }: BulkDeleteDialogProps) {
   const t = useTranslation();
   const handleCloseModal = () => onOpenChange(false);
-  
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -48,7 +48,10 @@ export function BulkDeleteDialog({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              {t.products.products.bulk.delete.warning.replace('{count}', selectedCount.toString())}
+              {t.products.products.bulk.delete.warning.replace(
+                "{count}",
+                selectedCount.toString(),
+              )}
             </p>
           </div>
         </div>
@@ -66,7 +69,9 @@ export function BulkDeleteDialog({
             onClick={onConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? t.products.products.bulk.delete.deleting : t.products.products.bulk.actions.delete}
+            {isDeleting
+              ? t.products.products.bulk.delete.deleting
+              : t.products.products.bulk.actions.delete}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,11 +9,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Step2Schema } from '@/lib/validation/auth';
-import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Step2Schema } from "@/lib/validation/auth";
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 type Step2FormValues = z.infer<typeof Step2Schema>;
 
@@ -25,27 +25,29 @@ interface StepTwoProps {
 
 export function StepTwo({ onSubmit, onBack, isLoading }: StepTwoProps) {
   const [isCheckingStore, setIsCheckingStore] = useState(false);
-  
+
   const form = useForm<Step2FormValues>({
     resolver: zodResolver(Step2Schema),
     defaultValues: {
-      storeName: '',
+      storeName: "",
     },
   });
 
-  const checkStoreNameAvailability = async (storeName: string): Promise<boolean> => {
+  const checkStoreNameAvailability = async (
+    storeName: string,
+  ): Promise<boolean> => {
     if (!storeName || storeName.length < 2) return false;
-    
+
     try {
       const { count, error } = await supabase
-        .from('profiles')
-        .select('store_name', { count: 'exact', head: true })
-        .eq('store_name', storeName);
+        .from("profiles")
+        .select("store_name", { count: "exact", head: true })
+        .eq("store_name", storeName);
 
       if (error) throw error;
       return count === 0; // Available if no matches found
     } catch (error) {
-      console.error('Store name check error:', error);
+      console.error("Store name check error:", error);
       return false;
     }
   };
@@ -55,9 +57,9 @@ export function StepTwo({ onSubmit, onBack, isLoading }: StepTwoProps) {
     try {
       const isAvailable = await checkStoreNameAvailability(data.storeName);
       if (!isAvailable) {
-        form.setError('storeName', {
-          type: 'manual',
-          message: 'Store name is already taken',
+        form.setError("storeName", {
+          type: "manual",
+          message: "Store name is already taken",
         });
         return;
       }
@@ -84,18 +86,19 @@ export function StepTwo({ onSubmit, onBack, isLoading }: StepTwoProps) {
                   onChange={async (e) => {
                     const value = e.target.value;
                     field.onChange(value);
-                    
+
                     if (value.length >= 2) {
                       setIsCheckingStore(true);
                       try {
-                        const isAvailable = await checkStoreNameAvailability(value);
+                        const isAvailable =
+                          await checkStoreNameAvailability(value);
                         if (!isAvailable) {
-                          form.setError('storeName', {
-                            type: 'manual',
-                            message: 'Store name is already taken',
+                          form.setError("storeName", {
+                            type: "manual",
+                            message: "Store name is already taken",
                           });
                         } else {
-                          form.clearErrors('storeName');
+                          form.clearErrors("storeName");
                         }
                       } finally {
                         setIsCheckingStore(false);
@@ -123,12 +126,12 @@ export function StepTwo({ onSubmit, onBack, isLoading }: StepTwoProps) {
           >
             Back
           </Button>
-          <Button 
-            type="submit" 
-            className="w-full" 
+          <Button
+            type="submit"
+            className="w-full"
             disabled={isLoading || isCheckingStore}
           >
-            {isLoading ? 'Creating Store...' : 'Create Store'}
+            {isLoading ? "Creating Store..." : "Create Store"}
           </Button>
         </div>
       </form>

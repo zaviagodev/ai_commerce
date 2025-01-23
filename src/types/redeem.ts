@@ -17,6 +17,6 @@ export interface Redeem {
   pointsRedeemed: number;
   items: RedeemItem[];
   couponCode: string;
-  status: 'pending' | 'completed' | 'cancelled';
+  status: "pending" | "completed" | "cancelled";
   redeemedAt: Date;
 }

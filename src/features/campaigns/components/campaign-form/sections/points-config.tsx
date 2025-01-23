@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,19 +6,19 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Campaign } from '@/types/campaign';
-import { Coins } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Campaign } from "@/types/campaign";
+import { Coins } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PointsConfigProps {
   form: UseFormReturn<Campaign>;
 }
 
 export function PointsConfig({ form }: PointsConfigProps) {
-  const type = form.watch('type');
+  const type = form.watch("type");
   const t = useTranslation();
 
   return (
@@ -28,28 +28,41 @@ export function PointsConfig({ form }: PointsConfigProps) {
           <Coins className="h-5 w-5 text-yellow-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">{ t.customers.customer.campaignForm.sections.pointsConfig.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.customers.customer.campaignForm.sections.pointsConfig.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            { t.customers.customer.campaignForm.sections.pointsConfig.description}
+            {
+              t.customers.customer.campaignForm.sections.pointsConfig
+                .description
+            }
           </p>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {type === 'points_multiplier' ? (
+        {type === "points_multiplier" ? (
           <FormField
             control={form.control}
             name="multiplier"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{ t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.label}</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.campaignForm.sections.pointsConfig
+                      .fields.multiplier.label
+                  }
+                </FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
                       type="number"
                       min="1"
-                      value={field.value || ''}
+                      value={field.value || ""}
                       step="0.1"
-                      placeholder={ t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.placeholder}
+                      placeholder={
+                        t.customers.customer.campaignForm.sections.pointsConfig
+                          .fields.multiplier.placeholder
+                      }
                       className="pr-8"
                       onChange={(e) => field.onChange(Number(e.target.value))}
                     />
@@ -59,7 +72,10 @@ export function PointsConfig({ form }: PointsConfigProps) {
                   </div>
                 </FormControl>
                 <FormDescription>
-                  { t.customers.customer.campaignForm.sections.pointsConfig.fields.multiplier.description}
+                  {
+                    t.customers.customer.campaignForm.sections.pointsConfig
+                      .fields.multiplier.description
+                  }
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -71,18 +87,29 @@ export function PointsConfig({ form }: PointsConfigProps) {
             name="bonusPoints"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{ t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.label}</FormLabel>
+                <FormLabel>
+                  {
+                    t.customers.customer.campaignForm.sections.pointsConfig
+                      .fields.bonusPoints.label
+                  }
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="1"
-                    placeholder={ t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.placeholder}
+                    placeholder={
+                      t.customers.customer.campaignForm.sections.pointsConfig
+                        .fields.bonusPoints.placeholder
+                    }
                     {...field}
                     onChange={(e) => field.onChange(Number(e.target.value))}
                   />
                 </FormControl>
                 <FormDescription>
-                  { t.customers.customer.campaignForm.sections.pointsConfig.fields.bonusPoints.description}
+                  {
+                    t.customers.customer.campaignForm.sections.pointsConfig
+                      .fields.bonusPoints.description
+                  }
                 </FormDescription>
                 <FormMessage />
               </FormItem>

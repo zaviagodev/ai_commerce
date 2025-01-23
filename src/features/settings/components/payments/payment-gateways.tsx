@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -6,13 +6,13 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { CreditCard } from 'lucide-react';
-import { PaymentSettings } from '../../schemas/payment-settings-schema';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { CreditCard } from "lucide-react";
+import { PaymentSettings } from "../../schemas/payment-settings-schema";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentGatewaysProps {
   form: UseFormReturn<PaymentSettings>;
@@ -20,7 +20,7 @@ interface PaymentGatewaysProps {
 
 export function PaymentGateways({ form }: PaymentGatewaysProps) {
   const t = useTranslation();
-  const omiseEnabled = form.watch('omiseEnabled');
+  const omiseEnabled = form.watch("omiseEnabled");
 
   return (
     <Card>
@@ -29,7 +29,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
           <CreditCard className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">{t.settings.payments.gateways.title}</h3>
+          <h3 className="text-lg font-medium">
+            {t.settings.payments.gateways.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {t.settings.payments.gateways.subtitle}
           </p>
@@ -42,7 +44,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>{t.settings.payments.gateways.omise.enable.label}</FormLabel>
+                <FormLabel>
+                  {t.settings.payments.gateways.omise.enable.label}
+                </FormLabel>
                 <FormDescription>
                   {t.settings.payments.gateways.omise.enable.description}
                 </FormDescription>
@@ -64,7 +68,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
               name="omisePublicKey"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.settings.payments.gateways.omise.publicKey.label}</FormLabel>
+                  <FormLabel>
+                    {t.settings.payments.gateways.omise.publicKey.label}
+                  </FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -81,7 +87,9 @@ export function PaymentGateways({ form }: PaymentGatewaysProps) {
               name="omiseSecretKey"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.settings.payments.gateways.omise.secretKey.label}</FormLabel>
+                  <FormLabel>
+                    {t.settings.payments.gateways.omise.secretKey.label}
+                  </FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>

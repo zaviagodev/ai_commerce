@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { CreditCard, MoreHorizontal, RefreshCw } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { CreditCard, MoreHorizontal, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentActionsProps {
   isSaving: boolean;
@@ -23,7 +23,7 @@ export function PaymentActions({
   onReopenClick,
 }: PaymentActionsProps) {
   const t = useTranslation();
-  
+
   if (isSaving) return null;
 
   return (

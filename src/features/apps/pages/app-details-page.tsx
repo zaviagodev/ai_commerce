@@ -1,36 +1,37 @@
-import { useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Box, Star, Users, Shield, Server } from 'lucide-react';
-import { AppScreenshots } from '../components/app-details/app-screenshots';
-import { AppFeatures } from '../components/app-details/app-features';
-import { AppReviews } from '../components/app-details/app-reviews';
-import { SystemRequirements } from '../components/app-details/system-requirements';
-import { AppPricing } from '../components/app-details/app-pricing';
+import { useEffect } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Box, Star, Users, Shield, Server } from "lucide-react";
+import { AppScreenshots } from "../components/app-details/app-screenshots";
+import { AppFeatures } from "../components/app-details/app-features";
+import { AppReviews } from "../components/app-details/app-reviews";
+import { SystemRequirements } from "../components/app-details/system-requirements";
+import { AppPricing } from "../components/app-details/app-pricing";
 
 const APP_DATA = {
-  id: '3',
-  name: 'Inventory Master',
-  developer: 'StockControl Ltd',
-  description: 'Complete inventory management solution with advanced features for modern e-commerce businesses.',
+  id: "3",
+  name: "Inventory Master",
+  developer: "StockControl Ltd",
+  description:
+    "Complete inventory management solution with advanced features for modern e-commerce businesses.",
   longDescription: `Inventory Master is a comprehensive inventory management system designed specifically for e-commerce businesses. It provides real-time tracking, automated reordering, and powerful analytics to help you optimize your stock levels and reduce costs.
 
   Our solution integrates seamlessly with your existing systems and provides powerful tools to help you manage your inventory more efficiently. From barcode scanning to automated purchase orders, Inventory Master has everything you need to streamline your operations.`,
-  icon: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=128&h=128&fit=crop',
+  icon: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=128&h=128&fit=crop",
   rating: 4.2,
   reviews: 156,
   price: 49.99,
-  category: 'Inventory',
-  version: '2.1.0',
-  lastUpdated: '2024-01-15',
-  size: '24.5 MB',
+  category: "Inventory",
+  version: "2.1.0",
+  lastUpdated: "2024-01-15",
+  size: "24.5 MB",
   screenshots: [
-    'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d',
-    'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d',
-    'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4',
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d",
+    "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d",
+    "https://images.unsplash.com/photo-1554774853-aae0a22c8aa4",
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
   ],
 };
 
@@ -39,7 +40,7 @@ export function AppDetailsPage() {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   // Scroll to top on mount
@@ -49,7 +50,7 @@ export function AppDetailsPage() {
 
   return (
     <div className="min-h-screen bg-background pb-16 -mx-6">
-      <div className='pt-14 h-14 sticky top-0 z-10'/>
+      <div className="pt-14 h-14 sticky top-0 z-10" />
       {/* Progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-50"
@@ -167,7 +168,9 @@ export function AppDetailsPage() {
               viewport={{ once: true }}
               className="prose prose-gray max-w-none"
             >
-              <h2 className="text-xl font-semibold mb-4">About {APP_DATA.name}</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                About {APP_DATA.name}
+              </h2>
               <p className="text-muted-foreground whitespace-pre-line">
                 {APP_DATA.longDescription}
               </p>

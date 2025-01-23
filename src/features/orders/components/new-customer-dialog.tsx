@@ -3,12 +3,12 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { CustomerForm } from './customer-form';
-import { Customer } from '@/types/customer';
-import { useCustomers } from '@/features/customers/hooks/use-customers';
-import { toast } from 'sonner';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { CustomerForm } from "./customer-form";
+import { Customer } from "@/types/customer";
+import { useCustomers } from "@/features/customers/hooks/use-customers";
+import { toast } from "sonner";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface NewCustomerDialogProps {
   open: boolean;
@@ -27,12 +27,12 @@ export function NewCustomerDialog({
   const handleSubmit = async (data: Customer) => {
     try {
       const customer = await createCustomer.mutateAsync(data);
-      toast.success('Customer created successfully');
+      toast.success("Customer created successfully");
       onSuccess(customer);
       onOpenChange(false);
     } catch (error) {
-      console.error('Failed to create customer:', error);
-      toast.error('Failed to create customer');
+      console.error("Failed to create customer:", error);
+      toast.error("Failed to create customer");
     }
   };
 

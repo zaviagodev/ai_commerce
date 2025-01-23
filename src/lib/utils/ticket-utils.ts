@@ -28,11 +28,11 @@ export async function generateBarcode(data: string): Promise<string> {
     const document = new DOMImplementation().createDocument(
       "http://www.w3.org/1999/xhtml",
       "html",
-      null
+      null,
     );
     const svgNode = document.createElementNS(
       "http://www.w3.org/2000/svg",
-      "svg"
+      "svg",
     );
 
     // Generate barcode as SVG
@@ -48,7 +48,7 @@ export async function generateBarcode(data: string): Promise<string> {
     // Convert SVG to string and then to data URL
     const svgString = xmlSerializer.serializeToString(svgNode);
     const dataUrl = `data:image/svg+xml;base64,${Buffer.from(
-      svgString
+      svgString,
     ).toString("base64")}`;
 
     return dataUrl;

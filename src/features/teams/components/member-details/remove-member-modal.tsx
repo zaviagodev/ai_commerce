@@ -5,11 +5,11 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle } from 'lucide-react';
-import { Member } from '@/types/member';
-import { useTranslation } from '@/lib/i18n/hooks';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { Member } from "@/types/member";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface RemoveMemberModalProps {
   open: boolean;
@@ -45,10 +45,10 @@ export function RemoveMemberModal({
         <div className="space-y-4 py-4">
           <div className="rounded-lg bg-red-50 p-4">
             <p className="text-sm text-red-800">
-              {t.teams.members.remove.warning.replace('{name}', member.name)}
+              {t.teams.members.remove.warning.replace("{name}", member.name)}
             </p>
             <ul className="mt-2 text-sm text-red-800 space-y-1">
-              {t.teams.members.remove.consequences.map(consequence => (
+              {t.teams.members.remove.consequences.map((consequence) => (
                 <li>{consequence}</li>
               ))}
             </ul>
@@ -56,10 +56,7 @@ export function RemoveMemberModal({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-          >
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
             {t.teams.members.actions.cancel}
           </Button>
           <Button

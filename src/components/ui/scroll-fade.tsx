@@ -12,7 +12,7 @@ export function ScrollFade({ className, position = "both" }: ScrollFadeProps) {
         <div
           className={cn(
             "pointer-events-none absolute top-0 z-10 h-12 w-full bg-gradient-to-b from-background to-transparent",
-            className
+            className,
           )}
         />
       )}
@@ -20,7 +20,7 @@ export function ScrollFade({ className, position = "both" }: ScrollFadeProps) {
         <div
           className={cn(
             "pointer-events-none absolute bottom-0 z-10 h-12 w-full bg-gradient-to-t from-background to-transparent",
-            className
+            className,
           )}
         />
       )}

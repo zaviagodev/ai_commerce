@@ -1,29 +1,29 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { ProductForm } from '../components/product-form';
-import { motion } from 'framer-motion';
-import { Product } from '@/types/product';
-import { useProducts } from '../hooks/use-products';
-import { Button } from '@/components/ui/button';
-import { MoreHorizontal } from 'lucide-react';
-import { useState } from 'react';
-import { ItemActionsModal } from '../components/product-form/modals/item-actions-modal';
-import { toast } from 'sonner';
+import { useParams, useNavigate } from "react-router-dom";
+import { ProductForm } from "../components/product-form";
+import { motion } from "framer-motion";
+import { Product } from "@/types/product";
+import { useProducts } from "../hooks/use-products";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+import { ItemActionsModal } from "../components/product-form/modals/item-actions-modal";
+import { toast } from "sonner";
 
 export function EditProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products, updateProduct, deleteProduct } = useProducts();
   const [showActions, setShowActions] = useState(false);
-  
+
   const product = products.find((p) => p.id === id);
 
   if (!product) {
-    return <div className='pt-14'>Product not found</div>;
+    return <div className="pt-14">Product not found</div>;
   }
 
   const handleSubmit = async (data: Product) => {
     try {
-      await updateProduct.mutateAsync({ 
+      await updateProduct.mutateAsync({
         id: product.id,
         data: {
           name: data.name,
@@ -42,11 +42,11 @@ export function EditProductPage() {
           images: data.images,
           hasVariants: data.hasVariants,
           variantOptions: data.variantOptions,
-          variants: data.variants?.map(variant => ({
+          variants: data.variants?.map((variant) => ({
             ...variant,
-            name: `${data.name}-${variant.options.map(opt => opt.value).join('-')}`,
+            name: `${data.name}-${variant.options.map((opt) => opt.value).join("-")}`,
           })),
-        }
+        },
       });
       navigate(`/dashboard/products`);
     } catch (error) {
@@ -57,7 +57,7 @@ export function EditProductPage() {
   const handleDelete = async () => {
     try {
       await deleteProduct.mutateAsync(product.id);
-      toast.success('Product deleted successfully');
+      toast.success("Product deleted successfully");
       navigate(`/dashboard/products`);
     } catch (error) {
       console.error(`Failed to delete product:`, error);
@@ -86,8 +86,8 @@ export function EditProductPage() {
 
   return (
     <>
-      <ProductForm 
-        initialData={product} 
+      <ProductForm
+        initialData={product}
         onSubmit={handleSubmit}
         headerActions={headerActions}
       />

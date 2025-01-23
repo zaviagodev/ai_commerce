@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
-import { ConditionBuilder } from './condition-builder';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Plus, X } from "lucide-react";
+import { ConditionBuilder } from "./condition-builder";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { RuleElement, RuleGroup as IRuleGroup } from '@/features/campaigns/types/campaign-rules';
+} from "@/components/ui/select";
+import {
+  RuleElement,
+  RuleGroup as IRuleGroup,
+} from "@/features/campaigns/types/campaign-rules";
 
 interface ConditionGroup {
   id: string;
@@ -25,38 +28,42 @@ interface ConditionGroupProps {
   onUpdate: (data: Partial<RuleElement>) => void;
 }
 
-export function ConditionGroup({ group, isLast, onRemove, onUpdate }: ConditionGroupProps) {
+export function ConditionGroup({
+  group,
+  isLast,
+  onRemove,
+  onUpdate,
+}: ConditionGroupProps) {
   const addCondition = () => {
     const newCondition = {
       id: crypto.randomUUID(),
-      type: 'product_purchased',
-      operator: 'equal_to',
-      value: '',
+      type: "product_purchased",
+      operator: "equal_to",
+      value: "",
       enabled: true,
     };
 
     onUpdate({
       ...group,
-      conditions: [...group.conditions, newCondition]
+      conditions: [...group.conditions, newCondition],
     });
   };
 
   const removeCondition = (conditionId: string) => {
     onUpdate({
       ...group,
-      conditions: group.conditions.filter(c => c.id !== conditionId)
+      conditions: group.conditions.filter((c) => c.id !== conditionId),
     });
   };
 
   const updateCondition = (conditionId: string, data: any) => {
     onUpdate({
       ...group,
-      conditions: group.conditions.map(c => 
-        c.id === conditionId ? { ...c, ...data } : c
-      )
+      conditions: group.conditions.map((c) =>
+        c.id === conditionId ? { ...c, ...data } : c,
+      ),
     });
   };
-  
 
   return (
     <div className="relative">
@@ -65,7 +72,7 @@ export function ConditionGroup({ group, isLast, onRemove, onUpdate }: ConditionG
         <>
           {/* Vertical line from current box to operator */}
           <div className="absolute left-1/2 -bottom-8 h-8 w-px bg-border" />
-          
+
           {/* Connection dot */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4">
             <div className="absolute inset-0 rounded-full border-2 border-border bg-background" />

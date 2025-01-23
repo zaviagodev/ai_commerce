@@ -1,9 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
-import { Product } from '@/types/product';
-import { formatCurrency } from '@/lib/utils';
-import { ImageIcon } from 'lucide-react';
-import Loading from '@/components/loading';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { Link, useParams } from "react-router-dom";
+import { Product } from "@/types/product";
+import { formatCurrency } from "@/lib/utils";
+import { ImageIcon } from "lucide-react";
+import Loading from "@/components/loading";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ProductGridProps {
   products: Product[];
@@ -25,7 +25,9 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-semibold">{t.products.products.list.empty.title}</h2>
+        <h2 className="text-2xl font-semibold">
+          {t.products.products.list.empty.title}
+        </h2>
         <p className="text-muted-foreground">
           {t.products.products.list.empty.description}
         </p>
@@ -50,7 +52,7 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
                 onError={(e) => {
                   // Fallback to placeholder on image load error
                   e.currentTarget.src = `https://placehold.co/600x600?text=${encodeURIComponent(
-                    product.name || t.products.products.form.untitled
+                    product.name || t.products.products.form.untitled,
                   )}`;
                 }}
               />

@@ -1,22 +1,22 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Ticket } from 'lucide-react';
-import { Redeem } from '@/types/redeem';
+} from "@/components/ui/select";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Ticket } from "lucide-react";
+import { Redeem } from "@/types/redeem";
 
 interface RedeemDetailsProps {
   form: UseFormReturn<Redeem>;
@@ -50,10 +50,18 @@ export function RedeemDetails({ form }: RedeemDetailsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Central World Branch">Central World Branch</SelectItem>
-                  <SelectItem value="Siam Paragon Branch">Siam Paragon Branch</SelectItem>
-                  <SelectItem value="EmQuartier Branch">EmQuartier Branch</SelectItem>
-                  <SelectItem value="Online Delivery">Online Delivery</SelectItem>
+                  <SelectItem value="Central World Branch">
+                    Central World Branch
+                  </SelectItem>
+                  <SelectItem value="Siam Paragon Branch">
+                    Siam Paragon Branch
+                  </SelectItem>
+                  <SelectItem value="EmQuartier Branch">
+                    EmQuartier Branch
+                  </SelectItem>
+                  <SelectItem value="Online Delivery">
+                    Online Delivery
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -108,7 +116,11 @@ export function RedeemDetails({ form }: RedeemDetailsProps) {
                 <Input
                   type="datetime-local"
                   {...field}
-                  value={field.value instanceof Date ? field.value.toISOString().slice(0, 16) : ''}
+                  value={
+                    field.value instanceof Date
+                      ? field.value.toISOString().slice(0, 16)
+                      : ""
+                  }
                   onChange={(e) => field.onChange(new Date(e.target.value))}
                 />
               </FormControl>

@@ -1,14 +1,14 @@
-import { UseFormReturn } from 'react-hook-form';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ImagePlus, Upload, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Product, ProductImage } from '@/types/product';
-import { MediaService } from '@/lib/storage/media-service';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { ProductImageService } from '@/features/products/services/product-image-service';
-import { ImageGrid } from './media/image-grid';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { UseFormReturn } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
+import { ImagePlus, Upload, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Product, ProductImage } from "@/types/product";
+import { MediaService } from "@/lib/storage/media-service";
+import { useState } from "react";
+import { toast } from "sonner";
+import { ProductImageService } from "@/features/products/services/product-image-service";
+import { ImageGrid } from "./media/image-grid";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface MediaProps {
   form: UseFormReturn<Product>;
@@ -18,7 +18,7 @@ interface MediaProps {
 export function Media({ form, productId }: MediaProps) {
   const t = useTranslation();
   const [isUploading, setIsUploading] = useState(false);
-  const images = form.watch('images') || [];
+  const images = form.watch("images") || [];
 
   const handleReorder = (reorderedImages: ProductImage[]) => {
     // Update positions based on new order
@@ -26,7 +26,7 @@ export function Media({ form, productId }: MediaProps) {
       ...image,
       position: index,
     }));
-    form.setValue('images', updatedImages);
+    form.setValue("images", updatedImages);
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,12 +47,12 @@ export function Media({ form, productId }: MediaProps) {
           position: images.length + 1, // Add to end, primary stays at start
         };
 
-        form.setValue('images', [tempImage, ...images]); // Add new images after primary
+        form.setValue("images", [tempImage, ...images]); // Add new images after primary
 
         try {
           // Upload the actual file
           const { url, path } = await MediaService.uploadProductImage(file);
-          
+
           // If we have a productId, create the product_image record
           if (productId) {
             await ProductImageService.createProductImage({
@@ -63,15 +63,20 @@ export function Media({ form, productId }: MediaProps) {
               position: images.length + index,
             });
           }
-          
+
           // Update form with real URL
-          form.setValue('images', form.getValues('images').map(img => 
-            img.id === tempImage.id ? { 
-              ...img, 
-              url, 
-              path 
-            } : img
-          ));
+          form.setValue(
+            "images",
+            form.getValues("images").map((img) =>
+              img.id === tempImage.id
+                ? {
+                    ...img,
+                    url,
+                    path,
+                  }
+                : img,
+            ),
+          );
         } finally {
           // Clean up preview URL
           URL.revokeObjectURL(previewUrl);
@@ -79,14 +84,14 @@ export function Media({ form, productId }: MediaProps) {
       });
 
       await Promise.all(uploadPromises);
-      toast.success('Images uploaded successfully');
+      toast.success("Images uploaded successfully");
     } catch (error) {
-      console.error('Upload error:', error);
-      toast.error('Failed to upload images');
+      console.error("Upload error:", error);
+      toast.error("Failed to upload images");
     } finally {
       setIsUploading(false);
       // Reset input
-      e.target.value = '';
+      e.target.value = "";
     }
   };
 
@@ -97,7 +102,7 @@ export function Media({ form, productId }: MediaProps) {
     try {
       if (image.path) {
         await MediaService.deleteProductImage(image.path);
-        
+
         // If we have a productId, delete the product_image record
         if (productId) {
           await ProductImageService.deleteProductImage(productId, image.id);
@@ -105,10 +110,10 @@ export function Media({ form, productId }: MediaProps) {
       }
       const newImages = [...images];
       newImages.splice(index, 1);
-      form.setValue('images', newImages);
+      form.setValue("images", newImages);
     } catch (error) {
-      console.error('Failed to remove image:', error);
-      toast.error('Failed to remove image');
+      console.error("Failed to remove image:", error);
+      toast.error("Failed to remove image");
     }
   };
 
@@ -145,13 +150,17 @@ export function Media({ form, productId }: MediaProps) {
           <div className="rounded-full bg-primary/10 p-4">
             <Upload className="h-6 w-6 text-primary" />
           </div>
-          <p className="text-sm font-medium">{t.products.products.form.sections.media.dropzone}</p>
+          <p className="text-sm font-medium">
+            {t.products.products.form.sections.media.dropzone}
+          </p>
           <p className="text-xs text-muted-foreground">
             {t.products.products.form.sections.media.maxFiles}
           </p>
           <Button size="sm" variant="secondary" disabled={isUploading}>
             <ImagePlus className="mr-2 h-4 w-4" />
-            {isUploading ? t.products.products.form.sections.media.uploading : t.products.products.form.sections.media.chooseFiles}
+            {isUploading
+              ? t.products.products.form.sections.media.uploading
+              : t.products.products.form.sections.media.chooseFiles}
           </Button>
         </div>
         <input

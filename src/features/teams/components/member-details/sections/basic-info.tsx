@@ -1,9 +1,9 @@
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Users2 } from 'lucide-react';
-import { Member } from '@/types/member';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useTranslation } from '@/lib/i18n/hooks';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Users2 } from "lucide-react";
+import { Member } from "@/types/member";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BasicInfoProps {
   member: Member;
@@ -18,7 +18,9 @@ export function BasicInfo({ member }: BasicInfoProps) {
           <Users2 className="h-5 w-5 text-blue-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">{t.teams.members.basicInfo.title}</h2>
+          <h2 className="text-lg font-medium">
+            {t.teams.members.basicInfo.title}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t.teams.members.basicInfo.subtitle}
           </p>
@@ -29,7 +31,9 @@ export function BasicInfo({ member }: BasicInfoProps) {
           {/* Name Fields */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="firstName">{t.teams.members.basicInfo.firstName.label}</Label>
+              <Label htmlFor="firstName">
+                {t.teams.members.basicInfo.firstName.label}
+              </Label>
               <Input
                 id="firstName"
                 placeholder={t.teams.members.basicInfo.firstName.placeholder}
@@ -37,7 +41,9 @@ export function BasicInfo({ member }: BasicInfoProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lastName">{t.teams.members.basicInfo.lastName.label}</Label>
+              <Label htmlFor="lastName">
+                {t.teams.members.basicInfo.lastName.label}
+              </Label>
               <Input
                 id="lastName"
                 placeholder={t.teams.members.basicInfo.lastName.placeholder}
@@ -48,7 +54,9 @@ export function BasicInfo({ member }: BasicInfoProps) {
 
           {/* Contact Information */}
           <div className="space-y-2">
-            <Label htmlFor="email">{t.teams.members.basicInfo.email.label}</Label>
+            <Label htmlFor="email">
+              {t.teams.members.basicInfo.email.label}
+            </Label>
             <Input
               id="email"
               type="email"
@@ -59,11 +67,13 @@ export function BasicInfo({ member }: BasicInfoProps) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="phone">{t.teams.members.basicInfo.phoneNumber.label}</Label>
+              <Label htmlFor="phone">
+                {t.teams.members.basicInfo.phoneNumber.label}
+              </Label>
               <Input
                 id="phone"
                 type="tel"
-                value={member.phone || '-'}
+                value={member.phone || "-"}
                 className="bg-muted"
                 disabled
               />
@@ -72,10 +82,12 @@ export function BasicInfo({ member }: BasicInfoProps) {
               </p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lineId">{t.teams.members.basicInfo.lineID.label}</Label>
+              <Label htmlFor="lineId">
+                {t.teams.members.basicInfo.lineID.label}
+              </Label>
               <Input
                 id="lineId"
-                value={member.lineId || '-'}
+                value={member.lineId || "-"}
                 className="bg-muted"
                 disabled
               />
@@ -89,11 +101,14 @@ export function BasicInfo({ member }: BasicInfoProps) {
           <div className="space-y-2">
             <Label>{t.teams.members.basicInfo.memberSince}</Label>
             <p className="text-sm text-muted-foreground">
-              {member.createdAt.toLocaleDateString(t.teams.members.basicInfo.dateFormat, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
+              {member.createdAt.toLocaleDateString(
+                t.teams.members.basicInfo.dateFormat,
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                },
+              )}
             </p>
           </div>
         </div>
