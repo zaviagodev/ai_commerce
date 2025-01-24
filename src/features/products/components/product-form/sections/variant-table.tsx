@@ -105,6 +105,7 @@ export function VariantTable({ form }: VariantTableProps) {
       variant={variant}
       trackQuantity={trackQuantity}
       onUpdate={updateVariant}
+      isReward={form.watch("isReward") || false}
     />
   );
 
@@ -138,12 +139,20 @@ export function VariantTable({ form }: VariantTableProps) {
               <TableHead>
                 {t.products.products.form.sections.variations.sku}
               </TableHead>
-              <TableHead>
-                {t.products.products.form.sections.variations.price}
-              </TableHead>
               {trackQuantity && (
                 <TableHead>
                   {t.products.products.form.sections.variations.quantity}
+                </TableHead>
+              )}
+              <TableHead>
+                {t.products.products.form.sections.variations.price}
+              </TableHead>
+              {form.watch("isReward") && (
+                <TableHead>
+                  {
+                    t.products.products.form.sections.variations
+                      .pointsBasedPrice
+                  }
                 </TableHead>
               )}
             </TableRow>
@@ -166,7 +175,11 @@ export function VariantTable({ form }: VariantTableProps) {
             {variants.length === 0 && (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={
+                    3 +
+                    (trackQuantity ? 1 : 0) +
+                    (form.watch("isReward") ? 1 : 0)
+                  }
                   className="text-center py-8 text-muted-foreground"
                 >
                   {t.products.products.form.sections.variations.noVariants}

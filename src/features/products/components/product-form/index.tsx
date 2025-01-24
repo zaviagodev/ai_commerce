@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth";
@@ -20,6 +20,7 @@ import {
   Share2,
   Link,
   MoreHorizontal,
+  Gift,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShareModal } from "@/components/share/share-modal";
@@ -32,21 +33,20 @@ import { Variations } from "./sections/variations";
 import { Inventory } from "./sections/inventory";
 import { Shipping } from "./sections/shipping";
 import { Organization } from "./sections/organization";
-import { SalesChannelsSection } from "@/components/sales-channels/sales-channels-section";
-import { PointsRewards } from "./sections/points-rewards";
 import { EventSummary } from "../../../events/components/event-form/sections/event-summary";
 import { Attendees } from "./sections/attendees";
-import { EventDetails } from "../../../events/components/event-form/sections/event-details";
 import { useLocation } from "react-router-dom";
-import { Product } from "@/types/product";
 import { Badge } from "@/components/ui/badge";
-import { Gift } from "lucide-react";
+import { RewardDetails } from "./sections/reward-details";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { StatusSelect } from "@/components/status-select";
+import { z } from "zod";
+
+type ProductFormData = z.infer<typeof ProductSchema>;
 
 interface ProductFormProps {
-  initialData?: Partial<Product>;
-  onSubmit: (data: Product) => Promise<void>;
+  initialData?: Partial<ProductFormData>;
+  onSubmit: (data: ProductFormData) => Promise<void>;
   headerActions?: React.ReactNode;
 }
 
@@ -73,43 +73,52 @@ export function ProductForm({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const form = useForm({
+  const form = useForm<ProductFormData>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
       name: initialData?.name || "",
-      description: "",
-      images: [],
-      category: undefined,
-      hasVariants: false,
-      variantOptions: [],
-      variants: [],
-      price: 0,
-      compareAtPrice: undefined,
-      cost: undefined,
-      sku: "",
-      barcode: "",
-      trackQuantity: false,
-      quantity: undefined,
-      weight: 0,
-      weightUnit: "kg",
-      pointsEnabled: false,
-      pointsEarned: 0,
-      pointsRequired: 0,
-      pointsValue: 0,
-      customerTiers: DEFAULT_TIERS,
-      salesChannels: [],
-      tags: [],
-      status: "draft",
+      description: initialData?.description || "",
+      variantOptions: initialData?.variantOptions || [],
+      variants: initialData?.variants || [
+        {
+          name: "",
+          sku: "",
+          price: 0,
+          compareAtPrice: 0,
+          quantity: 0,
+          options: [],
+          status: "active",
+          position: 0,
+          pointsBasedPrice: 0,
+        },
+      ],
+      images: initialData?.images || [],
+      category: initialData?.category,
+      price: initialData?.price || 0,
+      compareAtPrice: initialData?.compareAtPrice,
+      cost: initialData?.cost,
+      sku: initialData?.sku || "",
+      barcode: initialData?.barcode || "",
+      trackQuantity: initialData?.trackQuantity || false,
+      quantity: initialData?.quantity,
+      weight: initialData?.weight || 0,
+      weightUnit: initialData?.weightUnit || "kg",
+      width: initialData?.width || 0,
+      length: initialData?.length || 0,
+      height: initialData?.height || 0,
+      dimensionUnit: initialData?.dimensionUnit || "cm",
+      isReward: initialData?.isReward || false,
+      isGiftCard: initialData?.isGiftCard || false,
+      tags: initialData?.tags || [],
+      status: initialData?.status || "draft",
       ...initialData,
     },
   });
 
-  const handleSubmit = async (data: Product) => {
+  const handleSubmit = async (data: ProductFormData) => {
     try {
-      await onSubmit(form.getValues());
-    } catch (error) {
-      console.error("Failed to save product:", error);
-    }
+      await onSubmit(data);
+    } catch (error) {}
   };
 
   const productName = form.watch("name");
@@ -171,10 +180,7 @@ export function ProductForm({
     <div className="flex h-dvh flex-col">
       <Form {...form}>
         <motion.form
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit(handleSubmit);
-          }}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -279,7 +285,7 @@ export function ProductForm({
                             className="bg-purple-100 text-purple-700 flex items-center gap-1.5"
                           >
                             <Gift className="h-3.5 w-3.5" />
-                            {t.products.products.form.rewardItem}
+                            Reward Item
                           </Badge>
                         )}
                       </div>
@@ -315,7 +321,7 @@ export function ProductForm({
                 >
                   <Button type="button" variant="outline" className="flex">
                     <Share2 className="mr-2 h-4 w-4" />
-                    {t.products.products.actions.share}
+                    Share
                   </Button>
                 </ShareModal>
                 <div className="mx-2 h-4 w-px bg-border" />
@@ -326,7 +332,7 @@ export function ProductForm({
                     form.handleSubmit(handleSubmit)(e);
                   }}
                 >
-                  {t.products.products.actions.save}
+                  Save
                 </Button>
               </div>
             </div>
@@ -369,7 +375,7 @@ export function ProductForm({
                   </div>
                   {isEventProduct && (
                     <TabsContent value="event-summary" className="space-y-8">
-                      <EventSummary form={form} />
+                      <EventSummary form={form as any} />
                     </TabsContent>
                   )}
                   <TabsContent value="item-info" className="space-y-8">
@@ -425,6 +431,11 @@ export function ProductForm({
                     {/* Event Details Section - Only show for event products */}
                     {isEventProduct && <EventDetails form={form} />}
 
+                    {form.watch("isReward") &&
+                      !(form.watch("variantOptions")?.length > 0) && (
+                        <RewardDetails form={form} />
+                      )}
+
                     {/* Pricing Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -432,9 +443,7 @@ export function ProductForm({
                           <DollarSign className="h-5 w-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
-                            {t.products.products.form.sections.pricing.title}
-                          </h2>
+                          <h2 className="text-lg font-medium">Pricing</h2>
                           <p className="text-sm text-muted-foreground">
                             {
                               t.products.products.form.sections.pricing
@@ -447,8 +456,7 @@ export function ProductForm({
                         <Pricing form={form} />
                       </CardContent>
                     </Card>
-
-                    {/* Inventory Section */}
+                    <Variations form={form} isEventProduct={isEventProduct} />
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-pink-100">
@@ -481,19 +489,17 @@ export function ProductForm({
                           <Truck className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
-                            {t.products.products.form.sections.shipping.title}
-                          </h2>
+                          <h2 className="text-lg font-medium">Shipping</h2>
                           <p className="text-sm text-muted-foreground">
-                            {t.products.products.form.sections.shipping.description}
+                            Set up shipping details
                           </p>
                         </div>
                       </CardHeader>
                       <CardContent>
                         <Shipping form={form} />
                       </CardContent>
-                    </Card> */}
-
+                    </Card>
+                    
                     {/* Organization Section */}
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -547,7 +553,7 @@ export function ProductForm({
                   </TabsContent>
                   {isEventProduct && (
                     <TabsContent value="attendees" className="space-y-8">
-                      <Attendees form={form} />
+                      <Attendees form={form as any} />
                     </TabsContent>
                   )}
                 </Tabs>

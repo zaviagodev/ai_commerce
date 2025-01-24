@@ -76,6 +76,9 @@ import { EditEventOrderPage } from "./features/tickets/pages/edit-event-order-pa
 import { NewEventOrderPage } from "./features/tickets/pages/new-event-order-page";
 import { TeamsPage } from "./features/teams/pages/teams-page";
 import MemberDetailsPage from "./features/teams/pages/member-details-page";
+import { EditRewardPage } from "./features/rewards/pages/edit-reward-page";
+import { NewRewardPage } from "./features/rewards/pages/new-reward-page";
+import { RewardsPage } from "./features/rewards/pages/rewards-page";
 
 export default function App() {
   useEffect(() => {
@@ -191,9 +194,9 @@ export default function App() {
               <Route path="redeem-list/:id" element={<EditRedeemPage />} />
 
               {/* Reward Items Routes */}
-              <Route path="reward-items" element={<RewardsItemsPage />} />
-              <Route path="reward-items/new" element={<NewProductPage />} />
-              <Route path="reward-items/:id" element={<EditProductPage />} />
+              <Route path="reward-items" element={<RewardsPage />} />
+              <Route path="reward-items/new" element={<NewRewardPage />} />
+              <Route path="reward-items/:id" element={<EditRewardPage />} />
 
               <Route path="customer-tiers" element={<CustomerTiersPage />} />
               <Route

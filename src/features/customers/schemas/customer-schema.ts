@@ -22,6 +22,8 @@ export const CustomerAddressSchema = z.object({
     )
     .optional(),
   isDefault: z.boolean(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 export const CustomerSchema = z.object({
@@ -37,8 +39,15 @@ export const CustomerSchema = z.object({
       "Invalid phone number format. Must be a 10-digit Thai number starting with 0",
     )
     .optional(),
-  isVerified: z.boolean().default(false),
+  isVerified: z.boolean(),
   acceptsMarketing: z.boolean(),
   tags: z.array(z.string()),
   addresses: z.array(CustomerAddressSchema),
+  tierId: z.string().optional(),
+  loyaltyPoints: z
+    .number()
+    .min(0, "Loyalty points must be non-negative")
+    .default(0),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });

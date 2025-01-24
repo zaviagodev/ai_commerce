@@ -54,6 +54,7 @@ export class VariantService {
               sku: variant.sku,
               price: variant.price,
               compare_at_price: variant.compareAtPrice,
+              points_based_price: variant.pointsBasedPrice,
               quantity: variant.quantity,
               options: variant.options,
               status: variant.status,

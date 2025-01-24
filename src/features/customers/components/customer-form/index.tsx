@@ -13,6 +13,7 @@ import { Customer } from "@/types/customer";
 import { ShareModal } from "@/components/share/share-modal";
 import { Share2, MessageSquare, Heart, MoreHorizontal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CustomerFormProps {
   initialData?: Customer;
@@ -20,9 +21,14 @@ interface CustomerFormProps {
 }
 
 export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
-  const form = useForm({
+  const t = useTranslation();
+  const defaultId = crypto.randomUUID();
+  const now = new Date();
+
+  const form = useForm<Customer>({
     resolver: zodResolver(CustomerSchema),
     defaultValues: {
+      id: defaultId,
       firstName: "",
       lastName: "",
       company: "",
@@ -32,6 +38,12 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
       acceptsMarketing: false,
       tags: [],
       addresses: [],
+      tierId: "",
+      tier: undefined,
+      loyaltyPoints: 0,
+      orders: [],
+      createdAt: now,
+      updatedAt: now,
       ...initialData,
     },
   });
@@ -118,9 +130,17 @@ export function CustomerForm({ initialData, onSubmit }: CustomerFormProps) {
                         ? "Untitled Customer"
                         : customerName}
                     </h1>
-                    {isVerified && (
-                      <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
-                    )}
+                    <div className="flex items-center gap-2">
+                      {isVerified && (
+                        <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
+                      )}
+                      <div className="flex items-center gap-1 text-sm font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                        <span>{form.watch("loyaltyPoints")}</span>
+                        <span>
+                          {t.customers.customer.list.columns.loyaltyPoints}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

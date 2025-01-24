@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ProductService } from "../services/product-service";
+import { ProductService, ProductFilters } from "../services/product-service";
 import { Product } from "@/types/product";
 
-export function useProducts() {
+export function useProducts(filters?: ProductFilters) {
   const queryClient = useQueryClient();
 
   const {
@@ -10,8 +10,8 @@ export function useProducts() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products"],
-    queryFn: ProductService.getProducts,
+    queryKey: ["products", JSON.stringify(filters)],
+    queryFn: () => ProductService.getProducts(filters),
   });
 
   const createProduct = useMutation({
@@ -25,8 +25,9 @@ export function useProducts() {
   const updateProduct = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<Product> }) =>
       ProductService.updateProduct(id, data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["product", data.id] });
     },
   });
 
@@ -44,5 +45,21 @@ export function useProducts() {
     createProduct,
     updateProduct,
     deleteProduct,
+  };
+}
+
+export function useProduct(id: string) {
+  const product = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => ProductService.getProduct(id!),
+    enabled: !!id,
+  });
+
+  return {
+    product: product.data,
+    isLoading: product.isLoading,
+    refetch: async () => {
+      await Promise.all([product.refetch()]);
+    },
   };
 }

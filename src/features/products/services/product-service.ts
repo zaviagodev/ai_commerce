@@ -5,13 +5,19 @@ import { useAuthStore } from "@/lib/auth/auth-store";
 import { transformProduct } from "../utils/product-transformer";
 import { VariantService } from "./variant-service";
 
+export type ProductFilters = {
+  isReward?: boolean;
+  status?: string;
+  categoryId?: string;
+};
+
 export class ProductService {
-  static async getProducts(): Promise<Product[]> {
+  static async getProducts(filters?: ProductFilters): Promise<Product[]> {
     try {
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error("Store not found");
 
-      const { data: products, error } = await supabase
+      let query = supabase
         .from("products")
         .select(
           `
@@ -37,8 +43,22 @@ export class ProductService {
           product_tags (*)
         `,
         )
-        .eq("store_name", user.storeName)
-        .order("created_at", { ascending: false });
+        .eq("store_name", user.storeName);
+
+      // Apply filters if provided
+      if (filters?.isReward !== undefined) {
+        query = query.eq("is_reward", filters.isReward);
+      }
+      if (filters?.status) {
+        query = query.eq("status", filters.status);
+      }
+      if (filters?.categoryId) {
+        query = query.eq("category_id", filters.categoryId);
+      }
+
+      query = query.order("created_at", { ascending: false });
+
+      const { data: products, error } = await query;
 
       if (error) throw error;
 
@@ -47,6 +67,51 @@ export class ProductService {
       console.error("Failed to fetch products:", error);
       toast.error(error.message || "Failed to load products");
       return [];
+    }
+  }
+
+  static async getProduct(id: string): Promise<Product | null> {
+    const user = useAuthStore.getState().user;
+    if (!user?.storeName) throw new Error("Store not found");
+    try {
+      const { data: product, error } = await supabase
+        .from("products")
+        .select(
+          `
+          *,
+          product_images (*),
+          product_variants (
+            id,
+            name,
+            sku,
+            price,
+            compare_at_price,
+            points_based_price,
+            quantity,
+            options,
+            status,
+            position
+          ),
+          product_categories (
+            id,
+            name,
+            slug,
+            description
+          ),
+          product_tags (*)
+        `,
+        )
+        .eq("id", id)
+        .eq("store_name", user.storeName)
+        .single();
+
+      if (error) throw error;
+
+      return transformProduct(product);
+    } catch (error: any) {
+      console.error("Failed to fetch product:", error);
+      toast.error(error.message || "Failed to load product");
+      return null;
     }
   }
 
@@ -66,6 +131,9 @@ export class ProductService {
           description: product.description,
           category_id: product.category?.id,
           price: product.price,
+          is_reward: product.isReward,
+          is_gift_card: product.isGiftCard,
+          points_based_price: product.pointsBasedPrice,
           compare_at_price: product.compareAtPrice,
           cost: product.cost,
           sku: product.sku,
@@ -111,6 +179,9 @@ export class ProductService {
           description: product.description,
           category_id: product.category?.id,
           price: product.price,
+          is_reward: product.isReward,
+          is_gift_card: product.isGiftCard,
+          points_based_price: product.pointsBasedPrice,
           compare_at_price: product.compareAtPrice,
           cost: product.cost,
           sku: product.sku,

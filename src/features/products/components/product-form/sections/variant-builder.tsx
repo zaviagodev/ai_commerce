@@ -131,6 +131,9 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
         name: variantName,
         sku: variantSku,
         price: oldVariant?.price ?? 0,
+        pointsBasedPrice: form.watch("isReward")
+          ? (oldVariant?.pointsBasedPrice ?? 0)
+          : undefined,
         compareAtPrice: form.watch("compareAtPrice"),
         quantity: form.watch("trackQuantity")
           ? (oldVariant?.quantity ?? 0)

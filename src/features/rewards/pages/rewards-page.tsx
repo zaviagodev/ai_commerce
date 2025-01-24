@@ -23,10 +23,10 @@ import { sortProducts } from "@/features/products/utils/sorting";
 import { ProductSort } from "@/features/products/components/product-sort";
 import { useTranslation } from "@/lib/i18n/hooks";
 
-export function RewardsItemsPage() {
+export function RewardsPage() {
   const t = useTranslation();
   const navigate = useNavigate();
-  const { products, isLoading } = useProducts();
+  const { products, isLoading } = useProducts({ isReward: true });
   const {
     pageIndex,
     pageSize,
