@@ -5,12 +5,14 @@ import { ProductVariant } from "@/types/product";
 interface VariantRowProps {
   variant: ProductVariant;
   trackQuantity: boolean;
+  isReward: boolean;
   onUpdate: (id: string, data: Partial<ProductVariant>) => void;
 }
 
 export function VariantTableRow({
   variant,
   trackQuantity,
+  isReward,
   onUpdate,
 }: VariantRowProps) {
   return (
@@ -20,19 +22,6 @@ export function VariantTableRow({
         <Input
           value={variant.sku}
           onChange={(e) => onUpdate(variant.id, { sku: e.target.value })}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") e.preventDefault();
-          }}
-        />
-      </TableCell>
-      <TableCell>
-        <Input
-          type="number"
-          min="0"
-          value={variant.price}
-          onChange={(e) =>
-            onUpdate(variant.id, { price: Number(e.target.value) })
-          }
           onKeyDown={(e) => {
             if (e.key === "Enter") e.preventDefault();
           }}
@@ -50,6 +39,31 @@ export function VariantTableRow({
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
             }}
+          />
+        </TableCell>
+      )}
+      <TableCell>
+        <Input
+          type="number"
+          min="0"
+          value={variant.price}
+          onChange={(e) =>
+            onUpdate(variant.id, { price: Number(e.target.value) })
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") e.preventDefault();
+          }}
+        />
+      </TableCell>
+      {isReward && (
+        <TableCell>
+          <Input
+            type="number"
+            min="0"
+            value={variant.pointsBasedPrice}
+            onChange={(e) =>
+              onUpdate(variant.id, { pointsBasedPrice: Number(e.target.value) })
+            }
           />
         </TableCell>
       )}

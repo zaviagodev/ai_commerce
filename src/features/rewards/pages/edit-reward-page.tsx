@@ -1,45 +1,46 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { EventProduct } from "@/types/product";
-import { useEvent, useEvents } from "../hooks/use-events";
+import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import { ItemActionsModal } from "@/features/products/components/product-form/modals/item-actions-modal";
 import { toast } from "sonner";
 import { ProductForm } from "@/features/products/components/product-form";
-import Loading from "@/components/loading";
+import {
+  useProduct,
+  useProducts,
+} from "@/features/products/hooks/use-products";
 
-export function EditEventPage() {
+export function EditRewardPage() {
   const { id } = useParams();
+  const { product: rewardProduct, isLoading } = useProduct(id!);
+  const { updateProduct, deleteProduct } = useProducts();
   const navigate = useNavigate();
-  const { eventProduct, isLoading } = useEvent(id);
-  const { updateEvent, deleteEvent } = useEvents();
   const [showActions, setShowActions] = useState(false);
 
+  console.log(rewardProduct);
+
   if (isLoading) {
-    return (
-      <div className="pt-14">
-        <Loading />
-      </div>
-    );
+    return <div className="pt-14">Loading...</div>;
   }
 
-  if (!eventProduct) {
-    return <div className="pt-14">Event not found</div>;
+  if (!rewardProduct) {
+    return <div className="pt-14">Reward not found</div>;
   }
 
-  const handleSubmit = async (data: EventProduct) => {
+  const handleSubmit = async (data: Product) => {
     try {
-      await updateEvent.mutateAsync({
-        productId: data.id,
-        eventData: {
-          eventId: data.eventId,
+      await updateProduct.mutateAsync({
+        id: rewardProduct.id,
+        data: {
           name: data.name,
           description: data.description,
           category: data.category,
           price: data.price,
           compareAtPrice: data.compareAtPrice,
+          isReward: true,
+          pointsBasedPrice: data.pointsBasedPrice,
           cost: data.cost,
           sku: data.sku,
           barcode: data.barcode,
@@ -57,33 +58,24 @@ export function EditEventPage() {
               .map((opt) => opt.value)
               .join("-")}`,
           })),
-          startDateTime: data.startDateTime,
-          endDateTime: data.endDateTime,
-          venueName: data.venueName,
-          venueAddress: data.venueAddress,
-          googleMapsLink: data.googleMapsLink,
-          organizerName: data.organizerName,
-          organizerContact: data.organizerContact,
         },
       });
 
-      navigate("/dashboard/events");
+      navigate("/dashboard/reward-items");
     } catch (error) {
-      console.error("Failed to update event:", error);
-      toast.error("Failed to update event");
+      console.error("Failed to update reward:", error);
+      toast.error("Failed to update reward");
     }
   };
 
   const handleDelete = async () => {
     try {
-      if (eventProduct.event) {
-        await deleteEvent.mutateAsync(eventProduct.event.id);
-      }
-      toast.success("Event deleted successfully");
-      navigate("/dashboard/events");
+      await deleteProduct.mutateAsync(rewardProduct.id!);
+      toast.success("Reward deleted successfully");
+      navigate("/dashboard/reward-items");
     } catch (error) {
-      console.error("Failed to delete event:", error);
-      toast.error("Failed to delete event");
+      console.error("Failed to delete reward:", error);
+      toast.error("Failed to delete reward");
     }
   };
 
@@ -109,7 +101,7 @@ export function EditEventPage() {
   return (
     <>
       <ProductForm
-        initialData={eventProduct}
+        initialData={rewardProduct}
         onSubmit={handleSubmit}
         headerActions={headerActions}
       />
@@ -117,8 +109,9 @@ export function EditEventPage() {
       <ItemActionsModal
         open={showActions}
         onOpenChange={setShowActions}
-        product={eventProduct}
+        product={rewardProduct}
         onDelete={handleDelete}
+        isRewardProduct={true}
       />
     </>
   );

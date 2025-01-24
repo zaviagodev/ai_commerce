@@ -20,6 +20,7 @@ import { Campaign } from "@/types/campaign";
 import { TemplateModal } from "./template-modal";
 import { TemplateIndicator } from "./template-indicator";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { Badge } from "@/components/ui/badge";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Campaign>;
@@ -179,54 +180,6 @@ export function BasicDetails({ form }: BasicDetailsProps) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {
-                  t.customers.customer.campaignForm.sections.basicDetails.fields
-                    .status.label
-                }
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      placeholder={
-                        t.customers.customer.campaignForm.sections.basicDetails
-                          .fields.status.placeholder
-                      }
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="draft">
-                    {
-                      t.customers.customer.campaignForm.sections.basicDetails
-                        .fields.status.options.draft
-                    }
-                  </SelectItem>
-                  <SelectItem value="scheduled">
-                    {
-                      t.customers.customer.campaignForm.sections.basicDetails
-                        .fields.status.options.scheduled
-                    }
-                  </SelectItem>
-                  <SelectItem value="active">
-                    {
-                      t.customers.customer.campaignForm.sections.basicDetails
-                        .fields.status.options.active
-                    }
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="type"

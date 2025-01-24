@@ -55,7 +55,7 @@ export function Header({ member, onShowActions }: HeaderProps) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3, delay: 0.1 }}
     >
-      <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col w-full gap-4 md:flex-row md:items-center">
         {/* Left Section: Avatar and Title */}
         <div className="flex items-center flex-1 min-w-0">
           <Avatar className="h-16 w-16 shrink-0 rounded-lg border bg-muted overflow-hidden mr-3">

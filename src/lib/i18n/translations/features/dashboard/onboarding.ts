@@ -24,6 +24,11 @@ export const onboarding = {
         description: "Start managing orders in your store",
       },
     },
+    loading: "Loading...",
+    account: {
+      account: "Account",
+      logout: "Log out",
+    },
   },
   th: {
     welcome: {
@@ -48,6 +53,11 @@ export const onboarding = {
         title: "สร้างคำสั่งซื้อแรกของคุณ",
         description: "เริ่มจัดการคำสั่งซื้อในร้านค้าของคุณ",
       },
+    },
+    loading: "กำลังโหลด...",
+    account: {
+      account: "บัญชี",
+      logout: "ออกจากระบบ",
     },
   },
 };

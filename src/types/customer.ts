@@ -29,6 +29,8 @@ export interface Customer {
   addresses: CustomerAddress[];
   tierId?: string;
   tier?: CustomerTier;
+  loyaltyPoints: number;
+  orders?: any[];
   createdAt: Date;
   updatedAt: Date;
 }

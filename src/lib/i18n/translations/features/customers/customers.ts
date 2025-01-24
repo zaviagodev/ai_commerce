@@ -19,6 +19,7 @@ export const customersTranslations = {
         phone: "Phone",
         tags: "Tags",
         orders: "Orders",
+        loyaltyPoints: "Loyalty Points",
       },
       orders: "orders",
       search: "Search customers...",
@@ -177,6 +178,11 @@ export const customersTranslations = {
         phone: {
           label: "Phone",
           placeholder: "+1234567890",
+        },
+        loyaltyPoints: {
+          label: "Loyalty Points",
+          placeholder: "Enter points",
+          description: "Current loyalty points balance",
         },
         tags: {
           label: "Tags",
@@ -350,16 +356,48 @@ export const customersTranslations = {
         requirements: {
           title: "Requirements",
           description: "Set the criteria for customers to reach this tier",
+          addRequirement: "Add requirement",
+          noRequirements: "No requirements. Please add them below.",
           fields: {
+            points: {
+              title: "Points",
+              description: "Based on loyalty points earned",
+              measure: "point(s)",
+            },
+            totalSpending: {
+              title: "Total Spending",
+              description: "Based on total amount spent",
+            },
             spendingAmount: {
               label: "Spending Amount",
               description: "Minimum amount customers need to spend",
               placeholder: "Enter amount",
             },
             orderCount: {
-              label: "Order Count",
-              description: "Minimum number of orders required",
+              title: "Order Count",
+              description: "Based on number or orders placed",
               placeholder: "Enter number of orders",
+              measure: "order(s)",
+            },
+            customerGroup: {
+              title: "Customer Group",
+              description: "Based on membership in specific groups",
+              note: "Customer must be a member of all selected groups",
+              placeholder: "Select groups",
+              selectedGroup: "{count} group selected",
+              selectedGroups: "{count} groups selected",
+              searchGroups: "Search groups...",
+              modalTitle: "Select Customer Groups",
+              noGroups: "No groups found",
+              actions: {
+                cancel: "Cancel",
+                done: "Done",
+              },
+            },
+            membershipDuration: {
+              title: "Membership Duration",
+              description: "Based on length of membership",
+              measure: "day(s)",
             },
             timeframe: {
               label: "Timeframe",
@@ -472,15 +510,20 @@ export const customersTranslations = {
       },
     },
     coupon: {
-      title: "Coupon Campaigns",
-      description: "Manage your store's coupon campaigns",
+      title: "Coupons",
+      description: "Manage your store's coupons",
       actions: {
-        create: "Create Campaign",
+        create: "Create Coupon",
+        save: "Save coupon",
+      },
+      tabs: {
+        overview: "Overview",
+        details: "Details",
       },
       list: {
         empty: {
-          title: "No coupon campaigns found",
-          description: "Get started by creating your first coupon campaign",
+          title: "No coupons found",
+          description: "Get started by creating your first coupon",
         },
         columns: {
           campaign: "Campaign",
@@ -512,12 +555,16 @@ export const customersTranslations = {
           expired: "Expired",
           draft: "Draft",
         },
-        search: "Search coupon campaigns...",
+        search: "Search coupons...",
       },
     },
     campaignForm: {
       sections: {
         basicDetails: {
+          actions: {
+            discard: "Discard",
+            save: "Save campaign",
+          },
           title: "Basic Details",
           description: "Configure the campaign's basic information",
           template: {
@@ -693,6 +740,7 @@ export const customersTranslations = {
         phone: "เบอร์โทรศัพท์",
         tags: "แท็ก",
         orders: "คำสั่งซื้อ",
+        loyaltyPoints: "คะแนนสะสม",
       },
       orders: "คำสั่งซื้อ",
       search: "ค้นหาลูกค้า...",
@@ -851,6 +899,11 @@ export const customersTranslations = {
         phone: {
           label: "เบอร์โทรศัพท์",
           placeholder: "+1234567890",
+        },
+        loyaltyPoints: {
+          label: "คะแนนสะสม",
+          placeholder: "ใส่คะแนน",
+          description: "ยอดคะแนนสะสมปัจจุบัน",
         },
         tags: {
           label: "แท็ก",
@@ -1025,16 +1078,48 @@ export const customersTranslations = {
         requirements: {
           title: "เงื่อนไข",
           description: "กำหนดเกณฑ์สำหรับลูกค้าในการเข้าถึงระดับนี้",
+          addRequirement: "เพิ่มเงื่อนไข",
+          noRequirements: "ไม่มีเงื่อนไข กรุณาเพิ่มเงื่อนไขด้านล่าง",
           fields: {
+            points: {
+              title: "คะแนน",
+              description: "ขึ้นอยู่กับคะแนนสะสมที่ได้รับ",
+              measure: "คะแนน",
+            },
+            totalSpending: {
+              title: "ยอดใช้จ่ายรวม",
+              description: "ขึ้นอยู่กับยอดที่ใช้จ่ายรวม",
+            },
             spendingAmount: {
               label: "ยอดการใช้จ่าย",
               description: "จำนวนเงินขั้นต่ำที่ลูกค้าต้องใช้จ่าย",
               placeholder: "ระบุจำนวนเงิน",
             },
             orderCount: {
-              label: "จำนวนคำสั่งซื้อ",
-              description: "จำนวนคำสั่งซื้อขั้นต่ำที่ต้องการ",
+              title: "จำนวนคำสั่งซื้อ",
+              description: "ขึ้นอยู่กับจำนวนหรือคำสั่งซื้อที่วางไว้",
               placeholder: "ระบุจำนวนคำสั่งซื้อ",
+              measure: "คำสั่งซื้อ",
+            },
+            customerGroup: {
+              title: "กลุ่มลูกค้า",
+              description: "ขึ้นอยู่กับการเป็นสมาชิกในกลุ่มเฉพาะ",
+              note: "ลูกค้าจะต้องเป็นสมาชิกของกลุ่มที่เลือกทั้งหมด",
+              placeholder: "เลือกกลุ่ม",
+              selectedGroup: "เลือกแล้ว {count} กลุ่ม",
+              selectedGroups: "เลือกแล้ว {count} กลุ่ม",
+              searchGroups: "ค้นหากลุ่ม...",
+              modalTitle: "เลือกกลุ่มลูกค้า",
+              noGroups: "ไม่พบกลุ่ม",
+              actions: {
+                cancel: "ยกเลิก",
+                done: "เสร็จสิ้น",
+              },
+            },
+            membershipDuration: {
+              title: "ระยะเวลาการเป็นสมาชิก",
+              description: "ขึ้นอยู่กับระยะเวลาการเป็นสมาชิก",
+              measure: "วัน",
             },
             timeframe: {
               label: "ช่วงเวลา",
@@ -1147,15 +1232,20 @@ export const customersTranslations = {
       },
     },
     coupon: {
-      title: "แคมเปญคูปอง",
-      description: "จัดการแคมเปญคูปองของร้านค้าของคุณ",
+      title: "คูปอง",
+      description: "จัดการคูปองของร้านค้าของคุณ",
       actions: {
-        create: "สร้างแคมเปญ",
+        create: "สร้างคูปอง",
+        save: "บันทึกคูปอง",
+      },
+      tabs: {
+        overview: "ภาพรวม",
+        details: "ข้อมูล",
       },
       list: {
         empty: {
-          title: "ไม่พบแคมเปญคูปอง",
-          description: "เริ่มต้นด้วยการสร้างแคมเปญคูปองแรกของคุณ",
+          title: "ไม่พบคูปอง",
+          description: "เริ่มต้นด้วยการสร้างคูปองแรกของคุณ",
         },
         columns: {
           campaign: "แคมเปญ",
@@ -1187,12 +1277,16 @@ export const customersTranslations = {
           expired: "หมดอายุ",
           draft: "แบบร่าง",
         },
-        search: "ค้นหาแคมเปญคูปอง...",
+        search: "ค้นหาคูปอง...",
       },
     },
     campaignForm: {
       sections: {
         basicDetails: {
+          actions: {
+            discard: "ยกเลิก",
+            save: "บันทึกแคมเปญ",
+          },
           title: "ข้อมูลพื้นฐาน",
           description: "กำหนดค่าข้อมูลพื้นฐานของแคมเปญ",
           template: {

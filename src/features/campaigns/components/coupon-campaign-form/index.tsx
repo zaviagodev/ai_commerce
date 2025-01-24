@@ -14,6 +14,8 @@ import { CouponPreview } from "./sections/coupon-preview";
 import { Tags, Share2 } from "lucide-react";
 import { ShareModal } from "@/components/share/share-modal";
 import { useState, useRef, useEffect } from "react";
+import { StatusSelect } from "@/components/status-select";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface CouponCampaignFormProps {
   initialData?: Partial<Coupon>;
@@ -24,6 +26,7 @@ export function CouponCampaignForm({
   initialData,
   onSubmit,
 }: CouponCampaignFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CouponSchema),
     defaultValues: {
@@ -75,6 +78,37 @@ export function CouponCampaignForm({
     setIsEditing(false);
   };
 
+  const couponStatuses = [
+    {
+      label:
+        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+          .draft,
+      badgeClassName: "!bg-gray-100 text-gray-700",
+      value: "draft",
+    },
+    {
+      label:
+        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+          .scheduled,
+      badgeClassName: "!bg-yellow-100 text-yellow-700",
+      value: "scheduled",
+    },
+    {
+      label:
+        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+          .active,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "active",
+    },
+    {
+      label:
+        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+          .ended,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "ended",
+    },
+  ];
+
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -92,7 +126,7 @@ export function CouponCampaignForm({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col w-full gap-4 md:flex-row md:items-center">
               {/* Left Section */}
               <div className="flex items-center flex-1 min-w-0">
                 <div className="relative h-16 w-16 shrink-0 rounded-lg border bg-muted overflow-hidden mr-3">
@@ -130,7 +164,7 @@ export function CouponCampaignForm({
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Create a new coupon campaign
+                    Create a new coupon
                   </p>
                 </div>
               </div>
@@ -145,9 +179,11 @@ export function CouponCampaignForm({
                     <Share2 className="mr-2 h-4 w-4" />
                     Share
                   </Button>
-                </ShareModal> 
+                </ShareModal>
                 <div className="mx-2 h-4 w-px bg-border" /> */}
-                <Button type="submit">Save campaign</Button>
+                <Button type="submit">
+                  {t.customers.customer.coupon.actions.save}
+                </Button>
               </div>
             </div>
           </motion.div>
@@ -165,12 +201,23 @@ export function CouponCampaignForm({
                   defaultValue={initialData ? "overview" : "details"}
                   className="w-full"
                 >
-                  <TabsList className="mb-6">
-                    {initialData && (
-                      <TabsTrigger value="overview">Overview</TabsTrigger>
-                    )}
-                    <TabsTrigger value="details">Details</TabsTrigger>
-                  </TabsList>
+                  <div className="flex items-center justify-between mb-6">
+                    <TabsList>
+                      {initialData && (
+                        <TabsTrigger value="overview">
+                          {t.customers.customer.coupon.tabs.overview}
+                        </TabsTrigger>
+                      )}
+                      <TabsTrigger value="details">
+                        {t.customers.customer.coupon.tabs.details}
+                      </TabsTrigger>
+                    </TabsList>
+                    <StatusSelect
+                      form={form}
+                      options={couponStatuses}
+                      placeholder="Select status..."
+                    />
+                  </div>
                   {initialData && (
                     <TabsContent value="overview" className="space-y-8">
                       <CouponPreview form={form} />

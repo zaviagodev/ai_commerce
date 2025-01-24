@@ -6,6 +6,8 @@ export function transformProduct(product: any): Product {
     name: product.name,
     description: product.description,
     variantOptions: product.variant_options || [],
+    isReward: product.is_reward || false,
+    isGiftCard: product.is_gift_card || false,
     variants: (product.product_variants || []).map((variant: any) => ({
       id: variant.id,
       name: variant.name,
@@ -13,6 +15,9 @@ export function transformProduct(product: any): Product {
       price: Number(variant.price),
       compareAtPrice: variant.compare_at_price
         ? Number(variant.compare_at_price)
+        : undefined,
+      pointsBasedPrice: variant.points_based_price
+        ? Number(variant.points_based_price)
         : undefined,
       quantity: variant.quantity || 0,
       options: variant.options || [],

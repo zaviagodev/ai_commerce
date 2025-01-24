@@ -47,6 +47,8 @@ export class CustomerService {
             status: data.customer_tiers.status,
           }
         : undefined,
+      loyaltyPoints: data.loyalty_points || 0,
+      orders: data.orders || [],
       createdAt: new Date(data.created_at),
       updatedAt: new Date(data.updated_at),
     };
@@ -133,19 +135,7 @@ export class CustomerService {
       }
 
       toast.success("Customer created successfully");
-      return {
-        id: newCustomer.id,
-        firstName: newCustomer.first_name,
-        lastName: newCustomer.last_name,
-        email: newCustomer.email,
-        phone: newCustomer.phone,
-        isVerified: newCustomer.is_verified,
-        acceptsMarketing: newCustomer.accepts_marketing,
-        tags: newCustomer.tags || [],
-        addresses: [],
-        createdAt: new Date(newCustomer.created_at),
-        updatedAt: new Date(newCustomer.updated_at),
-      };
+      return CustomerService.transformCustomer(newCustomer);
     } catch (error: any) {
       console.error("Failed to create customer:", error);
       toast.error(error.message || "Failed to create customer");

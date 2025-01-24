@@ -211,14 +211,9 @@ export function NavMain() {
               <SidebarMenuSub>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link
-                      to="/dashboard/coupon-campaigns"
-                      className="font-medium"
-                    >
+                    <Link to="/dashboard/coupons" className="font-medium">
                       <Tags className="h-3 w-3 text-muted-foreground" />
-                      <span>
-                        {t.navigation.navigation.couponCampaign.title}
-                      </span>
+                      <span>{t.navigation.navigation.coupons.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>

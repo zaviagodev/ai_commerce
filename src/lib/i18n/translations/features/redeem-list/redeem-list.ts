@@ -40,6 +40,15 @@ export const redeemListTranslation = {
         overview: "Overview",
         basicDetails: "Basic Details",
       },
+      status: {
+        select: "Select status",
+      },
+      actions: {
+        printReceipt: "Print Receipt",
+        editRedeem: "Edit Redeem",
+        cancel: "Cancel",
+        save: "Save Changes",
+      },
     },
   },
   th: {
@@ -82,6 +91,15 @@ export const redeemListTranslation = {
       tabs: {
         overview: "ภาพรวม",
         basicDetails: "รายละเอียดพื้นฐาน",
+      },
+      status: {
+        select: "เลือกสถานะ",
+      },
+      actions: {
+        printReceipt: "พิมพ์ใบเสร็จ",
+        editRedeem: "แก้ไขการแลกรางวัล",
+        cancel: "ยกเลิก",
+        save: "บันทึกการเปลี่ยนแปลง",
       },
     },
   },

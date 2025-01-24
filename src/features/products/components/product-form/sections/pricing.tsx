@@ -10,8 +10,8 @@ interface PricingProps {
 
 export function Pricing({ form }: PricingProps) {
   const t = useTranslation();
-  const price = form.watch("price") || 0;
-  const compareAtPrice = form.watch("compareAtPrice");
+  const price = form.watch("variants.0.price") || 0;
+  const compareAtPrice = form.watch("variants.0.compareAtPrice");
 
   return (
     <div className="space-y-4">
@@ -23,8 +23,8 @@ export function Pricing({ form }: PricingProps) {
             <DynamicPricing
               value={price}
               onChange={({ price, compareAtPrice }) => {
-                form.setValue("price", price);
-                form.setValue("compareAtPrice", compareAtPrice);
+                form.setValue("variants.0.price", price);
+                form.setValue("variants.0.compareAtPrice", compareAtPrice);
               }}
               labels={{
                 price: t.products.products.form.price,

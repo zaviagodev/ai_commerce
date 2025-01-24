@@ -102,63 +102,6 @@ export function Organization({ form }: OrganizationProps) {
 
       <FormField
         control={form.control}
-        name="status"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {t.products.products.form.sections.organization.status}
-            </FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue
-                    placeholder={
-                      t.products.products.form.sections.organization
-                        .selectStatus
-                    }
-                  />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="draft">
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="!bg-gray-100 text-gray-700"
-                    >
-                      {t.products.products.status.draft}
-                    </Badge>
-                  </div>
-                </SelectItem>
-                <SelectItem value="active">
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="!bg-green-100 text-green-700"
-                    >
-                      {t.products.products.status.active}
-                    </Badge>
-                  </div>
-                </SelectItem>
-                <SelectItem value="archived">
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="!bg-red-100 text-red-700"
-                    >
-                      {t.products.products.status.archived}
-                    </Badge>
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
         name="tags"
         render={({ field }) => (
           <FormItem>

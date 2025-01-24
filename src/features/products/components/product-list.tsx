@@ -237,13 +237,13 @@ export function ProductList({
               <TableHead className="text-right">
                 {t.products.products.list.columns.quantity}
               </TableHead>
-              {!isBulkMode && <TableHead className="w-20"></TableHead>}
+              {!isBulkMode && <TableHead className="w-8"></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedProducts.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={isBulkMode ? 6 : 5} className="text-center">
+                <TableCell colSpan={6} className="text-center">
                   <div className="py-12">
                     <p className="text-lg font-medium">
                       {t.products.products.list.empty.title}
@@ -333,7 +333,8 @@ export function ProductList({
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      {product.category?.name || "Uncategorized"}
+                      {product.category?.name ||
+                        t.products.products.list.uncategorized}
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="space-y-1">
@@ -356,11 +357,11 @@ export function ProductList({
                               : "text-red-600"
                           }
                         >
-                          {quantity || 0} in stock
+                          {quantity || 0} {t.products.products.list.inStock}
                         </span>
                       ) : (
                         <span className="text-muted-foreground">
-                          Not tracked
+                          {t.products.products.list.notTracked}
                         </span>
                       )}
                     </TableCell>

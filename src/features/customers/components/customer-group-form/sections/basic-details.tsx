@@ -90,68 +90,6 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           </FormItem>
         )}
       />
-
-      <FormField
-        control={form.control}
-        name="status"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              {
-                t.customers.customer.group.sections.basicDetails.fields.status
-                  .label
-              }
-            </FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue
-                    placeholder={
-                      t.customers.customer.group.sections.basicDetails.fields
-                        .status.label
-                    }
-                  />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="active">
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="!bg-green-100 text-green-700"
-                    >
-                      {
-                        t.customers.customer.group.sections.basicDetails.fields
-                          .status.active
-                      }
-                    </Badge>
-                  </div>
-                </SelectItem>
-                <SelectItem value="inactive">
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="!bg-red-100 text-red-700"
-                    >
-                      {
-                        t.customers.customer.group.sections.basicDetails.fields
-                          .status.inactive
-                      }
-                    </Badge>
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <FormDescription>
-              {
-                t.customers.customer.group.sections.basicDetails.fields.status
-                  .description
-              }
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
     </div>
   );
 }

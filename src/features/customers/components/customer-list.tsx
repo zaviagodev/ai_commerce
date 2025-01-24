@@ -115,7 +115,10 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               <TableHead>{t.customers.customer.list.columns.name}</TableHead>
               <TableHead>{t.customers.customer.list.columns.email}</TableHead>
               <TableHead>{t.customers.customer.list.columns.phone}</TableHead>
-              <TableHead>{t.customers.customer.list.columns.tags}</TableHead>
+              <TableHead>
+                {t.customers.customer.list.columns.loyaltyPoints}
+              </TableHead>
+              {/* <TableHead>{t.customers.customer.list.columns.tags}</TableHead> */}
               <TableHead>{t.customers.customer.list.columns.orders}</TableHead>
             </TableRow>
           </TableHeader>
@@ -161,6 +164,9 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone || "-"}</TableCell>
                   <TableCell>
+                    <span>{customer.loyaltyPoints}</span>
+                  </TableCell>
+                  {/* <TableCell>
                     <div className="flex flex-wrap gap-1">
                       {customer.tags.map((tag) => (
                         <Badge key={tag} variant="secondary">
@@ -168,7 +174,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
                         </Badge>
                       ))}
                     </div>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     {customer.orders?.length || 0}{" "}
                     {t.customers.customer.list.orders}

@@ -45,7 +45,7 @@ export const productsTranslations = {
         title: "Delete Products",
         description: "This action cannot be undone",
         warning:
-          "Are you sure you want to delete {count} selected product(s)? This will permanently remove them from your store.",
+          "Are you sure you want to delete {count} selected product(s)? This will permanently remove it/them from your store.",
         deleting: "Deleting...",
         cancel: "Cancel",
       },
