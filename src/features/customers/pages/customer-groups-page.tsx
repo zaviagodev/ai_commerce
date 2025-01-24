@@ -119,8 +119,8 @@ export function CustomerGroupsPage() {
               <TableHead>
                 {t.customers.customer.group.list.columns.status}
               </TableHead>
-              <TableHead className="w-[70px]">
-                {t.customers.customer.group.list.columns.actions}
+              <TableHead className="w-8">
+                {/* {t.customers.customer.group.list.columns.actions} */}
               </TableHead>
             </TableRow>
           </TableHeader>

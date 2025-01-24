@@ -111,7 +111,7 @@ export function CouponCampaignsPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/coupon-campaigns/new">
+          <Link to="/dashboard/coupons/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.customers.customer.coupon.actions.create}
           </Link>
@@ -169,7 +169,7 @@ export function CouponCampaignsPage() {
                       {t.customers.customer.coupon.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/coupon-campaigns/new">
+                      <Link to="/dashboard/coupons/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.customers.customer.coupon.actions.create}
                       </Link>
@@ -182,9 +182,7 @@ export function CouponCampaignsPage() {
                 <TableRow
                   key={coupon.id}
                   className="cursor-pointer"
-                  onClick={() =>
-                    navigate(`/dashboard/coupon-campaigns/${coupon.id}`)
-                  }
+                  onClick={() => navigate(`/dashboard/coupons/${coupon.id}`)}
                 >
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -218,13 +216,6 @@ export function CouponCampaignsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        coupon.status === "active"
-                          ? "default"
-                          : coupon.status === "scheduled"
-                            ? "secondary"
-                            : "destructive"
-                      }
                       className={cn("capitalize shadow-none", {
                         "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
                           coupon.status === "expired",
@@ -236,7 +227,11 @@ export function CouponCampaignsPage() {
                           coupon.status === "draft",
                       })}
                     >
-                      {t.customers.customer.coupon.list.status[coupon.status]}
+                      {
+                        t.customers.customer.coupon.list.status[
+                          coupon.status as keyof typeof t.customers.customer.coupon.list.status
+                        ]
+                      }
                     </Badge>
                   </TableCell>
                 </TableRow>

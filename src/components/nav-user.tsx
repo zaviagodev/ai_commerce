@@ -27,6 +27,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export function NavUser({
   user,
@@ -37,6 +38,7 @@ export function NavUser({
     avatar: string;
   };
 }) {
+  const t = useTranslation();
   const { isMobile } = useSidebar();
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -101,7 +103,7 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                Account
+                {t.dashboard.onboarding.account.account}
               </DropdownMenuItem>
               {/* <DropdownMenuItem>
                 <CreditCard />
@@ -115,7 +117,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
-              Log out
+              {t.dashboard.onboarding.account.logout}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

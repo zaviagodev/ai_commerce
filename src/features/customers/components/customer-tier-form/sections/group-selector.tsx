@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 const DEMO_GROUPS = [
   { id: "1", name: "VIP Customers" },
@@ -28,6 +29,7 @@ export function GroupSelector({
   selectedGroups,
   onSelect,
 }: GroupSelectorProps) {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -47,13 +49,21 @@ export function GroupSelector({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Select Customer Groups</DialogTitle>
+          <DialogTitle>
+            {
+              t.customers.customer.tier.sections.requirements.fields
+                .customerGroup.modalTitle
+            }
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 pt-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search groups..."
+              placeholder={
+                t.customers.customer.tier.sections.requirements.fields
+                  .customerGroup.searchGroups
+              }
               className="pl-9"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -84,15 +94,28 @@ export function GroupSelector({
                 ))}
               </div>
             ) : (
-              <p className="text-center">No groups found</p>
+              <p className="text-center">
+                {
+                  t.customers.customer.tier.sections.requirements.fields
+                    .customerGroup.noGroups
+                }
+              </p>
             )}
           </ScrollArea>
         </div>
         <div className="flex justify-end gap-2 pt-4 border-t">
           <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
+            {
+              t.customers.customer.tier.sections.requirements.fields
+                .customerGroup.actions.cancel
+            }
           </Button>
-          <Button onClick={() => setOpen(false)}>Done</Button>
+          <Button onClick={() => setOpen(false)}>
+            {
+              t.customers.customer.tier.sections.requirements.fields
+                .customerGroup.actions.done
+            }
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

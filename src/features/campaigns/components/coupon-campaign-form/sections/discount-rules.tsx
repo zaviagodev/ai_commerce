@@ -25,7 +25,7 @@ const DISCOUNT_TYPES = [
   {
     id: "percentage",
     name: "Percentage Discount",
-    description: "Offer a percentage off the order total",
+    description: "Offer a percentage of the order total",
     icon: Percent,
     gradient: "from-blue-500/10 to-purple-500/10",
     iconBg: "bg-blue-100",
@@ -34,7 +34,7 @@ const DISCOUNT_TYPES = [
   {
     id: "fixed",
     name: "Fixed Amount",
-    description: "Offer a fixed amount off the order total",
+    description: "Offer a fixed amount of the order total",
     icon: Coins,
     gradient: "from-green-500/10 to-emerald-500/10",
     iconBg: "bg-green-100",
@@ -177,10 +177,15 @@ export function DiscountRules({ form }: DiscountRulesProps) {
                                 {
                                   t.campaigns.campaign.coupon.sections
                                     .discountRules.fields.type.options[type.id]
+                                    .title
                                 }
                               </h3>
                               <p className="text-sm text-muted-foreground">
-                                {type.description}
+                                {
+                                  t.campaigns.campaign.coupon.sections
+                                    .discountRules.fields.type.options[type.id]
+                                    .description
+                                }
                               </p>
                             </div>
                           </div>

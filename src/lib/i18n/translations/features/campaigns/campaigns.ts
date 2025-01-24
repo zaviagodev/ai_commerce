@@ -134,10 +134,22 @@ export const campaignTranslations = {
               placeholder: "Select discount type",
               description: "How the discount will be calculated",
               options: {
-                percentage: "Percentage Discount",
-                fixed: "Fixed Amount",
-                shipping: "Free Shipping",
-                points: "Bonus Points",
+                percentage: {
+                  title: "Percentage Discount",
+                  description: "Offer a percentage of the order total",
+                },
+                fixed: {
+                  title: "Fixed Amount",
+                  description: "Offer a fixed amount of the order total",
+                },
+                shipping: {
+                  title: "Free Shipping",
+                  description: "Offer free shipping on qualifying orders",
+                },
+                points: {
+                  title: "Bonus Points",
+                  description: "Award bonus points on purchases",
+                },
               },
             },
             value: {
@@ -377,6 +389,71 @@ export const campaignTranslations = {
           qr: "กำหนดวิธีการให้คะแนนสำหรับการสแกนคิวอาร์โค้ด",
           default: "กำหนดวิธีการให้คะแนนสำหรับการซื้อ",
         },
+        fields: {
+          advancedMode: {
+            label: "Enable Advanced Mode",
+            description:
+              "Create complex conditions for when this coupon can be used",
+          },
+          ruleBuilder: {
+            operators: {
+              and: "AND",
+              or: "OR",
+            },
+            actions: {
+              addGroup: "Add rule group",
+            },
+          },
+          ruleGroup: {
+            match: {
+              label: "Match",
+              all: "All conditions",
+              any: "Any condition",
+            },
+            actions: {
+              addCondition: "Add condition",
+            },
+          },
+          ruleConditionBuilder: {
+            type: {
+              label: "Condition Type",
+              placeholder: "Select condition type",
+              groups: {
+                cart_attributes: "Cart Attributes",
+                customer_attributes: "Customer Attributes",
+                product_attributes: "Product Attributes",
+              },
+              options: {
+                cart_total: "Cart Total",
+                item_count: "Item Count",
+                shipping_country: "Shipping Country",
+                customer_group: "Customer Group",
+                first_purchase: "First Purchase",
+                total_spent: "Total Spent",
+                product_quantity: "Product Quantity",
+                category: "Product Category",
+                tag: "Product Tag",
+              },
+            },
+            operator: {
+              label: "Operator",
+              placeholder: "Select operator",
+              options: {
+                greaterThan: "Greater than",
+                lessThan: "Less than",
+                equalTo: "Equal to",
+              },
+            },
+            value: {
+              label: "Value",
+              customerGroups: {
+                vip: "VIP Customers",
+                wholesale: "Wholesale",
+                new: "New Customers",
+              },
+            },
+          },
+        },
       },
     },
     coupon: {
@@ -433,10 +510,22 @@ export const campaignTranslations = {
               placeholder: "เลือกประเภทส่วนลด",
               description: "วิธีการคำนวณส่วนลด",
               options: {
-                percentage: "ส่วนลดเป็นเปอร์เซ็นต์",
-                fixed: "ส่วนลดเป็นจำนวนเงิน",
-                shipping: "ฟรีค่าจัดส่ง",
-                points: "คะแนนโบนัส",
+                percentage: {
+                  title: "ส่วนลดเป็นเปอร์เซ็นต์",
+                  description: "เสนอเปอร์เซ็นต์จากยอดสั่งซื้อรวม",
+                },
+                fixed: {
+                  title: "ส่วนลดเป็นจำนวนเงิน",
+                  description: "เสนอจำนวนเงินคงที่ของยอดสั่งซื้อรวม",
+                },
+                shipping: {
+                  title: "ฟรีค่าจัดส่ง",
+                  description: "เสนอจัดส่งฟรีสำหรับคำสั่งซื้อที่เข้าเงื่อนไข",
+                },
+                points: {
+                  title: "คะแนนโบนัส",
+                  description: "รับรางวัลคะแนนโบนัสจากการซื้อสินค้า",
+                },
               },
             },
             value: {

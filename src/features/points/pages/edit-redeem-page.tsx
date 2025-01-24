@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { RedeemForm } from "../components/redeem-form";
 import { useRedeems } from "../hooks/use-redeems";
 import { Printer } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 export function EditRedeemPage() {
+  const t = useTranslation();
   const { id } = useParams();
   const { redeems } = useRedeems();
   const [isEditing, setIsEditing] = useState(false);
@@ -32,7 +34,7 @@ export function EditRedeemPage() {
     <div className="flex items-center gap-2">
       <Button variant="outline">
         <Printer className="mr-2 h-4 w-4" />
-        Print Receipt
+        {t.redeemList.redeemList.form.actions.printReceipt}
       </Button>
       {!isEditing ? (
         <Button
@@ -40,19 +42,19 @@ export function EditRedeemPage() {
           variant="default"
           className="bg-blue-600 hover:bg-blue-700"
         >
-          Edit Redeem
+          {t.redeemList.redeemList.form.actions.editRedeem}
         </Button>
       ) : (
         <div className="flex items-center gap-2">
           <Button type="button" variant="outline" onClick={handleCancel}>
-            Cancel
+            {t.redeemList.redeemList.form.actions.cancel}
           </Button>
           <Button
             type="submit"
             disabled={!hasChanges}
             className="bg-green-600 hover:bg-green-700"
           >
-            Save Changes
+            {t.redeemList.redeemList.form.actions.save}
           </Button>
         </div>
       )}

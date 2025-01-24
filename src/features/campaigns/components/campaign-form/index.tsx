@@ -16,6 +16,9 @@ import { ClickLinkConfig } from "./sections/click-link-config";
 import { DisplaySettings } from "./sections/display-settings";
 import { Limitations } from "./sections/limitations";
 import { Gift } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/hooks";
+import { StatusSelect } from "@/components/status-select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface CampaignFormProps {
   initialData?: Campaign;
@@ -23,6 +26,7 @@ interface CampaignFormProps {
 }
 
 export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(CampaignSchema),
     defaultValues: {
@@ -59,6 +63,30 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
     }
   };
 
+  const campaignStatuses = [
+    {
+      label:
+        t.customers.customer.campaignForm.sections.basicDetails.fields.status
+          .options.draft,
+      badgeClassName: "!bg-gray-100 text-gray-700",
+      value: "draft",
+    },
+    {
+      label:
+        t.customers.customer.campaignForm.sections.basicDetails.fields.status
+          .options.active,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "active",
+    },
+    {
+      label:
+        t.customers.customer.campaignForm.sections.basicDetails.fields.status
+          .options.scheduled,
+      badgeClassName: "!bg-yellow-100 text-yellow-700",
+      value: "scheduled",
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <Form {...form}>
@@ -87,9 +115,17 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             </div>
             <div className="flex items-center gap-4">
               <Button type="button" variant="outline">
-                Discard
+                {
+                  t.customers.customer.campaignForm.sections.basicDetails
+                    .actions.discard
+                }
               </Button>
-              <Button type="submit">Save campaign</Button>
+              <Button type="submit">
+                {
+                  t.customers.customer.campaignForm.sections.basicDetails
+                    .actions.save
+                }
+              </Button>
             </div>
           </motion.div>
 
@@ -99,56 +135,87 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
           >
-            {/* Basic Details */}
-            <div className="rounded-lg border bg-main">
-              <div className="flex items-center gap-4 p-6 border-b">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
-                  <Gift className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-medium">Basic Details</h2>
-                  <p className="text-sm text-muted-foreground">
-                    Configure the campaign's basic information
-                  </p>
-                </div>
+            <Tabs defaultValue="basic-details" className="w-full">
+              <div className="flex items-center justify-between mb-6">
+                <TabsList>
+                  <TabsTrigger value="basic-details">
+                    {
+                      t.customers.customer.campaignForm.sections.basicDetails
+                        .title
+                    }
+                  </TabsTrigger>
+                </TabsList>
+                <StatusSelect
+                  form={form}
+                  options={campaignStatuses}
+                  placeholder={
+                    t.customers.customer.campaignForm.sections.basicDetails
+                      .fields.status.placeholder
+                  }
+                />
               </div>
-              <div className="p-6">
-                <BasicDetails form={form} />
-              </div>
-            </div>
 
-            {/* Show relevant sections based on template type */}
-            {form.watch("type") === "points_multiplier" ? (
-              <>
-                <PointsConfig form={form} />
-                <ProductRules form={form} />
-                <Conditions form={form} />
-              </>
-            ) : form.watch("qrEnabled") ? (
-              <>
-                <QrCodeConfig form={form} />
-                <ProductRules form={form} />
-                <Conditions form={form} />
-              </>
-            ) : form.watch("clickLinkEnabled") ? (
-              <>
-                <ClickLinkConfig form={form} />
-                <ProductRules form={form} />
-                <Conditions form={form} />
-              </>
-            ) : (
-              <>
-                <PointsConfig form={form} />
-                <ProductRules form={form} />
-                <Conditions form={form} />
-              </>
-            )}
+              {/* Basic Details */}
+              <TabsContent value="basic-details" className="space-y-8">
+                <div className="rounded-lg border bg-main">
+                  <div className="flex items-center gap-4 p-6 border-b">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
+                      <Gift className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-medium">
+                        {
+                          t.customers.customer.campaignForm.sections
+                            .basicDetails.title
+                        }
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        {
+                          t.customers.customer.campaignForm.sections
+                            .basicDetails.description
+                        }
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <BasicDetails form={form} />
+                  </div>
+                </div>
 
-            {/* Display Settings Section */}
-            {/* <DisplaySettings form={form} /> */}
+                {/* Show relevant sections based on template type */}
+                {form.watch("type") === "points_multiplier" ? (
+                  <>
+                    <PointsConfig form={form} />
+                    <ProductRules form={form} />
+                    <Conditions form={form} />
+                  </>
+                ) : form.watch("qrEnabled") ? (
+                  <>
+                    <QrCodeConfig form={form} />
+                    <ProductRules form={form} />
+                    <Conditions form={form} />
+                  </>
+                ) : form.watch("clickLinkEnabled") ? (
+                  <>
+                    <ClickLinkConfig form={form} />
+                    <ProductRules form={form} />
+                    <Conditions form={form} />
+                  </>
+                ) : (
+                  <>
+                    <PointsConfig form={form} />
+                    <ProductRules form={form} />
+                    <Conditions form={form} />
+                  </>
+                )}
 
-            {/* Limitations Section */}
-            {/* <Limitations form={form} /> */}
+                {/* Display Settings Section */}
+                {/* <DisplaySettings form={form} /> */}
+
+                {/* Limitations Section */}
+                {/* <Limitations form={form} /> */}
+              </TabsContent>
+            </Tabs>
           </motion.div>
         </motion.form>
       </Form>

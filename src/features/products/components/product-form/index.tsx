@@ -42,6 +42,7 @@ import { Product } from "@/types/product";
 import { Badge } from "@/components/ui/badge";
 import { Gift } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { StatusSelect } from "@/components/status-select";
 
 interface ProductFormProps {
   initialData?: Partial<Product>;
@@ -148,6 +149,24 @@ export function ProductForm({
     }
   };
 
+  const productStatuses = [
+    {
+      label: t.products.products.status.draft,
+      badgeClassName: "!bg-gray-100 text-gray-700",
+      value: "draft",
+    },
+    {
+      label: t.products.products.status.active,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "active",
+    },
+    {
+      label: t.products.products.status.archived,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "archived",
+    },
+  ];
+
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -168,7 +187,7 @@ export function ProductForm({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col w-full gap-4 md:flex-row md:items-center">
               {/* Left Section: Image and Title */}
               <div className="flex items-center flex-1 min-w-0">
                 {/* Image Placeholder */}
@@ -249,7 +268,7 @@ export function ProductForm({
                                 )}
                               />
                             </span>
-                            <span className="font-medium capitalize">
+                            <span className="capitalize">
                               {t.products.products.status[initialData.status]}
                             </span>
                           </Badge>
@@ -323,21 +342,31 @@ export function ProductForm({
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
-                  <TabsList className="mb-6">
-                    {isEventProduct && (
-                      <TabsTrigger value="event-summary">
-                        {t.products.products.form.tabs.eventSummary}
+                  <div className="flex items-center justify-between mb-6">
+                    <TabsList>
+                      {isEventProduct && (
+                        <TabsTrigger value="event-summary">
+                          {t.products.products.form.tabs.eventSummary}
+                        </TabsTrigger>
+                      )}
+                      <TabsTrigger value="item-info">
+                        {t.products.products.form.tabs.itemInfo}
                       </TabsTrigger>
-                    )}
-                    <TabsTrigger value="item-info">
-                      {t.products.products.form.tabs.itemInfo}
-                    </TabsTrigger>
-                    {isEventProduct && (
-                      <TabsTrigger value="attendees">
-                        {t.products.products.form.tabs.attendees}
-                      </TabsTrigger>
-                    )}
-                  </TabsList>
+                      {isEventProduct && (
+                        <TabsTrigger value="attendees">
+                          {t.products.products.form.tabs.attendees}
+                        </TabsTrigger>
+                      )}
+                    </TabsList>
+                    <StatusSelect
+                      form={form}
+                      options={productStatuses}
+                      placeholder={
+                        t.products.products.form.sections.organization
+                          .selectStatus
+                      }
+                    />
+                  </div>
                   {isEventProduct && (
                     <TabsContent value="event-summary" className="space-y-8">
                       <EventSummary form={form} />

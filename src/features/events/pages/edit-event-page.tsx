@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ItemActionsModal } from "@/features/products/components/product-form/modals/item-actions-modal";
 import { toast } from "sonner";
 import { ProductForm } from "@/features/products/components/product-form";
+import Loading from "@/components/loading";
 
 export function EditEventPage() {
   const { id } = useParams();
@@ -17,7 +18,11 @@ export function EditEventPage() {
   const [showActions, setShowActions] = useState(false);
 
   if (isLoading) {
-    return <div className="pt-14">Loading...</div>;
+    return (
+      <div className="pt-14">
+        <Loading />
+      </div>
+    );
   }
 
   if (!eventProduct) {

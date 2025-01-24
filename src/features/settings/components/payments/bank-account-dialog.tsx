@@ -207,9 +207,11 @@ export function BankAccountDialog({
                   variant="outline"
                   onClick={() => onOpenChange(false)}
                 >
-                  Cancel
+                  {t.settings.payments.bankTransfer.accountDetails.cancel}
                 </Button>
-                <Button type="submit">Add Account</Button>
+                <Button type="submit">
+                  {t.settings.payments.bankTransfer.accountDetails.addAccount}
+                </Button>
               </div>
             </form>
           </Form>
