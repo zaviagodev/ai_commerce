@@ -377,7 +377,7 @@ export function ProductForm({
                     <TabsContent value="event-summary" className="space-y-8">
                       <EventSummary form={form as any} />
                     </TabsContent>
-                  )} */}
+                  )}
                   <TabsContent value="item-info" className="space-y-8">
                     {/* Media Section */}
                     <Card>
