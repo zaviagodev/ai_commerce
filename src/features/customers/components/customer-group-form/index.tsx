@@ -130,7 +130,7 @@ export function CustomerGroupForm({
                           <Users className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.customers.customer.group.sections.basicDetails
                                 .title
@@ -156,7 +156,7 @@ export function CustomerGroupForm({
                           <Users className="h-5 w-5 text-purple-600" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.customers.customer.group.sections.members.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
@@ -179,7 +179,7 @@ export function CustomerGroupForm({
                             <Users className="h-5 w-5 text-green-600" />
                           </div>
                           <div>
-                            <h2 className="text-lg font-medium">Automation</h2>
+                            <h2 className="text-lg font-semibold">Automation</h2>
                             <p className="text-sm text-muted-foreground">
                               Set up automatic group assignment rules
                             </p>

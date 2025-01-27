@@ -87,7 +87,7 @@ export function DiscountRules({ form }: DiscountRulesProps) {
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-medium">
+            <h2 className="text-lg font-semibold">
               {t.campaigns.campaign.coupon.sections.discountRules.title}
             </h2>
             {/* <TemplateModal

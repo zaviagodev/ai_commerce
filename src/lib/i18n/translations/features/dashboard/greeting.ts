@@ -8,7 +8,7 @@ export const greeting = {
     friday: ["🎉", "🎊", "🎈", "🥳"],
     saturday: ["🌞", "🏖️", "🎮", "🎸"],
     sunday: ["🌅", "🧘", "🎵", "🌺"],
-    greeting: "Hello, {name}",
+    greeting: ", {name}",
     subtitle: "Here's what's happening with your store today",
   },
   th: {
@@ -19,7 +19,7 @@ export const greeting = {
     friday: ["🎉", "🎊", "🎈", "🥳"],
     saturday: ["🌞", "🏖️", "🎮", "🎸"],
     sunday: ["🌅", "🧘", "🎵", "🌺"],
-    greeting: "สวัสดี, {name}",
+    greeting: ", {name}",
     subtitle: "นี่คือสิ่งที่เกิดขึ้นกับร้านค้าของคุณวันนี้",
   },
 };

@@ -85,7 +85,7 @@ export function CustomerGroupsPage() {
         </Button>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export function CustomerGroupsPage() {
           onChange={setSearchQuery}
           placeholder={t.customers.customer.group.list.search}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -129,7 +129,7 @@ export function CustomerGroupsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.customers.customer.group.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">

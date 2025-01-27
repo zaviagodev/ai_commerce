@@ -88,7 +88,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         </Button>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
           onChange={setSearchQuery}
           placeholder={t.redeemList.redeemList.list.search}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -132,7 +132,7 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.redeemList.redeemList.list.table.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">

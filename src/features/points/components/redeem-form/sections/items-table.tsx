@@ -29,7 +29,7 @@ export function ItemsTable({ form }: ItemsTableProps) {
           <Package className="h-5 w-5 text-purple-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Redeemed Items</h2>
+          <h2 className="text-lg font-semibold">Redeemed Items</h2>
           <p className="text-sm text-muted-foreground">
             Items being redeemed in this transaction
           </p>

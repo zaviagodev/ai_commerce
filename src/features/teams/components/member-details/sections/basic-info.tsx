@@ -18,7 +18,7 @@ export function BasicInfo({ member }: BasicInfoProps) {
           <Users2 className="h-5 w-5 text-blue-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.teams.members.basicInfo.title}
           </h2>
           <p className="text-sm text-muted-foreground">

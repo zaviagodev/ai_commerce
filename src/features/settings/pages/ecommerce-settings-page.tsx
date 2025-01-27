@@ -65,7 +65,7 @@ export function EcommerceSettingsPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-medium">
+            <h2 className="text-lg font-semibold">
               {t.settings.ecommerce.title}
             </h2>
             <p className="text-sm text-muted-foreground">

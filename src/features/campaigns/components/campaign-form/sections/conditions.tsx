@@ -28,7 +28,7 @@ export function Conditions({ form }: ConditionsProps) {
           <Filter className="h-5 w-5 text-teal-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.customers.customer.campaignForm.sections.conditions.title}
           </h2>
           <p className="text-sm text-muted-foreground">

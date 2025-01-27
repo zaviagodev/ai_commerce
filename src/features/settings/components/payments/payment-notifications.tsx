@@ -29,7 +29,7 @@ export function PaymentNotifications({ form }: PaymentNotificationsProps) {
           <Bell className="h-5 w-5 text-orange-600" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-semibold">
             {t.settings.payments.notifications.title}
           </h3>
           <p className="text-sm text-muted-foreground">

@@ -23,7 +23,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           <User className="h-5 w-5 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Customer Details</h2>
+          <h2 className="text-lg font-semibold">Customer Details</h2>
           <p className="text-sm text-muted-foreground">
             Customer information for this redeem
           </p>

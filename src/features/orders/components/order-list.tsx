@@ -129,11 +129,11 @@ export function OrderList({
           onStatusChange={setSelectedStatus}
           counts={statusCounts}
         />
-        <ProductSearch
+        {/* <ProductSearch
           value={searchQuery}
           onChange={setSearchQuery}
           placeholder={t.orders.orders.list.search}
-        />
+        /> */}
       </motion.div>
 
       <motion.div
@@ -160,7 +160,7 @@ export function OrderList({
               <TableRow>
                 <TableCell colSpan={6} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.orders.orders.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">

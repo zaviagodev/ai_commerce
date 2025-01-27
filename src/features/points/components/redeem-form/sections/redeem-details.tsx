@@ -30,7 +30,7 @@ export function RedeemDetails({ form }: RedeemDetailsProps) {
           <Ticket className="h-5 w-5 text-green-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">Redeem Details</h2>
+          <h2 className="text-lg font-semibold">Redeem Details</h2>
           <p className="text-sm text-muted-foreground">
             Configure redeem-specific information
           </p>

@@ -41,6 +41,7 @@ import { RewardDetails } from "./sections/reward-details";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { StatusSelect } from "@/components/status-select";
 import { z } from "zod";
+import { EventDetails } from "@/features/events/components/event-form/sections/event-details";
 
 type ProductFormData = z.infer<typeof ProductSchema>;
 
@@ -386,7 +387,7 @@ export function ProductForm({
                           <ImagePlus className="h-5 w-5 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
@@ -409,7 +410,7 @@ export function ProductForm({
                           <ClipboardEdit className="h-5 w-5 text-green-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.products.products.form.sections.basicDetails
                                 .title
@@ -443,7 +444,7 @@ export function ProductForm({
                           <DollarSign className="h-5 w-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Pricing</h2>
+                          <h2 className="text-lg font-semibold">Pricing</h2>
                           <p className="text-sm text-muted-foreground">
                             {
                               t.products.products.form.sections.pricing
@@ -463,7 +464,7 @@ export function ProductForm({
                           <BarChart3 className="h-5 w-5 text-pink-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
@@ -489,7 +490,7 @@ export function ProductForm({
                           <Truck className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Shipping</h2>
+                          <h2 className="text-lg font-semibold">Shipping</h2>
                           <p className="text-sm text-muted-foreground">
                             Set up shipping details
                           </p>
@@ -507,7 +508,7 @@ export function ProductForm({
                           <Tags className="h-5 w-5 text-teal-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.products.products.form.sections.organization
                                 .title
@@ -533,7 +534,7 @@ export function ProductForm({
                           <Share2 className="h-5 w-5 text-indigo-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.salesChannels.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">

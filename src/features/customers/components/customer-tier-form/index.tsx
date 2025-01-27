@@ -135,7 +135,7 @@ export function CustomerTierForm({
                           <Crown className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.customers.customer.tier.sections.basicDetails
                                 .title
@@ -161,7 +161,7 @@ export function CustomerTierForm({
                           <Crown className="h-5 w-5 text-purple-600" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.customers.customer.tier.sections.requirements
                                 .title
@@ -187,7 +187,7 @@ export function CustomerTierForm({
                           <Crown className="h-5 w-5 text-green-600" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.customers.customer.tier.sections.benefits.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">

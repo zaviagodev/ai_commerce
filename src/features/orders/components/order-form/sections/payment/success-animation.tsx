@@ -138,7 +138,7 @@ export function SuccessAnimation({
         animate="visible"
       >
         <h3
-          className={`text-lg font-medium mb-1 ${
+          className={`text-lg font-semibold mb-1 ${
             isCancelled ? "text-red-500" : isShipped ? "text-main" : "text-main"
           }`}
         >

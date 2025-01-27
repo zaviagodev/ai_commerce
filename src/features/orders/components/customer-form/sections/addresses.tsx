@@ -31,7 +31,7 @@ export function Addresses({ form }: AddressesProps) {
           <MapPin className="h-5 w-5 text-blue-600" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">Shipping Address</h3>
+          <h3 className="text-lg font-semibold">Shipping Address</h3>
           <p className="text-sm text-muted-foreground">
             Add shipping address for this customer
           </p>

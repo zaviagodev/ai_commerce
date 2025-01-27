@@ -18,7 +18,7 @@ export function ShippingSettings({ form }: ShippingSettingsProps) {
           <Truck className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-semibold">
             {t.settings.ecommerce.shipping.title}
           </h3>
           <p className="text-sm text-muted-foreground">

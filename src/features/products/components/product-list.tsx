@@ -173,7 +173,7 @@ export function ProductList({
       </motion.div>
 
       {/* Table Controls */}
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -209,7 +209,7 @@ export function ProductList({
             onValueChange={setSortValue}
           />
         </div>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -245,7 +245,7 @@ export function ProductList({
               <TableRow>
                 <TableCell colSpan={6} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.products.products.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">
