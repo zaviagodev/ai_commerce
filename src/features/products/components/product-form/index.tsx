@@ -313,9 +313,9 @@ export function ProductForm({
                 className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
-                {headerActions}
-                <div className="mx-2 h-4 w-px bg-border" />
-                <ShareModal
+                {productName && headerActions}
+                {productName && <div className="mx-2 h-4 w-px bg-border" />}
+                {/* <ShareModal
                   title={productName || `${t.products.products.form.untitled}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
@@ -325,7 +325,7 @@ export function ProductForm({
                     Share
                   </Button>
                 </ShareModal>
-                <div className="mx-2 h-4 w-px bg-border" />
+                <div className="mx-2 h-4 w-px bg-border" /> */}
                 <Button
                   type="submit"
                   onClick={(e) => {
