@@ -108,7 +108,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone (optional)</FormLabel>
+                      <FormLabel>Phone</FormLabel>
                       <FormControl>
                         <Input type="tel" {...field} className="bg-main" />
                       </FormControl>
@@ -141,7 +141,7 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
                   name="address2"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Apartment, suite, etc. (optional)</FormLabel>
+                      <FormLabel>Apartment, suite, etc.</FormLabel>
                       <FormControl>
                         <Input {...field} className="bg-main" />
                       </FormControl>

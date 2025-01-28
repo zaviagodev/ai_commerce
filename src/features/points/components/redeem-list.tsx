@@ -15,11 +15,11 @@ import { Redeem } from "@/types/redeem";
 import { DataTablePagination } from "@/components/ui/data-table/pagination";
 import { usePagination } from "@/hooks/use-pagination";
 import { cn, formatDate } from "@/lib/utils";
-import { RedeemCodeModal } from "./redeem-code-modal";
 import { useMemo, useState } from "react";
 import Loading from "@/components/loading";
 import { ProductSearch } from "@/features/products/components/product-search";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { ScanModal } from "@/components/scan-modal";
 
 interface RedeemListProps {
   redeems: Redeem[];
@@ -219,7 +219,23 @@ export function RedeemList({ redeems, isLoading }: RedeemListProps) {
         </motion.div>
       </motion.div>
 
-      <RedeemCodeModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+      <ScanModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={(f) => {
+          return new Promise(() => console.log("ok"));
+        }}
+        onResult={() => {}}
+        formFields={[
+          {
+            id: "ticket",
+            label: "Ticket",
+            placeholder: "Enter code",
+            type: "text",
+          },
+        ]}
+        title="Redeem Code"
+      />
     </div>
   );
 }

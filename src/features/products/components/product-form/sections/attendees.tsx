@@ -16,11 +16,13 @@ import { DataTablePagination } from "@/components/ui/data-table/pagination";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { QrCode } from "lucide-react";
-import { TicketScanModal } from "./ticket-scanning/ticket-scan-modal";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { OrderService } from "@/features/orders/services/order-service";
 import { Order } from "@/types/order";
 import { format } from "date-fns";
+import { ScanModal } from "@/components/scan-modal";
+import { TicketService } from "@/features/tickets/services/ticket-service";
+import { ScanResultData } from "@/types/events";
 
 interface AttendeesProps {
   form: UseFormReturn<Product>;
@@ -33,6 +35,34 @@ export function Attendees({ form }: AttendeesProps) {
   const [showScanModal, setShowScanModal] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleSubmit = async (e: Record<string, string>) => {
+    const ticketCode = e.ticketCode;
+    if (!ticketCode.trim()) return;
+
+    const result = await TicketService.scanTicketByCode(ticketCode);
+
+    // Transform the data to match our UI format
+    const transformedResult: ScanResultData = {
+      ticketNumber: result.ticket.code,
+      attendeeName: result.order.customerName,
+      email: result.order.customerEmail,
+      ticketType: result.order.items[0]?.variantName || "Unknown",
+      status: result.ticket.status === "unused" ? "valid" : "used",
+      groupId: result.order.id,
+      groupTickets: result.groupTickets?.map((ticket) => ({
+        ticketNumber: ticket.id,
+        attendeeName: ticket.metadata.attendeeName,
+        code: ticket.code,
+        ticketType:
+          result.order.items.find((item) => item.id === ticket.orderItemId)
+            ?.variantName || "Unknown",
+        status: ticket.status === "unused" ? "valid" : "used",
+      })),
+    };
+
+    return transformedResult;
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -222,7 +252,21 @@ export function Attendees({ form }: AttendeesProps) {
         </div>
       </CardContent>
 
-      <TicketScanModal open={showScanModal} onOpenChange={setShowScanModal} />
+      <ScanModal
+        open={showScanModal}
+        onOpenChange={setShowScanModal}
+        onSubmit={(data) => handleSubmit(data)}
+        onResult={() => {}}
+        formFields={[
+          {
+            id: "ticketCode",
+            label: "Ticket code",
+            placeholder: "Enter ticket code",
+            type: "text",
+          },
+        ]}
+        title="Scan Ticket"
+      />
     </Card>
   );
 }

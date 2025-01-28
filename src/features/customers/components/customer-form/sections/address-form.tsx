@@ -233,59 +233,59 @@ export function AddressForm({
             )}
           />
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.city
+                      .label
+                  }
+                  <span className="text-destructive"> *</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={
                       t.customers.customer.form.sections.addresses.fields.city
-                        .label
+                        .placeholder
                     }
-                    <span className="text-destructive"> *</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={
-                        t.customers.customer.form.sections.addresses.fields.city
-                          .placeholder
-                      }
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="state"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {
+          <FormField
+            control={form.control}
+            name="state"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {
+                    t.customers.customer.form.sections.addresses.fields.state
+                      .label
+                  }
+                  <span className="text-destructive"> *</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={
                       t.customers.customer.form.sections.addresses.fields.state
-                        .label
+                        .placeholder
                     }
-                    <span className="text-destructive"> *</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={
-                        t.customers.customer.form.sections.addresses.fields
-                          .state.placeholder
-                      }
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
+          <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               control={form.control}
               name="postalCode"
@@ -311,44 +311,44 @@ export function AddressForm({
                 </FormItem>
               )}
             />
-          </div>
 
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {
-                    t.customers.customer.form.sections.addresses.fields.country
-                      .label
-                  }
-                  <span className="text-destructive"> *</span>
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={
-                          t.customers.customer.form.sections.addresses.fields
-                            .country.placeholder
-                        }
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {COUNTRY_CHOICE.map((choice) => (
-                      <SelectItem value={choice}>{choice}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {
+                      t.customers.customer.form.sections.addresses.fields
+                        .country.label
+                    }
+                    <span className="text-destructive"> *</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          placeholder={
+                            t.customers.customer.form.sections.addresses.fields
+                              .country.placeholder
+                          }
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {COUNTRY_CHOICE.map((choice) => (
+                        <SelectItem value={choice}>{choice}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}

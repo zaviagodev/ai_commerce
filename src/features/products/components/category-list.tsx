@@ -25,6 +25,7 @@ import { useTranslation } from "@/lib/i18n/hooks";
 import { ProductSearch } from "./product-search";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { DeleteConfirmModal } from "@/components/delete-confirm-modal";
 
 interface CategoryListProps {
   categories: ProductCategory[];
@@ -48,6 +49,7 @@ export function CategoryList({
     pageCount,
   } = usePagination();
 
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const filteredCategories = useMemo(() => {
     let filtered = categories;
@@ -156,50 +158,60 @@ export function CategoryList({
               </TableRow>
             ) : (
               paginatedCategories.map((category) => (
-                <TableRow
-                  key={category.id}
-                  className="cursor-pointer"
-                  onClick={() =>
-                    navigate(`/dashboard/categories/${category.id}`)
-                  }
-                >
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
-                        <Folder className="h-5 w-5 text-blue-600" />
+                <>
+                  <TableRow
+                    key={category.id}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(`/dashboard/categories/${category.id}`)
+                    }
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <Folder className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="font-medium hover:underline">
+                          {category.name}
+                        </div>
                       </div>
-                      <div className="font-medium hover:underline">
-                        {category.name}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{category.slug}</TableCell>
-                  <TableCell className="max-w-[300px] truncate">
-                    {category.description}
-                  </TableCell>
-                  <TableCell onClick={(e) => e.stopPropagation()}>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild>
-                          <Link to={`/dashboard/categories/${category.id}`}>
-                            {t.products.products.categories.actions.edit}
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="text-destructive"
-                          onClick={() => onDelete(category.id)}
-                        >
-                          {t.products.products.categories.actions.delete}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
+                    </TableCell>
+                    <TableCell>{category.slug}</TableCell>
+                    <TableCell className="max-w-[300px] truncate">
+                      {category.description}
+                    </TableCell>
+                    <TableCell onClick={(e) => e.stopPropagation()}>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem asChild>
+                            <Link to={`/dashboard/categories/${category.id}`}>
+                              {t.products.products.categories.actions.edit}
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => setShowDeleteConfirm(true)}
+                          >
+                            {t.products.products.categories.actions.delete}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+
+                  <DeleteConfirmModal
+                    open={showDeleteConfirm}
+                    onOpenChange={setShowDeleteConfirm}
+                    onConfirm={() => onDelete(category.id)}
+                    itemName={category.name || ""}
+                    title={t.products.categories.list.modals.delete}
+                  />
+                </>
               ))
             )}
           </TableBody>

@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreVertical, Pencil, Copy, Trash2 } from "lucide-react";
 import { Product } from "@/types/product";
-import { DeleteConfirmModal } from "./product-form/modals/delete-confirm-modal";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { DeleteConfirmModal } from "@/components/delete-confirm-modal";
 
 interface ProductActionsMenuProps {
   product: Product;

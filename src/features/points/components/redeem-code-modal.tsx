@@ -13,6 +13,7 @@ import { QrCode, Barcode, Keyboard, User, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { ScanResult } from "@/types/redeem";
 
 interface RedeemCodeModalProps {
   open: boolean;
@@ -20,12 +21,6 @@ interface RedeemCodeModalProps {
 }
 
 type InputMethod = "manual" | "qr" | "barcode";
-
-interface ScanResult {
-  code: string;
-  customerName: string;
-  pointsToRedeem: number;
-}
 
 export function RedeemCodeModal({ open, onOpenChange }: RedeemCodeModalProps) {
   const [inputMethod, setInputMethod] = useState<InputMethod>("manual");

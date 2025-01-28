@@ -65,7 +65,7 @@ export const customersTranslations = {
               placeholder: "Doe",
             },
             company: {
-              label: "Company (optional)",
+              label: "Company",
               placeholder: "Company",
             },
             address1: {
@@ -74,7 +74,7 @@ export const customersTranslations = {
             },
             address2: {
               label: "Address Line 2",
-              placeholder: "Apartment, suite, etc. (optional)",
+              placeholder: "Apartment, suite, etc.",
             },
             city: {
               label: "City",
@@ -94,7 +94,7 @@ export const customersTranslations = {
             },
             phone: {
               label: "Phone",
-              placeholder: "Phone number (optional)",
+              placeholder: "Phone number",
             },
             isDefault: {
               label: "Set as default address",
@@ -164,7 +164,7 @@ export const customersTranslations = {
           placeholder: "Doe",
         },
         company: {
-          label: "Company (optional)",
+          label: "Company",
           placeholder: "Company",
         },
         email: {
@@ -177,7 +177,7 @@ export const customersTranslations = {
         },
         phone: {
           label: "Phone",
-          placeholder: "+1234567890",
+          placeholder: "0812345678",
         },
         loyaltyPoints: {
           label: "Loyalty Points",
@@ -311,6 +311,9 @@ export const customersTranslations = {
           inactive: "Inactive",
         },
         search: "Search customer groups...",
+        modals: {
+          delete: "Delete Customer Group",
+        },
       },
       errors: {
         notFound: "Group not found",
@@ -502,6 +505,7 @@ export const customersTranslations = {
           active: "Active",
           scheduled: "Scheduled",
           ended: "Ended",
+          draft: "Draft",
         },
         duration: {
           to: "to",
@@ -786,7 +790,7 @@ export const customersTranslations = {
               placeholder: "โด",
             },
             company: {
-              label: "บริษัท (ไม่บังคับ)",
+              label: "บริษัท",
               placeholder: "บริษัท",
             },
             address1: {
@@ -795,7 +799,7 @@ export const customersTranslations = {
             },
             address2: {
               label: "ที่อยู่บรรทัดที่ 2",
-              placeholder: "อพาร์ทเมนต์, ห้องชุด, ฯลฯ (ไม่บังคับ)",
+              placeholder: "อพาร์ทเมนต์, ห้องชุด, ฯลฯ",
             },
             city: {
               label: "เมือง",
@@ -814,7 +818,7 @@ export const customersTranslations = {
               placeholder: "เลือกประเทศ",
             },
             phone: {
-              label: "เบอร์โทรศัพท์ (ไม่บังคับ)",
+              label: "เบอร์โทรศัพท์",
               placeholder: "เบอร์โทรศัพท์",
             },
             isDefault: {
@@ -885,7 +889,7 @@ export const customersTranslations = {
           placeholder: "โด",
         },
         company: {
-          label: "บริษัท (ไม่บังคับ)",
+          label: "บริษัท",
           placeholder: "บริษัท",
         },
         email: {
@@ -898,7 +902,7 @@ export const customersTranslations = {
         },
         phone: {
           label: "เบอร์โทรศัพท์",
-          placeholder: "+1234567890",
+          placeholder: "0812345678",
         },
         loyaltyPoints: {
           label: "คะแนนสะสม",
@@ -1033,6 +1037,9 @@ export const customersTranslations = {
           inactive: "ปิดใช้งาน",
         },
         search: "ค้นหากลุ่มลูกค้า...",
+        modals: {
+          delete: "ลบกลุ่มลูกค้า",
+        },
       },
       errors: {
         notFound: "ไม่พบกลุ่ม",
@@ -1224,6 +1231,7 @@ export const customersTranslations = {
           active: "เปิดใช้งาน",
           scheduled: "กำหนดเวลา",
           ended: "สิ้นสุด",
+          draft: "แบบร่าง",
         },
         duration: {
           to: "ถึง",
