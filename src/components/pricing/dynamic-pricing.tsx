@@ -92,7 +92,8 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
       price: finalPrice,
       compareAtPrice: isDiscountEnabled ? price : undefined,
     });
-  }, [price, isDiscountEnabled, finalPrice, onChange]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDiscountEnabled, finalPrice]);
 
   return (
     <div className="space-y-6">

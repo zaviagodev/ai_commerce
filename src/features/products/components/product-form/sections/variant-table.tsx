@@ -78,7 +78,8 @@ export function VariantTable({ form }: VariantTableProps) {
       return paginateItems(groupedVariants);
     }
     return paginateItems(variants);
-  }, [groupedVariants, variants, paginateItems]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groupedVariants, variants]);
 
   const toggleGroup = (attribute: string) => {
     const newExpanded = new Set(expandedGroups);
