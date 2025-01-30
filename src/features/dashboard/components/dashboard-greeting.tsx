@@ -27,6 +27,7 @@ export function DashboardGreeting() {
       <div className="flex items-end gap-3 -mx-6 py-3 px-6 sticky top-0 z-10 pt-14">
         <HelloSvg />
         <span className="text-2xl font-semibold tracking-tight translate-y-1">
+          {t.dashboard.greeting.days[dayName as any]}
           {t.dashboard.greeting.greeting.replace("{name}", firstName)}{" "}
           {randomEmoji}
         </span>

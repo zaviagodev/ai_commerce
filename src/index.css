@@ -269,6 +269,10 @@ body {
   }
 }
 
+.font-mono {
+  font-family: ui-monospace, monospace, "SF Pro Display";
+}
+
 /* Custom styles for specific components */
 .sticky.top-0,
 .sticky.top-0 > div {

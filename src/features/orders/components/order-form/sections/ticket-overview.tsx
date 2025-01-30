@@ -80,7 +80,10 @@ export function TicketOverview({
                 : "bg-gray-500";
     return (
       <Badge
-        className={cn("flex items-center gap-1.5 shadow-none", badgeClassName)}
+        className={cn(
+          "flex items-center gap-1.5 shadow-none w-max",
+          badgeClassName,
+        )}
       >
         <span className="relative flex h-2 w-2">
           <span
@@ -116,7 +119,7 @@ export function TicketOverview({
           </div>
           <div>
             <div
-              className={`relative flex items-center ${order.status === "cancelled" || order.status === "delivered" ? "justify-end" : "justify-between"} w-[240px] h-8`}
+              className={`relative flex items-center ${order.status === "cancelled" || order.status === "delivered" ? "justify-end" : "justify-between"} w-full h-8`}
             >
               {/* Current Status */}
               <div className="relative z-10">
@@ -132,7 +135,7 @@ export function TicketOverview({
               {nextStatus && (
                 <>
                   {/* Connecting Line */}
-                  <div className="absolute left-[calc(25%+24px)] right-[calc(25%+24px)] top-1/2 h-[2px] -translate-y-1/2">
+                  <div className="h-[2px] w-16 flex justify-center">
                     <div className="relative h-full">
                       {/* Background line */}
                       <div className="absolute inset-0 bg-blue-100" />
@@ -150,7 +153,7 @@ export function TicketOverview({
                     </div>
 
                     {/* Chevron Icon */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-full border p-1 border-blue-200">
+                    <div className="absolute top-1/2 -translate-y-1/2 bg-background rounded-full border p-1 border-blue-200">
                       <ChevronRight className="h-2.5 w-2.5 text-blue-400 animate-pulse" />
                     </div>
                   </div>
@@ -159,7 +162,7 @@ export function TicketOverview({
                   <div className="relative z-10">
                     <Badge
                       variant="secondary"
-                      className="flex items-center gap-1.5 bg-gray-100/50 text-gray-400"
+                      className="flex items-center gap-1.5 bg-gray-100 text-gray-400 w-max"
                     >
                       <span className="relative flex h-2 w-2">
                         <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300/50" />

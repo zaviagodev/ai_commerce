@@ -8,12 +8,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Customer } from "@/types/customer";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Customer>;
 }
 
 export function BasicDetails({ form }: BasicDetailsProps) {
+  const t = useTranslation();
   return (
     <div className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
