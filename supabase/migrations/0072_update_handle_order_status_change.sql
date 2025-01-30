@@ -1,112 +1,4 @@
--- Create set_updated_at function if it doesn't exist
-CREATE OR REPLACE FUNCTION public.set_updated_at()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = timezone('utc'::text, now());
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Create tickets table
-CREATE TABLE IF NOT EXISTS tickets (
-    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-    order_id uuid REFERENCES public.orders(id) ON DELETE CASCADE,
-    order_item_id uuid REFERENCES public.order_items(id) ON DELETE CASCADE,
-    code text NOT NULL UNIQUE,
-    status text NOT NULL CHECK (status IN ('unused', 'used')),
-    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
-    created_at timestamp WITH time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
-    updated_at timestamp WITH time zone DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- Add RLS policies
-ALTER TABLE public.tickets ENABLE ROW LEVEL SECURITY;
-
--- Store staff can view tickets for their store
-CREATE POLICY "Store staff can view tickets for their store"
-    ON public.tickets FOR SELECT
-    TO authenticated
-    USING (
-        EXISTS (
-            SELECT 1 FROM orders o
-            JOIN profiles p ON p.store_name = o.store_name
-            WHERE o.id = tickets.order_id
-            AND p.id = auth.uid()
-        )
-    );
-
--- Customers can view their own tickets
-CREATE POLICY "Customers can view their own tickets"
-    ON public.tickets FOR SELECT
-    TO authenticated
-    USING (
-        EXISTS (
-            SELECT 1 FROM orders o
-            JOIN customers c ON c.id = o.customer_id
-            WHERE o.id = tickets.order_id
-            AND c.auth_id = auth.uid()
-        )
-    );
-
--- Only store staff can insert tickets
-CREATE POLICY "Store staff can insert tickets"
-    ON public.tickets FOR INSERT
-    TO authenticated
-    WITH CHECK (
-        EXISTS (
-            SELECT 1 FROM orders o
-            JOIN profiles p ON p.store_name = o.store_name
-            WHERE o.id = order_id
-            AND p.id = auth.uid()
-        )
-    );
-
--- Only store staff can update tickets
-CREATE POLICY "Store staff can update tickets"
-    ON public.tickets FOR UPDATE
-    TO authenticated
-    USING (
-        EXISTS (
-            SELECT 1 FROM orders o
-            JOIN profiles p ON p.store_name = o.store_name
-            WHERE o.id = tickets.order_id
-            AND p.id = auth.uid()
-        )
-    );
-
--- Create index for faster lookups
-CREATE INDEX tickets_order_id_idx ON public.tickets(order_id);
-CREATE INDEX tickets_order_item_id_idx ON public.tickets(order_item_id);
-CREATE INDEX tickets_status_idx ON public.tickets(status);
-CREATE INDEX tickets_code_idx ON public.tickets(code);
-
--- Add trigger for updating updated_at timestamp
-CREATE TRIGGER set_tickets_updated_at
-    BEFORE UPDATE ON public.tickets
-    FOR EACH ROW
-    EXECUTE FUNCTION public.set_updated_at();
-
--- Function to generate a unique 10-character ticket code
-CREATE OR REPLACE FUNCTION generate_ticket_code()
-RETURNS text
-LANGUAGE plpgsql
-AS $$
-DECLARE
-    chars text := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    result text := '';
-    i integer;
-    random_num integer;
-BEGIN
-    -- Generate a 10-character random code
-    FOR i IN 1..10 LOOP
-        random_num := floor(random() * length(chars) + 1);
-        result := result || substr(chars, random_num, 1);
-    END LOOP;
-    RETURN result;
-END;
-$$;
-
--- Function to create tickets when order status changes to processing
+-- Update handle_order_status_change function to handle loyalty points redemption
 CREATE OR REPLACE FUNCTION handle_order_status_change()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -120,6 +12,26 @@ DECLARE
 BEGIN
     -- Only proceed if status is changing to 'processing'
     IF NEW.status = 'processing' AND (OLD.status IS NULL OR OLD.status != 'processing') THEN
+        -- Handle loyalty points redemption if points were used
+        IF NEW.loyalty_points_used > 0 THEN
+            -- Insert points transaction for redemption
+            INSERT INTO points_transactions (
+                store_name,
+                customer_id,
+                order_id,
+                points,
+                type,
+                description
+            ) VALUES (
+                NEW.store_name,
+                NEW.customer_id,
+                NEW.id,
+                NEW.loyalty_points_used,
+                'redeem',
+                'Points redeemed for order #' || NEW.id
+            );
+        END IF;
+
         -- Loop through order items that are event products
         FOR item IN (
             SELECT 
@@ -210,12 +122,4 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$;
-
--- Add trigger for order status changes
-DROP TRIGGER IF EXISTS handle_order_status_change_trigger ON orders;
-DROP TRIGGER IF EXISTS order_status_change_trigger ON orders;
-CREATE TRIGGER handle_order_status_change_trigger
-    AFTER UPDATE ON orders
-    FOR EACH ROW
-    EXECUTE FUNCTION handle_order_status_change();
+$$; 

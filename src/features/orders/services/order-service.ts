@@ -27,6 +27,7 @@ export class OrderService {
             quantity,
             price,
             total,
+            points_based_price,
             product_variants (
               name,
               options,
@@ -77,14 +78,17 @@ export class OrderService {
         p_shipping: order.shipping,
         p_tax: order.tax,
         p_total: order.total,
+        p_points_discount: order.pointsDiscount,
         p_notes: order.notes,
         p_tags: order.tags,
         p_applied_coupons: order.appliedCoupons || [],
+        p_loyalty_points_used: order.loyalty_points_used || 0,
         p_items: order.items.map((item) => ({
           variant_id: item.variantId,
           quantity: item.quantity,
           price: item.price,
           total: item.total,
+          points_based_price: item.pointsBasedPrice || 0,
         })),
       });
 
@@ -118,8 +122,10 @@ export class OrderService {
           status: data.status,
           subtotal: data.subtotal,
           discount: data.discount,
+          points_discount: data.pointsDiscount,
           shipping: data.shipping,
           applied_coupons: data.appliedCoupons,
+          loyalty_points_used: data.loyalty_points_used,
           tax: data.tax,
           total: data.total,
           notes: data.notes,
@@ -153,6 +159,7 @@ export class OrderService {
                 variant_id: item.variantId,
                 quantity: item.quantity,
                 price: item.price,
+                points_based_price: item.pointsBasedPrice || 0,
                 total: item.total,
               })),
             );
@@ -230,12 +237,14 @@ export class OrderService {
         })),
         subtotal: order.subtotal,
         discount: order.discount,
+        pointsDiscount: order.points_discount,
         shipping: order.shipping,
         tax: order.tax,
         total: order.total,
         notes: order.notes,
         tags: order.tags,
         appliedCoupons: order.applied_coupons || [],
+        loyalty_points_used: order.loyalty_points_used || 0,
         createdAt: new Date(order.created_at),
         updatedAt: new Date(order.updated_at),
       }));
@@ -330,7 +339,7 @@ export class OrderService {
 
       if (error) throw error;
 
-      // Transform the materialized view data to match Order type
+      // Transform the materialized view data to match Order type for product-specific orders
       return (orders || []).map((order) => ({
         id: order.id,
         customerId: order.customer_id,
@@ -352,12 +361,14 @@ export class OrderService {
         })),
         subtotal: order.subtotal,
         discount: order.discount,
+        pointsDiscount: order.points_discount,
         shipping: order.shipping,
         tax: order.tax,
         total: order.total,
         notes: order.notes,
         tags: order.tags,
         appliedCoupons: order.applied_coupons || [],
+        loyalty_points_used: order.loyalty_points_used || 0,
         createdAt: new Date(order.created_at),
         updatedAt: new Date(order.updated_at),
       }));

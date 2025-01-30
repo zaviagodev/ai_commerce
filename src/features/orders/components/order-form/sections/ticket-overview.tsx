@@ -281,6 +281,12 @@ export function TicketOverview({
                 </div>
                 <div className="font-mono text-right">
                   {formatCurrency(item.total)}
+                  <br />
+                  {item.pointsBasedPrice > 0 && (
+                    <div className="text-green-600">
+                      {item.pointsBasedPrice * item.quantity} points
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -298,16 +304,6 @@ export function TicketOverview({
                 {formatCurrency(order.subtotal)}
               </span>
             </div>
-            {order.discount > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-destructive">
-                  {t.orders.orders.invoice.summary.discount}
-                </span>
-                <span className="font-mono text-destructive">
-                  -{formatCurrency(order.discount)}
-                </span>
-              </div>
-            )}
             {order.shipping > 0 && (
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">
@@ -316,6 +312,27 @@ export function TicketOverview({
                 <span className="font-mono">
                   {formatCurrency(order.shipping)}
                 </span>
+              </div>
+            )}
+            {order.discount > 0 && (
+              <div className="flex justify-between text-sm">
+                <span className="text-green-600">
+                  {t.orders.orders.invoice.summary.discount}
+                </span>
+                <span className="font-mono text-green-600">
+                  -{formatCurrency(order.discount)}
+                </span>
+              </div>
+            )}
+            {order.loyalty_points_used > 0 && (
+              <div className="flex justify-between text-sm text-green-600">
+                <span>Points Discount</span>
+                <div className="text-right">
+                  <div>{order.loyalty_points_used} points</div>
+                  <div className="text-xs">
+                    -{formatCurrency(order.pointsDiscount)}
+                  </div>
+                </div>
               </div>
             )}
             {order.tax > 0 && (

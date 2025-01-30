@@ -15,6 +15,7 @@ export const EcommerceSettingsSchema = z.object({
   taxCalculation: z.enum(["line_items", "total"]),
   taxInclusive: z.boolean(),
   defaultTaxRate: z.number().min(0).max(100),
+  loyaltyPointsRate: z.number().min(0),
 });
 
 export type EcommerceSettings = z.infer<typeof EcommerceSettingsSchema>;

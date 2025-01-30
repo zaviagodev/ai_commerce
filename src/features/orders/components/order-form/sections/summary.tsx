@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Calculator, Percent, DollarSign } from "lucide-react";
+import { Calculator, Percent, DollarSign, Gift } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   Select,
   SelectContent,
@@ -19,122 +19,164 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Order } from "@/types/order";
+import { Order, OrderItem } from "@/types/order";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { DiscountSettings } from "./discount-settings";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { Badge } from "@/components/ui/badge";
+import { useEcommerceSettings } from "@/features/settings/hooks/use-ecommerce-settings";
 
 interface SummaryProps {
   form: UseFormReturn<Order>;
 }
 
 export function Summary({ form }: SummaryProps) {
-  const t = useTranslation();
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
   const [isTaxEnabled, setIsTaxEnabled] = useState(false);
-  const [taxType, setTaxType] = useState<"percentage" | "value">("percentage");
-  const [taxPercentage, setTaxPercentage] = useState(0);
+  const [discountValue, setDiscountValue] = useState(0);
   const [taxValue, setTaxValue] = useState(0);
+  const [taxType, setTaxType] = useState<"value" | "percentage" | "thai-vat">(
+    "value",
+  );
   const [discountType, setDiscountType] = useState<"percentage" | "fixed">(
     "percentage",
   );
   const [discountBase, setDiscountBase] = useState<"subtotal" | "total">(
     "subtotal",
   );
-  const [discountValue, setDiscountValue] = useState(0);
-  const [calculatedDiscount, setCalculatedDiscount] = useState(0);
 
-  const items = form.watch("items") || [];
-  const subtotal = items.reduce((sum, item) => sum + item.total, 0);
-  const appliedCoupons = form.watch("appliedCoupons") || [];
-  const couponDiscount = appliedCoupons.reduce(
-    (sum, coupon) => sum + coupon.discount,
-    0,
-  );
+  const items: OrderItem[] = form.watch("items") || [];
+  const appliedCoupons: any[] = form.watch("appliedCoupons") || [];
+  const loyaltyPointsUsed = form.watch("loyalty_points_used") || 0;
   const shipping = form.watch("shipping") || 0;
-  const currentTax = form.watch("tax") || 0;
-  const currentTotal = form.watch("total") || 0;
-  const getDiscountBaseAmount = () => {
-    return discountBase === "subtotal"
-      ? subtotal
-      : subtotal + shipping + currentTax;
-  };
+  const t = useTranslation();
+  const { settings } = useEcommerceSettings();
 
-  const handleDiscountChange = (value: number) => {
-    const baseAmount = getDiscountBaseAmount();
-    const discountAmount =
-      discountType === "percentage" ? (baseAmount * value) / 100 : value;
-    setDiscountValue(value);
-    setCalculatedDiscount(discountAmount);
-  };
+  const summary = useMemo(() => {
+    const subtotal = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
 
-  const handleDiscountBaseChange = (base: "subtotal" | "total") => {
-    setDiscountBase(base);
-    // Recalculate discount based on new base amount
-    const newBaseAmount =
-      base === "subtotal" ? subtotal : subtotal + shipping + currentTax;
-    if (discountType === "percentage") {
-      const discountAmount = (newBaseAmount * discountValue) / 100;
-      setCalculatedDiscount(discountAmount);
+    // Calculate points requirements
+    let pointsRequired = 0;
+    let standardPriceTotal = 0;
+    let rewardItemMoneyRequired = 0;
+
+    items.forEach((item) => {
+      if (item.pointsBasedPrice) {
+        pointsRequired += item.pointsBasedPrice * item.quantity;
+        rewardItemMoneyRequired += item.price * item.quantity;
+      } else {
+        standardPriceTotal += item.price * item.quantity;
+      }
+    });
+
+    // Calculate coupon discount
+    const couponDiscount = appliedCoupons.reduce(
+      (sum, coupon) => sum + (coupon.discount || 0),
+      0,
+    );
+
+    // Calculate discount
+    const calculatedDiscount =
+      discountType === "percentage"
+        ? (subtotal * discountValue) / 100
+        : discountValue;
+
+    // Calculate money required after regular discounts
+    const afterDiscountTotal = Math.max(
+      0,
+      subtotal - calculatedDiscount - couponDiscount,
+    );
+    const afterDiscountStandardTotal = Math.max(
+      0,
+      standardPriceTotal * (afterDiscountTotal / subtotal),
+    );
+
+    // Calculate points discount and money required
+    let moneyRequired = afterDiscountStandardTotal;
+    let pointsDiscount = 0;
+
+    if (loyaltyPointsUsed >= pointsRequired) {
+      const remainingPoints = loyaltyPointsUsed - pointsRequired;
+      const standardPointsDiscount = Math.min(
+        afterDiscountStandardTotal,
+        remainingPoints / (settings?.loyaltyPointsRate || 100),
+      );
+      // moneyRequired = afterDiscountStandardTotal - standardPointsDiscount;
+
+      pointsDiscount = rewardItemMoneyRequired + standardPointsDiscount;
+      moneyRequired = afterDiscountTotal - pointsDiscount;
     } else {
-      // For fixed amount, keep the same value but ensure it doesn't exceed the new base
-      setCalculatedDiscount(Math.min(discountValue, newBaseAmount));
+      moneyRequired = afterDiscountTotal;
     }
-  };
 
-  // Update discount value when type changes
-  const handleDiscountTypeChange = (type: "percentage" | "fixed") => {
-    setDiscountType(type);
-    const baseAmount = getDiscountBaseAmount();
-    // Convert current discount to new type
-    if (type === "percentage") {
-      const percentage = (calculatedDiscount / baseAmount) * 100;
-      setDiscountValue(percentage);
-    } else {
-      // For fixed amount, just use the current discount amount
-      setDiscountValue(calculatedDiscount);
-    }
-  };
+    // Calculate final totals
+    const total = Number.isNaN(moneyRequired) ? 0 : moneyRequired + shipping;
 
-  // Update form values when dependencies change
-  useEffect(() => {
-    // Calculate tax
-    const calculatedTax = isTaxEnabled
-      ? taxType === "thai-vat"
-        ? (subtotal * 7) / 100
-        : taxType === "percentage"
-          ? (subtotal * taxPercentage) / 100
-          : taxValue
-      : 0;
-
-    // Calculate total
-    const calculatedTotal =
-      subtotal + shipping + calculatedTax - calculatedDiscount;
-
-    // Update form values
-    form.setValue("subtotal", subtotal);
-    form.setValue("tax", calculatedTax);
-    form.setValue("discount", calculatedDiscount);
-    form.setValue("total", calculatedTotal);
+    return {
+      subtotal,
+      pointsRequired,
+      standardPriceTotal,
+      rewardItemMoneyRequired,
+      moneyRequired,
+      pointsDiscount,
+      total,
+      couponDiscount,
+      calculatedDiscount,
+      totalDiscount: pointsDiscount + couponDiscount + calculatedDiscount,
+      isValidPointsUsage:
+        loyaltyPointsUsed >= pointsRequired || loyaltyPointsUsed === 0,
+      maxPointsAllowed:
+        pointsRequired +
+        (standardPriceTotal - calculatedDiscount) *
+          (settings?.loyaltyPointsRate || 100),
+    };
   }, [
-    form,
-    subtotal,
+    items,
+    loyaltyPointsUsed,
     shipping,
-    calculatedDiscount,
-    isTaxEnabled,
-    taxType,
-    taxPercentage,
-    taxValue,
+    appliedCoupons,
+    discountType,
+    discountValue,
+    settings,
   ]);
 
-  // Reset tax values when tax is disabled
+  const handlePointsChange = (points: number) => {
+    form.setValue("loyalty_points_used", points);
+  };
+
+  // Calculate tax
+  const taxBase = summary.subtotal - summary.calculatedDiscount + shipping;
+  const currentTax =
+    taxType === "percentage"
+      ? (taxBase * taxValue) / 100
+      : taxType === "thai-vat"
+        ? (taxBase * 7) / 100
+        : taxValue;
+
   useEffect(() => {
-    if (!isTaxEnabled) {
-      setTaxPercentage(0);
-      setTaxValue(0);
-    }
-  }, [isTaxEnabled, form]);
+    form.setValue("subtotal", summary.subtotal);
+    form.setValue(
+      "discount",
+      summary.calculatedDiscount + summary.couponDiscount,
+    );
+    form.setValue("shipping", shipping);
+    form.setValue("tax", currentTax);
+    form.setValue("total", summary.total);
+    form.setValue("pointsDiscount", summary.pointsDiscount);
+  }, [
+    form,
+    summary.subtotal,
+    summary.total,
+    summary.calculatedDiscount,
+    summary.couponDiscount,
+    summary.pointsDiscount,
+    shipping,
+    currentTax,
+  ]);
 
   return (
     <Card className="sticky top-4">
@@ -187,14 +229,14 @@ export function Summary({ form }: SummaryProps) {
                 >
                   <DiscountSettings
                     form={form}
-                    subtotal={subtotal}
-                    total={currentTotal}
+                    subtotal={summary.subtotal}
+                    total={summary.total}
                     discountType={discountType}
                     discountValue={discountValue}
                     discountBase={discountBase}
-                    onDiscountTypeChange={handleDiscountTypeChange}
-                    onDiscountValueChange={handleDiscountChange}
-                    onDiscountBaseChange={handleDiscountBaseChange}
+                    onDiscountTypeChange={setDiscountType}
+                    onDiscountValueChange={setDiscountValue}
+                    onDiscountBaseChange={setDiscountBase}
                   />
                 </div>
               </div>
@@ -234,9 +276,10 @@ export function Summary({ form }: SummaryProps) {
                 >
                   <Select
                     value={taxType}
-                    onValueChange={(value: "percentage" | "value") => {
+                    onValueChange={(
+                      value: "value" | "percentage" | "thai-vat",
+                    ) => {
                       setTaxType(value);
-                      setTaxPercentage(0);
                       setTaxValue(0);
                     }}
                   >
@@ -287,10 +330,10 @@ export function Summary({ form }: SummaryProps) {
                           step="0.01"
                           placeholder="0.00"
                           className="pr-8"
-                          value={taxPercentage || ""}
+                          value={taxValue || ""}
                           onChange={(e) => {
                             const value = Number(e.target.value);
-                            setTaxPercentage(value);
+                            setTaxValue(value);
                           }}
                         />
                         <span className="absolute right-3 top-1/2">%</span>
@@ -321,60 +364,91 @@ export function Summary({ form }: SummaryProps) {
         />
 
         {/* Final Cost Breakdown */}
-        <div className="space-y-2 rounded-lg border p-4 bg-muted/50">
-          <h3 className="font-medium mb-2">Cost Summary</h3>
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">
-              Subtotal ({items.length} items)
-            </span>
-            <span>{formatCurrency(subtotal)}</span>
-          </div>
+        <div className="space-y-4 rounded-lg border p-4 bg-muted/50">
+          <h3 className="font-medium">Cost Summary</h3>
 
-          {calculatedDiscount > 0 ||
-            (couponDiscount > 0 && (
-              <div className="flex justify-between text-sm text-destructive">
-                <span>
-                  Discount
-                  {discountType === "percentage" &&
-                    ` (${discountValue.toFixed(1)}% of ${discountBase === "subtotal" ? "Net Total" : "Grand Total"})`}
-                </span>
-                <span>
-                  -{formatCurrency(calculatedDiscount + couponDiscount)}
-                </span>
-              </div>
-            ))}
-
-          {shipping > 0 && (
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Shipping Cost</span>
-              <span>{formatCurrency(shipping)}</span>
-            </div>
-          )}
-
-          {currentTax > 0 && (
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Total Tax</span>
-              <span>{formatCurrency(currentTax)}</span>
-            </div>
-          )}
-
-          <div className="h-px bg-border my-2" />
-
-          <div className="flex justify-between">
-            <div>
-              <span className="text-lg font-semibold">Total</span>
-              {(calculatedDiscount > 0 ||
-                couponDiscount > 0 ||
-                shipping > 0 ||
-                currentTax > 0) && (
-                <p className="text-xs text-muted-foreground">
-                  Includes tax, shipping & discounts
-                </p>
+          {/* Loyalty Points Input */}
+          <div className="space-y-2 pb-4 border-b">
+            <Label>Loyalty Points</Label>
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min="0"
+                max={summary.maxPointsAllowed}
+                placeholder="Enter points to use"
+                value={loyaltyPointsUsed || ""}
+                onChange={(e) => handlePointsChange(Number(e.target.value))}
+              />
+              {loyaltyPointsUsed > 0 && (
+                <Badge
+                  variant="outline"
+                  className="border-green-600 text-green-600"
+                >
+                  <Gift className="h-3 w-3 mr-1" />
+                  Using Points
+                </Badge>
               )}
             </div>
-            <span className="text-lg font-semibold">
-              {formatCurrency(currentTotal - couponDiscount)}
-            </span>
+            {!summary.isValidPointsUsage && (
+              <div className="text-sm text-destructive">
+                You need to use at least {summary.pointsRequired} points for
+                reward items
+              </div>
+            )}
+            {loyaltyPointsUsed > summary.maxPointsAllowed && (
+              <div className="text-sm text-destructive">
+                Maximum points allowed: {summary.maxPointsAllowed}
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">
+                Subtotal ({items.length} items)
+              </span>
+              <span>{formatCurrency(summary.subtotal)}</span>
+            </div>
+
+            {shipping > 0 && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Shipping Cost</span>
+                <span>{formatCurrency(shipping)}</span>
+              </div>
+            )}
+
+            {summary.calculatedDiscount > 0 && (
+              <div className="flex justify-between text-sm text-destructive">
+                <span>Discount</span>
+                <span>-{formatCurrency(summary.calculatedDiscount)}</span>
+              </div>
+            )}
+
+            {summary.couponDiscount > 0 && (
+              <div className="flex justify-between text-sm text-destructive">
+                <span>Coupon Discount</span>
+                <span>-{formatCurrency(summary.couponDiscount)}</span>
+              </div>
+            )}
+
+            {loyaltyPointsUsed > 0 && (
+              <div className="flex justify-between text-sm text-green-600">
+                <span>Points Discount</span>
+                <div className="text-right">
+                  <div>{loyaltyPointsUsed} points</div>
+                  <div className="text-xs">
+                    -{formatCurrency(summary.pointsDiscount)}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex justify-between text-base font-medium pt-2 border-t">
+              <span>Total</span>
+              <div className="text-right">
+                <div>{formatCurrency(summary.total)}</div>
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>

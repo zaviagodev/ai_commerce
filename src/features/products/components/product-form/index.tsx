@@ -5,7 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,23 +23,18 @@ import {
   ClipboardEdit,
   DollarSign,
   BarChart3,
-  Truck,
   Tags,
   Share2,
-  Link,
-  MoreHorizontal,
   Gift,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShareModal } from "@/components/share/share-modal";
 import { ProductSchema } from "../../schemas/product-schema";
-import { DEFAULT_TIERS } from "../../data/tiers";
 import { BasicDetails } from "./sections/basic-details";
 import { Media } from "./sections/media";
 import { Pricing } from "./sections/pricing";
 import { Variations } from "./sections/variations";
 import { Inventory } from "./sections/inventory";
-import { Shipping } from "./sections/shipping";
 import { Organization } from "./sections/organization";
 import { EventSummary } from "../../../events/components/event-form/sections/event-summary";
 import { Attendees } from "./sections/attendees";
@@ -40,6 +43,7 @@ import { Badge } from "@/components/ui/badge";
 import { RewardDetails } from "./sections/reward-details";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { z } from "zod";
+import { EventDetails } from "@/features/events/components/event-form/sections/event-details";
 
 type ProductFormData = z.infer<typeof ProductSchema>;
 
@@ -156,6 +160,20 @@ export function ProductForm({
       setEditedName(productName);
     }
   };
+
+  const formFields = [
+    {
+      name: "price",
+      label: t.products.products.form.price,
+      type: "number",
+    },
+    {
+      name: "loyalty_points_price",
+      label: t.products.products.form.loyalty_points_price,
+      type: "number",
+      helperText: t.products.products.form.loyalty_points_price_helper,
+    },
+  ];
 
   return (
     <div className="flex h-dvh flex-col">

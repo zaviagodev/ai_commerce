@@ -21,8 +21,6 @@ export const CampaignSchema = z
     startDate: z.date(),
     endDate: z.date(),
     targetType: z.enum(["all", "tier", "group"]),
-    targetTiers: z.array(z.string()).optional(),
-    targetGroups: z.array(z.string()).optional(),
     status: z.enum(["draft", "scheduled", "active", "ended"]),
     qrEnabled: z.boolean().default(false),
     qrPointType: z.enum(["fixed", "multiplier"]).optional(),

@@ -34,6 +34,7 @@ export class EcommerceSettingsService {
           low_stock_threshold: 5,
           out_of_stock_behavior: "hide",
           tax_calculation: "line_items",
+          loyalty_points_rate: 100,
           tax_inclusive: false,
           default_tax_rate: 0,
         };
@@ -61,6 +62,7 @@ export class EcommerceSettingsService {
           taxCalculation: newSettings.tax_calculation,
           taxInclusive: newSettings.tax_inclusive,
           defaultTaxRate: newSettings.default_tax_rate,
+          loyaltyPointsRate: newSettings.loyalty_points_rate,
         };
       }
 
@@ -80,6 +82,7 @@ export class EcommerceSettingsService {
         taxCalculation: settings.tax_calculation,
         taxInclusive: settings.tax_inclusive,
         defaultTaxRate: settings.default_tax_rate,
+        loyaltyPointsRate: settings.loyalty_points_rate,
       };
     } catch (error: any) {
       console.error("Failed to fetch settings:", error);
@@ -111,6 +114,7 @@ export class EcommerceSettingsService {
           tax_calculation: settings.taxCalculation,
           tax_inclusive: settings.taxInclusive,
           default_tax_rate: settings.defaultTaxRate,
+          loyalty_points_rate: settings.loyaltyPointsRate,
           updated_at: new Date().toISOString(),
         })
         .select();

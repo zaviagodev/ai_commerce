@@ -1,3 +1,5 @@
+import { CustomerAddress } from "./customer";
+
 export interface OrderCoupon {
   code: string;
   type: "percentage" | "fixed" | "shipping" | "points";
@@ -19,6 +21,7 @@ export interface OrderItem {
   price: number;
   quantity: number;
   total: number;
+  pointsBasedPrice: number;
 }
 
 export interface Order {
@@ -32,6 +35,7 @@ export interface Order {
   items: OrderItem[];
   subtotal: number;
   discount: number;
+  pointsDiscount: number;
   shipping: number;
   tax: number;
   total: number;
@@ -44,6 +48,7 @@ export interface Order {
     slip_image?: string;
     confirmed_at?: string;
   };
+  loyalty_points_used: number;
   createdAt: Date;
   updatedAt: Date;
 }
