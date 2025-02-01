@@ -88,6 +88,7 @@ export interface Event {
   googleMapsLink?: string;
   organizerName: string;
   organizerContact: string;
+  attendancePoints: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -101,4 +102,5 @@ export interface EventProduct extends Product {
   googleMapsLink?: string;
   organizerName: string;
   organizerContact: string;
+  attendancePoints: number;
 }

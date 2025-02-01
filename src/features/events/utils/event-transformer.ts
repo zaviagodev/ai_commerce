@@ -74,6 +74,7 @@ interface RawEvent {
   google_maps_link: string | null;
   organizer_name: string;
   organizer_contact: string;
+  attendance_points: number;
   created_at: string;
   updated_at: string;
 }
@@ -89,6 +90,7 @@ export function transformEvent(rawEvent: RawEvent): Event {
     googleMapsLink: rawEvent.google_maps_link || undefined,
     organizerName: rawEvent.organizer_name,
     organizerContact: rawEvent.organizer_contact,
+    attendancePoints: rawEvent.attendance_points,
     createdAt: new Date(rawEvent.created_at),
     updatedAt: new Date(rawEvent.updated_at),
   };

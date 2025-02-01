@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Event, Product } from "@/types/product";
+import { Event, EventProduct, Product } from "@/types/product";
 import { useEvents } from "../hooks/use-events";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -29,9 +29,13 @@ export function NewEventPage() {
     trackQuantity: false,
     createdAt: new Date(),
     updatedAt: new Date(),
+    width: 0,
+    length: 0,
+    height: 0,
+    dimensionUnit: "cm",
   };
 
-  const handleSubmit = async (data: Product) => {
+  const handleSubmit = async (data: EventProduct) => {
     try {
       // Create both product and event in a single transaction
       const productData = {
@@ -52,17 +56,19 @@ export function NewEventPage() {
       };
 
       const eventData = {
-        startDateTime: new Date(),
-        endDateTime: new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
-        venueName: "",
-        venueAddress: "",
-        organizerName: "",
-        organizerContact: "",
+        startDateTime: data.startDateTime,
+        endDateTime: data.endDateTime,
+        venueName: data.venueName,
+        venueAddress: data.venueAddress,
+        organizerName: data.organizerName,
+        organizerContact: data.organizerContact,
+        attendancePoints: data.attendancePoints,
+        googleMapsLink: data.googleMapsLink,
       };
 
       await createEvent.mutateAsync({
-        productData,
-        eventData,
+        productData: productData as Product,
+        eventData: eventData as EventProduct,
       });
 
       navigate("/dashboard/events");

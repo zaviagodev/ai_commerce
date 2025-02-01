@@ -164,6 +164,7 @@ export class EventService {
         p_google_maps_link: eventData.googleMapsLink,
         p_organizer_name: eventData.organizerName,
         p_organizer_contact: eventData.organizerContact,
+        p_attendance_points: eventData.attendancePoints,
       });
 
       if (error) throw error;
@@ -180,17 +181,27 @@ export class EventService {
   static async updateEvent(
     productId: string,
     eventData: Partial<
-      Omit<EventProduct, "productId" | "storeName" | "createdAt" | "updatedAt">
+      Omit<
+        EventProduct,
+        "id" | "productId" | "storeName" | "createdAt" | "updatedAt"
+      >
     >,
   ): Promise<EventProduct> {
     try {
-      console.log("eventData =>", eventData);
-
       const user = useAuthStore.getState().user;
       if (!user?.storeName) throw new Error("Store not found");
 
+      const { data: event, error: eventError } = await supabase
+        .from("events")
+        .select("id")
+        .eq("product_id", productId)
+        .single();
+
+      if (eventError) throw eventError;
+      if (!event) throw new Error("Event not found");
+
       const { data: result, error } = await supabase.rpc("update_event", {
-        p_event_id: eventData.eventId,
+        p_event_id: event.id,
         p_product_id: productId,
         p_store_name: user.storeName,
         // Product fields
@@ -218,6 +229,7 @@ export class EventService {
         p_google_maps_link: eventData.googleMapsLink,
         p_organizer_name: eventData.organizerName,
         p_organizer_contact: eventData.organizerContact,
+        p_attendance_points: eventData.attendancePoints,
       });
 
       if (error) throw error;

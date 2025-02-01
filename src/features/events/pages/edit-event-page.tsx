@@ -59,6 +59,7 @@ export function EditEventPage() {
           googleMapsLink: data.googleMapsLink,
           organizerName: data.organizerName,
           organizerContact: data.organizerContact,
+          attendancePoints: data.attendancePoints,
         },
       });
 

@@ -56,7 +56,7 @@ export function OrderForm({
       shipping: 0,
       tax: 0,
       total: 0,
-      loyalty_points_used: "",
+      loyalty_points_used: 0,
       notes: "",
       tags: [],
       ...initialData,

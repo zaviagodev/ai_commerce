@@ -18,8 +18,8 @@ export function useEvents() {
     mutationFn: (params: {
       productData: Omit<Product, "id" | "createdAt" | "updatedAt">;
       eventData: Omit<
-        Event,
-        "id" | "productId" | "storeName" | "createdAt" | "updatedAt"
+        EventProduct,
+        "id" | "eventId" | "productId" | "storeName" | "createdAt" | "updatedAt"
       >;
     }) => EventService.createEvent(params.productData, params.eventData),
     onSuccess: () => {

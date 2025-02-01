@@ -120,7 +120,7 @@ export function ProductForm({
 
   const handleSubmit = async (data: ProductFormData) => {
     try {
-      await onSubmit(data);
+      await onSubmit(form.getValues());
     } catch (error) {}
   };
 

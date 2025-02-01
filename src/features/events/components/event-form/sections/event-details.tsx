@@ -96,6 +96,35 @@ export function EventDetails({ form }: EventDetailsProps) {
 
           <FormField
             control={form.control}
+            name="attendancePoints"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t.events.event.eventDetails.attendancePoints.label}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min="0"
+                    placeholder={
+                      t.events.event.eventDetails.attendancePoints.placeholder
+                    }
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value, 10))
+                    }
+                  />
+                </FormControl>
+                <FormDescription>
+                  {t.events.event.eventDetails.attendancePoints.description}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name="venueName"
             render={({ field }) => (
               <FormItem>
