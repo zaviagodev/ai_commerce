@@ -35,6 +35,7 @@ import { EventsPage } from "@/features/events/pages/events-page";
 import { NewEventPage } from "@/features/events/pages/new-event-page";
 import { EditEventPage } from "@/features/events/pages/edit-event-page";
 import EventOrdersPage from "@/features/tickets/pages/event-orders-page";
+import RecordAttendancePage from "@/features/events/pages/record-attendance-page";
 
 // Customer Features
 import { CustomersPage } from "@/features/customers/pages/customers-page";
@@ -150,6 +151,10 @@ export default function App() {
               <Route path="events" element={<EventsPage />} />
               <Route path="events/new" element={<NewEventPage />} />
               <Route path="events/:id" element={<EditEventPage />} />
+              <Route
+                path="events/record-attendance"
+                element={<RecordAttendancePage />}
+              />
 
               {/* Event Orders Routes */}
               <Route path="event-orders" element={<EventOrdersPage />} />
