@@ -7,31 +7,49 @@ import { ThaiPaymentMethods } from "../components/payments/thai-payment-methods"
 import { PaymentGateways } from "../components/payments/payment-gateways";
 import { PaymentNotifications } from "../components/payments/payment-notifications";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { usePaymentSettings } from "../hooks/use-payment-settings";
+import { useToast } from "@/hooks/use-toast";
 
 export function PaymentSettingsPage() {
   const t = useTranslation();
+  const { toast } = useToast();
+  const { paymentSettings, isLoading, updatePaymentSettings, isUpdating } =
+    usePaymentSettings();
+
   const form = useForm({
     resolver: zodResolver(PaymentSettingsSchema),
     defaultValues: {
-      promptpayEnabled: false,
-      promptpayQrCode: "",
-      promptpayId: "",
-      promptpayName: "",
-      bankTransferEnabled: false,
-      bankAccounts: [],
-      omiseEnabled: false,
-      omisePublicKey: "",
-      omiseSecretKey: "",
-      notifyEmail: "",
-      notifyLine: false,
-      lineNotifyToken: "",
+      promptpayEnabled: paymentSettings?.promptpayEnabled || false,
+      promptpayQrCode: paymentSettings?.promptpayQrCode || "",
+      promptpayId: paymentSettings?.promptpayId || "",
+      promptpayName: paymentSettings?.promptpayName || "",
+      bankTransferEnabled: paymentSettings?.bankTransferEnabled || false,
+      bankAccounts: paymentSettings?.bankAccounts || [],
+      notifyEmail: paymentSettings?.notifyEmail || false,
     },
+    values: paymentSettings || undefined,
   });
 
   const onSubmit = async (data: any) => {
-    console.log("Saving payment settings:", data);
-    // TODO: Implement settings save
+    try {
+      await updatePaymentSettings(data);
+      toast({
+        title: t.settings.settings.saveSuccess,
+        description: t.settings.settings.saveSuccessDescription,
+      });
+    } catch (error) {
+      console.error("Error saving payment settings:", error);
+      toast({
+        title: t.settings.settings.saveError,
+        description: t.settings.settings.saveErrorDescription,
+        variant: "destructive",
+      });
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Form {...form}>
@@ -43,7 +61,9 @@ export function PaymentSettingsPage() {
               {t.settings.payments.subtitle}
             </p>
           </div>
-          <Button type="submit">{t.settings.settings.save}</Button>
+          <Button type="submit" disabled={isUpdating}>
+            {isUpdating ? t.settings.settings.saving : t.settings.settings.save}
+          </Button>
         </div>
 
         <div className="grid gap-6">

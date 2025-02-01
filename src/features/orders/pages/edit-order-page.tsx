@@ -78,6 +78,8 @@ export function EditOrderPage() {
           customerEmail: data.customerEmail,
           customerPhone: data.customerPhone,
           shippingAddress: data.shippingAddress,
+          billingAddress: data.billingAddress,
+          sameAsShipping: data.sameAsShipping,
           status: data.status,
           items: data.items,
           subtotal: data.subtotal,

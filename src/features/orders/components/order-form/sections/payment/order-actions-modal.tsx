@@ -20,8 +20,11 @@ import {
   Wallet,
   Flag,
   AlertCircle,
+  Receipt,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { Order } from "@/types/order";
+import { PaymentDetailsView } from "./payment-details-view";
 
 interface OrderActionsModalProps {
   open: boolean;
@@ -38,7 +41,8 @@ type ActionStep =
   | "dispute"
   | "fulfill"
   | "credit"
-  | "flag";
+  | "flag"
+  | "view_payment";
 
 export function OrderActionsModal({
   open,
@@ -87,6 +91,23 @@ export function OrderActionsModal({
 
   const renderStep = () => {
     switch (step) {
+      case "view_payment":
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-4"
+          >
+            <PaymentDetailsView order={order} />
+            <div className="flex justify-end">
+              <Button variant="outline" onClick={handleBack}>
+                {t.orders.orders.actions.back}
+              </Button>
+            </div>
+          </motion.div>
+        );
+
       case "refund":
         return (
           <motion.div
@@ -127,7 +148,7 @@ export function OrderActionsModal({
               </Button>
               <Button
                 onClick={() => {
-                  onAction("refund", { amount: refundAmount, reason });
+                  // TODO: Implement refund functionality
                   onOpenChange(false);
                 }}
                 disabled={!refundAmount || !reason}
@@ -194,6 +215,26 @@ export function OrderActionsModal({
             exit={{ opacity: 0, y: -20 }}
             className="grid gap-2"
           >
+            {order.status !== "pending" && order.payment_details && (
+              <Button
+                variant="ghost"
+                className="justify-start h-auto py-4"
+                onClick={() => setStep("view_payment")}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100">
+                    <Receipt className="h-5 w-5 text-indigo-600" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">View Payment Details</div>
+                    <p className="text-sm text-muted-foreground">
+                      View payment information and slip
+                    </p>
+                  </div>
+                </div>
+              </Button>
+            )}
+
             <Button
               variant="ghost"
               className="justify-start h-auto py-4"

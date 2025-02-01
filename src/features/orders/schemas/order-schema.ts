@@ -52,8 +52,6 @@ export const OrderSchema = z.object({
       country: z.string(),
       phone: z.string().optional(),
       isDefault: z.boolean(),
-      createdAt: z.date(),
-      updatedAt: z.date(),
     })
     .optional(),
   status: z.enum([

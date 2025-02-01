@@ -31,12 +31,19 @@ export interface Order {
   customerEmail?: string;
   customerPhone?: string;
   shippingAddress?: CustomerAddress;
+  billingAddress?: CustomerAddress;
+  sameAsShipping: boolean;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   items: OrderItem[];
   subtotal: number;
   discount: number;
   pointsDiscount: number;
   shipping: number;
+  shippingDetails?: {
+    courier: string;
+    tracking_number: string;
+    shipped_at: string;
+  };
   tax: number;
   total: number;
   notes?: string;

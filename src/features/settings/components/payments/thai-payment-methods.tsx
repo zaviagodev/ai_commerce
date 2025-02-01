@@ -12,33 +12,33 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { QrCode, Plus, X, Wallet } from "lucide-react";
+import { QrCode, Plus, X, Wallet, Loader2 } from "lucide-react";
 import {
   PaymentSettings,
   BankAccount,
 } from "../../schemas/payment-settings-schema";
 import { BankAccountDialog } from "./bank-account-dialog";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { useBanks } from "../../hooks/use-banks";
+import { StorageService } from "../../services/storage-service";
+import { useAuthStore } from "@/lib/auth/auth-store";
+import { useToast } from "@/hooks/use-toast";
 
 interface ThaiPaymentMethodsProps {
   form: UseFormReturn<PaymentSettings>;
 }
 
-const THAI_BANKS = [
-  "Kasikorn Bank (KBANK)",
-  "Bangkok Bank (BBL)",
-  "Siam Commercial Bank (SCB)",
-  "Krung Thai Bank (KTB)",
-  "Bank of Ayudhya (BAY)",
-  "TMBThanachart Bank (TTB)",
-] as const;
-
 export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
   const [isAddingBank, setIsAddingBank] = useState(false);
+  const [isUploadingQr, setIsUploadingQr] = useState(false);
   const t = useTranslation();
+  const { toast } = useToast();
+  const { user } = useAuthStore();
+  const { data: banks } = useBanks();
   const promptpayEnabled = form.watch("promptpayEnabled");
   const bankTransferEnabled = form.watch("bankTransferEnabled");
   const bankAccounts = form.watch("bankAccounts") || [];
+  const qrCodeUrl = form.watch("promptpayQrCode") || "";
 
   const handleAddBank = (account: BankAccount) => {
     form.setValue("bankAccounts", [...bankAccounts, account]);
@@ -52,14 +52,59 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
     );
   };
 
-  const handleQrUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQrUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        form.setValue("promptpayQrCode", reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file || !user?.storeName) return;
+
+    try {
+      setIsUploadingQr(true);
+      // Delete existing QR code if there is one
+      if (qrCodeUrl) {
+        await StorageService.deleteQrCode(qrCodeUrl);
+      }
+
+      const publicUrl = await StorageService.uploadQrCode(file, user.storeName);
+      form.setValue("promptpayQrCode", publicUrl);
+      toast({
+        title: t.settings.payments.promptpay.qrCode.uploadSuccess,
+        description:
+          t.settings.payments.promptpay.qrCode.uploadSuccessDescription,
+      });
+    } catch (error) {
+      console.error("Error uploading QR code:", error);
+      toast({
+        title: t.settings.payments.promptpay.qrCode.uploadError,
+        description:
+          t.settings.payments.promptpay.qrCode.uploadErrorDescription,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingQr(false);
+    }
+  };
+
+  const handleRemoveQr = async () => {
+    if (!qrCodeUrl) return;
+
+    try {
+      setIsUploadingQr(true);
+      await StorageService.deleteQrCode(qrCodeUrl);
+      form.setValue("promptpayQrCode", "");
+      toast({
+        title: t.settings.payments.promptpay.qrCode.deleteSuccess,
+        description:
+          t.settings.payments.promptpay.qrCode.deleteSuccessDescription,
+      });
+    } catch (error) {
+      console.error("Error deleting QR code:", error);
+      toast({
+        title: t.settings.payments.promptpay.qrCode.deleteError,
+        description:
+          t.settings.payments.promptpay.qrCode.deleteErrorDescription,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingQr(false);
     }
   };
 
@@ -120,6 +165,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                           t.settings.payments.promptpay.id.placeholder
                         }
                         {...field}
+                        value={field.value || ""}
                       />
                     </FormControl>
                     <FormDescription>
@@ -144,6 +190,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                           t.settings.payments.promptpay.accountName.placeholder
                         }
                         {...field}
+                        value={field.value || ""}
                       />
                     </FormControl>
                     <FormMessage />
@@ -173,11 +220,14 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                               variant="ghost"
                               size="icon"
                               className="absolute right-2 top-2"
-                              onClick={() =>
-                                form.setValue("promptpayQrCode", "")
-                              }
+                              onClick={handleRemoveQr}
+                              disabled={isUploadingQr}
                             >
-                              <X className="h-4 w-4" />
+                              {isUploadingQr ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <X className="h-4 w-4" />
+                              )}
                             </Button>
                           </div>
                         ) : (
@@ -187,7 +237,11 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                               accept="image/*"
                               onChange={handleQrUpload}
                               className="w-auto"
+                              disabled={isUploadingQr}
                             />
+                            {isUploadingQr && (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            )}
                           </div>
                         )}
                       </div>
@@ -273,7 +327,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     onClick={() => handleRemoveBank(account.id)}
                   >
                     <X className="h-4 w-4" />
@@ -299,7 +353,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
         open={isAddingBank}
         onOpenChange={setIsAddingBank}
         onSubmit={handleAddBank}
-        banks={THAI_BANKS}
+        banks={banks || []}
       />
     </>
   );

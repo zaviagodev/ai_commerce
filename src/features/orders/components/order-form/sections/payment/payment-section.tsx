@@ -17,6 +17,9 @@ import { OrderActionsModal } from "./order-actions-modal";
 import { ManualPaymentSection } from "./manual-payment-section";
 import { CheckoutLinkSection } from "./checkout-link-section";
 import { ShippingTrackingSection } from "./shipping-tracking-section";
+import { OrderSlipService } from "@/features/orders/services/order-slip-service";
+import { OrderService } from "@/features/orders/services/order-service";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface PaymentSectionProps {
   order: Order;
@@ -25,6 +28,7 @@ interface PaymentSectionProps {
 export function PaymentSection({ order }: PaymentSectionProps) {
   const t = useTranslation();
   const { updateOrder } = useOrders();
+  const queryClient = useQueryClient();
   const { user } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,24 +117,19 @@ export function PaymentSection({ order }: PaymentSectionProps) {
   // Handlers
   const handleManualPaymentConfirm = async (data: {
     bankName: string;
-    slipImage: string;
+    slipFile: File;
   }) => {
     setIsSaving(true);
     setShowManualPayment(false);
 
     try {
-      await updateOrder.mutateAsync({
-        id: order.id,
-        data: {
-          status: "processing",
-          payment_details: {
-            type: "bank_transfer",
-            bank_name: data.bankName,
-            slip_image: data.slipImage,
-            confirmed_at: new Date().toISOString(),
-          },
-        },
+      await OrderService.addPaymentDetails({
+        orderId: order.id,
+        type: "bank_transfer",
+        bankName: data.bankName,
+        slipImage: data.slipFile,
       });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success(
         t.orders.orders.form.sections.payment.messages.paymentSuccess,
       );
@@ -154,7 +153,7 @@ export function PaymentSection({ order }: PaymentSectionProps) {
         id: order.id,
         data: {
           status: "shipped",
-          shipping_details: {
+          shippingDetails: {
             courier: data.courier,
             tracking_number: data.trackingNumber,
             shipped_at: new Date().toISOString(),

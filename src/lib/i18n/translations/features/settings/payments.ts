@@ -21,6 +21,16 @@ export const payments = {
       qrCode: {
         label: "QR Code Image",
         description: "Upload your PromptPay QR code image",
+        uploadSuccess: "QR code uploaded",
+        uploadSuccessDescription: "Your QR code has been uploaded successfully",
+        uploadError: "Error uploading QR code",
+        uploadErrorDescription:
+          "There was an error uploading your QR code. Please try again.",
+        deleteSuccess: "QR code deleted",
+        deleteSuccessDescription: "Your QR code has been deleted successfully",
+        deleteError: "Error deleting QR code",
+        deleteErrorDescription:
+          "There was an error deleting your QR code. Please try again.",
       },
     },
     bankTransfer: {
@@ -42,20 +52,6 @@ export const payments = {
     gateways: {
       title: "Payment Gateways",
       subtitle: "Configure payment gateway integrations",
-      omise: {
-        enable: {
-          label: "Enable Omise",
-          description: "Accept credit card payments via Omise",
-        },
-        publicKey: {
-          label: "Public Key",
-          description: "Your Omise public key (starts with pkey_)",
-        },
-        secretKey: {
-          label: "Secret Key",
-          description: "Your Omise secret key (starts with skey_)",
-        },
-      },
     },
     notifications: {
       title: "Payment Notifications",
@@ -98,6 +94,16 @@ export const payments = {
       qrCode: {
         label: "รูป QR Code",
         description: "อัพโหลดรูป QR code พร้อมเพย์ของคุณ",
+        uploadSuccess: "อัพโหลด QR code สำเร็จ",
+        uploadSuccessDescription: "อัพโหลดรูป QR code ของคุณเรียบร้อยแล้ว",
+        uploadError: "เกิดข้อผิดพลาดในการอัพโหลด QR code",
+        uploadErrorDescription:
+          "เกิดข้อผิดพลาดในการอัพโหลดรูป QR code ของคุณ กรุณาลองใหม่อีกครั้ง",
+        deleteSuccess: "ลบ QR code สำเร็จ",
+        deleteSuccessDescription: "ลบรูป QR code ของคุณเรียบร้อยแล้ว",
+        deleteError: "เกิดข้อผิดพลาดในการลบ QR code",
+        deleteErrorDescription:
+          "เกิดข้อผิดพลาดในการลบรูป QR code ของคุณ กรุณาลองใหม่อีกครั้ง",
       },
     },
     bankTransfer: {
@@ -119,20 +125,6 @@ export const payments = {
     gateways: {
       title: "ระบบชำระเงิน",
       subtitle: "ตั้งค่าการเชื่อมต่อระบบชำระเงิน",
-      omise: {
-        enable: {
-          label: "เปิดใช้งาน Omise",
-          description: "รับชำระเงินผ่านบัตรเครดิตด้วย Omise",
-        },
-        publicKey: {
-          label: "Public Key",
-          description: "Omise public key ของคุณ (ขึ้นต้นด้วย pkey_)",
-        },
-        secretKey: {
-          label: "Secret Key",
-          description: "Omise secret key ของคุณ (ขึ้นต้นด้วย skey_)",
-        },
-      },
     },
     notifications: {
       title: "การแจ้งเตือนการชำระเงิน",

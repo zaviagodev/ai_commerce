@@ -7,15 +7,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n/hooks";
-
-const THAI_BANKS = [
-  "Kasikorn Bank (KBANK)",
-  "Bangkok Bank (BBL)",
-  "Siam Commercial Bank (SCB)",
-  "Krung Thai Bank (KTB)",
-  "Bank of Ayudhya (BAY)",
-  "TMBThanachart Bank (TTB)",
-] as const;
+import { useBanks } from "@/features/settings/hooks/use-banks";
 
 interface BankSelectProps {
   value: string;
@@ -24,6 +16,7 @@ interface BankSelectProps {
 
 export function BankSelect({ value, onValueChange }: BankSelectProps) {
   const t = useTranslation();
+  const { data: banks } = useBanks();
 
   return (
     <div className="space-y-2.5">
@@ -48,13 +41,13 @@ export function BankSelect({ value, onValueChange }: BankSelectProps) {
           position="popper"
           sideOffset={8}
         >
-          {THAI_BANKS.map((bank) => (
+          {banks?.map((bank) => (
             <SelectItem
-              key={bank}
-              value={bank}
+              key={bank.bank_code}
+              value={bank.bank_code}
               className="text-gray-100 focus:bg-gray-700 focus:text-main"
             >
-              {bank}
+              {`${bank.bank_name} (${bank.bank_code})`}
             </SelectItem>
           ))}
         </SelectContent>
