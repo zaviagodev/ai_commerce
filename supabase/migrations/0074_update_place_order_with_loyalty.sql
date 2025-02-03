@@ -9,6 +9,9 @@
   - Update order items to include points_based_price
 */
 
+-- Drop the existing function
+DROP FUNCTION place_order;
+
 DROP FUNCTION IF EXISTS place_order(
   p_store_name text,
   p_customer_id uuid,
