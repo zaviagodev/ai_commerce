@@ -44,6 +44,8 @@ import { RewardDetails } from "./sections/reward-details";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { z } from "zod";
 import { EventDetails } from "@/features/events/components/event-form/sections/event-details";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 type ProductFormData = z.infer<typeof ProductSchema>;
 
@@ -404,10 +406,9 @@ export function ProductForm({
                     {/* Event Details Section - Only show for event products */}
                     {isEventProduct && <EventDetails form={form} />}
 
-                    {form.watch("isReward") &&
-                      !(form.watch("variantOptions")?.length > 0) && (
-                        <RewardDetails form={form} />
-                      )}
+                    {(isEventProduct || form.watch("isReward")) && (
+                      <RewardDetails form={form} />
+                    )}
 
                     {/* Pricing Section */}
                     <Card>

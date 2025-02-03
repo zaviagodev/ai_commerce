@@ -97,14 +97,7 @@ export function NewEventPage() {
 
   return (
     <>
-      <ProductForm
-        // TODO: Remove this once we have a way to coupon rewards
-        initialData={{
-          isReward: true,
-        }}
-        onSubmit={handleSubmit}
-        headerActions={headerActions}
-      />
+      <ProductForm onSubmit={handleSubmit} headerActions={headerActions} />
 
       <ItemActionsModal
         open={showActions}
