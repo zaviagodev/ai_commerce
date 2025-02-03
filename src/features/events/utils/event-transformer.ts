@@ -13,6 +13,7 @@ interface RawProductVariant {
   sku: string;
   price: number;
   compare_at_price: number | null;
+  points_based_price: number | null;
   quantity: number | null;
   options: {
     name: string;
@@ -42,6 +43,7 @@ interface RawProductTag {
 
 interface RawProduct {
   id: string;
+  is_reward: boolean;
   name: string;
   description: string;
   sku: string | null;
@@ -100,6 +102,7 @@ export function transformEventProduct(rawEvent: RawEvent): EventProduct {
   return {
     ...transformEvent(rawEvent),
     id: rawEvent.product_id,
+    isReward: rawEvent.product.is_reward,
     name: rawEvent.product.name,
     description: rawEvent.product.description,
     variantOptions: rawEvent.product.variant_options || [],
@@ -109,6 +112,9 @@ export function transformEventProduct(rawEvent: RawEvent): EventProduct {
         name: variant.name,
         sku: variant.sku,
         price: Number(variant.price),
+        pointsBasedPrice: variant.points_based_price
+          ? Number(variant.points_based_price)
+          : undefined,
         compareAtPrice: variant.compare_at_price
           ? Number(variant.compare_at_price)
           : undefined,

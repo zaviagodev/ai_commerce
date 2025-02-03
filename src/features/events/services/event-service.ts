@@ -26,6 +26,7 @@ export class EventService {
               name,
               sku,
               price,
+              points_based_price,
               compare_at_price,
               quantity,
               options,
@@ -94,6 +95,7 @@ export class EventService {
               name,
               sku,
               price,
+              points_based_price,
               compare_at_price,
               quantity,
               options,
@@ -156,6 +158,8 @@ export class EventService {
         p_variants: productData.variants,
         p_images: productData.images,
         p_tags: productData.tags.map((tag) => tag.name),
+        p_is_reward: productData.isReward,
+
         // Event fields
         p_start_datetime: eventData.startDateTime,
         p_end_datetime: eventData.endDateTime,
@@ -221,6 +225,7 @@ export class EventService {
         p_variants: eventData.variants,
         p_images: eventData.images,
         p_tags: eventData.tags?.map((tag) => tag.name),
+        p_is_reward: eventData.isReward,
         // Event fields
         p_start_datetime: eventData.startDateTime,
         p_end_datetime: eventData.endDateTime,

@@ -84,8 +84,8 @@ export function ProductForm({
       variantOptions: initialData?.variantOptions || [],
       variants: initialData?.variants || [
         {
-          name: "",
-          sku: "",
+          name: "default",
+          sku: "default",
           price: 0,
           compareAtPrice: 0,
           quantity: 0,
@@ -160,20 +160,6 @@ export function ProductForm({
       setEditedName(productName);
     }
   };
-
-  const formFields = [
-    {
-      name: "price",
-      label: t.products.products.form.price,
-      type: "number",
-    },
-    {
-      name: "loyalty_points_price",
-      label: t.products.products.form.loyalty_points_price,
-      type: "number",
-      helperText: t.products.products.form.loyalty_points_price_helper,
-    },
-  ];
 
   return (
     <div className="flex h-dvh flex-col">

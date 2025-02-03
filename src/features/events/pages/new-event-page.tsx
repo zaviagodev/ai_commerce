@@ -52,7 +52,9 @@ export function NewEventPage() {
         weightUnit: data.weightUnit,
         status: data.status,
         variantOptions: data.variantOptions,
+        variants: data.variants,
         tags: data.tags || [],
+        isReward: data.isReward,
       };
 
       const eventData = {
@@ -95,7 +97,14 @@ export function NewEventPage() {
 
   return (
     <>
-      <ProductForm onSubmit={handleSubmit} headerActions={headerActions} />
+      <ProductForm
+        // TODO: Remove this once we have a way to coupon rewards
+        initialData={{
+          isReward: true,
+        }}
+        onSubmit={handleSubmit}
+        headerActions={headerActions}
+      />
 
       <ItemActionsModal
         open={showActions}

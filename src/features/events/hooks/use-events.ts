@@ -40,6 +40,7 @@ export function useEvents() {
     onSuccess: (_, { productId }) => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       queryClient.invalidateQueries({ queryKey: ["eventProduct", productId] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 

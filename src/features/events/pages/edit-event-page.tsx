@@ -35,6 +35,7 @@ export function EditEventPage() {
           category: data.category,
           price: data.price,
           compareAtPrice: data.compareAtPrice,
+          isReward: data.isReward,
           cost: data.cost,
           sku: data.sku,
           barcode: data.barcode,
