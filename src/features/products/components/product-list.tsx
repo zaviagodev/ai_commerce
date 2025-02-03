@@ -227,7 +227,8 @@ export function ProductList({
       header: "Price",
       cell: ({ row }: CellProps) => {
         const price = parseFloat(row.getValue("price"));
-        const loyaltyPrice = row.original.loyalty_points_price;
+        const product = row.original;
+        const loyaltyPrice = product.variants[0]?.pointsBasedPrice;
 
         return (
           <div className="flex flex-col">
@@ -260,8 +261,40 @@ export function ProductList({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
       >
-        <div className="flex items-center gap-4">
-          <ProductSearch value={searchQuery} onChange={setSearchQuery} />
+        <div>
+          <h1 className="text-2xl font-semibold">
+            {t.products.products.title}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {t.products.products.description}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" asChild>
+            <Link to={`/store/${user?.storeName}`}>
+              <ExternalLink className="mr-2 h-4 w-4" />
+              {t.products.products.actions.store}
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link to="/dashboard/products/new">
+              <Plus className="mr-2 h-4 w-4" />
+              {t.products.products.actions.add}
+            </Link>
+          </Button>
+        </div>
+      </motion.div>
+
+      {/* Table Controls */}
+      {/* <motion.div
+        className="flex items-center justify-end gap-4 mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <ProductSearch value={searchQuery} onChange={setSearchQuery} />
+
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
@@ -297,14 +330,15 @@ export function ProductList({
             {t.products.products.actions.add}
           </Button>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="rounded-lg border"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <Table>
+        <Table className={paginatedProducts.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
               {isBulkMode && (
@@ -321,127 +355,178 @@ export function ProductList({
               <TableHead>{t.products.products.list.columns.product}</TableHead>
               <TableHead>{t.products.products.list.columns.status}</TableHead>
               <TableHead>{t.products.products.list.columns.category}</TableHead>
-              <TableHead>{t.products.products.list.columns.price}</TableHead>
-              <TableHead>{t.products.products.list.columns.quantity}</TableHead>
-              {!isBulkMode && <TableHead className="w-[50px]"></TableHead>}
+              <TableHead className="text-right">
+                {t.products.products.list.columns.price}
+              </TableHead>
+              <TableHead className="text-right">
+                {t.products.products.list.columns.quantity}
+              </TableHead>
+              {!isBulkMode && <TableHead className="w-8"></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedProducts.map((product) => {
-              const quantity = product.variants.reduce(
-                (acc: number, variant: ProductVariant) =>
-                  acc + variant.quantity,
-                0,
-              );
-              return (
-                <TableRow
-                  key={product.id}
-                  onClick={() => {
-                    if (!isBulkMode) {
-                      navigate(`/dashboard/products/${product.id}`);
+            {paginatedProducts.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center">
+                  <div className="py-12">
+                    <p className="text-lg font-semibold">
+                      {t.products.products.list.empty.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {t.products.products.list.empty.description}
+                    </p>
+                    <Button asChild className="mt-4" variant="outline">
+                      <Link to="/dashboard/products/new">
+                        <Plus className="mr-2 h-4 w-4" />
+                        {t.products.products.actions.add}
+                      </Link>
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              paginatedProducts.map((product) => {
+                const quantity = product.variants.reduce(
+                  (acc, variant) => acc + variant.quantity,
+                  0,
+                );
+                return (
+                  <TableRow
+                    key={product.id}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(`/dashboard/products/${product.id}`)
                     }
-                  }}
-                  className={cn("cursor-pointer", {
-                    "cursor-default": isBulkMode,
-                  })}
-                >
-                  {isBulkMode && (
+                  >
+                    {isBulkMode && (
+                      <TableCell>
+                        <Checkbox
+                          checked={isSelected(product.id)}
+                          onCheckedChange={() => toggleSelection(product.id)}
+                        />
+                      </TableCell>
+                    )}
                     <TableCell>
-                      <Checkbox
-                        checked={isSelected(product.id)}
-                        onCheckedChange={() => toggleSelection(product.id)}
-                      />
+                      <div className="flex items-center gap-3">
+                        {product.images[0] ? (
+                          <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                            className="h-12 w-12 rounded-sm overflow-hidden"
+                          >
+                            <img
+                              src={product.images[0].url}
+                              alt={product.images[0].alt}
+                              className="h-full w-full object-cover"
+                            />
+                          </motion.div>
+                        ) : (
+                          <div className="h-12 w-12 rounded-sm bg-muted" />
+                        )}
+                        <div>
+                          <Link
+                            to={`/dashboard/products/${product.id}`}
+                            className="font-medium hover:underline"
+                          >
+                            {product.name}
+                          </Link>
+                          {product.sku && (
+                            <p className="text-sm text-muted-foreground">
+                              SKU: {product.sku}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </TableCell>
-                  )}
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      {product.images[0] ? (
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 0.2 }}
-                          className="h-12 w-12 rounded-sm overflow-hidden"
-                        >
-                          <img
-                            src={product.images[0].url}
-                            alt={product.images[0].alt}
-                            className="h-full w-full object-cover"
-                          />
-                        </motion.div>
-                      ) : (
-                        <div className="h-12 w-12 rounded-sm bg-muted" />
-                      )}
-                      <div>
-                        <Link
-                          to={`/dashboard/products/${product.id}`}
-                          className="font-medium hover:underline"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {product.name}
-                        </Link>
-                        {product.sku && (
-                          <p className="text-sm text-muted-foreground">
-                            SKU: {product.sku}
-                          </p>
+                    <TableCell>
+                      <Badge
+                        className={cn("capitalize shadow-none", {
+                          "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                            product.status === "active",
+                          "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                            product.status === "archived",
+                          "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                            product.status === "draft",
+                        })}
+                      >
+                        {
+                          t.products.products.status[
+                            product.status as keyof typeof t.products.products.status
+                          ]
+                        }
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {product.category?.name ||
+                        t.products.products.list.uncategorized}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="space-y-1">
+                        <div className="font-medium">
+                          <span>{formatCurrency(product.price)}</span>
+                          {product.isReward &&
+                            product.variants[0]?.pointsBasedPrice && (
+                              <span className="text-sm text-green-600">
+                                {product.variants[0].pointsBasedPrice} pts
+                              </span>
+                            )}
+                        </div>
+                        {product.compareAtPrice && (
+                          <div className="text-sm text-muted-foreground line-through">
+                            {formatCurrency(product.compareAtPrice)}
+                          </div>
                         )}
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
-                          product.status === "active",
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
-                          product.status === "archived",
-                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
-                          product.status === "draft",
-                      })}
-                    >
-                      {
-                        t.products.products.status[
-                          product.status as keyof typeof t.products.products.status
-                        ]
-                      }
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {product.category ? product.category.name : "Uncategorized"}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span>{formatCurrency(product.price)}</span>
-                      {product.isReward && (
-                        <span className="text-sm text-green-600">
-                          {product.variants[0].pointsBasedPrice} pts
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {product.trackQuantity ? (
+                        <span
+                          className={
+                            (quantity || 0) > 0
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }
+                        >
+                          {quantity || 0} {t.products.products.list.inStock}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">
+                          {t.products.products.list.notTracked}
                         </span>
                       )}
-                    </div>
-                  </TableCell>
-                  <TableCell>{quantity || 0} in stock</TableCell>
-                  {!isBulkMode && (
-                    <TableCell>
-                      <ProductActionsMenu
-                        product={product}
-                        onDelete={() => onDelete(product.id)}
-                      />
                     </TableCell>
-                  )}
-                </TableRow>
-              );
-            })}
+                    {!isBulkMode && (
+                      <TableCell>
+                        <ProductActionsMenu
+                          product={product}
+                          onDelete={() => onDelete(product.id)}
+                        />
+                      </TableCell>
+                    )}
+                  </TableRow>
+                );
+              })
+            )}
           </TableBody>
         </Table>
 
-        <div className="mt-4">
+        <motion.div
+          className={cn("border-t p-4 bg-main rounded-b-lg", {
+            hidden: paginatedProducts.length === 0,
+          })}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
           <DataTablePagination
             pageIndex={pageIndex}
             pageSize={pageSize}
-            pageCount={Math.ceil(products.length / pageSize)}
+            pageCount={pageCount(products.length)}
             totalItems={products.length}
             onPageChange={setPageIndex}
             onPageSizeChange={setPageSize}
           />
-        </div>
+        </motion.div>
       </motion.div>
 
       <BulkDeleteDialog

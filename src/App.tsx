@@ -189,19 +189,10 @@ export default function App() {
               <Route path="campaigns/new" element={<NewCampaignPage />} />
               <Route path="campaigns/:id" element={<EditCampaignPage />} />
 
-              {/* Coupon Campaigns Routes */}
-              <Route
-                path="coupon-campaigns"
-                element={<CouponCampaignsPage />}
-              />
-              <Route
-                path="coupon-campaigns/new"
-                element={<NewCouponCampaignPage />}
-              />
-              <Route
-                path="coupon-campaigns/:id"
-                element={<EditCouponCampaignPage />}
-              />
+              {/* Coupons Routes */}
+              <Route path="coupons" element={<CouponCampaignsPage />} />
+              <Route path="coupons/new" element={<NewCouponCampaignPage />} />
+              <Route path="coupons/:id" element={<EditCouponCampaignPage />} />
 
               {/* Redeem List Routes */}
               <Route path="redeem-list" element={<RedeemListPage />} />

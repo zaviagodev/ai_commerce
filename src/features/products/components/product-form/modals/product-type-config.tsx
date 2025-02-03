@@ -354,7 +354,7 @@ export function ProductTypeConfig({ type, product }: ProductTypeConfigProps) {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-medium">
+      <h3 className="text-lg font-semibold">
         {t.products.products.form.modals.productType.configuration}
       </h3>
       {renderConfig()}

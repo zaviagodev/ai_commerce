@@ -47,6 +47,8 @@ export const payments = {
         accountNumber: "Account Number",
         branch: "Branch",
         defaultAccount: "Default account",
+        cancel: "Cancel",
+        addAccount: "Add Account",
       },
     },
     gateways: {
@@ -120,6 +122,8 @@ export const payments = {
         accountNumber: "เลขที่บัญชี",
         branch: "สาขา",
         defaultAccount: "บัญชีหลัก",
+        cancel: "ยกเลิก",
+        addAccount: "เพิ่มบัญชี",
       },
     },
     gateways: {

@@ -87,7 +87,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
         </Button>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
           onChange={setSearchQuery}
           placeholder={t.customers.customer.campaign.list.search}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -130,7 +130,7 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.customers.customer.campaign.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">
@@ -188,18 +188,20 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        campaign.status === "active"
-                          ? "default"
-                          : campaign.status === "scheduled"
-                            ? "secondary"
-                            : "destructive"
-                      }
-                      className="capitalize"
+                      className={cn("capitalize shadow-none", {
+                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                          campaign.status === "ended",
+                        "!bg-yellow-100 !text-yellow-700 dark:!bg-yellow-700 dark:!text-yellow-100":
+                          campaign.status === "scheduled",
+                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                          campaign.status === "active",
+                        "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                          campaign.status === "draft",
+                      })}
                     >
                       {
                         t.customers.customer.campaign.list.status[
-                          campaign.status
+                          campaign.status as keyof typeof t.customers.customer.campaign.list.status
                         ]
                       }
                     </Badge>
@@ -210,9 +212,6 @@ export function CampaignList({ campaigns, isLoading }: CampaignListProps) {
           </TableBody>
         </Table>
 
-        {/* {paginatedCampaigns.length > 0 && (
-
-        )} */}
         <motion.div
           className={cn("border-t p-4 bg-main rounded-b-lg", {
             hidden: paginatedCampaigns.length === 0,

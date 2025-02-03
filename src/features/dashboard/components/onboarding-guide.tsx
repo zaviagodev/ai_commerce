@@ -88,7 +88,7 @@ export function OnboardingGuide() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Card
-                    className="group relative overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                    className="group relative overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full"
                     onClick={() => navigate(step.route)}
                   >
                     <div className="p-6">

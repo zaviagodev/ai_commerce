@@ -44,7 +44,7 @@ export function CheckoutLinkSection({
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-semibold">
             {t.orders.orders.form.sections.payment.checkout.title}
           </h3>
           <p className="text-sm text-gray-400">

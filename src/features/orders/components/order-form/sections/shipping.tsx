@@ -38,24 +38,24 @@ export function Shipping({ form }: ShippingProps) {
           <Truck className="h-5 w-5 text-emerald-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.orders.orders.form.sections.shipping.title}
           </h2>
           <p className="text-sm text-muted-foreground">
             {t.orders.orders.form.sections.shipping.description}
           </p>
         </div>
-        {/* <ShippingTypeDialog 
+        <ShippingTypeDialog
           currentType={shippingType}
           onSelect={handleShippingTypeChange}
         >
           <Button variant="outline" size="sm">
             <Settings className="h-4 w-4 mr-2" />
-            {shippingType === 'dynamic' 
-              ? t.orders.orders.form.sections.shipping.types.dynamic 
+            {shippingType === "dynamic"
+              ? t.orders.orders.form.sections.shipping.types.dynamic
               : t.orders.orders.form.sections.shipping.types.manual}
           </Button>
-        </ShippingTypeDialog> */}
+        </ShippingTypeDialog>
       </CardHeader>
       <CardContent>
         {shippingType === "dynamic" ? (

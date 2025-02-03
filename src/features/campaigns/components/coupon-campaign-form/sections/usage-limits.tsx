@@ -27,7 +27,7 @@ export function UsageLimits({ form }: UsageLimitsProps) {
           <Users className="h-5 w-5 text-orange-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.campaigns.campaign.coupon.sections.usageLimits.title}
           </h2>
           <p className="text-sm text-muted-foreground">

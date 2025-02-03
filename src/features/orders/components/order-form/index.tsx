@@ -5,7 +5,7 @@ import { Form } from "@/components/ui/form";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StatusSelect } from "./sections/status-select";
+import { StatusSelect } from "@/components/status-select";
 import { OrderSchema } from "../../schemas/order-schema";
 import { Overview } from "./sections/overview";
 import { BasicDetails } from "./sections/basic-details";
@@ -118,6 +118,34 @@ export function OrderForm({
     );
   }
 
+  const orderStatuses = [
+    {
+      label: t.orders.orders.status.pending,
+      badgeClassName: "!bg-yellow-100 text-yellow-700",
+      value: "pending",
+    },
+    {
+      label: t.orders.orders.status.processing,
+      badgeClassName: "!bg-blue-100 text-blue-700",
+      value: "processing",
+    },
+    {
+      label: t.orders.orders.status.shipped,
+      badgeClassName: "!bg-purple-100 text-purple-700",
+      value: "shipped",
+    },
+    {
+      label: t.orders.orders.status.delivered,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "delivered",
+    },
+    {
+      label: t.orders.orders.status.cancelled,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "cancelled",
+    },
+  ];
+
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -134,7 +162,7 @@ export function OrderForm({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center !bg-transparent">
+            <div className="flex flex-col w-full gap-4 md:flex-row md:items-center !bg-transparent">
               <div>
                 <h1 className="text-2xl font-semibold">{title}</h1>
                 <p className="text-sm text-muted-foreground">
@@ -200,7 +228,11 @@ export function OrderForm({
                     </TabsList>
                     {/* Show status dropdown when creating new order or editing */}
                     {(!initialData || isEditing) && (
-                      <StatusSelect form={form} />
+                      <StatusSelect
+                        form={form}
+                        options={orderStatuses}
+                        placeholder={t.orders.orders.status.all}
+                      />
                     )}
                   </div>
                   <TabsContent value="overview">

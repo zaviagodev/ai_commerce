@@ -42,10 +42,9 @@ import { useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { RewardDetails } from "./sections/reward-details";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { StatusSelect } from "@/components/status-select";
 import { z } from "zod";
 import { EventDetails } from "@/features/events/components/event-form/sections/event-details";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 
 type ProductFormData = z.infer<typeof ProductSchema>;
 
@@ -163,6 +162,24 @@ export function ProductForm({
     }
   };
 
+  const productStatuses = [
+    {
+      label: t.products.products.status.draft,
+      badgeClassName: "!bg-gray-100 text-gray-700",
+      value: "draft",
+    },
+    {
+      label: t.products.products.status.active,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "active",
+    },
+    {
+      label: t.products.products.status.archived,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "archived",
+    },
+  ];
+
   return (
     <div className="flex h-dvh flex-col">
       <Form {...form}>
@@ -180,7 +197,7 @@ export function ProductForm({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col w-full gap-4 md:flex-row md:items-center">
               {/* Left Section: Image and Title */}
               <div className="flex items-center flex-1 min-w-0">
                 {/* Image Placeholder */}
@@ -261,8 +278,8 @@ export function ProductForm({
                                 )}
                               />
                             </span>
-                            <span className="font-medium capitalize">
-                              {initialData.status}
+                            <span className="capitalize">
+                              {t.products.products.status[initialData.status]}
                             </span>
                           </Badge>
                         )}
@@ -299,9 +316,9 @@ export function ProductForm({
                 className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
-                {headerActions}
-                <div className="mx-2 h-4 w-px bg-border" />
-                <ShareModal
+                {productName && headerActions}
+                {productName && <div className="mx-2 h-4 w-px bg-border" />}
+                {/* <ShareModal
                   title={productName || `${t.products.products.form.untitled}`}
                   url={window.location.href}
                   image={initialData?.images?.[0]?.url}
@@ -311,7 +328,7 @@ export function ProductForm({
                     Share
                   </Button>
                 </ShareModal>
-                <div className="mx-2 h-4 w-px bg-border" />
+                <div className="mx-2 h-4 w-px bg-border" /> */}
                 <Button
                   type="submit"
                   onClick={(e) => {
@@ -335,19 +352,31 @@ export function ProductForm({
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
                 <Tabs defaultValue="item-info" className="w-full">
-                  <TabsList className="mb-6">
-                    {isEventProduct && (
-                      <TabsTrigger value="event-summary">
-                        Event Summary
+                  <div className="flex items-center justify-between mb-6">
+                    <TabsList>
+                      {isEventProduct && (
+                        <TabsTrigger value="event-summary">
+                          {t.products.products.form.tabs.eventSummary}
+                        </TabsTrigger>
+                      )}
+                      <TabsTrigger value="item-info">
+                        {t.products.products.form.tabs.itemInfo}
                       </TabsTrigger>
-                    )}
-                    <TabsTrigger value="item-info">
-                      {t.products.products.form.tabs.itemInfo}
-                    </TabsTrigger>
-                    {isEventProduct && (
-                      <TabsTrigger value="attendees">Attendees</TabsTrigger>
-                    )}
-                  </TabsList>
+                      {isEventProduct && (
+                        <TabsTrigger value="attendees">
+                          {t.products.products.form.tabs.attendees}
+                        </TabsTrigger>
+                      )}
+                    </TabsList>
+                    <StatusSelect
+                      form={form}
+                      options={productStatuses}
+                      placeholder={
+                        t.products.products.form.sections.organization
+                          .selectStatus
+                      }
+                    />
+                  </div>
                   {isEventProduct && (
                     <TabsContent value="event-summary" className="space-y-8">
                       <EventSummary form={form as any} />
@@ -361,7 +390,7 @@ export function ProductForm({
                           <ImagePlus className="h-5 w-5 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.media.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
@@ -384,7 +413,7 @@ export function ProductForm({
                           <ClipboardEdit className="h-5 w-5 text-green-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.products.products.form.sections.basicDetails
                                 .title
@@ -417,7 +446,7 @@ export function ProductForm({
                           <DollarSign className="h-5 w-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Pricing</h2>
+                          <h2 className="text-lg font-semibold">Pricing</h2>
                           <p className="text-sm text-muted-foreground">
                             {
                               t.products.products.form.sections.pricing
@@ -437,7 +466,7 @@ export function ProductForm({
                           <BarChart3 className="h-5 w-5 text-pink-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.inventory.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">
@@ -463,7 +492,7 @@ export function ProductForm({
                           <Truck className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">Shipping</h2>
+                          <h2 className="text-lg font-semibold">Shipping</h2>
                           <p className="text-sm text-muted-foreground">
                             Set up shipping details
                           </p>
@@ -481,7 +510,7 @@ export function ProductForm({
                           <Tags className="h-5 w-5 text-teal-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {
                               t.products.products.form.sections.organization
                                 .title
@@ -507,7 +536,7 @@ export function ProductForm({
                           <Share2 className="h-5 w-5 text-indigo-600" />
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-lg font-medium">
+                          <h2 className="text-lg font-semibold">
                             {t.products.products.form.sections.salesChannels.title}
                           </h2>
                           <p className="text-sm text-muted-foreground">

@@ -117,7 +117,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             <QrCode className="h-5 w-5 text-blue-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-medium">
+            <h3 className="text-lg font-semibold">
               {t.settings.payments.promptpay.title}
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -265,7 +265,7 @@ export function ThaiPaymentMethods({ form }: ThaiPaymentMethodsProps) {
             <Wallet className="h-5 w-5 text-green-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-medium">
+            <h3 className="text-lg font-semibold">
               {t.settings.payments.bankTransfer.title}
             </h3>
             <p className="text-sm text-muted-foreground">

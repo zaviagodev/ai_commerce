@@ -6,12 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { User, Phone, MapPin, Ticket, Store } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface OverviewProps {
   redeem: Redeem;
 }
 
 export function Overview({ redeem }: OverviewProps) {
+  const t = useTranslation();
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
@@ -67,7 +69,7 @@ export function Overview({ redeem }: OverviewProps) {
                 getStatusColor(redeem.status),
               )}
             >
-              {redeem.status}
+              {t.redeemList.redeemList.list.table.status[redeem.status]}
             </Badge>
           </div>
         </div>

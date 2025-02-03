@@ -10,6 +10,8 @@ import { Members } from "./sections/members";
 import { Automation } from "./sections/automation";
 import { Users } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { StatusSelect } from "@/components/status-select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface CustomerGroupFormProps {
   initialData?: Partial<CustomerGroup>;
@@ -42,6 +44,21 @@ export function CustomerGroupForm({
       console.error("Failed to save group:", error);
     }
   };
+
+  const customerGroupStatuses = [
+    {
+      label:
+        t.customers.customer.group.sections.basicDetails.fields.status.active,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "active",
+    },
+    {
+      label:
+        t.customers.customer.group.sections.basicDetails.fields.status.inactive,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "inactive",
+    },
+  ];
 
   return (
     <div className="flex h-dvh flex-col">
@@ -89,69 +106,91 @@ export function CustomerGroupForm({
           >
             <div className="h-full">
               <div className="max-w-4xl mx-auto space-y-8 pl-0 md:pr-6 py-8 relative">
-                {/* Basic Details Section */}
-                <div className="rounded-lg border bg-main">
-                  <div className="flex items-center gap-4 p-6 border-b">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
-                      <Users className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-medium">
+                <Tabs defaultValue="basic-details" className="w-full">
+                  <div className="flex items-center justify-between mb-6">
+                    <TabsList>
+                      <TabsTrigger value="basic-details">
                         {t.customers.customer.group.sections.basicDetails.title}
-                      </h2>
-                      <p className="text-sm text-muted-foreground">
-                        {
-                          t.customers.customer.group.sections.basicDetails
-                            .description
-                        }
-                      </p>
+                      </TabsTrigger>
+                    </TabsList>
+                    <StatusSelect
+                      form={form}
+                      options={customerGroupStatuses}
+                      placeholder={
+                        t.customers.customer.group.sections.basicDetails.fields
+                          .status.label
+                      }
+                    />
+                  </div>
+                  <TabsContent value="basic-details" className="space-y-8">
+                    {/* Basic Details Section */}
+                    <div className="rounded-lg border bg-main">
+                      <div className="flex items-center gap-4 p-6 border-b">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                          <Users className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-semibold">
+                            {
+                              t.customers.customer.group.sections.basicDetails
+                                .title
+                            }
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {
+                              t.customers.customer.group.sections.basicDetails
+                                .description
+                            }
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <BasicDetails form={form} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-6">
-                    <BasicDetails form={form} />
-                  </div>
-                </div>
 
-                {/* Members Section */}
-                <div className="rounded-lg border bg-main">
-                  <div className="flex items-center gap-4 p-6 border-b">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
-                      <Users className="h-5 w-5 text-purple-600" />
+                    {/* Members Section */}
+                    <div className="rounded-lg border bg-main">
+                      <div className="flex items-center gap-4 p-6 border-b">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
+                          <Users className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-semibold">
+                            {t.customers.customer.group.sections.members.title}
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {
+                              t.customers.customer.group.sections.members
+                                .description
+                            }
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <Members form={form} />
+                      </div>
                     </div>
-                    <div>
-                      <h2 className="text-lg font-medium">
-                        {t.customers.customer.group.sections.members.title}
-                      </h2>
-                      <p className="text-sm text-muted-foreground">
-                        {
-                          t.customers.customer.group.sections.members
-                            .description
-                        }
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <Members form={form} />
-                  </div>
-                </div>
 
-                {/* Automation Section */}
-                {/* <div className="rounded-lg border bg-main">
-                  <div className="flex items-center gap-4 p-6 border-b">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
-                      <Users className="h-5 w-5 text-green-600" />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-medium">Automation</h2>
-                      <p className="text-sm text-muted-foreground">
-                        Set up automatic group assignment rules
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <Automation form={form} />
-                  </div>
-                </div> */}
+                    {/* Automation Section */}
+                    {/* <div className="rounded-lg border bg-main">
+                        <div className="flex items-center gap-4 p-6 border-b">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
+                            <Users className="h-5 w-5 text-green-600" />
+                          </div>
+                          <div>
+                            <h2 className="text-lg font-semibold">Automation</h2>
+                            <p className="text-sm text-muted-foreground">
+                              Set up automatic group assignment rules
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-6">
+                          <Automation form={form} />
+                        </div>
+                      </div> */}
+                  </TabsContent>
+                </Tabs>
               </div>
             </div>
           </motion.div>

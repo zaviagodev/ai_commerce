@@ -33,7 +33,7 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
           <Store className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-semibold">
             {t.settings.ecommerce.general.title}
           </h3>
           <p className="text-sm text-muted-foreground">

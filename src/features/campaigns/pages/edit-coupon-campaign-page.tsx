@@ -12,7 +12,7 @@ export function EditCouponCampaignPage() {
   const handleSubmit = async (data: Coupon) => {
     try {
       await updateCoupon.mutateAsync({ id, data });
-      navigate("/dashboard/coupon-campaigns");
+      navigate("/dashboard/coupons");
     } catch (error) {
       console.error("Failed to update coupon:", error);
     }

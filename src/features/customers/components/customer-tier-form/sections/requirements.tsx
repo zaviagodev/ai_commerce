@@ -31,34 +31,6 @@ interface RequirementsProps {
   form: UseFormReturn<CustomerTier>;
 }
 
-const REQUIREMENT_TYPES = [
-  {
-    id: "points",
-    name: "Points",
-    description: "Based on loyalty points earned",
-  },
-  {
-    id: "spending",
-    name: "Total Spending",
-    description: "Based on total amount spent",
-  },
-  {
-    id: "orders",
-    name: "Order Count",
-    description: "Based on number of orders placed",
-  },
-  {
-    id: "group",
-    name: "Customer Group",
-    description: "Based on membership in specific groups",
-  },
-  {
-    id: "duration",
-    name: "Membership Duration",
-    description: "Based on length of membership",
-  },
-] as const;
-
 const DEMO_GROUPS = [
   { id: "1", name: "VIP Customers" },
   { id: "2", name: "New Customers" },
@@ -69,6 +41,48 @@ export function Requirements({ form }: RequirementsProps) {
   const t = useTranslation();
   const requirements = form.watch("requirements") || [];
   const numRef = useRef(null);
+
+  const REQUIREMENT_TYPES = [
+    {
+      id: "points",
+      name: t.customers.customer.tier.sections.requirements.fields.points.title,
+      description:
+        t.customers.customer.tier.sections.requirements.fields.points
+          .description,
+    },
+    {
+      id: "spending",
+      name: t.customers.customer.tier.sections.requirements.fields.totalSpending
+        .title,
+      description:
+        t.customers.customer.tier.sections.requirements.fields.totalSpending
+          .description,
+    },
+    {
+      id: "orders",
+      name: t.customers.customer.tier.sections.requirements.fields.orderCount
+        .title,
+      description:
+        t.customers.customer.tier.sections.requirements.fields.orderCount
+          .description,
+    },
+    {
+      id: "group",
+      name: t.customers.customer.tier.sections.requirements.fields.customerGroup
+        .title,
+      description:
+        t.customers.customer.tier.sections.requirements.fields.customerGroup
+          .description,
+    },
+    {
+      id: "duration",
+      name: t.customers.customer.tier.sections.requirements.fields
+        .membershipDuration.title,
+      description:
+        t.customers.customer.tier.sections.requirements.fields
+          .membershipDuration.description,
+    },
+  ] as const;
 
   const addRequirement = (type: string) => {
     const newRequirement = {
@@ -103,7 +117,7 @@ export function Requirements({ form }: RequirementsProps) {
       {/* Active Requirements */}
       {requirements.length === 0 && (
         <p className="text-center text-[0.8rem] text-muted-foreground py-4">
-          No requirements. Please add them below.
+          {t.customers.customer.tier.sections.requirements.noRequirements}
         </p>
       )}
       <div className="space-y-4">
@@ -185,14 +199,22 @@ export function Requirements({ form }: RequirementsProps) {
                         >
                           <span className="flex-1 text-left">
                             {requirement.groups?.length
-                              ? `${requirement.groups.length} group${requirement.groups.length === 1 ? "" : "s"} selected`
-                              : "Select groups"}
+                              ? t.customers.customer.tier.sections.requirements.fields.customerGroup[
+                                  requirement.groups.length === 1
+                                    ? "selectedGroup"
+                                    : "selectedGroups"
+                                ].replace("{count}", requirement.groups.length)
+                              : t.customers.customer.tier.sections.requirements
+                                  .fields.customerGroup.placeholder}
                           </span>
                         </Button>
                       </GroupSelector>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Customer must be a member of all selected groups
+                      {
+                        t.customers.customer.tier.sections.requirements.fields
+                          .customerGroup.note
+                      }
                     </p>
                   </div>
                 )}
@@ -210,7 +232,7 @@ export function Requirements({ form }: RequirementsProps) {
           <div className="flex items-center gap-2">
             <div className="h-px flex-1 bg-border" />
             <span className="text-sm text-muted-foreground">
-              Add requirement
+              {t.customers.customer.tier.sections.requirements.addRequirement}
             </span>
             <div className="h-px flex-1 bg-border" />
           </div>
@@ -293,7 +315,7 @@ export function Requirements({ form }: RequirementsProps) {
             <FormLabel>
               {
                 t.customers.customer.tier.sections.requirements.fields
-                  .orderCount.label
+                  .orderCount.title
               }
             </FormLabel>
             <FormControl>
@@ -375,15 +397,19 @@ export function Requirements({ form }: RequirementsProps) {
 }
 
 function getUnitLabel(type: string): string {
+  const t = useTranslation();
   switch (type) {
     case "points":
-      return "point(s)";
+      return t.customers.customer.tier.sections.requirements.fields.points
+        .measure;
     case "spending":
       return "USD";
     case "orders":
-      return "order(s)";
+      return t.customers.customer.tier.sections.requirements.fields.orderCount
+        .measure;
     case "duration":
-      return "day(s)";
+      return t.customers.customer.tier.sections.requirements.fields
+        .membershipDuration.measure;
     default:
       return "";
   }

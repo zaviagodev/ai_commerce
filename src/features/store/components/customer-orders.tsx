@@ -58,7 +58,7 @@ export function CustomerOrders() {
     return (
       <div className="text-center py-12">
         <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-        <h3 className="text-lg font-medium">No orders yet</h3>
+        <h3 className="text-lg font-semibold">No orders yet</h3>
         <p className="text-sm text-muted-foreground mt-1">
           When you place orders, they will appear here
         </p>

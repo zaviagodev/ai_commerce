@@ -48,7 +48,7 @@ export function AdvancedConditions({ form }: AdvancedConditionsProps) {
           <Filter className="h-5 w-5 text-purple-600" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.campaigns.campaign.coupon.sections.advancedConditions.title}
           </h2>
           <p className="text-sm text-muted-foreground">

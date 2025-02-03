@@ -10,7 +10,7 @@ export function NewCouponCampaignPage() {
   const handleSubmit = async (data: Coupon) => {
     try {
       await createCoupon.mutateAsync(data);
-      navigate("/dashboard/coupon-campaigns");
+      navigate("/dashboard/coupons");
     } catch (error) {
       console.error("Failed to create coupon:", error);
     }

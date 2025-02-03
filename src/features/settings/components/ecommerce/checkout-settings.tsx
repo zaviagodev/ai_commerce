@@ -26,7 +26,7 @@ export function CheckoutSettings({ form }: CheckoutSettingsProps) {
           <CreditCard className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.settings.ecommerce.checkout.title}
           </h2>
           <p className="text-sm text-muted-foreground">

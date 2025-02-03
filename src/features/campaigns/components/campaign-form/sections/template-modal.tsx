@@ -175,7 +175,7 @@ export function TemplateModal({ form }: TemplateModalProps) {
                 {template.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-medium text-[#3A3A3A] mb-1">
+                <h3 className="text-lg font-semibold text-[#3A3A3A] mb-1">
                   {t.campaigns.campaign.sections.basicDetails.template.types[
                     template.id
                   ]?.title || template.name}

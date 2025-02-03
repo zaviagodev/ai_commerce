@@ -185,7 +185,7 @@ export function Summary({ form }: SummaryProps) {
           <Calculator className="h-5 w-5 text-orange-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.orders.orders.form.sections.summary.title}
           </h2>
           <p className="text-sm text-muted-foreground">

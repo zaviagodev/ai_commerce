@@ -34,7 +34,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           <UserCircle className="h-5 w-5 text-green-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.customers.customer.form.sections.basicDetails.title}
           </h2>
           <p className="text-sm text-muted-foreground">

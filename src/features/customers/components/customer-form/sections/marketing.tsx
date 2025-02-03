@@ -30,7 +30,7 @@ export function Marketing({ form }: MarketingProps) {
           <Mail className="h-5 w-5 text-purple-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.customers.customer.form.sections.marketing.title}
           </h2>
           <p className="text-sm text-muted-foreground">

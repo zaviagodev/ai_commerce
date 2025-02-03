@@ -88,7 +88,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
         </Button>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
           onChange={setSearchQuery}
           placeholder={t.customers.customer.list.search}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -127,7 +127,7 @@ export function CustomerList({ customers, isLoading }: CustomerListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.customers.customer.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">

@@ -56,7 +56,9 @@ export function PaymentSettingsPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-medium">{t.settings.payments.title}</h2>
+            <h2 className="text-lg font-semibold">
+              {t.settings.payments.title}
+            </h2>
             <p className="text-sm text-muted-foreground">
               {t.settings.payments.subtitle}
             </p>

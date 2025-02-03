@@ -61,7 +61,7 @@ export function PointsRewards({ form }: PointsRewardsProps) {
             <Gift className="h-5 w-5 text-indigo-600" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-medium">Points & Rewards</h2>
+            <h2 className="text-lg font-semibold">Points & Rewards</h2>
             <p className="text-sm text-muted-foreground">
               Configure points and rewards settings for this product
             </p>
@@ -104,7 +104,7 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                   <Coins className="h-5 w-5 text-yellow-600" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-medium">Points Earning</h2>
+                  <h2 className="text-lg font-semibold">Points Earning</h2>
                   <p className="text-sm text-muted-foreground">
                     Configure how customers earn points from this product
                   </p>
@@ -143,7 +143,7 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <h3 className="text-lg font-medium">Customer Tiers</h3>
+                      <h3 className="text-lg font-semibold">Customer Tiers</h3>
                       <p className="text-xs text-muted-foreground mt-1">
                         Configure point multipliers for each customer tier
                       </p>
@@ -253,7 +253,7 @@ export function PointsRewards({ form }: PointsRewardsProps) {
                 <Award className="h-5 w-5 text-purple-600" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-medium">
+                <h2 className="text-lg font-semibold">
                   {isRewardProduct
                     ? "Reward Configuration"
                     : "Points Redemption"}

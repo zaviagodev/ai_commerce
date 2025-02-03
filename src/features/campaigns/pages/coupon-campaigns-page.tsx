@@ -111,14 +111,14 @@ export function CouponCampaignsPage() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/dashboard/coupon-campaigns/new">
+          <Link to="/dashboard/coupons/new">
             <Plus className="mr-2 h-4 w-4" />
             {t.customers.customer.coupon.actions.create}
           </Link>
         </Button>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end gap-4 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ export function CouponCampaignsPage() {
           onChange={setSearchQuery}
           placeholder={t.customers.customer.coupon.list.search}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className="rounded-lg border"
@@ -162,14 +162,14 @@ export function CouponCampaignsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.customers.customer.coupon.list.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {t.customers.customer.coupon.list.empty.description}
                     </p>
                     <Button asChild className="mt-4" variant="outline">
-                      <Link to="/dashboard/coupon-campaigns/new">
+                      <Link to="/dashboard/coupons/new">
                         <Plus className="mr-2 h-4 w-4" />
                         {t.customers.customer.coupon.actions.create}
                       </Link>
@@ -182,9 +182,7 @@ export function CouponCampaignsPage() {
                 <TableRow
                   key={coupon.id}
                   className="cursor-pointer"
-                  onClick={() =>
-                    navigate(`/dashboard/coupon-campaigns/${coupon.id}`)
-                  }
+                  onClick={() => navigate(`/dashboard/coupons/${coupon.id}`)}
                 >
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -218,13 +216,6 @@ export function CouponCampaignsPage() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        coupon.status === "active"
-                          ? "default"
-                          : coupon.status === "scheduled"
-                            ? "secondary"
-                            : "destructive"
-                      }
                       className={cn("capitalize shadow-none", {
                         "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
                           coupon.status === "expired",
@@ -236,7 +227,11 @@ export function CouponCampaignsPage() {
                           coupon.status === "draft",
                       })}
                     >
-                      {t.customers.customer.coupon.list.status[coupon.status]}
+                      {
+                        t.customers.customer.coupon.list.status[
+                          coupon.status as keyof typeof t.customers.customer.coupon.list.status
+                        ]
+                      }
                     </Badge>
                   </TableCell>
                 </TableRow>

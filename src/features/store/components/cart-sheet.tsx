@@ -34,7 +34,7 @@ export function CartSheet({ children }: CartSheetProps) {
 
         {state.items.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center space-y-2">
-            <p className="text-lg font-medium">Your cart is empty</p>
+            <p className="text-lg font-semibold">Your cart is empty</p>
             <p className="text-sm text-muted-foreground">
               Add some products to your cart
             </p>

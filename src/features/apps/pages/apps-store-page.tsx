@@ -164,13 +164,13 @@ export function AppsStorePage() {
 
       {/* Featured Apps */}
       <div>
-        <h2 className="mb-4 text-lg font-medium">Featured Apps</h2>
+        <h2 className="mb-4 text-lg font-semibold">Featured Apps</h2>
         <FeaturedApps apps={FEATURED_APPS} />
       </div>
 
       {/* Categories */}
       <div>
-        <h2 className="mb-4 text-lg font-medium">Browse by Category</h2>
+        <h2 className="mb-4 text-lg font-semibold">Browse by Category</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CATEGORIES.map((category) => (
             <CategoryCard key={category.id} category={category} />

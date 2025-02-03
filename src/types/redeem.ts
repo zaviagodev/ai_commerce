@@ -20,3 +20,9 @@ export interface Redeem {
   status: "pending" | "completed" | "cancelled";
   redeemedAt: Date;
 }
+
+export interface ScanResult {
+  code: string;
+  customerName: string;
+  pointsToRedeem: number;
+}

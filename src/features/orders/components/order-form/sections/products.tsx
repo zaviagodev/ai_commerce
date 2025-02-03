@@ -79,7 +79,7 @@ export function Products({ form }: ProductsProps) {
           <Package className="h-5 w-5 text-pink-600" />
         </div>
         <div className="flex-1">
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg font-semibold">
             {t.orders.orders.list.columns.products}{" "}
             <span className="text-destructive">*</span>
           </h2>

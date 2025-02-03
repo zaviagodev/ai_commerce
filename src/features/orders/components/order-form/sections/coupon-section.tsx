@@ -96,7 +96,7 @@ export function CouponSection({ form }: CouponSectionProps) {
           <Tag className="h-5 w-5 text-primary" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-semibold">
             {t.orders.orders.form.sections.coupon.title}
           </h3>
           <p className="text-sm text-muted-foreground">

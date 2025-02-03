@@ -92,7 +92,7 @@ export function EventList({ products, isLoading }: EventListProps) {
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
                   <div className="py-12">
-                    <p className="text-lg font-medium">
+                    <p className="text-lg font-semibold">
                       {t.events.list.table.empty.title}
                     </p>
                     <p className="text-sm text-muted-foreground">

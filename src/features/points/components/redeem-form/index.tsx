@@ -9,7 +9,8 @@ import { Redeem } from "@/types/redeem";
 import { BasicDetails } from "./sections/basic-details";
 import { ItemsTable } from "./sections/items-table";
 import { RedeemDetails } from "./sections/redeem-details";
-import { StatusSelect } from "./sections/status-select";
+import { StatusSelect } from "@/components/status-select";
+import { useTranslation } from "@/lib/i18n/hooks";
 
 interface RedeemFormProps {
   initialData: Redeem;
@@ -24,6 +25,7 @@ export function RedeemForm({
   headerActions,
   onFieldChange,
 }: RedeemFormProps) {
+  const t = useTranslation();
   const form = useForm({
     resolver: zodResolver(RedeemSchema),
     defaultValues: initialData,
@@ -31,6 +33,24 @@ export function RedeemForm({
 
   const redeemCode = form.watch("code");
   const customerName = form.watch("customerName");
+
+  const redeemStatuses = [
+    {
+      label: t.redeemList.redeemList.list.table.status.pending,
+      badgeClassName: "!bg-yellow-100 text-yellow-700",
+      value: "pending",
+    },
+    {
+      label: t.redeemList.redeemList.list.table.status.completed,
+      badgeClassName: "!bg-green-100 text-green-700",
+      value: "completed",
+    },
+    {
+      label: t.redeemList.redeemList.list.table.status.cancelled,
+      badgeClassName: "!bg-red-100 text-red-700",
+      value: "cancelled",
+    },
+  ];
 
   return (
     <div className="flex h-dvh flex-col">
@@ -48,7 +68,7 @@ export function RedeemForm({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div className="flex flex-col w-full gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col w-full gap-4 md:flex-row md:items-center">
               {/* Left Section: Title and Status */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
@@ -87,18 +107,22 @@ export function RedeemForm({
                         value="overview"
                         disabled={!initialData || isEditing}
                       >
-                        Overview
+                        {t.redeemList.redeemList.form.tabs.overview}
                       </TabsTrigger>
                       <TabsTrigger
                         value="basic"
                         disabled={initialData ? !isEditing : false}
                         className={isEditing ? "ring-2 ring-blue-200" : ""}
                       >
-                        Basic Details
+                        {t.redeemList.redeemList.form.tabs.basicDetails}
                       </TabsTrigger>
                     </TabsList>
                     {(!initialData || isEditing) && (
-                      <StatusSelect form={form} />
+                      <StatusSelect
+                        form={form}
+                        options={redeemStatuses}
+                        placeholder={t.redeemList.redeemList.form.status.select}
+                      />
                     )}
                   </div>
                   <TabsContent value="overview">
