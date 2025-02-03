@@ -44,8 +44,11 @@ export const event = {
       subtitle: "Configure event specific information",
       startDateTime: "Start Date & Time",
       endDateTime: "End Date & Time",
-      gateOpeningDateTime: "Gate Opening Date & Time",
-      gateClosingDateTime: "Gate Closing Date & Time",
+      attendancePoints: {
+        label: "Attendance Points",
+        placeholder: "Enter points value",
+        description: "Points awarded to attendees for attending this event",
+      },
       venueName: {
         label: "Venue Name",
         placeholder: "e.g., Convention Center",
@@ -147,8 +150,11 @@ export const event = {
       subtitle: "กำหนดค่าข้อมูลเฉพาะของอีเวนต์",
       startDateTime: "วันและเวลาเริ่ม",
       endDateTime: "วันและเวลาสิ้นสุด",
-      gateOpeningDateTime: "วันที่และเวลาประตูเปิด",
-      gateClosingDateTime: "วันที่และเวลาประตูปิด",
+      attendancePoints: {
+        label: "จำนวนคะแนนการเข้าร่วม",
+        placeholder: "กรอกค่าคะแนน",
+        description: "คะแนนที่จะถือได้จากการเข้าร่วมอีเวนต์",
+      },
       venueName: {
         label: "ชื่อสถานที่จัดงาน",
         placeholder: "เช่น ศูนย์การประชุม",

@@ -5,7 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,23 +23,18 @@ import {
   ClipboardEdit,
   DollarSign,
   BarChart3,
-  Truck,
   Tags,
   Share2,
-  Link,
-  MoreHorizontal,
   Gift,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShareModal } from "@/components/share/share-modal";
-import { EventProductSchema, ProductSchema } from "../../schemas/product-schema";
-import { DEFAULT_TIERS } from "../../data/tiers";
+import { ProductSchema } from "../../schemas/product-schema";
 import { BasicDetails } from "./sections/basic-details";
 import { Media } from "./sections/media";
 import { Pricing } from "./sections/pricing";
 import { Variations } from "./sections/variations";
 import { Inventory } from "./sections/inventory";
-import { Shipping } from "./sections/shipping";
 import { Organization } from "./sections/organization";
 import { EventSummary } from "../../../events/components/event-form/sections/event-summary";
 import { Attendees } from "./sections/attendees";
@@ -53,15 +56,11 @@ interface ProductFormProps {
   enableDiscount?: boolean;
 }
 
-interface EventFormValues extends Pick<Event, 
-  'startDateTime' | 'endDateTime' | 'gateOpeningDateTime' | 'gateClosingDateTime' | 'venueName' | 'venueAddress' | 'organizerName' | 'organizerContact'
-> {}
-
 export function ProductForm({
   initialData,
   onSubmit,
   headerActions,
-  enableDiscount = true
+  enableDiscount = true,
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
@@ -89,8 +88,8 @@ export function ProductForm({
       variantOptions: initialData?.variantOptions || [],
       variants: initialData?.variants || [
         {
-          name: "",
-          sku: "",
+          name: "default",
+          sku: "default",
           price: 0,
           compareAtPrice: 0,
           quantity: 0,
@@ -123,37 +122,9 @@ export function ProductForm({
     },
   });
 
-  const eventForm = useForm<EventFormValues>({
-    // resolver: EventProductSchema,
-    defaultValues: {
-      startDateTime: initialData?.startDateTime || new Date(),
-      endDateTime: initialData?.endDateTime || new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
-      gateOpeningDateTime: initialData?.gateOpeningDateTime || undefined,
-      gateClosingDateTime: initialData?.gateClosingDateTime || undefined,
-      venueName: "",
-      venueAddress: "",
-      organizerName: "",
-      organizerContact: "",
-    },
-  });
-
   const handleSubmit = async (data: ProductFormData) => {
-
-    const eventProductData = {
-      ...data,
-      startDateTime: eventForm.watch('startDateTime'),
-      endDateTime: eventForm.watch('endDateTime'),
-      gateOpeningDateTime: eventForm.watch('gateOpeningDateTime'),
-      gateClosingDateTime: eventForm.watch('gateClosingDateTime'),
-      venueName: eventForm.watch('venueName'),
-      venueAddress: eventForm.watch('venueAddress'),
-      organizerName: eventForm.watch('organizerName'),
-      organizerContact: eventForm.watch('organizerContact'),
-    }
-    console.log('dataa = ', eventProductData);
-    
     try {
-      await onSubmit(eventProductData);
+      await onSubmit(form.getValues());
     } catch (error) {}
   };
 
@@ -465,34 +436,37 @@ export function ProductForm({
                     </Card>
 
                     {/* Event Details Section - Only show for event products */}
-                    {isEventProduct && <EventDetails form={eventForm} />}
+                    {isEventProduct && <EventDetails form={form} />}
 
-                    {form.watch("isReward") &&
-                      !(form.watch("variantOptions")?.length > 0) && (
-                        <RewardDetails form={form} />
-                      )}
+                    {(isEventProduct || form.watch("isReward")) && (
+                      <RewardDetails form={form} />
+                    )}
 
                     {/* Pricing Section */}
-                    {form.watch('variantOptions').length === 0 && <Card>
-                      <CardHeader className="flex flex-row items-center gap-4 py-4">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
-                          <DollarSign className="h-5 w-5 text-purple-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h2 className="text-lg font-semibold">Pricing</h2>
-                          <p className="text-sm text-muted-foreground">
-                            {
-                              t.products.products.form.sections.pricing
-                                .description
-                            }
-                          </p>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <Pricing form={form} enableDiscount={enableDiscount} />
-                      </CardContent>
-                    </Card>
-                  }
+                    {form.watch("variantOptions").length === 0 && (
+                      <Card>
+                        <CardHeader className="flex flex-row items-center gap-4 py-4">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
+                            <DollarSign className="h-5 w-5 text-purple-600" />
+                          </div>
+                          <div className="flex-1">
+                            <h2 className="text-lg font-semibold">Pricing</h2>
+                            <p className="text-sm text-muted-foreground">
+                              {
+                                t.products.products.form.sections.pricing
+                                  .description
+                              }
+                            </p>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <Pricing
+                            form={form}
+                            enableDiscount={enableDiscount}
+                          />
+                        </CardContent>
+                      </Card>
+                    )}
                     <Variations form={form} isEventProduct={isEventProduct} />
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">

@@ -74,7 +74,7 @@ export function ProductAvatars({ items, maxVisible = 4 }: ProductAvatarsProps) {
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-[200px]">
               <p className="font-medium">{item.name}</p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs">
                 {t.orders.orders.product.select.quantity}: {item.quantity}
               </p>
             </TooltipContent>

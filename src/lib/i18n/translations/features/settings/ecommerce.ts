@@ -21,6 +21,10 @@ export const ecommerce = {
         label: "Order Number Prefix",
         description: "This prefix will be added to all order numbers",
       },
+      loyaltyPointsRate: {
+        label: "Loyalty Points Rate",
+        description: "1$ = x points",
+      },
     },
     checkout: {
       title: "Checkout Settings",

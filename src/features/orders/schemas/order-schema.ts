@@ -52,8 +52,6 @@ export const OrderSchema = z.object({
       country: z.string(),
       phone: z.string().optional(),
       isDefault: z.boolean(),
-      createdAt: z.date(),
-      updatedAt: z.date(),
     })
     .optional(),
   status: z.enum([
@@ -94,4 +92,20 @@ export const OrderSchema = z.object({
   appliedCoupons: z.array(OrderCouponSchema).optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+  loyalty_points_used: z.number().default(0),
+  payment_details: z
+    .object({
+      type: z.string(),
+      bank_name: z.string().optional(),
+      slip_image: z.string().optional(),
+      confirmed_at: z.string().optional(),
+    })
+    .optional(),
+  shipping_details: z
+    .object({
+      courier: z.string(),
+      tracking_number: z.string(),
+      shipped_at: z.string(),
+    })
+    .optional(),
 });

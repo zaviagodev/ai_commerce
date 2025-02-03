@@ -7,7 +7,7 @@ import { BankSelect } from "./bank-select";
 import { useTranslation } from "@/lib/i18n/hooks";
 
 interface ManualPaymentSectionProps {
-  onConfirm: (data: { bankName: string; slipImage: string }) => void;
+  onConfirm: (data: { bankName: string; slipFile: File }) => void;
   onCancel: () => void;
 }
 
@@ -18,6 +18,7 @@ export function ManualPaymentSection({
   const t = useTranslation();
   const [selectedBank, setSelectedBank] = useState<string>("");
   const [slipImage, setSlipImage] = useState<string>("");
+  const [slipFile, setSlipFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +29,7 @@ export function ManualPaymentSection({
     try {
       // Create preview URL
       const previewUrl = URL.createObjectURL(file);
+      setSlipFile(file);
       setSlipImage(previewUrl);
     } catch (error) {
       console.error("Failed to handle file:", error);
@@ -38,7 +40,7 @@ export function ManualPaymentSection({
 
   const handleConfirm = () => {
     if (!selectedBank) return;
-    onConfirm({ bankName: selectedBank, slipImage });
+    onConfirm({ bankName: selectedBank, slipFile: slipFile! });
   };
 
   return (

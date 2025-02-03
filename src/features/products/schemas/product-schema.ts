@@ -53,7 +53,7 @@ const BaseProductSchema = z.object({
       description: z.string().optional(),
     })
     .optional(),
-  price: z.number(),
+  price: z.number().min(0, "Price must be greater than or equal to 0"),
   compareAtPrice: z.number().optional(),
   cost: z.number().optional(),
   pointsBasedPrice: z.number().optional(),
@@ -80,13 +80,17 @@ const BaseProductSchema = z.object({
   isGiftCard: z.boolean().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+  loyalty_points_price: z
+    .number()
+    .min(0, "Loyalty points price must be greater than or equal to 0")
+    .optional(),
 });
 
 export const EventProductSchema = z.object({
   startDateTime: z.date().optional(),
   endDateTime: z.date().optional(),
-  gateOpeningDateTime: z.date().optional(),
-  gateClosingDateTime: z.date().optional(),
+  // gateOpeningDateTime: z.date().optional(),
+  // gateClosingDateTime: z.date().optional(),
   venueName: z.string().optional(),
   venueAddress: z.string().optional(),
   organizerName: z.string().optional(),

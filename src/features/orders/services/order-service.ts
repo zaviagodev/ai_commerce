@@ -3,6 +3,15 @@ import { Order } from "@/types/order";
 import { toast } from "sonner";
 import { useAuthStore } from "@/lib/auth/auth-store";
 import { transformOrder } from "../utils/order-transformer";
+import { OrderSlipService } from "./order-slip-service";
+
+export type AddPaymentDetailsParams = {
+  orderId: string;
+  type: "bank_transfer" | "promptpay";
+  bankName?: string;
+  slipImage?: File;
+  transferReference?: string;
+};
 
 export class OrderService {
   static async getOrders(): Promise<Order[]> {
@@ -21,12 +30,41 @@ export class OrderService {
             email,
             phone
           ),
+          billing_address:customer_addresses!orders_billing_address_id_fkey (
+            id,
+            type,
+            first_name,
+            last_name,
+            address1,
+            address2,
+            city,
+            state,
+            postal_code,
+            country,
+            phone,
+            is_default
+          ),
+          shipping_address:customer_addresses!orders_shipping_address_id_fkey (
+            id,
+            type,
+            first_name,
+            last_name,
+            address1,
+            address2,
+            city,
+            state,
+            postal_code,
+            country,
+            phone,
+            is_default
+          ),
           order_items (
             id,
             variant_id,
             quantity,
             price,
             total,
+            points_based_price,
             product_variants (
               name,
               options,
@@ -77,15 +115,20 @@ export class OrderService {
         p_shipping: order.shipping,
         p_tax: order.tax,
         p_total: order.total,
+        p_points_discount: order.pointsDiscount,
         p_notes: order.notes,
         p_tags: order.tags,
         p_applied_coupons: order.appliedCoupons || [],
+        p_loyalty_points_used: order.loyalty_points_used || 0,
         p_items: order.items.map((item) => ({
           variant_id: item.variantId,
           quantity: item.quantity,
           price: item.price,
           total: item.total,
+          points_based_price: item.pointsBasedPrice || 0,
         })),
+        p_shipping_address_id: order.shippingAddress?.id,
+        p_billing_address_id: order.billingAddress?.id,
       });
 
       if (error) throw error;
@@ -118,8 +161,14 @@ export class OrderService {
           status: data.status,
           subtotal: data.subtotal,
           discount: data.discount,
+          points_discount: data.pointsDiscount,
           shipping: data.shipping,
+          shipping_details: data.shippingDetails,
+          shipping_address_id: data.shippingAddress?.id,
+          billing_address_id: data.billingAddress?.id,
           applied_coupons: data.appliedCoupons,
+          payment_details: data.payment_details,
+          loyalty_points_used: data.loyalty_points_used,
           tax: data.tax,
           total: data.total,
           notes: data.notes,
@@ -153,6 +202,7 @@ export class OrderService {
                 variant_id: item.variantId,
                 quantity: item.quantity,
                 price: item.price,
+                points_based_price: item.pointsBasedPrice || 0,
                 total: item.total,
               })),
             );
@@ -230,12 +280,17 @@ export class OrderService {
         })),
         subtotal: order.subtotal,
         discount: order.discount,
+        pointsDiscount: order.points_discount,
         shipping: order.shipping,
+        shippingDetails: order.shipping_details,
+        billingAddress: order.billing_address,
+        shippingAddress: order.shipping_address,
         tax: order.tax,
         total: order.total,
         notes: order.notes,
         tags: order.tags,
         appliedCoupons: order.applied_coupons || [],
+        loyalty_points_used: order.loyalty_points_used || 0,
         createdAt: new Date(order.created_at),
         updatedAt: new Date(order.updated_at),
       }));
@@ -261,6 +316,34 @@ export class OrderService {
             last_name,
             email,
             phone
+          ),
+          billing_address:customer_addresses!orders_billing_address_id_fkey (
+            id,
+            type,
+            first_name,
+            last_name,
+            address1,
+            address2,
+            city,
+            state,
+            postal_code,
+            country,
+            phone,
+            is_default
+          ),
+          shipping_address:customer_addresses!orders_shipping_address_id_fkey (
+            id,
+            type,
+            first_name,
+            last_name,
+            address1,
+            address2,
+            city,
+            state,
+            postal_code,
+            country,
+            phone,
+            is_default
           ),
           order_items (
             id,
@@ -330,7 +413,7 @@ export class OrderService {
 
       if (error) throw error;
 
-      // Transform the materialized view data to match Order type
+      // Transform the materialized view data to match Order type for product-specific orders
       return (orders || []).map((order) => ({
         id: order.id,
         customerId: order.customer_id,
@@ -352,12 +435,14 @@ export class OrderService {
         })),
         subtotal: order.subtotal,
         discount: order.discount,
+        pointsDiscount: order.points_discount,
         shipping: order.shipping,
         tax: order.tax,
         total: order.total,
         notes: order.notes,
         tags: order.tags,
         appliedCoupons: order.applied_coupons || [],
+        loyalty_points_used: order.loyalty_points_used || 0,
         createdAt: new Date(order.created_at),
         updatedAt: new Date(order.updated_at),
       }));
@@ -365,6 +450,151 @@ export class OrderService {
       console.error("Failed to fetch event orders:", error);
       toast.error("Failed to load event orders");
       return [];
+    }
+  }
+
+  static async addPaymentDetails({
+    orderId,
+    type,
+    bankName,
+    slipImage,
+    transferReference,
+  }: AddPaymentDetailsParams): Promise<Order> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error("Store not found");
+
+      let slipUrl: string | undefined;
+
+      // Upload slip if provided
+      if (slipImage) {
+        slipUrl = await OrderSlipService.uploadSlip(
+          slipImage,
+          orderId,
+          user.storeName,
+        );
+      }
+
+      // Update order payment details
+      const { data: updatedOrder, error } = await supabase
+        .from("orders")
+        .update({
+          payment_details: {
+            type,
+            bank_name: bankName,
+            slip_image: slipUrl,
+            uploaded_at: slipUrl ? new Date().toISOString() : undefined,
+            transfer_reference: transferReference,
+          },
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", orderId)
+        .eq("store_name", user.storeName)
+        .select(
+          `
+          *,
+          customers (
+            first_name,
+            last_name,
+            email,
+            phone
+          ),
+          order_items (
+            id,
+            variant_id,
+            quantity,
+            price,
+            total,
+            product_variants (
+              name,
+              options,
+              product:products (
+                name,
+                status,
+                product_images (
+                  id,
+                  url,
+                  alt,
+                  position
+                )
+              )
+            )
+          )
+        `,
+        )
+        .single();
+
+      if (error) throw error;
+
+      toast.success("Payment details added successfully");
+      return transformOrder(updatedOrder);
+    } catch (error: any) {
+      console.error("Failed to add payment details:", error);
+      toast.error(error.message || "Failed to add payment details");
+      throw error;
+    }
+  }
+
+  static async confirmPayment(orderId: string, order: Order): Promise<Order> {
+    try {
+      const user = useAuthStore.getState().user;
+      if (!user?.storeName) throw new Error("Store not found");
+
+      // Update order status and payment confirmation
+      const { data: updatedOrder, error } = await supabase
+        .from("orders")
+        .update({
+          status: "processing",
+          payment_details: {
+            ...order.payment_details,
+            confirmed_at: new Date().toISOString(),
+          },
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", orderId)
+        .eq("store_name", user.storeName)
+        .select(
+          `
+          *,
+          customers (
+            first_name,
+            last_name,
+            email,
+            phone
+          ),
+          order_items (
+            id,
+            variant_id,
+            quantity,
+            price,
+            total,
+            product_variants (
+              name,
+              options,
+              product:products (
+                name,
+                status,
+                product_images (
+                  id,
+                  url,
+                  alt,
+                  position
+                )
+              )
+            )
+          )
+        `,
+        )
+        .single();
+
+      if (error) throw error;
+
+      toast.success("Payment confirmed successfully");
+      return transformOrder(updatedOrder);
+    } catch (error: any) {
+      console.error("Failed to confirm payment:", error);
+      toast.error(error.message || "Failed to confirm payment");
+      throw error;
     }
   }
 }

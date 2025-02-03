@@ -47,7 +47,7 @@ export function VariantTableRow({
         <Input
           type="number"
           min="0"
-          value={(variant.price.toString().replace(/^0+(?!$)/, ''))}
+          value={variant.price.toString().replace(/^0+(?!$)/, "")}
           onChange={(e) =>
             onUpdate(variant.id, { price: Number(e.target.value) })
           }

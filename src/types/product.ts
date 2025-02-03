@@ -83,13 +83,14 @@ export interface Event {
   storeName: string;
   startDateTime: Date;
   endDateTime: Date;
-  gateOpeningDateTime?: Date;
-  gateClosingDateTime?: Date;
+  // gateOpeningDateTime?: Date;
+  // gateClosingDateTime?: Date;
   venueName: string;
   venueAddress: string;
   googleMapsLink?: string;
   organizerName: string;
   organizerContact: string;
+  attendancePoints: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -98,11 +99,12 @@ export interface EventProduct extends Product {
   eventId: string;
   startDateTime: Date;
   endDateTime: Date;
-  gateOpeningDateTime?: Date;
-  gateClosingDateTime?: Date;
+  // gateOpeningDateTime?: Date;
+  // gateClosingDateTime?: Date;
   venueName: string;
   venueAddress: string;
   googleMapsLink?: string;
   organizerName: string;
   organizerContact: string;
+  attendancePoints: number;
 }

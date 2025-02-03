@@ -125,6 +125,9 @@ export function CustomerSelect({ form }: CustomerSelectProps) {
                           <div className="text-sm text-muted-foreground">
                             {customer.email}
                           </div>
+                          <div className="text-sm text-muted-foreground">
+                            {customer.loyaltyPoints || 0} points
+                          </div>
                         </div>
                       </Button>
                     ))}

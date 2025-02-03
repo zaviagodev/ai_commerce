@@ -18,6 +18,8 @@ interface DeleteConfirmModalProps {
   onOpenChange: (open: boolean) => void;
   onConfirm: () => Promise<void>;
   itemName: string;
+  title?: string;
+  description?: string;
 }
 
 export function DeleteConfirmModal({
@@ -25,6 +27,8 @@ export function DeleteConfirmModal({
   onOpenChange,
   onConfirm,
   itemName,
+  title,
+  description,
 }: DeleteConfirmModalProps) {
   const t = useTranslation();
   const [confirmText, setConfirmText] = useState("");
@@ -50,10 +54,11 @@ export function DeleteConfirmModal({
             </div>
             <div>
               <DialogTitle>
-                {t.products.products.form.modals.delete.title}
+                {title || t.products.products.form.modals.delete.title}
               </DialogTitle>
               <DialogDescription>
-                {t.products.products.form.modals.delete.description}
+                {description ||
+                  t.products.products.form.modals.delete.description}
               </DialogDescription>
             </div>
           </div>
@@ -100,7 +105,7 @@ export function DeleteConfirmModal({
           >
             {isDeleting
               ? t.products.products.form.modals.delete.deleting
-              : t.products.products.form.modals.delete.confirm}
+              : title || t.products.products.form.modals.delete.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

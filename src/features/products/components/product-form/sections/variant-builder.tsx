@@ -94,7 +94,6 @@ export function VariantBuilder({ form }: VariantBuilderProps) {
         option.values.map((value) => [...combo, value]),
       );
     }, []);
-    console.log("combinations", combinations);
 
     // Create variants from combinations
     const existingVariants = form.watch("variants") || [];

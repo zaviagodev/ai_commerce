@@ -23,12 +23,14 @@ import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n/hooks";
 import { ProductSearch } from "@/features/products/components/product-search";
 import { useMemo, useState } from "react";
+import { DeleteConfirmModal } from "@/components/delete-confirm-modal";
 
 export function CustomerGroupsPage() {
   const navigate = useNavigate();
   const { groups, isLoading, deleteGroup } = useCustomerGroups();
   const t = useTranslation();
 
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const filteredGroups = useMemo(() => {
     let filtered = groups;
@@ -146,79 +148,93 @@ export function CustomerGroupsPage() {
               </TableRow>
             ) : (
               filteredGroups.map((group) => (
-                <TableRow
-                  key={group.id}
-                  className="cursor-pointer"
-                  onClick={() =>
-                    navigate(`/dashboard/customer-groups/${group.id}`)
-                  }
-                >
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${group.color}-100`}
-                      >
-                        <Users className={`h-5 w-5 text-${group.color}-600`} />
-                      </div>
-                      <div>
-                        <span className="font-medium hover:underline">
-                          {group.name}
-                        </span>
-                        {group.description && (
-                          <p className="text-sm text-muted-foreground">
-                            {group.description}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    {t.customers.customer.group.list.memberCount
-                      .replace("{count}", String(group.members?.length || 0))
-                      .replace("{s}", group.members?.length === 1 ? "" : "s")}
-                  </TableCell>
-                  {/* <TableCell>
-                    <Badge variant={group.autoAssign ? "default" : "secondary"}>
-                      {group.autoAssign
-                        ? t.customers.customer.group.list.autoAssign.enabled
-                        : t.customers.customer.group.list.autoAssign.disabled}
-                    </Badge>
-                  </TableCell> */}
-                  <TableCell>
-                    <Badge
-                      className={cn("capitalize shadow-none", {
-                        "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
-                          group.status === "active",
-                        "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
-                          group.status === "inactive",
-                      })}
-                    >
-                      {t.customers.customer.group.list.status[group.status]}
-                    </Badge>
-                  </TableCell>
-                  <TableCell onClick={(e) => e.stopPropagation()}>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild>
-                          <Link to={`/dashboard/customer-groups/${group.id}`}>
-                            {t.customers.customer.group.list.actions.edit}
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="text-destructive"
-                          onClick={() => handleDelete(group.id)}
+                <>
+                  <TableRow
+                    key={group.id}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(`/dashboard/customer-groups/${group.id}`)
+                    }
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`flex h-10 w-10 items-center justify-center rounded-lg bg-${group.color}-100`}
                         >
-                          {t.customers.customer.group.list.actions.delete}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
+                          <Users
+                            className={`h-5 w-5 text-${group.color}-600`}
+                          />
+                        </div>
+                        <div>
+                          <span className="font-medium hover:underline">
+                            {group.name}
+                          </span>
+                          {group.description && (
+                            <p className="text-sm text-muted-foreground">
+                              {group.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {t.customers.customer.group.list.memberCount
+                        .replace("{count}", String(group.members?.length || 0))
+                        .replace("{s}", group.members?.length === 1 ? "" : "s")}
+                    </TableCell>
+                    {/* <TableCell>
+                      <Badge
+                        variant={group.autoAssign ? "default" : "secondary"}
+                      >
+                        {group.autoAssign
+                          ? t.customers.customer.group.list.autoAssign.enabled
+                          : t.customers.customer.group.list.autoAssign.disabled}
+                      </Badge>
+                    </TableCell> */}
+                    <TableCell>
+                      <Badge
+                        className={cn("capitalize shadow-none", {
+                          "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                            group.status === "active",
+                          "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                            group.status === "inactive",
+                        })}
+                      >
+                        {t.customers.customer.group.list.status[group.status]}
+                      </Badge>
+                    </TableCell>
+                    <TableCell onClick={(e) => e.stopPropagation()}>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem asChild>
+                            <Link to={`/dashboard/customer-groups/${group.id}`}>
+                              {t.customers.customer.group.list.actions.edit}
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => setShowDeleteConfirm(true)}
+                          >
+                            {t.customers.customer.group.list.actions.delete}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+
+                  <DeleteConfirmModal
+                    open={showDeleteConfirm}
+                    onOpenChange={setShowDeleteConfirm}
+                    onConfirm={() => handleDelete(group.id)}
+                    itemName={group.name || ""}
+                    title={t.customers.customer.group.list.modals.delete}
+                  />
+                </>
               ))
             )}
           </TableBody>

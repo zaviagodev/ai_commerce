@@ -168,6 +168,28 @@ export function GeneralSettings({ form }: GeneralSettingsProps) {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="loyaltyPointsRate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                {t.settings.ecommerce.general.loyaltyPointsRate.label}
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
+              </FormControl>
+              <FormDescription>
+                {t.settings.ecommerce.general.loyaltyPointsRate.description}
+              </FormDescription>
+            </FormItem>
+          )}
+        />
       </CardContent>
     </Card>
   );

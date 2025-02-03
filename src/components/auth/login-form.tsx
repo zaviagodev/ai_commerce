@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -30,6 +30,7 @@ type LoginFormValues = z.infer<typeof LoginSchema>;
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { login } = useAuth();
 
   const form = useForm<LoginFormValues>({
@@ -47,7 +48,9 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      navigate("/dashboard");
+      // Get the next URL from search params, default to dashboard if not provided
+      const nextUrl = searchParams.get("next") || "/dashboard";
+      navigate(nextUrl);
     } catch (error) {
       // Error handling is done in auth-hooks.ts
       form.reset({ password: "" });

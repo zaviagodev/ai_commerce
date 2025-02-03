@@ -40,7 +40,7 @@ export function OrderForm({
   headerActions,
   onFieldChange,
   extraTabs = [],
-  showTaxSection = true
+  showTaxSection = true,
 }: OrderFormProps) {
   const t = useTranslation();
   const form = useForm({
@@ -54,9 +54,11 @@ export function OrderForm({
       items: [],
       subtotal: 0,
       discount: 0,
+      pointsDiscount: 0,
       shipping: 0,
       tax: 0,
       total: 0,
+      loyalty_points_used: 0,
       notes: "",
       tags: [],
       ...initialData,

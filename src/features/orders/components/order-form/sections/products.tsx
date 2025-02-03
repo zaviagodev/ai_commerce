@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { Plus, Minus, Package } from "lucide-react";
+import { Plus, Minus, Package, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { formatCurrency } from "@/lib/utils";
 import { ProductVariant } from "@/types/product";
 import { Product } from "@/types/product";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { cn } from "@/lib/utils";
 
 interface ProductsProps {
   form: UseFormReturn<Order>;
@@ -17,13 +18,10 @@ interface ProductsProps {
 
 export function Products({ form }: ProductsProps) {
   const t = useTranslation();
-  const items = form.watch("items") || [];
+  const items: OrderItem[] = form.watch("items") || [];
 
   const handleProductSelect = (product: Product, variant: ProductVariant) => {
-    const existingItem = items.find(
-      (item: OrderItem) => item.variantId === variant.id,
-    );
-
+    const existingItem = items.find((item) => item.variantId === variant.id);
     if (existingItem) {
       // Update quantity of existing item
       const updatedItems = items.map((item) => {
@@ -33,6 +31,7 @@ export function Products({ form }: ProductsProps) {
             ...item,
             quantity: newQuantity,
             total: variant.price * newQuantity,
+            pointsBasedPrice: variant.pointsBasedPrice || 0,
           };
         }
         return item;
@@ -40,7 +39,7 @@ export function Products({ form }: ProductsProps) {
       form.setValue("items", updatedItems);
     } else {
       // Add new item
-      const newItem = {
+      const newItem: OrderItem = {
         id: crypto.randomUUID(),
         variantId: variant.id,
         name: product.name,
@@ -51,6 +50,7 @@ export function Products({ form }: ProductsProps) {
         price: variant.price,
         quantity: 1,
         total: variant.price,
+        pointsBasedPrice: variant.pointsBasedPrice || 0,
       };
       form.setValue("items", [...items, newItem]);
     }
@@ -139,57 +139,65 @@ export function Products({ form }: ProductsProps) {
               <div className="flex-1">
                 <div className="font-medium">{item.name}</div>
                 <div className="text-sm text-muted-foreground">
-                  {formatCurrency(item.price)}{" "}
-                  {t.orders.orders.form.sections.products.perUnit}
+                  {item.variant?.name}
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => updateQuantity(index, item.quantity - 1)}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <Input
+                    type="number"
+                    min="1"
+                    className="w-16 text-center"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      updateQuantity(index, parseInt(e.target.value) || 1)
+                    }
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => updateQuantity(index, item.quantity + 1)}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <div className="w-32 text-right">
+                  <div className="flex flex-col">
+                    <span className="font-medium">
+                      {formatCurrency(item.total)}
+                    </span>
+                    {item.pointsBasedPrice > 0 && (
+                      <span className="text-sm text-green-600">
+                        or {item.pointsBasedPrice * item.quantity} pts
+                      </span>
+                    )}
+                  </div>
+                </div>
+
                 <Button
                   type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={() => updateQuantity(index, item.quantity - 1)}
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => {
+                    const newItems = [...items];
+                    newItems.splice(index, 1);
+                    form.setValue("items", newItems);
+                  }}
                 >
-                  <Minus className="h-4 w-4" />
-                </Button>
-
-                <Input
-                  type="number"
-                  min="1"
-                  className="w-10 text-center bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    updateQuantity(index, parseInt(e.target.value) || 1)
-                  }
-                />
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={() => updateQuantity(index, item.quantity + 1)}
-                >
-                  <Plus className="h-4 w-4" />
+                  {t.orders.orders.form.sections.products.remove}
                 </Button>
               </div>
-
-              <div className="w-24 text-right">
-                {formatCurrency(item.total)}
-              </div>
-
-              <Button
-                type="button"
-                variant="destructive"
-                size="sm"
-                onClick={() => {
-                  const newItems = [...items];
-                  newItems.splice(index, 1);
-                  form.setValue("items", newItems);
-                }}
-              >
-                {t.orders.orders.form.sections.products.remove}
-              </Button>
             </div>
           ))}
 

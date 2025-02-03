@@ -57,11 +57,14 @@ export function CustomerForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-6 max-h-[75vh] overflow-auto pb-20"
+      >
         <BasicDetails form={form} />
         <Addresses form={form} />
 
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-2 bottom-0 fixed w-full bg-main p-6 !m-0 left-0">
           <Button
             type="button"
             variant="outline"

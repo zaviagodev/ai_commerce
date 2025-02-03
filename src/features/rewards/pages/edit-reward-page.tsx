@@ -19,8 +19,6 @@ export function EditRewardPage() {
   const navigate = useNavigate();
   const [showActions, setShowActions] = useState(false);
 
-  console.log(rewardProduct);
-
   if (isLoading) {
     return <div className="pt-14">Loading...</div>;
   }

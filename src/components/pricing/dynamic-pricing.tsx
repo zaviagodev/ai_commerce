@@ -18,7 +18,11 @@ interface DynamicPricingProps {
   enableDiscount?: boolean;
 }
 
-export function DynamicPricing({ value, onChange, enableDiscount = true }: DynamicPricingProps) {
+export function DynamicPricing({
+  value,
+  onChange,
+  enableDiscount = true,
+}: DynamicPricingProps) {
   const t = useTranslation();
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
@@ -93,7 +97,7 @@ export function DynamicPricing({ value, onChange, enableDiscount = true }: Dynam
       price: finalPrice,
       compareAtPrice: isDiscountEnabled ? price : undefined,
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDiscountEnabled, finalPrice]);
 
   return (
@@ -104,56 +108,58 @@ export function DynamicPricing({ value, onChange, enableDiscount = true }: Dynam
         onChange={handlePriceChange}
       />
 
-      {enableDiscount && <Card className="card-shadow">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="discount-toggle" className="cursor-pointer">
-                {t.products.products.form.sections.pricing.title}
-              </Label>
-              <p className="text-sm text-muted-foreground">
-                {t.products.products.form.sections.pricing.description}
-              </p>
-            </div>
-            <Switch
-              id="discount-toggle"
-              checked={isDiscountEnabled}
-              onCheckedChange={setIsDiscountEnabled}
-            />
-          </div>
-
-          <Collapsible open={isDiscountEnabled}>
-            <CollapsibleContent className="mt-6 space-y-6">
-              <DiscountTabs
-                type={discountType}
-                value={discountValue}
-                onTypeChange={handleDiscountTypeChange}
-                onValueChange={handleDiscountValueChange}
-                maxValue={price}
-              />
-
-              <PriceInput
-                label="Final Price"
-                value={finalPriceInput}
-                onChange={handleFinalPriceChange}
-                error={
-                  finalPriceInput > price
-                    ? "Final price cannot exceed original price"
-                    : undefined
-                }
-              />
-
-              <div className="rounded-lg bg-muted p-4">
-                <PriceSummary
-                  originalPrice={price}
-                  discountAmount={discountAmount}
-                  finalPrice={finalPrice}
-                />
+      {enableDiscount && (
+        <Card className="card-shadow">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label htmlFor="discount-toggle" className="cursor-pointer">
+                  {t.products.products.form.sections.pricing.title}
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  {t.products.products.form.sections.pricing.description}
+                </p>
               </div>
-            </CollapsibleContent>
-          </Collapsible>
-        </CardContent>
-      </Card>}
+              <Switch
+                id="discount-toggle"
+                checked={isDiscountEnabled}
+                onCheckedChange={setIsDiscountEnabled}
+              />
+            </div>
+
+            <Collapsible open={isDiscountEnabled}>
+              <CollapsibleContent className="mt-6 space-y-6">
+                <DiscountTabs
+                  type={discountType}
+                  value={discountValue}
+                  onTypeChange={handleDiscountTypeChange}
+                  onValueChange={handleDiscountValueChange}
+                  maxValue={price}
+                />
+
+                <PriceInput
+                  label="Final Price"
+                  value={finalPriceInput}
+                  onChange={handleFinalPriceChange}
+                  error={
+                    finalPriceInput > price
+                      ? "Final price cannot exceed original price"
+                      : undefined
+                  }
+                />
+
+                <div className="rounded-lg bg-muted p-4">
+                  <PriceSummary
+                    originalPrice={price}
+                    discountAmount={discountAmount}
+                    finalPrice={finalPrice}
+                  />
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

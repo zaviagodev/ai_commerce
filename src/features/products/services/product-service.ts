@@ -32,7 +32,8 @@ export class ProductService {
             quantity,
             options,
             status,
-            position
+            position,
+            points_based_price
           ),
           product_categories (
             id,

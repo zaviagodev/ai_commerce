@@ -229,7 +229,7 @@ export const ordersTranslations = {
           },
           phone: {
             label: "Phone",
-            placeholder: "+1234567890",
+            placeholder: "0812345678",
           },
         },
         payment: {
@@ -586,7 +586,7 @@ export const ordersTranslations = {
           },
           phone: {
             label: "เบอร์โทรศัพท์",
-            placeholder: "+1234567890",
+            placeholder: "0812345678",
           },
         },
         payment: {

@@ -31,12 +31,13 @@ import {
 } from "../../schemas/payment-settings-schema";
 import { SetAsDefaultModal } from "@/features/customers/components/modal/set-as-default-modal";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { Bank } from "../../hooks/use-banks";
 
 interface BankAccountDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (account: BankAccount) => void;
-  banks: readonly string[];
+  banks: readonly Bank[];
 }
 
 export function BankAccountDialog({
@@ -107,8 +108,11 @@ export function BankAccountDialog({
                       </FormControl>
                       <SelectContent>
                         {banks.map((bank) => (
-                          <SelectItem key={bank} value={bank}>
-                            {bank}
+                          <SelectItem
+                            key={bank.bank_code}
+                            value={bank.bank_code}
+                          >
+                            {`${bank.bank_name} (${bank.bank_code})`}
                           </SelectItem>
                         ))}
                       </SelectContent>

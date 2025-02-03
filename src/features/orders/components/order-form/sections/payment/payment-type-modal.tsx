@@ -8,7 +8,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Order } from "@/types/order";
 import { useState } from "react";
-import { ManualPaymentSection } from "./manual-payment-section";
 import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PaymentTypeModalProps {

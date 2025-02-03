@@ -34,6 +34,7 @@ export function EcommerceSettingsPage() {
       taxCalculation: "line_items",
       taxInclusive: false,
       defaultTaxRate: 0,
+      loyaltyPointsRate: 100,
     },
   });
 

@@ -13,7 +13,7 @@ export class MediaService {
 
     // Upload file to storage
     const { data, error } = await supabase.storage
-      .from("product-images")
+      .from(import.meta.env.VITE_SUPABASE_STORAGE_BUCKET)
       .upload(filePath, file, {
         cacheControl: "3600",
         upsert: false,
@@ -24,7 +24,9 @@ export class MediaService {
     // Get public URL
     const {
       data: { publicUrl },
-    } = supabase.storage.from("product-images").getPublicUrl(data.path);
+    } = supabase.storage
+      .from(import.meta.env.VITE_SUPABASE_STORAGE_BUCKET)
+      .getPublicUrl(data.path);
 
     return {
       url: publicUrl,

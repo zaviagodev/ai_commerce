@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Product } from "@/types/product";
+import { Product, ProductVariant } from "@/types/product";
 import { formatCurrency, getVaraintsPriceRange } from "@/lib/utils";
 import { useAuth } from "@/lib/auth/auth-hooks";
 import { DataTablePagination } from "@/components/ui/data-table/pagination";
@@ -26,14 +26,14 @@ import { ProductActionsMenu } from "./product-actions-menu";
 import { usePagination } from "@/hooks/use-pagination";
 import { ProductSort } from "./product-sort";
 import { sortProducts } from "../utils/sorting";
-import { SORT_OPTIONS } from "../types/sorting";
+import { SORT_OPTIONS, SortOption } from "../types/sorting";
 import { useBulkSelection } from "../hooks/use-bulk-selection";
 import { BulkActionsMenu } from "./bulk-actions/bulk-actions-menu";
 import { BulkDeleteDialog } from "./bulk-actions/bulk-delete-dialog";
 import { BulkCategoryDialog } from "./bulk-actions/bulk-category-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSearch } from "./product-search";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Dispatch, SetStateAction } from "react";
 import { cn } from "@/lib/utils";
 import Loading from "@/components/loading";
 import { useTranslation } from "@/lib/i18n/hooks";
@@ -43,6 +43,15 @@ interface ProductListProps {
   products: Product[];
   isLoading: boolean;
   onDelete: (id: string) => Promise<void>;
+}
+
+interface Row {
+  original: Product;
+  getValue: (key: string) => any;
+}
+
+interface CellProps {
+  row: Row;
 }
 
 export function ProductList({
@@ -108,8 +117,7 @@ export function ProductList({
   const paginatedProducts = paginateItems(sortedProducts);
   const selectedCount = selectedIds.size;
 
-  console.log('paginatedProducts => ', paginatedProducts);
-  
+  console.log("paginatedProducts => ", paginatedProducts);
 
   const handleBulkDelete = async () => {
     setIsDeleting(true);
@@ -144,13 +152,117 @@ export function ProductList({
     );
   }
 
+  const columns = [
+    {
+      accessorKey: "product",
+      header: "Product",
+      cell: ({ row }: CellProps) => {
+        const product = row.original;
+        return (
+          <div className="flex items-center gap-3">
+            {product.images[0] ? (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+                className="h-12 w-12 rounded-sm overflow-hidden"
+              >
+                <img
+                  src={product.images[0].url}
+                  alt={product.images[0].alt}
+                  className="h-full w-full object-cover"
+                />
+              </motion.div>
+            ) : (
+              <div className="h-12 w-12 rounded-sm bg-muted" />
+            )}
+            <div>
+              <Link
+                to={`/dashboard/products/${product.id}`}
+                className="font-medium hover:underline"
+              >
+                {product.name}
+              </Link>
+              {product.sku && (
+                <p className="text-sm text-muted-foreground">
+                  SKU: {product.sku}
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }: CellProps) => {
+        const status = row.getValue("status");
+        return (
+          <Badge
+            className={cn("capitalize shadow-none", {
+              "!bg-green-100 !text-green-700 dark:!bg-green-700 dark:!text-green-100":
+                status === "active",
+              "!bg-red-100 !text-red-700 dark:!bg-red-700 dark:!text-red-100":
+                status === "archived",
+              "!bg-gray-100 !text-gray-700 dark:!bg-gray-700 dark:!text-gray-100":
+                status === "draft",
+            })}
+          >
+            {
+              t.products.products.status[
+                status as keyof typeof t.products.products.status
+              ]
+            }
+          </Badge>
+        );
+      },
+    },
+    {
+      accessorKey: "category",
+      header: "Category",
+      cell: ({ row }: CellProps) => {
+        const category = row.getValue("category");
+        return category ? category.name : "Uncategorized";
+      },
+    },
+    {
+      accessorKey: "price",
+      header: "Price",
+      cell: ({ row }: CellProps) => {
+        const price = parseFloat(row.getValue("price"));
+        const product = row.original;
+        const loyaltyPrice = product.variants[0]?.pointsBasedPrice;
+
+        return (
+          <div className="flex flex-col">
+            <span>{formatCurrency(price)}</span>
+            {loyaltyPrice && (
+              <span className="text-sm text-green-600">{loyaltyPrice} pts</span>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "quantity",
+      header: "Quantity",
+      cell: ({ row }: CellProps) => {
+        const quantity = row.original.variants.reduce(
+          (acc: number, variant: ProductVariant) => acc + variant.quantity,
+          0,
+        );
+        return <span>{quantity || 0} in stock</span>;
+      },
+    },
+  ];
+
   return (
     <div className="space-y-4">
       <motion.div
         className="flex items-center justify-between -mx-6 py-3 px-6 sticky top-0 z-10 pt-14"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
         <div>
           <h1 className="text-2xl font-semibold">
@@ -187,14 +299,24 @@ export function ProductList({
 
         <div className="flex items-center gap-2">
           <Button
-            variant="ghost"
-            size="icon"
+            variant="outline"
+            size="sm"
             onClick={toggleBulkMode}
-            className={cn("transition-colors", isBulkMode && "text-primary")}
+            className={cn({
+              "bg-primary text-primary-foreground hover:bg-primary/90":
+                isBulkMode,
+            })}
           >
-            <MoreHorizontal className="h-4 w-4" />
+            {isBulkMode ? (
+              <>
+                {selectedCount > 0
+                  ? `${selectedCount} selected`
+                  : "Select items"}
+              </>
+            ) : (
+              "Select"
+            )}
           </Button>
-
           {isBulkMode && selectedCount > 0 && (
             <BulkActionsMenu
               selectedCount={selectedCount}
@@ -204,14 +326,12 @@ export function ProductList({
             />
           )}
         </div>
-
         <div className="flex items-center gap-4">
-          <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
-          <ProductSort
-            value={sortValue}
-            options={SORT_OPTIONS}
-            onValueChange={setSortValue}
-          />
+          <ProductSort value={sortValue} onValueChange={setSortValue} />
+          <Button onClick={() => navigate("/dashboard/products/new")} size="sm">
+            <Plus className="h-4 w-4 mr-2" />
+            {t.products.products.actions.add}
+          </Button>
         </div>
       </motion.div> */}
 
@@ -224,10 +344,13 @@ export function ProductList({
         <Table className={paginatedProducts.length > 0 ? "rounded-b-none" : ""}>
           <TableHeader>
             <TableRow>
-              {isBulkMode && paginatedProducts.length > 0 && (
+              {isBulkMode && (
                 <TableHead className="w-[50px]">
                   <Checkbox
-                    checked={selectedCount === paginatedProducts.length}
+                    checked={
+                      selectedCount > 0 &&
+                      selectedCount === paginatedProducts.length
+                    }
                     onCheckedChange={() => toggleAll(paginatedProducts)}
                   />
                 </TableHead>
@@ -279,7 +402,7 @@ export function ProductList({
                     }
                   >
                     {isBulkMode && (
-                      <TableCell onClick={(e) => e.stopPropagation()}>
+                      <TableCell>
                         <Checkbox
                           checked={isSelected(product.id)}
                           onCheckedChange={() => toggleSelection(product.id)}
@@ -341,21 +464,28 @@ export function ProductList({
                         t.products.products.list.uncategorized}
                     </TableCell>
                     <TableCell className="text-right">
-                      {product.variants.length > 0 ? 
-                      <div className="space-y-1">
-                        {getVaraintsPriceRange(product.variants)}
-                      </div>
-                      :
-                      <div className="space-y-1">
-                        <div className="font-medium">
-                          {formatCurrency(product.price)}
+                      {product.variants.length > 0 ? (
+                        <div className="space-y-1">
+                          {getVaraintsPriceRange(product.variants)}
                         </div>
-                        {product.compareAtPrice && (
-                          <div className="text-sm text-muted-foreground line-through">
-                            {formatCurrency(product.compareAtPrice)}
+                      ) : (
+                        <div className="space-y-1">
+                          <div className="font-medium">
+                            <span>{formatCurrency(product.price)}</span>
+                            {product.isReward &&
+                              product.variants[0]?.pointsBasedPrice && (
+                                <span className="text-sm text-green-600">
+                                  {product.variants[0].pointsBasedPrice} pts
+                                </span>
+                              )}
                           </div>
-                        )}
-                      </div>}
+                          {product.compareAtPrice && (
+                            <div className="text-sm text-muted-foreground line-through">
+                              {formatCurrency(product.compareAtPrice)}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </TableCell>
                     <TableCell className="text-right">
                       {product.trackQuantity ? (
@@ -415,16 +545,16 @@ export function ProductList({
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         selectedCount={selectedCount}
-        isDeleting={isDeleting}
         onConfirm={handleBulkDelete}
+        isDeleting={isDeleting}
       />
 
       <BulkCategoryDialog
         open={showCategoryDialog}
         onOpenChange={setShowCategoryDialog}
         selectedCount={selectedCount}
-        isUpdating={isUpdating}
         onConfirm={handleBulkCategoryChange}
+        isUpdating={isUpdating}
       />
     </div>
   );

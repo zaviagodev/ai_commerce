@@ -15,8 +15,6 @@ export interface Campaign {
   startDate: Date;
   endDate: Date;
   targetType: "all" | "tier" | "group";
-  targetTiers?: string[];
-  targetGroups?: string[];
   status: "draft" | "scheduled" | "active" | "ended";
   qrEnabled?: boolean;
   qrPointType?: "fixed" | "multiplier";

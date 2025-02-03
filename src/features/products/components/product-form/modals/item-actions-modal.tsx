@@ -17,8 +17,9 @@ import {
 import { toast } from "sonner";
 import { Product } from "@/types/product";
 import { AdvancedTypesModal } from "./advanced-types-modal";
-import { DeleteConfirmModal } from "./delete-confirm-modal";
+
 import { useTranslation } from "@/lib/i18n/hooks";
+import { DeleteConfirmModal } from "@/components/delete-confirm-modal";
 
 interface ItemActionsModalProps {
   open: boolean;

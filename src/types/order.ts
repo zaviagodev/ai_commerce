@@ -1,3 +1,5 @@
+import { CustomerAddress } from "./customer";
+
 export interface OrderCoupon {
   code: string;
   type: "percentage" | "fixed" | "shipping" | "points";
@@ -19,6 +21,7 @@ export interface OrderItem {
   price: number;
   quantity: number;
   total: number;
+  pointsBasedPrice: number;
 }
 
 export interface Order {
@@ -28,11 +31,19 @@ export interface Order {
   customerEmail?: string;
   customerPhone?: string;
   shippingAddress?: CustomerAddress;
+  billingAddress?: CustomerAddress;
+  sameAsShipping: boolean;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   items: OrderItem[];
   subtotal: number;
   discount: number;
+  pointsDiscount: number;
   shipping: number;
+  shippingDetails?: {
+    courier: string;
+    tracking_number: string;
+    shipped_at: string;
+  };
   tax: number;
   total: number;
   notes?: string;
@@ -44,6 +55,7 @@ export interface Order {
     slip_image?: string;
     confirmed_at?: string;
   };
+  loyalty_points_used: number;
   createdAt: Date;
   updatedAt: Date;
 }

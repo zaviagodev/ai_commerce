@@ -29,10 +29,13 @@ export function NewEventPage() {
     trackQuantity: false,
     createdAt: new Date(),
     updatedAt: new Date(),
+    width: 0,
+    length: 0,
+    height: 0,
+    dimensionUnit: "cm",
   };
 
   const handleSubmit = async (data: EventProduct) => {
-    
     try {
       // Create both product and event in a single transaction
       const productData = {
@@ -49,23 +52,25 @@ export function NewEventPage() {
         weightUnit: data.weightUnit,
         status: data.status,
         variantOptions: data.variantOptions,
+        variants: data.variants,
         tags: data.tags || [],
+        isReward: data.isReward,
       };
 
       const eventData = {
         startDateTime: data.startDateTime,
         endDateTime: data.endDateTime,
-        gateOpeningDateTime: data.gateOpeningDateTime,
-        gateClosingDateTime: data.gateClosingDateTime,
         venueName: data.venueName,
         venueAddress: data.venueAddress,
         organizerName: data.organizerName,
         organizerContact: data.organizerContact,
+        attendancePoints: data.attendancePoints,
+        googleMapsLink: data.googleMapsLink,
       };
 
       await createEvent.mutateAsync({
-        productData,
-        eventData,
+        productData: productData as Product,
+        eventData: eventData as EventProduct,
       });
 
       navigate("/dashboard/events");

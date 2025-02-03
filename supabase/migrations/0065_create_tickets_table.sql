@@ -214,6 +214,7 @@ $$;
 
 -- Add trigger for order status changes
 DROP TRIGGER IF EXISTS handle_order_status_change_trigger ON orders;
+DROP TRIGGER IF EXISTS order_status_change_trigger ON orders;
 CREATE TRIGGER handle_order_status_change_trigger
     AFTER UPDATE ON orders
     FOR EACH ROW

@@ -22,6 +22,7 @@ import { useCustomers } from "@/features/customers/hooks/use-customers";
 import { Order } from "@/types/order";
 import { User, Package } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface BasicDetailsProps {
   form: UseFormReturn<Order>;
@@ -33,6 +34,8 @@ export function BasicDetails({ form }: BasicDetailsProps) {
   const selectedCustomerId = form.watch("customerId");
   const selectedCustomer = customers.find((c) => c.id === selectedCustomerId);
   const selectedAddress = form.watch("shippingAddress");
+  const selectedBillingAddress = form.watch("billingAddress");
+  const sameAsShipping = form.watch("sameAsShipping");
 
   // Set default shipping address when customer is selected
   useEffect(() => {
@@ -45,6 +48,12 @@ export function BasicDetails({ form }: BasicDetailsProps) {
       }
     }
   }, [selectedCustomer, selectedAddress, form]);
+
+  useEffect(() => {
+    if (sameAsShipping) {
+      form.setValue("billingAddress", selectedAddress);
+    }
+  }, [sameAsShipping, selectedAddress, form]);
 
   return (
     <div className="space-y-6">
@@ -67,25 +76,68 @@ export function BasicDetails({ form }: BasicDetailsProps) {
           <CustomerSelect form={form} />
 
           {selectedCustomer && selectedCustomer.addresses.length > 0 && (
-            <FormField
-              control={form.control}
-              name="shippingAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t.orders.orders.form.sections.basicDetails.shippingAddress}
-                  </FormLabel>
-                  <FormControl>
-                    <AddressSelect
-                      addresses={selectedCustomer.addresses}
-                      selectedAddress={selectedAddress}
-                      onSelect={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+            <>
+              <FormField
+                control={form.control}
+                name="shippingAddress"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {
+                        t.orders.orders.form.sections.basicDetails
+                          .shippingAddress
+                      }
+                    </FormLabel>
+                    <FormControl>
+                      <AddressSelect
+                        addresses={selectedCustomer.addresses}
+                        selectedAddress={selectedAddress}
+                        onSelect={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {!sameAsShipping && (
+                <FormField
+                  control={form.control}
+                  name="billingAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Billing Address</FormLabel>
+                      <FormControl>
+                        <AddressSelect
+                          addresses={selectedCustomer.addresses}
+                          selectedAddress={selectedBillingAddress}
+                          onSelect={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               )}
-            />
+
+              <FormField
+                control={form.control}
+                name="sameAsShipping"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center gap-2">
+                    <FormControl className="mt-2">
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>
+                      Billing Address Same as Shipping Address
+                    </FormLabel>
+                  </FormItem>
+                )}
+              />
+            </>
           )}
 
           <div className="grid gap-4 sm:grid-cols-2">

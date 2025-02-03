@@ -24,14 +24,14 @@ interface EventDetailsProps {
 export function EventDetails({ form }: EventDetailsProps) {
   const t = useTranslation();
 
-  const [sameAsStartEnd, setSameAsStartEnd] = useState(false);
+  // const [sameAsStartEnd, setSameAsStartEnd] = useState(false);
 
-  useEffect(() => {
-    if (sameAsStartEnd) {
-      form.setValue("gateOpeningDateTime", form.getValues("startDateTime"));
-      form.setValue("gateClosingDateTime", form.getValues("endDateTime"));
-    }
-  }, [sameAsStartEnd, form]);
+  // useEffect(() => {
+  //   if (sameAsStartEnd) {
+  //     form.setValue("gateOpeningDateTime", form.getValues("startDateTime"));
+  //     form.setValue("gateClosingDateTime", form.getValues("endDateTime"));
+  //   }
+  // }, [sameAsStartEnd, form]);
 
   return (
     <motion.div
@@ -72,7 +72,9 @@ export function EventDetails({ form }: EventDetailsProps) {
                           ? new Date(field.value).toISOString().slice(0, 16)
                           : ""
                       }
-                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
+                      onChange={(e) =>
+                        field.onChange(new Date(e.target.value + ":00Z"))
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -97,7 +99,9 @@ export function EventDetails({ form }: EventDetailsProps) {
                           ? new Date(field.value).toISOString().slice(0, 16)
                           : ""
                       }
-                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
+                      onChange={(e) =>
+                        field.onChange(new Date(e.target.value + ":00Z"))
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -107,7 +111,7 @@ export function EventDetails({ form }: EventDetailsProps) {
 
             {/* Gate opening/closing fields */}
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="gateOpeningDateTime"
               render={({ field }) => (
@@ -157,16 +161,45 @@ export function EventDetails({ form }: EventDetailsProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <Checkbox
               checked={sameAsStartEnd}
               onCheckedChange={(checked) => setSameAsStartEnd(!!checked)}
             />
             <FormLabel>Same as Start/End Date & Time</FormLabel>
-          </div>
+          </div> */}
+
+          <FormField
+            control={form.control}
+            name="attendancePoints"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t.events.event.eventDetails.attendancePoints.label}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min="0"
+                    placeholder={
+                      t.events.event.eventDetails.attendancePoints.placeholder
+                    }
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value, 10))
+                    }
+                  />
+                </FormControl>
+                <FormDescription>
+                  {t.events.event.eventDetails.attendancePoints.description}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}

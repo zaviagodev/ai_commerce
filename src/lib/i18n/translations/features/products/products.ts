@@ -143,7 +143,7 @@ export const productsTranslations = {
           skuDescription: "A unique identifier for your product",
           barcode: "Barcode (ISBN, UPC, GTIN, etc.)",
           barcodePlaceholder: "Enter barcode",
-          barcodeDescription: "A unique barcode for your product (optional)",
+          barcodeDescription: "A unique barcode for your product",
         },
         shipping: {
           title: "Size & Weight Shipping",
@@ -403,6 +403,9 @@ export const productsTranslations = {
           description: "Description",
         },
         search: "Search categories...",
+        modals: {
+          delete: "Delete Category",
+        },
       },
       form: {
         name: "Category Name",
@@ -821,6 +824,9 @@ export const productsTranslations = {
           description: "รายละเอียด",
         },
         search: "ค้นหาหมวดหมู่...",
+        modals: {
+          delete: "ลบหมวดหมู่",
+        },
       },
       form: {
         name: "ชื่อหมวดหมู่",
