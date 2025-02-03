@@ -19,7 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Product } from "@/types/product";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getVaraintsPriceRange } from "@/lib/utils";
 import { useAuth } from "@/lib/auth/auth-hooks";
 import { DataTablePagination } from "@/components/ui/data-table/pagination";
 import { ProductActionsMenu } from "./product-actions-menu";
@@ -37,6 +37,7 @@ import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Loading from "@/components/loading";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { render } from "react-dom";
 
 interface ProductListProps {
   products: Product[];
@@ -106,6 +107,9 @@ export function ProductList({
 
   const paginatedProducts = paginateItems(sortedProducts);
   const selectedCount = selectedIds.size;
+
+  console.log('paginatedProducts => ', paginatedProducts);
+  
 
   const handleBulkDelete = async () => {
     setIsDeleting(true);
@@ -237,7 +241,7 @@ export function ProductList({
               <TableHead className="text-right">
                 {t.products.products.list.columns.quantity}
               </TableHead>
-              {!isBulkMode && <TableHead className="w-8"></TableHead>}
+              {/* {!isBulkMode && <TableHead className="w-8"></TableHead>} */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -337,6 +341,11 @@ export function ProductList({
                         t.products.products.list.uncategorized}
                     </TableCell>
                     <TableCell className="text-right">
+                      {product.variants.length > 0 ? 
+                      <div className="space-y-1">
+                        {getVaraintsPriceRange(product.variants)}
+                      </div>
+                      :
                       <div className="space-y-1">
                         <div className="font-medium">
                           {formatCurrency(product.price)}
@@ -346,7 +355,7 @@ export function ProductList({
                             {formatCurrency(product.compareAtPrice)}
                           </div>
                         )}
-                      </div>
+                      </div>}
                     </TableCell>
                     <TableCell className="text-right">
                       {product.trackQuantity ? (
@@ -365,7 +374,7 @@ export function ProductList({
                         </span>
                       )}
                     </TableCell>
-                    {!isBulkMode && (
+                    {/* {!isBulkMode && (
                       <TableCell
                         className="text-right"
                         onClick={(e) => e.stopPropagation()}
@@ -375,7 +384,7 @@ export function ProductList({
                           onDelete={() => onDelete(product.id)}
                         />
                       </TableCell>
-                    )}
+                    )} */}
                   </TableRow>
                 );
               })

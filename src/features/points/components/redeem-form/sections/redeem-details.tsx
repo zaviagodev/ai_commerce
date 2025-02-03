@@ -121,7 +121,7 @@ export function RedeemDetails({ form }: RedeemDetailsProps) {
                       ? field.value.toISOString().slice(0, 16)
                       : ""
                   }
-                  onChange={(e) => field.onChange(new Date(e.target.value))}
+                  onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
                 />
               </FormControl>
               <FormMessage />

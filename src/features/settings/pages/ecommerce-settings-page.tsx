@@ -83,7 +83,7 @@ export function EcommerceSettingsPage() {
           <GeneralSettings form={form} />
           {/* <CheckoutSettings form={form} /> */}
           <ShippingSettings form={form} />
-          <TaxSettings form={form} />
+          {/* <TaxSettings form={form} /> */}
           {/* <InventorySettings form={form} /> */}
         </div>
       </form>

@@ -6,9 +6,10 @@ import { useTranslation } from "@/lib/i18n/hooks";
 
 interface PricingProps {
   form: UseFormReturn<Product>;
+  enableDiscount?: boolean
 }
 
-export function Pricing({ form }: PricingProps) {
+export function Pricing({ form, enableDiscount = true }: PricingProps) {
   const t = useTranslation();
   const price = form.watch("variants.0.price") || 0;
   const compareAtPrice = form.watch("variants.0.compareAtPrice");
@@ -32,6 +33,7 @@ export function Pricing({ form }: PricingProps) {
                   t.products.products.form.sections.pricing.compareAtPrice,
                 cost: t.products.products.form.sections.pricing.cost,
               }}
+              enableDiscount={enableDiscount}
             />
           </FormItem>
         )}

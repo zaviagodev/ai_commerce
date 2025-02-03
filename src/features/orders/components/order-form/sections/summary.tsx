@@ -27,9 +27,10 @@ import { useTranslation } from "@/lib/i18n/hooks";
 
 interface SummaryProps {
   form: UseFormReturn<Order>;
+  showTaxSection?: boolean;
 }
 
-export function Summary({ form }: SummaryProps) {
+export function Summary({ form, showTaxSection = true }: SummaryProps) {
   const t = useTranslation();
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
   const [isTaxEnabled, setIsTaxEnabled] = useState(false);
@@ -203,7 +204,7 @@ export function Summary({ form }: SummaryProps) {
         />
 
         {/* Tax/VAT Section */}
-        <FormField
+        {showTaxSection && <FormField
           control={form.control}
           name="tax"
           render={({ field }) => (
@@ -318,7 +319,7 @@ export function Summary({ form }: SummaryProps) {
               </div>
             </FormItem>
           )}
-        />
+        />}
 
         {/* Final Cost Breakdown */}
         <div className="space-y-2 rounded-lg border p-4 bg-muted/50">

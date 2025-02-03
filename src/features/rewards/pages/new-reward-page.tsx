@@ -96,6 +96,7 @@ export function NewRewardPage() {
         }}
         onSubmit={handleSubmit}
         headerActions={headerActions}
+        enableDiscount={true}
       />
 
       <ItemActionsModal

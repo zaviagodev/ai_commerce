@@ -21,7 +21,7 @@ export const ProductVariantSchema = z.object({
 // Base schema without refinements
 const BaseProductSchema = z.object({
   id: z.string().optional(),
-  name: z.string(),
+  name: z.string().min(1, "Name is required"),
   description: z.string(),
   variantOptions: z
     .array(
@@ -57,7 +57,7 @@ const BaseProductSchema = z.object({
   compareAtPrice: z.number().optional(),
   cost: z.number().optional(),
   pointsBasedPrice: z.number().optional(),
-  sku: z.string().optional(),
+  sku: z.string().min(1, "SKU is required"),
   barcode: z.string().optional(),
   trackQuantity: z.boolean(),
   quantity: z.number().optional(),
@@ -80,6 +80,17 @@ const BaseProductSchema = z.object({
   isGiftCard: z.boolean().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+});
+
+export const EventProductSchema = z.object({
+  startDateTime: z.date().optional(),
+  endDateTime: z.date().optional(),
+  gateOpeningDateTime: z.date().optional(),
+  gateClosingDateTime: z.date().optional(),
+  venueName: z.string().optional(),
+  venueAddress: z.string().optional(),
+  organizerName: z.string().optional(),
+  organizerContact: z.string().optional(),
 });
 
 // Schema for creating/updating products

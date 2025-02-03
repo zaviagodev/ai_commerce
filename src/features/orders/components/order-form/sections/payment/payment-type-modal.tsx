@@ -74,7 +74,7 @@ export function PaymentTypeModal({
             </div>
           </Button>
 
-          <Button
+          {/* <Button
             variant="outline"
             className="flex items-start gap-4 h-auto p-4 justify-start"
             onClick={handleShareCheckout}
@@ -89,7 +89,7 @@ export function PaymentTypeModal({
                 {t.orders.orders.payment.type.checkout.description}
               </p>
             </div>
-          </Button>
+          </Button> */}
         </div>
       </DialogContent>
     </Dialog>

@@ -25,22 +25,22 @@ interface CampaignTemplate {
 }
 
 const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
-  {
-    id: "share_link",
-    name: "Share Link to Get Points",
-    description: "Reward customers for sharing and clicking links",
-    type: "bonus_points",
-    icon: <Link2 className="h-6 w-6 text-main" />,
-    gradient: "from-green-500 to-teal-600",
-    defaults: {
-      type: "bonus_points",
-      bonusPoints: 100,
-      clickLinkEnabled: true,
-      clickLinkLimit: 1,
-      targetType: "all",
-      hasConditions: true,
-    },
-  },
+  // {
+  //   id: "share_link",
+  //   name: "Share Link to Get Points",
+  //   description: "Reward customers for sharing and clicking links",
+  //   type: "bonus_points",
+  //   icon: <Link2 className="h-6 w-6 text-main" />,
+  //   gradient: "from-green-500 to-teal-600",
+  //   defaults: {
+  //     type: "bonus_points",
+  //     bonusPoints: 100,
+  //     clickLinkEnabled: true,
+  //     clickLinkLimit: 1,
+  //     targetType: "all",
+  //     hasConditions: true,
+  //   },
+  // },
   {
     id: "scan_points",
     name: "Scan to Get Points",
@@ -58,19 +58,19 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
       qrTotalScans: 1000,
     },
   },
-  {
-    id: "double_points",
-    name: "Double Points Days",
-    description: "Double points on all purchases",
-    type: "points_multiplier",
-    icon: <Star className="h-6 w-6 text-main" />,
-    gradient: "from-purple-500 to-pink-600",
-    defaults: {
-      type: "points_multiplier",
-      multiplier: 2,
-      targetType: "all",
-    },
-  },
+  // {
+  //   id: "double_points",
+  //   name: "Double Points Days",
+  //   description: "Double points on all purchases",
+  //   type: "points_multiplier",
+  //   icon: <Star className="h-6 w-6 text-main" />,
+  //   gradient: "from-purple-500 to-pink-600",
+  //   defaults: {
+  //     type: "points_multiplier",
+  //     multiplier: 2,
+  //     targetType: "all",
+  //   },
+  // },
   {
     id: "bonus_points",
     name: "Bonus Points",
@@ -84,19 +84,19 @@ const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
       targetType: "all",
     },
   },
-  {
-    id: "tier_multiplier",
-    name: "Tier Points Boost",
-    description: "Increased points for specific customer tiers",
-    type: "points_multiplier",
-    icon: <Crown className="h-6 w-6 text-main" />,
-    gradient: "from-yellow-500 to-orange-600",
-    defaults: {
-      type: "points_multiplier",
-      multiplier: 1.5,
-      targetType: "tier",
-    },
-  },
+  // {
+  //   id: "tier_multiplier",
+  //   name: "Tier Points Boost",
+  //   description: "Increased points for specific customer tiers",
+  //   type: "points_multiplier",
+  //   icon: <Crown className="h-6 w-6 text-main" />,
+  //   gradient: "from-yellow-500 to-orange-600",
+  //   defaults: {
+  //     type: "points_multiplier",
+  //     multiplier: 1.5,
+  //     targetType: "tier",
+  //   },
+  // },
 ];
 
 interface TemplateModalProps {

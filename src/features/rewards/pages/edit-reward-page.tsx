@@ -103,7 +103,7 @@ export function EditRewardPage() {
       <ProductForm
         initialData={rewardProduct}
         onSubmit={handleSubmit}
-        headerActions={headerActions}
+        // headerActions={headerActions}
       />
 
       <ItemActionsModal

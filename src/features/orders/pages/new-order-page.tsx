@@ -16,5 +16,5 @@ export function NewOrderPage() {
     }
   };
 
-  return <OrderForm onSubmit={handleSubmit} />;
+  return <OrderForm onSubmit={handleSubmit} showTaxSection={false} />;
 }

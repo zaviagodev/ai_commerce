@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { useTranslation } from "./i18n/hooks";
+import { ProductVariant } from "@/types/product";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,6 +20,16 @@ export function formatCurrency(amount: number): string {
     style: "currency",
     currency: "USD",
   }).format(amount);
+}
+
+export function getVaraintsPriceRange(variants: ProductVariant[]): string {
+  const prices = variants.map((v) => v.price);
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+
+  if (min === max) return formatCurrency(min);
+
+  return formatCurrency(min) + " - " + formatCurrency(max);
 }
 
 export function getTimeAgo(date: Date): string {

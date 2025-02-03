@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShareModal } from "@/components/share/share-modal";
-import { ProductSchema } from "../../schemas/product-schema";
+import { EventProductSchema, ProductSchema } from "../../schemas/product-schema";
 import { DEFAULT_TIERS } from "../../data/tiers";
 import { BasicDetails } from "./sections/basic-details";
 import { Media } from "./sections/media";
@@ -42,6 +42,7 @@ import { useTranslation } from "@/lib/i18n/hooks";
 import { StatusSelect } from "@/components/status-select";
 import { z } from "zod";
 import { EventDetails } from "@/features/events/components/event-form/sections/event-details";
+import { Event } from "@/types/product";
 
 type ProductFormData = z.infer<typeof ProductSchema>;
 
@@ -49,12 +50,18 @@ interface ProductFormProps {
   initialData?: Partial<ProductFormData>;
   onSubmit: (data: ProductFormData) => Promise<void>;
   headerActions?: React.ReactNode;
+  enableDiscount?: boolean;
 }
+
+interface EventFormValues extends Pick<Event, 
+  'startDateTime' | 'endDateTime' | 'gateOpeningDateTime' | 'gateClosingDateTime' | 'venueName' | 'venueAddress' | 'organizerName' | 'organizerContact'
+> {}
 
 export function ProductForm({
   initialData,
   onSubmit,
   headerActions,
+  enableDiscount = true
 }: ProductFormProps) {
   const { user } = useAuth();
   const location = useLocation();
@@ -116,9 +123,37 @@ export function ProductForm({
     },
   });
 
+  const eventForm = useForm<EventFormValues>({
+    // resolver: EventProductSchema,
+    defaultValues: {
+      startDateTime: initialData?.startDateTime || new Date(),
+      endDateTime: initialData?.endDateTime || new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
+      gateOpeningDateTime: initialData?.gateOpeningDateTime || undefined,
+      gateClosingDateTime: initialData?.gateClosingDateTime || undefined,
+      venueName: "",
+      venueAddress: "",
+      organizerName: "",
+      organizerContact: "",
+    },
+  });
+
   const handleSubmit = async (data: ProductFormData) => {
+
+    const eventProductData = {
+      ...data,
+      startDateTime: eventForm.watch('startDateTime'),
+      endDateTime: eventForm.watch('endDateTime'),
+      gateOpeningDateTime: eventForm.watch('gateOpeningDateTime'),
+      gateClosingDateTime: eventForm.watch('gateClosingDateTime'),
+      venueName: eventForm.watch('venueName'),
+      venueAddress: eventForm.watch('venueAddress'),
+      organizerName: eventForm.watch('organizerName'),
+      organizerContact: eventForm.watch('organizerContact'),
+    }
+    console.log('dataa = ', eventProductData);
+    
     try {
-      await onSubmit(data);
+      await onSubmit(eventProductData);
     } catch (error) {}
   };
 
@@ -313,7 +348,7 @@ export function ProductForm({
                 className="flex items-center justify-end gap-2"
                 onClick={(e) => e.preventDefault()}
               >
-                {productName && headerActions}
+                {/* {productName && headerActions} */}
                 {productName && <div className="mx-2 h-4 w-px bg-border" />}
                 {/* <ShareModal
                   title={productName || `${t.products.products.form.untitled}`}
@@ -351,11 +386,11 @@ export function ProductForm({
                 <Tabs defaultValue="item-info" className="w-full">
                   <div className="flex items-center justify-between mb-6">
                     <TabsList>
-                      {isEventProduct && (
+                      {/* {isEventProduct && (
                         <TabsTrigger value="event-summary">
                           {t.products.products.form.tabs.eventSummary}
                         </TabsTrigger>
-                      )}
+                      )} */}
                       <TabsTrigger value="item-info">
                         {t.products.products.form.tabs.itemInfo}
                       </TabsTrigger>
@@ -430,7 +465,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Event Details Section - Only show for event products */}
-                    {isEventProduct && <EventDetails form={form} />}
+                    {isEventProduct && <EventDetails form={eventForm} />}
 
                     {form.watch("isReward") &&
                       !(form.watch("variantOptions")?.length > 0) && (
@@ -438,7 +473,7 @@ export function ProductForm({
                       )}
 
                     {/* Pricing Section */}
-                    <Card>
+                    {form.watch('variantOptions').length === 0 && <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                           <DollarSign className="h-5 w-5 text-purple-600" />
@@ -454,9 +489,10 @@ export function ProductForm({
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Pricing form={form} />
+                        <Pricing form={form} enableDiscount={enableDiscount} />
                       </CardContent>
                     </Card>
+                  }
                     <Variations form={form} isEventProduct={isEventProduct} />
                     <Card>
                       <CardHeader className="flex flex-row items-center gap-4 py-4">
@@ -481,7 +517,7 @@ export function ProductForm({
                     </Card>
 
                     {/* Variations Section */}
-                    <Variations form={form} />
+                    {/* <Variations form={form} /> */}
 
                     {/* Shipping Section */}
                     {/* <Card>

@@ -31,6 +31,7 @@ interface AddressFormProps {
   onSave: (address: CustomerAddress) => void;
   onDelete: () => Promise<void>;
   onCancel: () => void;
+  isNewAddress?: boolean;
 }
 
 export function AddressForm({
@@ -38,6 +39,7 @@ export function AddressForm({
   onSave,
   onDelete,
   onCancel,
+  isNewAddress = false
 }: AddressFormProps) {
   const t = useTranslation();
   const form = useForm({
@@ -52,11 +54,17 @@ export function AddressForm({
     form.setValue("isDefault", true);
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); 
+    event.stopPropagation(); 
+    form.handleSubmit(onSave)(); 
+  };
+
   return (
     <>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSave)}
+          onSubmit={handleSubmit}
           className="space-y-4 overflow-auto pb-16 px-[1px]"
         >
           <FormField
@@ -400,7 +408,7 @@ export function AddressForm({
           />
 
           <div className="flex items-center justify-between fixed bottom-6 w-[calc(100%_-_48px)] bg-main pt-6">
-            {onDelete && (
+            {!isNewAddress && (
               <Button
                 type="button"
                 variant="destructive"
@@ -409,7 +417,7 @@ export function AddressForm({
                 {t.customers.customer.form.sections.addresses.actions.delete}
               </Button>
             )}
-            <div className="flex gap-4">
+            <div className="flex gap-4 ml-auto">
               <Button type="button" variant="outline" onClick={onCancel}>
                 {t.customers.customer.form.sections.addresses.actions.cancel}
               </Button>

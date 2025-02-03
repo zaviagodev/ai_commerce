@@ -11,6 +11,7 @@ export class CustomerService {
       lastName: data.last_name,
       email: data.email,
       phone: data.phone,
+      company: data.company,
       isVerified: data.is_verified,
       acceptsMarketing: data.accepts_marketing,
       tags: data.tags || [],
@@ -31,7 +32,7 @@ export class CustomerService {
         createdAt: new Date(address.created_at),
         updatedAt: new Date(address.updated_at),
       })),
-      tierId: data.tier_id,
+      tierId: data.tier_id || '',
       tier: data.customer_tiers
         ? {
             id: data.customer_tiers.id,
@@ -99,6 +100,7 @@ export class CustomerService {
           last_name: customer.lastName,
           email: customer.email,
           phone: customer.phone,
+          company: customer.company,
           accepts_marketing: customer.acceptsMarketing,
           is_verified: customer.isVerified,
           tags: customer.tags,
@@ -159,6 +161,7 @@ export class CustomerService {
           last_name: customer.lastName,
           email: customer.email,
           phone: customer.phone,
+          company: customer.company,
           accepts_marketing: customer.acceptsMarketing,
           tags: customer.tags,
           is_verified: customer.isVerified,

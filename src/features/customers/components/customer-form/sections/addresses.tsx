@@ -68,6 +68,7 @@ function AddressCard({
 export function Addresses({ form }: AddressesProps) {
   const t = useTranslation();
   const addresses = form.watch("addresses") || [];
+  const [isNewAddress, setisNewAddress] = useState<boolean>(false)
   const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(
     null,
   );
@@ -90,7 +91,8 @@ export function Addresses({ form }: AddressesProps) {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    form.setValue("addresses", [...addresses, newAddress]);
+    // form.setValue("addresses", [...addresses, newAddress]);
+    setisNewAddress(true)
     setEditingAddress(newAddress);
   };
 
@@ -102,11 +104,13 @@ export function Addresses({ form }: AddressesProps) {
   };
 
   const handleSaveAddress = (address: CustomerAddress) => {
-    const newAddresses = editingAddress
-      ? addresses.map((a) => (a.id === editingAddress.id ? address : a))
-      : [...addresses, address];
+    const newAddresses = addresses.some((a) => a.id === editingAddress?.id)
+        ? addresses.map((a) => (a.id === editingAddress?.id ? address : a))
+        : [...addresses, address];
     form.setValue("addresses", newAddresses);
+    // form.setValue("addresses", [...addresses, newAddress]);
     setEditingAddress(null);
+    setisNewAddress(false)
   };
 
   const handleDeleteAddress = (id: string) => {
@@ -138,7 +142,9 @@ export function Addresses({ form }: AddressesProps) {
             <AddressCard
               key={address.id}
               address={address}
-              onEdit={() => setEditingAddress(address)}
+              onEdit={() => {
+                setisNewAddress(false);
+                setEditingAddress(address)}}
             />
           ))}
         </div>
@@ -171,6 +177,7 @@ export function Addresses({ form }: AddressesProps) {
               <AddressForm
                 address={editingAddress}
                 onSave={handleSaveAddress}
+                isNewAddress={isNewAddress}
                 onDelete={() => handleDeleteAddress(editingAddress.id)}
                 onCancel={() => setEditingAddress(null)}
               />

@@ -19,13 +19,14 @@ export function VariantTableRow({
     <TableRow className="!bg-transparent">
       <TableCell>{variant.name}</TableCell>
       <TableCell>
-        <Input
+        {/* <Input
           value={variant.sku}
           onChange={(e) => onUpdate(variant.id, { sku: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === "Enter") e.preventDefault();
           }}
-        />
+        /> */}
+        {variant.sku}
       </TableCell>
       {trackQuantity && (
         <TableCell>

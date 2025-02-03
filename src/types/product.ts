@@ -83,6 +83,8 @@ export interface Event {
   storeName: string;
   startDateTime: Date;
   endDateTime: Date;
+  gateOpeningDateTime?: Date;
+  gateClosingDateTime?: Date;
   venueName: string;
   venueAddress: string;
   googleMapsLink?: string;
@@ -96,6 +98,8 @@ export interface EventProduct extends Product {
   eventId: string;
   startDateTime: Date;
   endDateTime: Date;
+  gateOpeningDateTime?: Date;
+  gateClosingDateTime?: Date;
   venueName: string;
   venueAddress: string;
   googleMapsLink?: string;

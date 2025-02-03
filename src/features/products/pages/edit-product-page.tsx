@@ -89,7 +89,7 @@ export function EditProductPage() {
       <ProductForm
         initialData={product}
         onSubmit={handleSubmit}
-        headerActions={headerActions}
+        // headerActions={headerActions}
       />
 
       <ItemActionsModal

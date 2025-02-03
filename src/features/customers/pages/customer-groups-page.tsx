@@ -113,9 +113,9 @@ export function CustomerGroupsPage() {
               <TableHead>
                 {t.customers.customer.group.list.columns.members}
               </TableHead>
-              <TableHead>
+              {/* <TableHead>
                 {t.customers.customer.group.list.columns.autoAssign}
-              </TableHead>
+              </TableHead> */}
               <TableHead>
                 {t.customers.customer.group.list.columns.status}
               </TableHead>
@@ -177,13 +177,13 @@ export function CustomerGroupsPage() {
                       .replace("{count}", String(group.members?.length || 0))
                       .replace("{s}", group.members?.length === 1 ? "" : "s")}
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <Badge variant={group.autoAssign ? "default" : "secondary"}>
                       {group.autoAssign
                         ? t.customers.customer.group.list.autoAssign.enabled
                         : t.customers.customer.group.list.autoAssign.disabled}
                     </Badge>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Badge
                       className={cn("capitalize shadow-none", {

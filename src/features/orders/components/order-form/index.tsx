@@ -30,6 +30,7 @@ interface OrderFormProps {
   headerActions?: React.ReactNode;
   onFieldChange?: () => void;
   extraTabs?: ExtraTab[];
+  showTaxSection?: boolean;
 }
 
 export function OrderForm({
@@ -39,6 +40,7 @@ export function OrderForm({
   headerActions,
   onFieldChange,
   extraTabs = [],
+  showTaxSection = true
 }: OrderFormProps) {
   const t = useTranslation();
   const form = useForm({
@@ -247,7 +249,7 @@ export function OrderForm({
                       <Products form={form} />
                       <CouponSection form={form} storeName={"storeName"} />
                       <Shipping form={form} />
-                      <Summary form={form} />
+                      <Summary form={form} showTaxSection={showTaxSection} />
                     </div>
                   </TabsContent>
                   {/* <TabsContent value="notes">

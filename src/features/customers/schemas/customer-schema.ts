@@ -16,10 +16,10 @@ export const CustomerAddressSchema = z.object({
   country: z.string().min(1, "Country is required"),
   phone: z
     .string()
-    .regex(
-      thaiPhoneRegex,
-      "Invalid phone number format. Must be a 10-digit Thai number starting with 0",
-    )
+    // .regex(
+    //   thaiPhoneRegex,
+    //   "Invalid phone number format. Must be a 10-digit Thai number starting with 0",
+    // )
     .optional(),
   isDefault: z.boolean(),
   createdAt: z.date().optional(),
@@ -34,10 +34,10 @@ export const CustomerSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z
     .string()
-    .regex(
-      thaiPhoneRegex,
-      "Invalid phone number format. Must be a 10-digit Thai number starting with 0",
-    )
+    // .regex(
+    //   thaiPhoneRegex,
+    //   "Invalid phone number format. Must be a 10-digit Thai number starting with 0",
+    // )
     .optional(),
   isVerified: z.boolean(),
   acceptsMarketing: z.boolean(),

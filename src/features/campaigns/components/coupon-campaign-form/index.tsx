@@ -39,7 +39,7 @@ export function CouponCampaignForm({
       usageLimit: undefined,
       startDate: new Date(),
       endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
-      status: "draft",
+      status: "ongoing",
       advancedMode: false,
       conditions: [],
       ...initialData,
@@ -79,33 +79,33 @@ export function CouponCampaignForm({
   };
 
   const couponStatuses = [
+    // {
+    //   label:
+    //     t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+    //       .draft,
+    //   badgeClassName: "!bg-gray-100 text-gray-700",
+    //   value: "draft",
+    // },
     {
       label:
         t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
-          .draft,
-      badgeClassName: "!bg-gray-100 text-gray-700",
-      value: "draft",
-    },
-    {
-      label:
-        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
-          .scheduled,
-      badgeClassName: "!bg-yellow-100 text-yellow-700",
-      value: "scheduled",
-    },
-    {
-      label:
-        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
-          .active,
+          .ongoing,
       badgeClassName: "!bg-green-100 text-green-700",
-      value: "active",
+      value: "ongoing",
     },
     {
       label:
         t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
-          .ended,
+          .expired,
       badgeClassName: "!bg-red-100 text-red-700",
-      value: "ended",
+      value: "expired",
+    },
+    {
+      label:
+        t.campaigns.campaign.coupon.sections.basicDetails.fields.status.options
+          .schedule,
+      badgeClassName: "!bg-yellow-100 text-yellow-700",
+      value: "schedule",
     },
   ];
 
@@ -226,7 +226,7 @@ export function CouponCampaignForm({
                   <TabsContent value="details" className="space-y-8">
                     <BasicDetails form={form} />
                     <DiscountRules form={form} />
-                    <UsageLimits form={form} />
+                    {/* <UsageLimits form={form} /> */}
                     {/* <AdvancedConditions form={form} /> */}
                   </TabsContent>
                 </Tabs>

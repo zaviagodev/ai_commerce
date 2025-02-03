@@ -7,7 +7,7 @@ export const CampaignSchema = z
     description: z.string().optional(),
     hasProductRules: z.boolean().default(false),
     hasConditions: z.boolean().default(false),
-    type: z.enum(["points_multiplier", "bonus_points"]),
+    type: z.enum(["points_multiplier", "bonus_points"]).optional(),
     multiplier: z
       .number()
       .min(1, "Multiplier must be at least 1")

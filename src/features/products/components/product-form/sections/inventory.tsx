@@ -29,7 +29,8 @@ export function Inventory({ form }: InventoryProps) {
         name="sku"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t.products.products.form.sku}</FormLabel>
+            <FormLabel>{t.products.products.form.sku}</FormLabel>{" "}
+            <span className="text-destructive">*</span>
             <FormControl>
               <Input
                 placeholder={

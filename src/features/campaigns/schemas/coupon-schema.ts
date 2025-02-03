@@ -84,7 +84,7 @@ export const CouponSchema = z
     usageCount: z.number().min(0).optional(),
     startDate: z.date(),
     endDate: z.date(),
-    status: z.enum(["draft", "scheduled", "active", "expired"]),
+    status: z.enum(["ongoing", "schedule", "expired"]),
     advancedMode: z.boolean(),
     conditions: z.array(RuleElementSchema).optional(),
   })

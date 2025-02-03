@@ -305,7 +305,7 @@ export function NavMain() {
                     </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
-                <SidebarMenuSubItem>
+                {/* <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link
                       to="/dashboard/customer-tiers"
@@ -315,7 +315,7 @@ export function NavMain() {
                       <span>{t.navigation.navigation.customerTiers.title}</span>
                     </Link>
                   </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
+                </SidebarMenuSubItem> */}
               </SidebarMenuSub>
             </CollapsibleContent>
           </SidebarMenuItem>

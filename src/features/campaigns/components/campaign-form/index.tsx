@@ -41,7 +41,7 @@ export function CampaignForm({ initialData, onSubmit }: CampaignFormProps) {
       targetType: "all",
       status: "draft",
       hasConditions: false,
-      qrEnabled: false,
+      qrEnabled: true,
       qrPointType: "fixed",
       qrPointValue: 1,
       qrScanLimit: 1,

@@ -70,7 +70,7 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <FormField
+        {/* <FormField
           control={form.control}
           name="qrEnabled"
           render={({ field }) => (
@@ -97,7 +97,7 @@ export function QrCodeConfig({ form }: QrCodeConfigProps) {
               </FormControl>
             </FormItem>
           )}
-        />
+        /> */}
 
         {qrEnabled && (
           <>

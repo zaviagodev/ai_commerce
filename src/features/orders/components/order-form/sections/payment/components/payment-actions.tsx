@@ -60,7 +60,7 @@ export function PaymentActions({
               </motion.div>
             ) : (
               <div className="flex w-full gap-2">
-                <motion.div
+                {/* <motion.div
                   key="actions-button"
                   className="w-1/2"
                   initial={{ opacity: 0, x: 20 }}
@@ -76,7 +76,7 @@ export function PaymentActions({
                     <MoreHorizontal className="mr-2 h-4 w-4" />
                     {t.orders.orders.payment.actions.title}
                   </Button>
-                </motion.div>
+                </motion.div> */}
                 <motion.div
                   key="shipping-button"
                   className="w-1/2"
@@ -138,14 +138,14 @@ export function PaymentActions({
             <RefreshCw className="mr-2 h-4 w-4" />
             {t.orders.orders.actions.reopen}
           </Button>
-          <Button
+          {/* <Button
             variant="outline"
             className="w-1/2 bg-gray-800 border-gray-700 text-main hover:bg-gray-700"
             onClick={onActionsClick}
           >
             <MoreHorizontal className="mr-2 h-4 w-4" />
             {t.orders.orders.payment.actions.title}
-          </Button>
+          </Button> */}
         </motion.div>
       )}
     </motion.div>

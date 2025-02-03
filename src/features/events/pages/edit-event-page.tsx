@@ -59,6 +59,8 @@ export function EditEventPage() {
           })),
           startDateTime: data.startDateTime,
           endDateTime: data.endDateTime,
+          gateOpeningDateTime: data.gateOpeningDateTime,
+          gateClosingDateTime: data.gateClosingDateTime,
           venueName: data.venueName,
           venueAddress: data.venueAddress,
           googleMapsLink: data.googleMapsLink,
@@ -111,7 +113,7 @@ export function EditEventPage() {
       <ProductForm
         initialData={eventProduct}
         onSubmit={handleSubmit}
-        headerActions={headerActions}
+        // headerActions={headerActions}
       />
 
       <ItemActionsModal

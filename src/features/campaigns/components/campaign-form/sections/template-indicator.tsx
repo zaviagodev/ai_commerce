@@ -12,36 +12,36 @@ interface TemplateIndicatorProps {
 }
 
 const TEMPLATE_INFO = {
-  share_link: {
-    name: "Share Link to Get Points",
-    description: "Reward customers for sharing and clicking links",
-    icon: Link2,
-    gradient: "from-green-500 to-teal-600",
-  },
+  // share_link: {
+  //   name: "Share Link to Get Points",
+  //   description: "Reward customers for sharing and clicking links",
+  //   icon: Link2,
+  //   gradient: "from-green-500 to-teal-600",
+  // },
   scan_points: {
     name: "Scan to Get Points",
     description: "Reward customers for scanning QR codes",
     icon: QrCode,
     gradient: "from-blue-500 to-indigo-600",
   },
-  double_points: {
-    name: "Double Points Days",
-    description: "Double points on all purchases",
-    icon: Star,
-    gradient: "from-purple-500 to-pink-600",
-  },
+  // double_points: {
+  //   name: "Double Points Days",
+  //   description: "Double points on all purchases",
+  //   icon: Star,
+  //   gradient: "from-purple-500 to-pink-600",
+  // },
   bonus_points: {
     name: "Bonus Points",
     description: "Award bonus points for specific actions",
     icon: Gift,
     gradient: "from-orange-500 to-red-600",
   },
-  tier_multiplier: {
-    name: "Tier Points Boost",
-    description: "Increased points for specific customer tiers",
-    icon: Crown,
-    gradient: "from-yellow-500 to-orange-600",
-  },
+  // tier_multiplier: {
+  //   name: "Tier Points Boost",
+  //   description: "Increased points for specific customer tiers",
+  //   icon: Crown,
+  //   gradient: "from-yellow-500 to-orange-600",
+  // },
 } as const;
 
 export function TemplateIndicator({
@@ -55,12 +55,12 @@ export function TemplateIndicator({
   // Determine which template is being used
   const templateKey = qrEnabled
     ? "scan_points"
-    : clickLinkEnabled
-      ? "share_link"
-      : type === "points_multiplier" && targetType === "tier"
-        ? "tier_multiplier"
-        : type === "points_multiplier"
-          ? "double_points"
+    // : clickLinkEnabled
+    //   ? "share_link"
+      // : type === "points_multiplier" && targetType === "tier"
+      //   ? "tier_multiplier"
+        // : type === "points_multiplier"
+        //   ? "double_points"
           : "bonus_points";
 
   const template = TEMPLATE_INFO[templateKey];

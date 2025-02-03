@@ -159,6 +159,8 @@ export class EventService {
         // Event fields
         p_start_datetime: eventData.startDateTime,
         p_end_datetime: eventData.endDateTime,
+        // p_gate_opening_datetime: eventData.gateOpeningDateTime,
+        // p_gate_closing_datetime: eventData.gateClosingDateTime,
         p_venue_name: eventData.venueName,
         p_venue_address: eventData.venueAddress,
         p_google_maps_link: eventData.googleMapsLink,
@@ -213,6 +215,8 @@ export class EventService {
         // Event fields
         p_start_datetime: eventData.startDateTime,
         p_end_datetime: eventData.endDateTime,
+        // p_gate_opening_datetime: eventData.gateOpeningDateTime,
+        // p_gate_closing_datetime: eventData.gateClosingDateTime,
         p_venue_name: eventData.venueName,
         p_venue_address: eventData.venueAddress,
         p_google_maps_link: eventData.googleMapsLink,

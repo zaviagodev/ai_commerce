@@ -14,6 +14,8 @@ import { Calendar } from "lucide-react";
 import { Event } from "@/types/product";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/hooks";
+import { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface EventDetailsProps {
   form: UseFormReturn<Event>;
@@ -21,6 +23,16 @@ interface EventDetailsProps {
 
 export function EventDetails({ form }: EventDetailsProps) {
   const t = useTranslation();
+
+  const [sameAsStartEnd, setSameAsStartEnd] = useState(false);
+
+  useEffect(() => {
+    if (sameAsStartEnd) {
+      form.setValue("gateOpeningDateTime", form.getValues("startDateTime"));
+      form.setValue("gateClosingDateTime", form.getValues("endDateTime"));
+    }
+  }, [sameAsStartEnd, form]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -60,7 +72,7 @@ export function EventDetails({ form }: EventDetailsProps) {
                           ? new Date(field.value).toISOString().slice(0, 16)
                           : ""
                       }
-                      onChange={(e) => field.onChange(new Date(e.target.value))}
+                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,13 +97,75 @@ export function EventDetails({ form }: EventDetailsProps) {
                           ? new Date(field.value).toISOString().slice(0, 16)
                           : ""
                       }
-                      onChange={(e) => field.onChange(new Date(e.target.value))}
+                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Gate opening/closing fields */}
+
+            <FormField
+              control={form.control}
+              name="gateOpeningDateTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t.events.event.eventDetails.gateOpeningDateTime}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="datetime-local"
+                      {...field}
+                      value={
+                        field.value
+                          ? new Date(field.value).toISOString().slice(0, 16)
+                          : ""
+                      }
+                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
+                      disabled={sameAsStartEnd}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="gateClosingDateTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t.events.event.eventDetails.gateClosingDateTime}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="datetime-local"
+                      {...field}
+                      value={
+                        field.value
+                          ? new Date(field.value).toISOString().slice(0, 16)
+                          : ""
+                      }
+                      onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
+                      disabled={sameAsStartEnd}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              checked={sameAsStartEnd}
+              onCheckedChange={(checked) => setSameAsStartEnd(!!checked)}
+            />
+            <FormLabel>Same as Start/End Date & Time</FormLabel>
           </div>
 
           <FormField

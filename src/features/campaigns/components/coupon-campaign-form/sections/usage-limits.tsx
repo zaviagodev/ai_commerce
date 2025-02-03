@@ -45,7 +45,8 @@ export function UsageLimits({ form }: UsageLimitsProps) {
                 {
                   t.campaigns.campaign.coupon.sections.usageLimits.fields
                     .totalLimit.label
-                }
+                }{" "}
+                <span className="text-destructive">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -86,7 +87,8 @@ export function UsageLimits({ form }: UsageLimitsProps) {
                 {
                   t.campaigns.campaign.coupon.sections.usageLimits.fields
                     .perCustomer.label
-                }
+                }{" "}
+                <span className="text-destructive">*</span>
               </FormLabel>
               <FormControl>
                 <Input

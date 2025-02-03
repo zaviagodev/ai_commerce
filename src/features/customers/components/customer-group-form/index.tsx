@@ -150,7 +150,7 @@ export function CustomerGroupForm({
                     </div>
 
                     {/* Members Section */}
-                    <div className="rounded-lg border bg-main">
+                    {/* <div className="rounded-lg border bg-main">
                       <div className="flex items-center gap-4 p-6 border-b">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
                           <Users className="h-5 w-5 text-purple-600" />
@@ -170,7 +170,7 @@ export function CustomerGroupForm({
                       <div className="p-6">
                         <Members form={form} />
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Automation Section */}
                     {/* <div className="rounded-lg border bg-main">

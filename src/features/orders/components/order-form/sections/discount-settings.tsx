@@ -38,7 +38,7 @@ export function DiscountSettings({
 
   return (
     <div className="space-y-4">
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <Label>Apply Discount On</Label>
         <Select value={discountBase} onValueChange={onDiscountBaseChange}>
           <SelectTrigger>
@@ -49,7 +49,7 @@ export function DiscountSettings({
             <SelectItem value="total">Grand Total (After Tax)</SelectItem>
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
       <DiscountTabs
         type={discountType}

@@ -142,7 +142,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                       ? field.value.toISOString().slice(0, 16)
                       : ""
                   }
-                  onChange={(e) => field.onChange(new Date(e.target.value))}
+                  onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
                 />
               </FormControl>
               <FormMessage />
@@ -170,7 +170,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
                       ? field.value.toISOString().slice(0, 16)
                       : ""
                   }
-                  onChange={(e) => field.onChange(new Date(e.target.value))}
+                  onChange={(e) => field.onChange(new Date(e.target.value + ":00Z"))}
                 />
               </FormControl>
               <FormMessage />
@@ -179,7 +179,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      {/* <div className="grid gap-4 sm:grid-cols-2">
         <FormField
           control={form.control}
           name="type"
@@ -221,7 +221,7 @@ export function BasicDetails({ form }: BasicDetailsProps) {
             </FormItem>
           )}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

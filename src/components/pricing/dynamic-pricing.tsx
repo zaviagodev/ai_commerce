@@ -15,9 +15,10 @@ import { useTranslation } from "@/lib/i18n/hooks";
 interface DynamicPricingProps {
   value: number;
   onChange: (value: { price: number; compareAtPrice?: number }) => void;
+  enableDiscount?: boolean;
 }
 
-export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
+export function DynamicPricing({ value, onChange, enableDiscount = true }: DynamicPricingProps) {
   const t = useTranslation();
   const [price, setPrice] = useState(value || 0);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(false);
@@ -103,7 +104,7 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
         onChange={handlePriceChange}
       />
 
-      <Card className="card-shadow">
+      {enableDiscount && <Card className="card-shadow">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
@@ -152,7 +153,7 @@ export function DynamicPricing({ value, onChange }: DynamicPricingProps) {
             </CollapsibleContent>
           </Collapsible>
         </CardContent>
-      </Card>
+      </Card>}
     </div>
   );
 }
